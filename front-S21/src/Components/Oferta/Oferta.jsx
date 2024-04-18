@@ -7,8 +7,13 @@ import { Agro } from "../Carreras/agro";
 import { Finanzas } from "../Carreras/finanzas";
 import { Educacion } from "../Carreras/educacion";
 import { Derecho } from "../Carreras/derecho";
+import { Distribuida } from "../Modalidades/distribuida";
+import { DistribuidaHome } from "../Modalidades/distribuidaHome";
 
 export const Oferta = ()=> {
+
+    //! APLICAR TRANSICIONES EN LOS TOGGLE 
+    //! VER COORDINACIÓN AL HACER TOGGLE
 
     return (
         <div className="bg-grisclaro flex flex-col items-center justify-center px-8">
@@ -18,7 +23,7 @@ export const Oferta = ()=> {
             <h2 className="w-[95%] font-semibold flex justify-center items-center text-center text-[26px] text-grisoscuro mb-[20px]">
                 Programas de pregrado, grado y posgrado para tu formación profesional.
             </h2>
-            <div className="flex flex-wrap gap-1 justify-center mq780:flex-col ">
+            <div className="flex flex-wrap gap-2 justify-center mq780:flex-col ">
             <Diseño></Diseño>
             <Ingenieria></Ingenieria>
             <Salud></Salud>
@@ -27,6 +32,13 @@ export const Oferta = ()=> {
             <Finanzas></Finanzas>
             <Educacion></Educacion>
             <Derecho></Derecho>
+            </div>
+            <h1 className=" w-[95%] font-bold flex justify-center items-center text-center text-[32px] text-verde pt-[45px] mq780:pt-[20px] mb-[20px]">
+                Modalidades que se adaptan a tu estilo de vida
+            </h1>
+            <div className="flex flex-wrap gap-2 justify-center mq780:flex-col ">
+            <Distribuida></Distribuida>
+            <DistribuidaHome></DistribuidaHome>
             </div>
          
     </div>
