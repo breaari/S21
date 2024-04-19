@@ -4,9 +4,9 @@ import portadaPc from '../../assets/portada-pc.jpg'
 
 export const Portada = () => {
     return (
-        <div>
-            <img className='block mq980:hidden'src={portadaPc} /> 
-            <img className='hidden mq980:block'src={portadaMovil}/> 
+        <div className="max-w-full mx-0 px-0">
+            <img className='block mq980:hidden w-full'src={portadaPc} /> 
+            <img className='hidden mq980:block w-full'src={portadaMovil}/> 
         </div>
     );
 };

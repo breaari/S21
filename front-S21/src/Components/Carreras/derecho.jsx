@@ -13,7 +13,7 @@ export const Derecho = () => {
         };
 
     return (
-        <div className="shadow-md w-[320px] bg-blanco p-2 rounded-[10px] m-1">
+        <div className={`${derechoIsOpen ? 'h-auto' : 'h-[60px]'} shadow-md w-[320px] bg-blanco rounded-md m-1 mb-4 p-3`}>
             <button
                 type="button"
                 className="font-bold flex justify-center items-center text-[18px] text-verde dropdown-toggle"
@@ -21,7 +21,7 @@ export const Derecho = () => {
                 aria-expanded={derechoIsOpen ? 'true' : 'false'}
             >
                 <div className="mr-[5px] flex items-end">
-                <box-icon name='group' type='solid' color='#006C5B' size='40px'></box-icon>
+                <i class="fa-solid fa-gavel fa-2x" style={{ color: '#006C5B' }}></i>
                 </div>
                 Derecho y Ciencias Sociales  
                 <svg
@@ -41,7 +41,7 @@ export const Derecho = () => {
 
             {derechoIsOpen && (
                 <div
-                className="relative w-[300px] rounded-md bg-transparent  dropdown-menu"
+                className="relative w-[300px] rounded-md bg-transparent mq980:max-h-[15000px] mq980:overflow-hidden max-h-[350px] overflow-y-auto  dropdown-menu"
                 role="menu"
                 aria-orientation="vertical"
                 >

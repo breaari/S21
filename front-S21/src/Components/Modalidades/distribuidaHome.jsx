@@ -13,7 +13,7 @@ export const DistribuidaHome = () => {
         };
 
     return (
-        <div className="shadow-md w-[320px] bg-verde py-4 px-2 rounded-[10px] m-1">
+        <div className={`${distribuidaHomeIsOpen ? 'h-auto' : 'h-[60px]'} shadow-md w-[320px] bg-verde py-4 px-2 rounded-md m-1 mq980:mb-[45px] `}>
             <button
                 type="button"
                 className="font-bold flex justify-center items-center text-[18px] text-blanco dropdown-toggle ml-3"
@@ -38,7 +38,7 @@ export const DistribuidaHome = () => {
 
             {distribuidaHomeIsOpen && (
                 <div
-                className="relative w-[300px] rounded-md bg-transparent  dropdown-menu"
+                className="relative w-[300px] rounded-md bg-transparent dropdown-menu transition-all duration-1000 ease-linear"
                 role="menu"
                 aria-orientation="vertical"
                 >

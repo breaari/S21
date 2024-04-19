@@ -7,6 +7,9 @@ import { isValidName } from "../Validaciones/isValidName";
 import { isValidProgram } from "../Validaciones/isValidProgram";
 import { isValidType } from "../Validaciones/isValidType";
 import { isValidWhatsapp } from "../Validaciones/isValidWhatsapp";
+import { Maestría } from "../Programas/Maestría";
+import { Pregrado } from "../Programas/Pregrado";
+import { Grado } from "../Programas/Grado";
 
 export const Formulario = () => {
 
@@ -23,6 +26,8 @@ export const Formulario = () => {
         branch: ""
 
     });
+
+    console.log("input", input)
 
     const [inputError, setInputError ] = useState({
 
@@ -41,22 +46,6 @@ export const Formulario = () => {
     const handleChange = async (e) => {
         const { name, value } = e.target;
     
-        if (name === 'type') {
-          const { valid, error } = isValidType(value);
-          setInputError((prevInputError) => ({
-            ...prevInputError,
-            type: { valid, error }
-          }));
-        }
-    
-        if (name === 'program') {
-          const { valid, error } = isValidProgram(value);
-          setInputError((prevInputError) => ({
-            ...prevInputError,
-            program: { valid, error }
-          }));
-        }
-
         if (name === 'modality') {
             const { valid, error } = isValidModality(value);
             setInputError((prevInputError) => ({
@@ -125,13 +114,51 @@ export const Formulario = () => {
         }));
       };
 
+      const handleProgramChange = (e) => {
+
+        const { name, value } = e.target;
+
+        if (name === "type") {
+          const { valid, error } = isValidType(value);
+          setInputError((prevInputError) => ({
+            ...prevInputError,
+            type: { valid, error },
+          }));
+          setInput((prevInput) => ({
+            ...prevInput,
+            type: value,
+            program: "Seleccioná", 
+          }));
+        }
+    
+        if (name === "program") {
+          const { valid, error } = isValidProgram(value);
+          setInputError((prevInputError) => ({
+            ...prevInputError,
+            program: { valid, error },
+          }));
+          setInput((prevInput) => ({
+            ...prevInput,
+            program: value,
+          }));
+        }
+
+      }
+
+    const programOptions = {
+      Maestría: Maestría,
+      Grado: Grado,
+      Pregrado: Pregrado,
+    };
+
+
     return (
-        <div className=" bg-grisclaro py-[45px] mq780:pt-[20px] w-[95%] mr-[20px] flex justify-center items-center">
-            <form className="bg-blanco rounded-md flex flex-col justify-start py-4 px-6 ">
+        <div className=" bg-grisclaro w-[95%] mq980:w-full mq980:mr-0 mr-[20px] flex  mq980:justify-center items-start">
+            <form className="bg-blanco rounded-md flex flex-col justify-start py-4 px-6 mq980:w-[90%] mq980:rounded-md min-w-[470px]">
                 <a className="text-verde font-semibold text-[24px]">Contacto</a>
                 <label className="text-grisoscuro py-1">Tipo de programa</label>
-                <select name='type' onChange={handleChange} onClick={handleChange}
-                        className="bg-grisclaro p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
+                <select name='type' onChange={handleProgramChange} onClick={handleProgramChange}
+                        className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                     <option disabled selected value='Seleccioná'>Seleccioná</option>
                     <option value='Grado'>Grado</option>
                     <option value='Pregrado'>Pregrado</option>
@@ -139,10 +166,14 @@ export const Formulario = () => {
                 </select>
                 <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.type.error}</p>
                 <label className="text-grisoscuro py-1">Programa</label>
-                <select name="program" onChange={handleChange} onClick={handleChange}  
-                        className="bg-grisclaro p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
-                    <option disabled selected value='Seleccioná'>Seleccioná</option>
-                    <option value='abogacía'>acá hacer un json</option>
+                <select name="program" value={input.program} onChange={handleProgramChange} onClick={handleProgramChange}  
+                        className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
+                    <option disabled selected value='Seleccioná' className="">Seleccioná</option>
+                    {programOptions[input.type]?.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                      </option>
+                    ))}
                 </select>
                 <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.program.error}</p>
                 <div className="flex items-center">
@@ -151,13 +182,13 @@ export const Formulario = () => {
                         type="checkbox"
                         checked={isChecked}
                         onChange={handleCheckboxChange}
-                        className="h-5 w-5 text-verde checked:border-transparent checked:bg-verde mr-2"
+                        className="h-5 w-5 text-verde  cursor-pointer checked:border-transparent checked:bg-verde mr-2"
                     />
                     <label className="text-grisoscuro font-semibold py-2"> Quiero acreditar equivalencias</label>
                 </div>
                 <label className="text-grisoscuro py-1">Modalidad</label>
                 <select name='modality' onChange={handleChange} onClick={handleChange}
-                        className="bg-grisclaro p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
+                        className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                     <option disabled selected value='Seleccioná'>Seleccioná</option>
                     <option value='ED'>Educación Distribuida</option>
                     <option value='EDH'>Educación Distribuida Home</option>
@@ -168,14 +199,14 @@ export const Formulario = () => {
                         className="bg-grisclaro p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                 </input>
                 <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.email.error}</p>
-                <div className="flex flex-row justify-between gap-2">
-                    <div>
+                <div className="flex flex-row justify-between w-full mq980:flex-col">
+                    <div className="mq980:flex mq980:flex-col">
                         <label className="text-grisoscuro py-1">Nombre</label>
                         <input name='name' value={input.name} onChange={handleChange} maxLength={36}
                                 className="bg-grisclaro p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none"></input>
                     </div>
                     
-                    <div>
+                    <div className="mq980:flex mq980:flex-col">
                         <label className="text-grisoscuro py-1">Apellido</label>
                         <input name='lastName' value={input.lastName} onChange={handleChange} maxLength={36}
                                 className="bg-grisclaro p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none"></input>
@@ -192,7 +223,7 @@ export const Formulario = () => {
                 <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.whatsapp.error}</p>
                 <label className="text-grisoscuro py-1">Sede más cercana</label>
                 <select name='branch' onChange={handleChange} onClick={handleChange}
-                        className="bg-grisclaro p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
+                        className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                     <option disabled selected value='Seleccioná'>Seleccioná</option>
                     <option value='Mar del Plata'>Mar del Plata</option>
                     <option value='Santa Teresita'>Santa Teresita</option>
@@ -200,7 +231,7 @@ export const Formulario = () => {
                     <option value='Necochea'>Necochea</option>
                 </select>
                 <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.branch.error}</p>
-                <button className="flex w-48 bg-verde text-blanco px-4 py-2 rounded-md font-semibold">
+                <button className="flex w-48 bg-verde cursor-pointer text-blanco px-4 py-2 rounded-md font-semibold">
                     Solicitar información
                 </button>
 

@@ -21,15 +21,15 @@ export const Cualidades = () => {
                     </h2>
                 </div>
                 <div className="w-[220px] text-center flex justify-center items-center flex-col mb-[25px] mr-[40px] mq780:mr-[0px]">
-                    <div className="rounded-[55px] bg-verde w-[94px] h-[94px] p-[0.5px] items-center flex justify-center m-[10.5px]">
-                    <box-icon type='solid' name='graduation' color='white' size='75px'/>
+                    <div className="rounded-[55px] bg-verde mt-[35px] w-[94px] h-[94px] p-[0.5px] items-center flex justify-center my-[15px]">
+                    <box-icon type='solid' name='graduation' color='white' size='80px'/>
                     </div>
                     <h2 className="font-bold flex justify-center items-center text-[18px] text-grisoscuro w-[200px]">
                         Portal de empleo Siglo 21 para egresados
                     </h2>
                 </div>
                 <div className="w-[220px] text-center flex justify-center items-center flex-col mb-[25px]">
-                    <div className="rounded-[55px] bg-verde w-[94px] h-[94px] p-[0.5px] items-center flex justify-center m-[10.5px]">
+                    <div className="rounded-[55px] bg-verde mt-[35px] w-[94px] h-[94px] p-[0.5px] items-center flex justify-center my-[15px]">
                     <box-icon type='solid' name='plane' rotate='90' color='white' size='75px'/>
                     </div>
                     <h2 className="font-bold flex justify-center items-center text-[18px] text-grisoscuro w-[100px]">

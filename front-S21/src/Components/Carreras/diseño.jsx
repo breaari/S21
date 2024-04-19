@@ -13,7 +13,7 @@ export const Diseño = () => {
         };
 
     return (
-        <div className="shadow-md w-[320px] bg-blanco p-2 rounded-[10px] m-1 mb-4">
+        <div className={`${diseñoIsOpen ? 'h-auto' : 'h-[60px]'} shadow-md w-[320px] bg-blanco rounded-md m-1 mb-4 px-2 py-3`}>
             <button
                 type="button"
                 className="font-bold flex justify-center items-center text-[18px] text-verde dropdown-toggle"
@@ -41,7 +41,7 @@ export const Diseño = () => {
 
             {diseñoIsOpen && (
                 <div
-                className="relative w-[300px] rounded-md bg-transparent  dropdown-menu"
+                className="relative w-[300px] rounded-md bg-transparent dropdown-menu "
                 role="menu"
                 aria-orientation="vertical"
                 >

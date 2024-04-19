@@ -13,7 +13,7 @@ export const Finanzas = ({ isOpen, toggleDropdown }) => {
         };
 
     return (
-        <div className="shadow-md w-[320px] bg-blanco p-2 rounded-[10px] m-1 mb-4">
+        <div className={`${finanzasIsOpen ? 'h-auto' : 'h-[60px]'} shadow-md w-[320px] bg-blanco rounded-md m-1 mb-4 p-3`}>
             <button
                 type="button"
                 className="font-bold flex justify-center items-center text-[18px] text-verde dropdown-toggle"
@@ -41,7 +41,7 @@ export const Finanzas = ({ isOpen, toggleDropdown }) => {
 
             {finanzasIsOpen && (
                 <div
-                className="relative w-[300px] rounded-md bg-transparent  dropdown-menu"
+                className="relative w-[300px] rounded-md bg-transparent mq980:max-h-[15000px] mq980:overflow-hidden max-h-[450px] overflow-y-auto  dropdown-menu"
                 role="menu"
                 aria-orientation="vertical"
                 >

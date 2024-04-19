@@ -13,15 +13,15 @@ export const Agro = () => {
         };
 
     return (
-        <div className="shadow-md w-[320px] bg-blanco p-2 rounded-[10px] m-1 mb-4">
+        <div className={`${agroIsOpen ? 'h-auto' : 'h-[60px]'} shadow-md w-[320px] bg-blanco rounded-md m-1 mb-4 p-3`}>
             <button
                 type="button"
                 className="font-bold flex justify-center items-center text-[18px] text-verde dropdown-toggle"
                 onClick={agroToggleDropdown}
                 aria-expanded={agroIsOpen ? 'true' : 'false'}
             >
-                <div className="mr-[5px] flex items-end">
-                <box-icon name='recycle' color='#006C5B' size='40px'></box-icon>
+                <div className="mr-[8px] flex items-end">
+                <i class="fa-solid fa-tractor fa-xl" style={{ color: '#006C5B' }}></i>
                 </div>
                 Sustentabilidad y Agro
                 <svg

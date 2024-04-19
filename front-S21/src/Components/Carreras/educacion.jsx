@@ -13,7 +13,7 @@ export const Educacion = () => {
         };
 
     return (
-        <div className="shadow-md w-[320px] bg-blanco p-2 rounded-[10px] m-1">
+        <div className={`${educacionIsOpen ? 'h-auto' : 'h-[60px]'} shadow-md w-[320px] bg-blanco rounded-md m-1 mb-4 p-3`}>
             <button
                 type="button"
                 className="font-bold flex justify-center items-center text-[18px] text-verde dropdown-toggle"
