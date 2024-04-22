@@ -10,6 +10,7 @@ import { isValidWhatsapp } from "../Validaciones/isValidWhatsapp";
 import { Maestría } from "../Programas/Maestría";
 import { Pregrado } from "../Programas/Pregrado";
 import { Grado } from "../Programas/Grado";
+import axios from 'axios'
 
 export const Formulario = () => {
 
@@ -26,8 +27,6 @@ export const Formulario = () => {
         branch: ""
 
     });
-
-    console.log("input", input)
 
     const [inputError, setInputError ] = useState({
 
@@ -151,10 +150,42 @@ export const Formulario = () => {
       Pregrado: Pregrado,
     };
 
+    const sendEmail = async()=>{
+      
+      try {
+          const responseBack = await axios.post(`http://localhost:3000/sendEmail`, input, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+    
+        });
+          window.alert("email enviado")
+      } catch (error) {
+          window.alert("error al enviar email")
+  }
+  }
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Evita el envío del formulario por defecto
+  
+    // Validar todos los campos antes de enviar el email
+    // Aquí puedes verificar todos los campos y actualizar el estado de errores si es necesario
+  
+    // Llamar a la función sendEmail con el objeto input
+    try {
+      await sendEmail(input); // Llama a sendEmail con el objeto input actualizado
+      window.alert("Email enviado correctamente");
+    } catch (error) {
+      console.error("Error al enviar email:", error);
+      window.alert("Error al enviar email");
+    }
+  };
+
 
     return (
         <div className=" bg-grisclaro w-[95%] mq980:w-full mq980:mr-0 mr-[20px] flex  mq980:justify-center items-start">
-            <form className="bg-blanco rounded-md flex flex-col justify-start py-4 px-6 mq980:w-[90%] mq980:rounded-md min-w-[470px]">
+            <form onSubmit={handleSubmit}
+                className="bg-blanco rounded-md flex flex-col justify-start py-4 px-6 mq980:w-[90%] mq980:rounded-md min-w-[470px]">
                 <a className="text-verde font-semibold text-[24px]">Contacto</a>
                 <label className="text-grisoscuro py-1">Tipo de programa</label>
                 <select name='type' onChange={handleProgramChange} onClick={handleProgramChange}
