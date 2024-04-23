@@ -1,6 +1,6 @@
 const { conn } = require('./src/DB_conection')
 const server = require('./src/app.js');
-const { DB_PORT } = process.env;
+const { DB_PORT } = process.env || 3000
 
 
 
