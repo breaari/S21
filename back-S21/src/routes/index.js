@@ -6,6 +6,6 @@ const router = Router();
 
 // Configurar los routers
 router.post("/sendEmail", sendEmailHandler);
-router.get("/carreras", carrerasHandler);
+router.get("/", carrerasHandler);
 
 module.exports = router;
