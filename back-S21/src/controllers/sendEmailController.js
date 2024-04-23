@@ -2,7 +2,7 @@ const { form } = require("../DB_conection");
 require("dotenv").config();
 const transport = require("../mail/transport");
 const sendEmailBody = require("../mail/sendEmailBody");
-const { MAIL_USERNAME_2 } = process.env;
+const { SMTP_USER } = process.env;
 
 
 const sendEmailController = async (input) => {
@@ -19,15 +19,15 @@ console.log("req", input)
     branch,
   } = input;
 
-  const body = sendEmailBody( program, name, lastName);
+  const body = await sendEmailBody( program, name, lastName);
   
   try {
 
     let mailOptions = {
-      from: MAIL_USERNAME_2,
+      from: SMTP_USER,
       to: email,
       subject: "Información",
-      html: body   ,
+      html: body,
     };
 
     transport.verify(function (error, success) {
@@ -40,7 +40,7 @@ console.log("req", input)
 
     transport.sendMail(mailOptions, function (err, data) {
       if (err) {
-        throw Error(err.message);
+        console.log(err);
       } else {
         console.log("Email sent successfully");
       }
@@ -52,3 +52,4 @@ console.log("req", input)
   }
 };
 module.exports = sendEmailController;
+

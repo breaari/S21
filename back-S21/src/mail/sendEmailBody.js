@@ -29,7 +29,7 @@ const sendEmailBody = async (program, name, lastName) => {
     const carrera = carreras.Carreras.find(c => c.name === program);
 
     if (!carrera) {
-      throw new Error(`No se encontró información para la carrera '${program}'`);
+      console.log(`No se encontró información para la carrera '${program}'`);
     }
 
     const { url } = carrera;
@@ -46,7 +46,7 @@ const sendEmailBody = async (program, name, lastName) => {
     return body;
   } catch (error) {
     console.error('Error al generar el cuerpo del correo:', error);
-    throw error; // Propaga el error para manejarlo en el controlador
+    
   }
 };
 
