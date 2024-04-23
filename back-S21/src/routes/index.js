@@ -5,7 +5,7 @@ const { carrerasHandler } = require('../handlers/carrerasHandler');
 const router = Router();
 
 // Configurar los routers
-router.post("/sendEmail", sendEmailHandler);
+router.post("/", sendEmailHandler);
 router.get("/", carrerasHandler);
 
 module.exports = router;
