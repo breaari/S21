@@ -28,7 +28,7 @@ const sendEmailHandler = async (req, res) => {
     }
   } catch (error) {
     console.error("Error en sendEmailHandler:", error);
-    return res.status(500).send("Error interno del servidor");
+    return res.status(500).send("Error interno del servidor:", error);
   }
 };
 
