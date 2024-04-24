@@ -22,7 +22,7 @@ const sendEmailHandler = async (req, res) => {
     const result = await sendEmailController(input);
     
     if (result) {
-      return res.send(result);
+      return res.send("Correo enviado exitosamente");
     } else {
       return res.status(404).send("Error al enviar el correo");
     }

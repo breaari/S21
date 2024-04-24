@@ -7,6 +7,7 @@ const getCarreras = () => {
   try {
     const rawdata = fs.readFileSync(jsonPath);
     const carreras = JSON.parse(rawdata);
+    console.log("carreras")
     return carreras;
   } catch (error) {
     console.error('Error al obtener las carreras:', error);
