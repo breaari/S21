@@ -7,10 +7,10 @@ import { isValidName } from "../Validaciones/isValidName";
 import { isValidProgram } from "../Validaciones/isValidProgram";
 import { isValidType } from "../Validaciones/isValidType";
 import { isValidWhatsapp } from "../Validaciones/isValidWhatsapp";
-import { Maestría } from "../Programas/Maestría";
-import { Pregrado } from "../Programas/Pregrado";
-import { Grado } from "../Programas/Grado";
 import axios from 'axios'
+import usePrograms from "../Hooks/usePrograms"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Formulario = () => {
 
@@ -32,7 +32,7 @@ export const Formulario = () => {
 
         type: { valid: false, error: '' },
         program: { valid: false, error: '' },
-        equivalency: { valid: false, error: '' },
+        equivalency: { valid: true, error: '' },
         modality: { valid: false, error: '' },
         email: { valid: false, error: '' },
         name: { valid: false, error: '' },
@@ -144,42 +144,42 @@ export const Formulario = () => {
 
       }
 
-    const programOptions = {
-      Maestría: Maestría,
-      Grado: Grado,
-      Pregrado: Pregrado,
-    };
+   const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    const sendEmail = async()=>{
+        const isValid = Object.values(inputError).every(field => field.valid);
       
-      try {
-          const responseBack = await axios.post(`http://localhost:3000/sendEmail`, input, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-    
-        });
-          window.alert("email enviado")
-      } catch (error) {
-          window.alert("error al enviar email")
-  }
-  }
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Evita el envío del formulario por defecto
-  
-    // Validar todos los campos antes de enviar el email
-    // Aquí puedes verificar todos los campos y actualizar el estado de errores si es necesario
-  
-    // Llamar a la función sendEmail con el objeto input
-    try {
-      await sendEmail(input); // Llama a sendEmail con el objeto input actualizado
-      window.alert("Email enviado correctamente");
-    } catch (error) {
-      console.error("Error al enviar email:", error);
-      window.alert("Error al enviar email");
-    }
-  };
+        if (!isValid) {
+          //window.alert('Por favor, complete todos los campos correctamente antes de enviar.');
+          toast.error('Por favor, complete todos los campos correctamente antes de enviar.', {
+            
+          });
+          
+          return;
+        }
+      
+        try {
+          const responseBack = await axios.post("/", input, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+      
+          });
+          toast.success('¡Gracias por tu consulta! Te estará llegando un email con información sobre tu interés y te vamos a estar contactando a la brevedad al número informado.', {
+            
+          })
+          //window.alert('Consulta enviada correctamente')
+          // alert ¡Gracias por tu consulta!
+          //Te estará llegando un email con información sobre tu interés
+          //y te vamos a estar contactando a la brevedad al número informado.
+          //logo
+          
+        } catch (error) {
+          window.alert('Error al enviar consulta')
+        }
+      };
+
+  const { programs, loading, error, getProgramsByType } = usePrograms();
 
 
     return (
@@ -191,18 +191,18 @@ export const Formulario = () => {
                 <select name='type' onChange={handleProgramChange} onClick={handleProgramChange}
                         className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                     <option disabled selected value='Seleccioná'>Seleccioná</option>
-                    <option value='Grado'>Grado</option>
-                    <option value='Pregrado'>Pregrado</option>
-                    <option value='Maestría'>Maestría</option>
+                    <option value='grado'>Grado</option>
+                    <option value='pregrado'>Pregrado</option>
+                    <option value='maestría'>Maestría</option>
                 </select>
                 <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.type.error}</p>
                 <label className="text-grisoscuro py-1">Programa</label>
                 <select name="program" value={input.program} onChange={handleProgramChange} onClick={handleProgramChange}  
                         className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                     <option disabled selected value='Seleccioná' className="">Seleccioná</option>
-                    {programOptions[input.type]?.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
+                    {getProgramsByType(input.type)?.map((program) => (
+                      <option key={program.name} value={program.name}>
+                        {program.name}
                       </option>
                     ))}
                 </select>
@@ -265,8 +265,21 @@ export const Formulario = () => {
                 <button className="flex w-48 bg-verde cursor-pointer text-blanco px-4 py-2 rounded-md font-semibold">
                     Solicitar información
                 </button>
-
+                <ToastContainer
+                  position="top-center"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="colored"
+                  transition: Bounce
+                />
             </form>
+           
         </div>
     )
 
