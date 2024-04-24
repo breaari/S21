@@ -14,7 +14,7 @@
 
 // module.exports = { sendEmailHandler };
 
-const { emailController } = require("../controllers/sendEmailController");
+const emailController = require("../controllers/sendEmailController");
 
 const sendEmailHandler = async (req, res) => {
   const input = req.body;
