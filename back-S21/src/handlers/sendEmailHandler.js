@@ -20,6 +20,7 @@ const sendEmailHandler = async (req, res) => {
   const input = req.body;
   try {
     const result = await sendEmailController(input);
+    console.log("REsults:", result)
     if (result) {
       return res.send("Correo enviado exitosamente");
     } else {
