@@ -1,11 +1,11 @@
-const { form } = require("../DB_conection");
+//const { form } = require("../DB_conection");
 require("dotenv").config();
 const transport = require("../mail/transport");
-const sendEmailBody = require("../mail/sendEmailBody");
+const receiveQueriesBody = require("../mail/receiveQueriesBody");
 const { SMTP_USER } = process.env;
 
 
-const sendEmailController = async (input) => {
+const receiveQueriesController = async (input) => {
 console.log("req", input)
   const {
     type,
@@ -19,15 +19,15 @@ console.log("req", input)
     branch,
   } = input;
 
-  const body = await sendEmailBody( program, name, lastName);
+  const bodyQuery = await receiveQueriesBody( type, program, equivalency, modality, name, lastName, whatsapp, branch);
   
   try {
 
     let mailOptions = {
       from: SMTP_USER,
-      to: email,
-      subject: program,
-      html: body,
+      to: SMTP_USER,
+      subject: "Nueva consulta",
+      html: bodyQuery,
     };
 
     transport.verify(function (error, success) {
@@ -51,5 +51,4 @@ console.log("req", input)
     console.log(error.message);
   }
 };
-module.exports = sendEmailController;
-
+module.exports = receiveQueriesController;
