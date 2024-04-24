@@ -1,6 +1,56 @@
 {
     "Carreras": [
       {
+        "name": "Lic. en Administración",
+        "url": "#",
+        "type": "grado"
+      },
+      {
+        "name": "Lic. en Ambiente y Energías Renovables",
+        "url": "#",
+        "type": "grado"
+      },
+      {
+        "name": "Lic. en Ciencias de Datos",
+        "url": "#",
+        "type": "grado"
+      },
+      {
+        "name": "Lic. en Terapia Ocupacional y Desarrollo Humano",
+        "url": "#",
+        "type": "grado"
+      },
+      {
+        "name":  "Lic. en Antropología Organizacional",
+        "url": "#",
+        "type": "grado"
+      },
+      {
+        "name": "Lic. en Seguridad Informática",
+        "url": "#",
+        "type": "grado"
+      },
+      {
+        "name": "Lic. en Ciencia Política y Gobierno",
+        "url": "#",
+        "type": "grado"
+      },
+      {
+        "name": "Lic. en Administración de Servicios de Salud (CCC)",
+        "url": "#",
+        "type": "grado"
+      },
+      {
+        "name": "Lic. en Finanzas",
+        "url": "#",
+        "type": "grado"
+      },
+      {
+        "name": "Lic. en Bioinformática",
+        "url": "#",
+        "type": "grado"
+      },
+      {
         "name": "Abogacía",
         "url": "https://contenidos.21.edu.ar/descargas/art-43/brochure-abogacia.pdf",
         "type": "grado"
@@ -66,7 +116,7 @@
         "type": "grado"
       },
       {
-        "name": "Lic. en Emprendimiento -CCC",
+        "name": "Lic. en Emprendimiento (CCC)",
         "url": "https://contenidos.21.edu.ar/descargas/carreras/nuevas-carreras/brochure-emprendimiento.pdf",
         "type": "grado"
       },
@@ -233,6 +283,61 @@
       {
         "name": "Tec. Universitaria en Administración y Gestión de Políticas Públicas",
         "url": "https://contenidos.21.edu.ar/pdf/carreras/pregrado/tec-administracion-publica.pdf",
+        "type": "pregrado"
+      },
+      {
+        "name": "Tec. en Investigación de la Escena del Crimen",
+        "url": "#",
+        "type": "pregrado"
+      },
+      {
+        "name": "Tec. en Marketing y Publicidad Digital",
+        "url": "#",
+        "type": "pregrado"
+      },
+      {
+        "name": "Tec. en Gestión de Recursos Turísticos",
+        "url": "#",
+        "type": "pregrado"
+      },
+      {
+        "name": "Tec. en Gestión y Auditorías Ambientales",
+        "url": "#",
+        "type": "pregrado"
+      },
+      {
+        "name": "Tec. en Gestión Contable e Impositiva",
+        "url": "#",
+        "type": "pregrado"
+      },
+      {
+        "name": "Tec. en Gestión del Clima Laboral en la Organización",
+        "url": "#",
+        "type": "pregrado"
+      },
+      {
+        "name": "Tec. en Promoción Comunitaria en Niñez y Adolesc.",
+        "url": "#",
+        "type": "pregrado"
+      },
+      {
+        "name": "Tec. en Gestión Administrativa de Servicios de Salud",
+        "url": "#",
+        "type": "pregrado"
+      },
+      {
+        "name": "Tec. en Redes Informáticas y Telecomunicaciones",
+        "url": "#",
+        "type": "pregrado"
+      },
+      {
+        "name": "Tec. en Adm. de la Prop. Horizontal y Conjuntos Inmob.",
+        "url": "#",
+        "type": "pregrado"
+      },
+      {
+        "name": "Tec. en Diseño y Desarrollo de Videojuegos",
+        "url": "#",
         "type": "pregrado"
       }
  
