@@ -14,12 +14,12 @@
 
 // module.exports = { sendEmailHandler };
 
-const sendEmailController = require("../controllers/sendEmailController");
+const { emailController } = require("../controllers/sendEmailController");
 
 const sendEmailHandler = async (req, res) => {
   const input = req.body;
   try {
-    const result = await sendEmailController(input);
+    const result = await emailController(input);
     
     if (result) {
       return res.send("Correo enviado exitosamente");
