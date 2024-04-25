@@ -30,6 +30,7 @@ const emailController = async (input) => {
       to: email,
       subject: program,
       html: body,
+      timeout: 10000,
     };
 
     // Recibir consulta
@@ -39,6 +40,7 @@ const emailController = async (input) => {
       to: SMTP_USER,
       subject: "Nueva consulta",
       html: queryBody,
+      timeout: 10000,
     };
 
     // // Verificar el transporte (SMTP) antes de enviar correos
