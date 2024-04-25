@@ -8,6 +8,7 @@ import { Footer } from "../../Components/Footer/Footer";
 import { Whatsapp } from "../../Components/Whatsapp/Whatsapp";
 
 export const Landing = () => {
+    //quiero hace run commit
 
     return (
         <div className=" max-w-full container mx-0">
