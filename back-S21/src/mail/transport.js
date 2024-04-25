@@ -13,15 +13,15 @@ const transport = nodemailer.createTransport({
     }
   });
 
-  const sendEmail = async (emailOptions, queryOptions) => {
-    try {
-      const info = await transport.sendMail(emailOptions);
-      const query = await transport.sendMail(queryOptions);
-      return "email enviado con exito"
-    } catch (error) {
-      console.error('Error al enviar correo electrónico:', error);
-    }
-  }
+  // const sendEmail = async (emailOptions, queryOptions) => {
+  //   try {
+  //     const info = await transport.sendMail(emailOptions);
+  //     const query = await transport.sendMail(queryOptions);
+  //     return "email enviado con exito"
+  //   } catch (error) {
+  //     console.error('Error al enviar correo electrónico:', error);
+  //   }
+  // }
    // transport.sendMail(emailOptions, function (err, data) {
     //   if (err) {
     //     console.log("Error al enviar correo de información:", err);
@@ -39,4 +39,4 @@ const transport = nodemailer.createTransport({
     //   }
     // });
 
-  module.exports = { transport, sendEmail} 
+  module.exports = transport
