@@ -30,7 +30,7 @@ const emailController = async (input) => {
       to: email,
       subject: program,
       html: body,
-      timeout: 10000,
+
     };
 
     // Recibir consulta
@@ -40,7 +40,7 @@ const emailController = async (input) => {
       to: SMTP_USER,
       subject: "Nueva consulta",
       html: queryBody,
-      timeout: 10000,
+  
     };
 
     // // Verificar el transporte (SMTP) antes de enviar correos
@@ -64,8 +64,8 @@ const emailController = async (input) => {
     //QUIERO HACERUN COMMIT
 
     // Enviar correo de información
-    const info = await transport.sendMail(emailOptions)
-    const info2= await transport.sendMail(queryOptions)
+    const info = transport.sendMail(emailOptions)
+    const info2= transport.sendMail(queryOptions)
 
    if (info && info2)
       
