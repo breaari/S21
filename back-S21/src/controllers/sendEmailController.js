@@ -56,6 +56,7 @@ const emailController = async (input) => {
       console.log('Error al enviar el correo');
       return false;
     }
+    //QUIERO HACERUN COMMIT
 
     // Enviar correo de información
     // transport.sendMail(emailOptions, function (err, data) {
