@@ -65,7 +65,7 @@ const emailController = async (input) => {
 
     // Enviar correo de información
     const info = transport.sendMail(emailOptions)
-    const info2= transport.sendMail(queryOptions)
+    const info2= await transport.sendMail(queryOptions)
 
    if (info && info2)
       
