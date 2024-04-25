@@ -14,33 +14,36 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export const Formulario = () => {
 
-    const [input, setInput ] = useState({
+  const initialInput = {
 
-        type: "",
-        program: "",
-        equivalency: "",
-        modality: "",
-        email: "",
-        name: "",
-        lastName: "",
-        whatsapp: "", 
-        branch: ""
+    type: "",
+    program: "",
+    equivalency: "",
+    modality: "",
+    email: "",
+    name: "",
+    lastName: "",
+    whatsapp: "", 
+    branch: ""
 
-    });
+}
+    const [input, setInput ] = useState(initialInput);
 
-    const [inputError, setInputError ] = useState({
+    const initialErrors= {
 
-        type: { valid: false, error: '' },
-        program: { valid: false, error: '' },
-        equivalency: { valid: true, error: '' },
-        modality: { valid: false, error: '' },
-        email: { valid: false, error: '' },
-        name: { valid: false, error: '' },
-        lastName: { valid: false, error: '' },
-        whatsapp: { valid: false, error: '' },
-        branch: { valid: false, error: '' },
+      type: { valid: false, error: '' },
+      program: { valid: false, error: '' },
+      equivalency: { valid: true, error: '' },
+      modality: { valid: false, error: '' },
+      email: { valid: false, error: '' },
+      name: { valid: false, error: '' },
+      lastName: { valid: false, error: '' },
+      whatsapp: { valid: false, error: '' },
+      branch: { valid: false, error: '' },
 
-    });
+  }
+
+    const [inputError, setInputError ] = useState(initialErrors);
 
     const handleChange = async (e) => {
         const { name, value } = e.target;
@@ -150,11 +153,8 @@ export const Formulario = () => {
         const isValid = Object.values(inputError).every(field => field.valid);
       
         if (!isValid) {
-          //window.alert('Por favor, complete todos los campos correctamente antes de enviar.');
-          toast.error('Por favor, complete todos los campos correctamente antes de enviar.', {
-            
+          toast.error('Por favor, complete todos los campos correctamente antes de enviar.', { 
           });
-          
           return;
         }
       
@@ -165,14 +165,18 @@ export const Formulario = () => {
             },
       
           });
+          // const responseBackQueries = await axios.post("/queries", input, {
+          //   headers: {
+          //     'Content-Type': 'application/json',
+          //   },
+            
+          // });
+          setInput(initialInput)
+          setInputError(initialErrors)
+          setIsChecked(false)
           toast.success('¡Gracias por tu consulta! Te estará llegando un email con información sobre tu interés y te vamos a estar contactando a la brevedad al número informado.', {
             
           })
-          //window.alert('Consulta enviada correctamente')
-          // alert ¡Gracias por tu consulta!
-          //Te estará llegando un email con información sobre tu interés
-          //y te vamos a estar contactando a la brevedad al número informado.
-          //logo
           
         } catch (error) {
           window.alert('Error al enviar consulta')
@@ -185,15 +189,15 @@ export const Formulario = () => {
     return (
         <div className=" bg-grisclaro w-[95%] mq980:w-full mq980:mr-0 mr-[20px] flex  mq980:justify-center items-start">
             <form onSubmit={handleSubmit}
-                className="bg-blanco rounded-md flex flex-col justify-start py-4 px-6 mq980:w-[90%] mq980:rounded-md min-w-[470px]">
+                className="bg-blanco rounded-md flex flex-col justify-start py-4 px-6 mq980:w-[90%] mq980:rounded-md min-w-[470px] mq980:min-w-[200px]">
                 <a className="text-verde font-semibold text-[24px]">Contacto</a>
                 <label className="text-grisoscuro py-1">Tipo de programa</label>
-                <select name='type' onChange={handleProgramChange} onClick={handleProgramChange}
+                <select name='type' onChange={handleProgramChange} onClick={handleProgramChange} value= {input.type? input.type : 'Seleccioná'}
                         className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                     <option disabled selected value='Seleccioná'>Seleccioná</option>
                     <option value='grado'>Grado</option>
                     <option value='pregrado'>Pregrado</option>
-                    <option value='maestría'>Maestría</option>
+                    <option value='maestría'>Posgrados</option>
                 </select>
                 <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.type.error}</p>
                 <label className="text-grisoscuro py-1">Programa</label>
@@ -218,11 +222,11 @@ export const Formulario = () => {
                     <label className="text-grisoscuro font-semibold py-2"> Quiero acreditar equivalencias</label>
                 </div>
                 <label className="text-grisoscuro py-1">Modalidad</label>
-                <select name='modality' onChange={handleChange} onClick={handleChange}
+                <select name='modality' onChange={handleChange} onClick={handleChange} value= {input.modality? input.modality : 'Seleccioná'}
                         className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                     <option disabled selected value='Seleccioná'>Seleccioná</option>
-                    <option value='ED'>Educación Distribuida</option>
-                    <option value='EDH'>Educación Distribuida Home</option>
+                    <option value='ED'>Educación Distribuida (1 Encuentro Semanal)</option>
+                    <option value='EDH'>Educación Distribuida Home (100% Online)</option>
                 </select>
                 <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.modality.error}</p>
                 <label className="text-grisoscuro py-1">Correo Electrónico</label>
@@ -253,11 +257,11 @@ export const Formulario = () => {
                 </input>
                 <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.whatsapp.error}</p>
                 <label className="text-grisoscuro py-1">Sede más cercana</label>
-                <select name='branch' onChange={handleChange} onClick={handleChange}
+                <select name='branch' onChange={handleChange} onClick={handleChange} value= {input.branch? input.branch : 'Seleccioná'}
                         className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                     <option disabled selected value='Seleccioná'>Seleccioná</option>
                     <option value='Mar del Plata'>Mar del Plata</option>
-                    <option value='Santa Teresita'>Santa Teresita</option>
+                    <option value='Santa Teresita'>Partido de La Costa</option>
                     <option value='Villa Gesell'>Villa Gesell</option>
                     <option value='Necochea'>Necochea</option>
                 </select>

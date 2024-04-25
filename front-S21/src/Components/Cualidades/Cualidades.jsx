@@ -4,8 +4,10 @@ import 'boxicons'
 export const Cualidades = () => {
     return (
         <div className="relative w-full h-auto pb-[50px] mq780:pb-[20px] flex justify-center items-center flex-col">
-            <h1 className="font-bold flex justify-center items-center text-center text-[32px] text-verde pt-[45px] mq780:pt-[20px]  mb-[20px] mq780:w-[240px]">
-                Elegí una Universidad que impulsa tu propósito
+            <h1 className="font-bold flex justify-center items-center text-center text-[32px] text-verde pt-[45px] mq780:pt-[20px] max-w-[80%]">
+                Elegí una Universidad que impulsa tu propósito y que está cerca tuyo para ayudarte a cada paso.
+            </h1><h1 className="font-bold flex justify-center items-center text-center text-[32px] text-verde mb-[20px] max-w-[80%]">
+                Mar del Plata - Villa Gesell - Necochea - Partido de La Costa.
             </h1>
             <div className="mq780:flex-col flex-row flex items-center justify-center"> 
                 <div className="w-[220px] text-center mr-[40px] mq780:mr-[0px]">
