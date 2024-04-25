@@ -9,8 +9,11 @@
 
         
         
-            { "src": "/", "dest": "./index.js" },
-            { "src": "/queries", "dest": "./index.js" }
+            { "src": "/", "dest": "./index.js", 
+            "methods": ["GET", "POST"], 
+            "headers": {
+              "timeout": "30s" }
+            }
             
         
     ]
