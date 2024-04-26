@@ -46,26 +46,26 @@ export const Turismo = () => {
                 aria-orientation="vertical"
                 >
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold "
                     role="menuitem"
-                    onClick={turismoCloseDropdown}
+                    //onClick={turismoCloseDropdown}
                 >
                     Licenciatura en Administración Hotelera
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={turismoCloseDropdown}
+                    //onClick={turismoCloseDropdown}
                 >
                     Licenciatura en Gestión Turística
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={turismoCloseDropdown}
+                    //onClick={turismoCloseDropdown}
                 >
                     Tecnicatura Universitaria en Gestión de Recursos Turísticos
                 </a>

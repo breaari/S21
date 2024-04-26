@@ -35,7 +35,7 @@ export const Distribuida = () => {
                     />
                 </svg>
             </button>
-
+           
             {distribuidaIsOpen && (
                 <div
                 className="relative w-[300px] rounded-md bg-transparent  dropdown-menu "

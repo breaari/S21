@@ -46,58 +46,58 @@ export const Agro = () => {
                 aria-orientation="vertical"
                 >
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold "
                     role="menuitem"
-                    onClick={agroCloseDropdown}
+                    //onClick={agroCloseDropdown}
                 >
                     Licenciatura en Higiene, Seguridad y Medio Ambiente del Trabajo
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={agroCloseDropdown}
+                    //onClick={agroCloseDropdown}
                 >
                     Licenciatura en Ambiente y Energías Renovables
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={agroCloseDropdown}
+                    //onClick={agroCloseDropdown}
                 >
                     Licenciatura en Antropología Organizacional
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={agroCloseDropdown}
+                    //onClick={agroCloseDropdown}
                 >
                     Licenciatura en Administración Agraria
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={agroCloseDropdown}
+                    //onClick={agroCloseDropdown}
                 >
                     Licenciatura en Gestión Ambiental
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={agroCloseDropdown}
+                    //onClick={agroCloseDropdown}
                 >
                     Tecnicatura Universitaria en Hidrocarburos y Geociencia
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={agroCloseDropdown}
+                    //onClick={agroCloseDropdown}
                 >
                     Tecnicatura Universitaria en Gestión y Auditorías Ambientales
                 </a>

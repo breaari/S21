@@ -9,7 +9,7 @@ import { isValidType } from "../Validaciones/isValidType";
 import { isValidWhatsapp } from "../Validaciones/isValidWhatsapp";
 import axios from 'axios'
 import usePrograms from "../Hooks/usePrograms"
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, Zoom, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const Formulario = () => {
@@ -153,8 +153,11 @@ export const Formulario = () => {
         const isValid = Object.values(inputError).every(field => field.valid);
       
         if (!isValid) {
-          toast.error('Por favor, complete todos los campos correctamente antes de enviar.', { 
-          });
+          if (!toast.isActive('error-toast')) {
+            toast.error('Por favor, complete todos los campos correctamente antes de enviar.', {
+              toastId: 'error-toast', 
+            });
+          }
           return;
         }
       
@@ -165,25 +168,21 @@ export const Formulario = () => {
             },
       
           });
-          // const responseBackQueries = await axios.post("/queries", input, {
-          //   headers: {
-          //     'Content-Type': 'application/json',
-          //   },
-            
-          // });
+       
           setInput(initialInput)
           setInputError(initialErrors)
           setIsChecked(false)
-          toast.success('¡Gracias por tu consulta! Te estará llegando un email con información sobre tu interés y te vamos a estar contactando a la brevedad al número informado.', {
-            
-          })
+          if (!toast.isActive('success-toast')) {
+            toast.success('¡Gracias por tu consulta! Te estará llegando un email con información sobre tu interés y te vamos a estar contactando a la brevedad al número informado.', {
+              toastId: 'success-toast',
+            });}
           
         } catch (error) {
           window.alert('Error al enviar consulta')
         }
       };
 
-  const { programs, loading, error, getProgramsByType } = usePrograms();
+    const { getProgramsByType } = usePrograms();
 
 
     return (
@@ -197,7 +196,7 @@ export const Formulario = () => {
                     <option disabled selected value='Seleccioná'>Seleccioná</option>
                     <option value='grado'>Grado</option>
                     <option value='pregrado'>Pregrado</option>
-                    <option value='maestría'>Posgrados</option>
+                    <option value='posgrado'>Posgrado</option>
                 </select>
                 <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.type.error}</p>
                 <label className="text-grisoscuro py-1">Programa</label>
@@ -239,15 +238,17 @@ export const Formulario = () => {
                         <label className="text-grisoscuro py-1">Nombre</label>
                         <input name='name' value={input.name} onChange={handleChange} maxLength={36}
                                 className="bg-grisclaro p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none"></input>
+                                <p className="hidden mq980:block w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.name.error}</p>
                     </div>
                     
                     <div className="mq980:flex mq980:flex-col">
                         <label className="text-grisoscuro py-1">Apellido</label>
                         <input name='lastName' value={input.lastName} onChange={handleChange} maxLength={36}
                                 className="bg-grisclaro p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none"></input>
+                                <p className="hidden mq980:block w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.lastName.error}</p>
                     </div>
                 </div>
-                <div className="flex flex-row justify-between gap-2">
+                <div className=" mq980:hidden flex flex-row justify-between gap-2">
                     <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.name.error}</p>
                     <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.lastName.error}</p>
                 </div>
@@ -261,12 +262,12 @@ export const Formulario = () => {
                         className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                     <option disabled selected value='Seleccioná'>Seleccioná</option>
                     <option value='Mar del Plata'>Mar del Plata</option>
-                    <option value='Santa Teresita'>Partido de La Costa</option>
+                    <option value='Partido de La Costa'>Partido de La Costa</option>
                     <option value='Villa Gesell'>Villa Gesell</option>
                     <option value='Necochea'>Necochea</option>
                 </select>
                 <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.branch.error}</p>
-                <button className="flex w-48 bg-verde cursor-pointer text-blanco px-4 py-2 rounded-md font-semibold">
+                <button className="flex w-48 active:scale-95 bg-verde cursor-pointer text-blanco px-4 py-2 rounded-md font-semibold">
                     Solicitar información
                 </button>
                 <ToastContainer
@@ -279,8 +280,10 @@ export const Formulario = () => {
                   pauseOnFocusLoss
                   draggable
                   pauseOnHover
+                  limit={1}
+                  queue={false}
                   theme="colored"
-                  transition: Bounce
+                  transition={Zoom}
                 />
             </form>
            

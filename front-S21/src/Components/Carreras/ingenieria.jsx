@@ -47,59 +47,59 @@ import React, { useState } from "react";
                 aria-orientation="vertical"
                 >
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold "
                     role="menuitem"
-                    onClick={ingenieriaCloseDropdown}
+                    //onClick={ingenieriaCloseDropdown}
                 >
                     Licenciatura En Informática
 
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={ingenieriaCloseDropdown}
+                    //onClick={ingenieriaCloseDropdown}
                 >
                     Licenciatura en Administración de Infraestructura Tecnológica
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={ingenieriaCloseDropdown}
+                    //onClick={ingenieriaCloseDropdown}
                 >
                     Licenciatura en Ciencia de Datos
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={ingenieriaCloseDropdown}
+                    //onClick={ingenieriaCloseDropdown}
                 >
                     Licenciatura en Seguridad Informática
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={ingenieriaCloseDropdown}
+                    //onClick={ingenieriaCloseDropdown}
                 >
                     Licenciatura en Inteligencia Artificial y Robótica
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={ingenieriaCloseDropdown}
+                    //onClick={ingenieriaCloseDropdown}
                 >
                     Tecnicatura en Higiene y Seguridad Laboral
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={ingenieriaCloseDropdown}
+                    //onClick={ingenieriaCloseDropdown}
                 >
                     Tecnicatura Universitaria en Redes Informáticas y Telecomunicaciones
                 </a>

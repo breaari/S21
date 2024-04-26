@@ -46,50 +46,50 @@ export const Diseño = () => {
                 aria-orientation="vertical"
                 >
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold "
                     role="menuitem"
-                    onClick={diseñoCloseDropdown}
+                    //onClick={diseñoCloseDropdown}
                 >
                     Licenciatura En Relaciones Públicas E Institucionales
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={diseñoCloseDropdown}
+                    //onClick={diseñoCloseDropdown}
                 >
                     Licenciatura En Periodismo
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={diseñoCloseDropdown}
+                    //onClick={diseñoCloseDropdown}
                 >
                     Licenciatura En Diseño Y Animación Digital
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={diseñoCloseDropdown}
+                    //onClick={diseñoCloseDropdown}
                 >
                     Tecnicatura Universitaria En Gestión De Moda
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={diseñoCloseDropdown}
+                    //onClick={diseñoCloseDropdown}
                 >
                     Tecnicatura Universitaria En Diseño Y Animación Digital
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={diseñoCloseDropdown}
+                    //onClick={diseñoCloseDropdown}
                 >
                     Tecnicatura En Dirección De Protocolo, Organización De Eventos Y Relaciones Públicas
                 </a>

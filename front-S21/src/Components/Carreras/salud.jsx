@@ -48,42 +48,42 @@ export const Salud = () => {
                 aria-orientation="vertical"
                 >
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold "
                     role="menuitem"
-                    onClick={saludCloseDropdown}
+                    //onClick={saludCloseDropdown}
                 >
                     Licenciatura en Gerontología
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={saludCloseDropdown}
+                    //onClick={saludCloseDropdown}
                 >
                     Licenciatura en Administración de Servicios de Salud
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={saludCloseDropdown}
+                    //onClick={saludCloseDropdown}
                 >
                     Licenciatura En Terapia Ocupacional Y Desarrollo Humano
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={saludCloseDropdown}
+                    //onClick={saludCloseDropdown}
                 >
                     Tecnicatura Universitaria En Gestión Administrativa De Servicios De Salud
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={saludCloseDropdown}
+                    //onClick={saludCloseDropdown}
                 >
                     Tecnicatura Universitaria en Promoción Comunitaria en Niñez y Adolescencia 
                 </a>

@@ -46,90 +46,90 @@ export const Derecho = () => {
                 aria-orientation="vertical"
                 >
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold "
                     role="menuitem"
-                    onClick={derechoCloseDropdown}
+                    //onClick={derechoCloseDropdown}
                 >
                     Licenciatura En Criminología Y Seguridad
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={derechoCloseDropdown}
+                   // onClick={derechoCloseDropdown}
                 >
                     Licenciatura En Ciencia Política Y Gobierno
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={derechoCloseDropdown}
+                    //onClick={derechoCloseDropdown}
                 >
                     Licenciatura En Administración Pública
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={derechoCloseDropdown}
+                    //onClick={derechoCloseDropdown}
                 >
                     Licenciatura En Relaciones Internacionales
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={derechoCloseDropdown}
+                    //onClick={derechoCloseDropdown}
                 >
                     Abogacía
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={derechoCloseDropdown}
+                    //onClick={derechoCloseDropdown}
                 >
                     Escribanía
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={derechoCloseDropdown}
+                    //onClick={derechoCloseDropdown}
                 >
                     Licenciatura En Publicidad
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={derechoCloseDropdown}
+                    //onClick={derechoCloseDropdown}
                 >
                     Martillero, Corredor Público Y Corredor Inmobiliario
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={derechoCloseDropdown}
+                    //onClick={derechoCloseDropdown}
                 >
                     Procurador
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={derechoCloseDropdown}
+                    //onClick={derechoCloseDropdown}
                 >
                     Tecnicatura Universitaria En Administración Y Gestión De Políticas Públicas
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={derechoCloseDropdown}
+                    //onClick={derechoCloseDropdown}
                 >
                     Tecnicatura En Investigación De La Escena Del Crimen
                 </a>

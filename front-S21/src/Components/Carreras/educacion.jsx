@@ -46,26 +46,26 @@ export const Educacion = () => {
                 aria-orientation="vertical"
                 >
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold "
                     role="menuitem"
-                    onClick={educacionCloseDropdown}
+                    //onClick={educacionCloseDropdown}
                 >
                     {`Licenciatura En Educación (CCC)`}
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={educacionCloseDropdown}
+                    //onClick={educacionCloseDropdown}
                 >
                     Licenciatura en Educación y Nuevas Tecnologías
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={educacionCloseDropdown}
+                    //onClick={educacionCloseDropdown}
                 >
                     Tecnicatura Universitaria en Promoción Comunitaria en Niñez y Adolescencia.
                 </a>

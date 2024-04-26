@@ -46,154 +46,154 @@ export const Finanzas = ({ isOpen, toggleDropdown }) => {
                 aria-orientation="vertical"
                 >
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold "
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                     Licenciatura En Administración
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                     Actuario
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                     Licenciatura En Gestión De Recursos Humanos
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                    Contador Público
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                     Licenciatura En Comercialización
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                     Licenciatura en Administración de Servicios de Salud
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                     Licenciatura En Comercio Internacional
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                     Licenciatura En Matemática
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                     Licenciatura En Logística Global
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                     Licenciatura En Emprendimiento (CCC)
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                     Tecnicatura En Gestión Contable E Impositiva
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                     Tecnicatura En Dirección De Equipos De Ventas
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                     Tecnicatura En Relaciones Laborales
                 </a>
                 <a
-                    href="#"
+                   // href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                     Tecnicatura En Gestión De Empresas Familiares
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                     Tecnicatura Universitaria En Gestión Administrativa De Servicios De Salud
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                     Tecnicatura Universitaria En Gestión Del Clima Laboral En La Organización
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                     Tecnicatura En Responsabilidad Y Gestión Social
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                     Tecnicatura Universitaria En Marketing Y Publicidad Digital
                 </a>
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
                     role="menuitem"
-                    onClick={finanzasCloseDropdown}
+                    //onClick={finanzasCloseDropdown}
                 >
                     Tecnicatura En Administración Y Gestión Tributaria
                 </a>

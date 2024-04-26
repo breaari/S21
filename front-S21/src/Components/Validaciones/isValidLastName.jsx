@@ -16,12 +16,7 @@ export const isValidLastName = (lastName) => {
             return { valid: false, error: 'El apellido no debe contener espacios al inicio o al final' };
         }
 
-        const words = lastName.trim().split(' ');
-        if (words.length > 1) {
-            return { valid: false, error: 'El apellido debe contener máximo un espacio entre palabras' };
-        }
-
-        if (!/^[a-zA-Z]+$/.test(lastName.trim())) {
+        if (!/^[a-zA-Z ]+$/.test(lastName.trim())) {
             return { valid: false, error: 'El apellido solo puede contener letras' };
         }
 

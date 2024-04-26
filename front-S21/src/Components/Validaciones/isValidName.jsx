@@ -16,12 +16,8 @@ export const isValidName = (name) => {
             return { valid: false, error: 'El nombre no debe contener espacios al inicio o al final' };
         }
 
-        const words = name.trim().split(' ');
-        if (words.length > 1) {
-            return { valid: false, error: 'El nombre debe contener máximo un espacio entre palabras' };
-        }
 
-        if (!/^[a-zA-Z]+$/.test(name.trim())) {
+        if (!/^[a-zA-Z ]+$/.test(name.trim())) {
             return { valid: false, error: 'El nombre solo puede contener letras' };
         }
 
