@@ -3,13 +3,12 @@ const path = require('path');
 
 const jsonPath = path.join(__dirname, '../Carreras/carreras.json');
 
-const sendEmailBody = async (program, name, LastName) => {
+const sendEmailBody = async (program, name, lastName) => {
   try {
-    // Lee el archivo JSON que contiene la información de las carreras
+
     const rawdata = fs.readFileSync(jsonPath);
     const carreras = JSON.parse(rawdata);
 
-    // Busca la carrera que coincide con el nombre recibido en 'program'
     const carrera = carreras.Carreras.find(c => c.name === program);
 
     if (!carrera) {
@@ -18,11 +17,10 @@ const sendEmailBody = async (program, name, LastName) => {
 
     const { url } = carrera;
 
-    // Genera el cuerpo del correo con la URL obtenida
     const body = `
     <body style="font-family: Arial, sans-serif; background-color: #f5f5f5; color: #333; padding: 20px;">
 
-    <h2 style="color: #006400;">¡Hola ${name} ${LastName}!</h2>
+    <h2 style="color: #006400;">¡Hola ${name} ${lastName}!</h2>
 
     <p>Gracias por tu interés en la Universidad Siglo 21 y nuestra oferta académica. Estamos encantados de poder proporcionarte información sobre la carrera que te interesa.</p>
 

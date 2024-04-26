@@ -1,6 +1,26 @@
 {
     "Carreras": [
       {
+        "name": "Abogacía",
+        "url": "https://contenidos.21.edu.ar/descargas/art-43/brochure-abogacia.pdf",
+        "type": "grado"
+      },
+      {
+        "name": "Contador Público",
+        "url": "https://contenidos.21.edu.ar/descargas/art-43/brochure-contador_publico.pdf",
+        "type": "grado"
+      },
+      {
+        "name": "Escribanía",
+        "url": "https://contenidos.21.edu.ar/pdf/carreras/grado/escribania.pdf",
+        "type": "grado"
+      },
+      {
+        "name": "Actuario",
+        "url": "https://contenidos.21.edu.ar/descargas/carreras/nuevas-carreras/brochure-actuario.pdf",
+        "type": "grado"
+      },
+      {
         "name": "Lic. en Administración",
         "url": "#",
         "type": "grado"
@@ -27,7 +47,7 @@
       },
       {
         "name": "Lic. en Seguridad Informática",
-        "url": "#",
+        "url": "https://contenidos.21.edu.ar/descargas/carreras/nuevas-carreras/brochure-seguridad-informatica.pdf",
         "type": "grado"
       },
       {
@@ -48,21 +68,6 @@
       {
         "name": "Lic. en Bioinformática",
         "url": "#",
-        "type": "grado"
-      },
-      {
-        "name": "Abogacía",
-        "url": "https://contenidos.21.edu.ar/descargas/art-43/brochure-abogacia.pdf",
-        "type": "grado"
-      },
-      {
-        "name": "Contador Público",
-        "url": "https://contenidos.21.edu.ar/descargas/art-43/brochure-contador_publico.pdf",
-        "type": "grado"
-      },
-      {
-        "name": "Escribanía",
-        "url": "https://contenidos.21.edu.ar/pdf/carreras/grado/escribania.pdf",
         "type": "grado"
       },
       {
@@ -186,39 +191,59 @@
         "type": "grado"
       },
       {
-        "name": "Lic. en Seguridad Informática",
-        "url": "https://contenidos.21.edu.ar/descargas/carreras/nuevas-carreras/brochure-seguridad-informatica.pdf",
-        "type": "grado"
+        "name": "Especialización en Cibercrimen",
+        "url": "https://contenidos.21.edu.ar/descargas/brochure/brochure-especializacion-en-cibercrimen-_-modalidad-blend.pdf",
+        "type": "posgrado"
+      },
+      {
+        "name": "Esp. en Derecho de Familia, Niñez y Adolescencia",
+        "url": "https://contenidos.21.edu.ar/descargas/brochures-negocios-y-posgrados/especializacion-en-derecho-de-familia-ninez-y-adolescencia.pdf",
+        "type": "posgrado"
+      },
+      {
+        "name": "Esp. en Finanzas Corporativas y Mercado de Capitales",
+        "url": "https://contenidos.21.edu.ar/descargas/brochure-especializacion-en-finanzas-corporativas-y-mercado-de-capitales.pdf",
+        "type": "posgrado"
+      },
+      {
+        "name": "Esp. en Gestión y Gobierno de Empresas Familiares",
+        "url": "https://contenidos.21.edu.ar/descargas/brochure/gestion-y-gobierno-de-empresas-familiares_1503.pdf",
+        "type": "posgrado"
+      },
+      {
+        "name": "Especialización en Marketing y Dirección Comercial",
+        "url": "https://contenidos.21.edu.ar/descargas/carreras/virtual/mkt_direccion_comercial_virtual.pdf",
+        "type": "posgrado"
+      },
+      {
+        "name": "Especialización en Negocios Internacionales",
+        "url": "https://contenidos.21.edu.ar/descargas/carreras/virtual/negocios-internacionales_virtual.pdf",
+        "type": "posgrado"
       },
       {
         "name": "Maestría en Administración de Empresas",
-        "url": "#",
-        "type": "maestría"
+        "url": "https://contenidos.21.edu.ar/descargas/carreras/virtual/brochure-mba-virtual.pdf",
+        "type": "posgrado"
       },
       {
         "name": "Maestría en Derecho Internacional",
-        "url": "#",
-        "type": "maestría"
+        "url": "https://contenidos.21.edu.ar/descargas/brochure/maestria-en-derecho-internacional-siglo-21.pdf",
+        "type": "posgrado"
       },
       {
         "name": "Maestría en Innovación Educativa",
-        "url": "#",
-        "type": "maestría"
+        "url": "https://contenidos.21.edu.ar/descargas/brochure-maestria-en-innovacion-educativa-2.pdf",
+        "type": "posgrado"
       },
       {
         "name": "Maestría en Adm. de Neg. y Ap. Tec. en la Empresa",
-        "url": "#",
-        "type": "maestría"
+        "url": "https://contenidos.21.edu.ar/descargas/brochure/maestria-en-administracion-de-negocios-y-aplicaciones-tecnologicas-en-la-empresa-siglo-21.pdf",
+        "type": "posgrado"
       },
       {
         "name": "Maestría en Derecho Procesal",
-        "url": "#",
-        "type": "maestría"
-      },
-      {
-        "name": "Actuario",
-        "url": "https://contenidos.21.edu.ar/descargas/carreras/nuevas-carreras/brochure-actuario.pdf",
-        "type": "grado"
+        "url": "https://contenidos.21.edu.ar/descargas/brochure/maestria-en-derecho-procesal-siglo-21.pdf",
+        "type": "posgrado"
       },
       {
         "name": "Martillero, Corredor Público y Corredor Inmobiliario",
