@@ -7,7 +7,9 @@ module.exports = {
           verde: "#006C5B",
           blanco: "#FFFFFF",
           grisoscuro: "#666666",
-          grisclaro: "#F5F5F5"
+          grisclaro: "#F5F5F5",
+          verdeclaro: "#009486",
+          grisoscuro2: "#4D5159"
         },
         fontFamily: {
             sans: ['Barlow', 'Montserrat', 'Roboto', 'sans-serif'],

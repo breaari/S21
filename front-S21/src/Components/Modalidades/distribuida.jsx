@@ -13,7 +13,7 @@ export const Distribuida = () => {
         };
 
     return (
-        <div className={`${distribuidaIsOpen ? 'h-auto' : 'h-[60px]'} shadow-md w-[320px] bg-verde py-4 px-2 rounded-md m-1`}>
+        <div className={`${distribuidaIsOpen ? 'h-auto' : 'h-[60px]'} shadow-md w-[320px] bg-verde py-4 px-2 rounded-md m-1 `}>
             <button
                 type="button"
                 className="font-bold flex justify-center items-center text-[18px] text-blanco dropdown-toggle ml-3"
@@ -43,10 +43,10 @@ export const Distribuida = () => {
                 aria-orientation="vertical"
                 >
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-blanco "
                     role="menuitem"
-                    onClick={distribuidaCloseDropdown}
+                    //onClick={distribuidaCloseDropdown}
                 >
                     Reúne las mejores prácticas de la educación a distancia y las mejores de la educación presencial. Se estudia de manera online y se asiste 1 vez por semana a una teleclase en el Centro de Apoyo Universitario más cercano. Todo en compañía de compañeros de cursado y un tutor de aprendizaje presencial. Los exámenes se rinden en el mismo lugar.
                 </a>

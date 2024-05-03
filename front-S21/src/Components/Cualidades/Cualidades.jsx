@@ -7,7 +7,7 @@ export const Cualidades = () => {
             <h1 className="font-bold flex justify-center items-center text-center text-[32px] mq980:text-[24px] text-verde pt-[45px] mq980:pt-[20px] max-w-[80%]">
                 Elegí una Universidad que impulsa tu propósito y que está cerca tuyo para ayudarte a cada paso.
             </h1><h1 className="font-bold flex justify-center items-center text-center text-[32px] mq980:text-[24px] text-verde mb-[20px] max-w-[80%]">
-                Mar del Plata - Villa Gesell - Necochea - Partido de La Costa.
+                Mar del Plata - Villa Gesell - Necochea - La Costa.
             </h1>
             <div className="mq980:flex-col flex-row flex items-center justify-center"> 
                 <div className="w-[220px] text-center mr-[40px] mq980:mr-[0px] mb-[25px]">

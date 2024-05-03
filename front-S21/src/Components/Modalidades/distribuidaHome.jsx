@@ -43,10 +43,10 @@ export const DistribuidaHome = () => {
                 aria-orientation="vertical"
                 >
                 <a
-                    href="#"
+                    //href="#"
                     className="block px-10 py-2 text-sm text-blanco"
                     role="menuitem"
-                    onClick={distribuidaHomeCloseDropdown}
+                    //onClick={distribuidaHomeCloseDropdown}
                 >
                     Modalidad 100% online pensada para quienes quieren alcanzar un título y no cuentan con la posibilidad o prefieren no asistir a clases presenciales. Cuenta con innovaciones tecnológicas que permiten la comunicación constante y en tiempo real con compañeros y profesores virtuales en cada materia.
                 </a>

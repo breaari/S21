@@ -6,6 +6,7 @@ import { Formulario } from "../../Components/Formulario/Formulario";
 import { Beneficios } from "../../Components/Beneficios/Beneficios";
 import { Footer } from "../../Components/Footer/Footer";
 import { Whatsapp } from "../../Components/Whatsapp/Whatsapp";
+import { Caus } from "../../Components/CAUS/Caus"
 
 export const Landing = () => {
     //quiero hace run commit
@@ -19,6 +20,7 @@ export const Landing = () => {
             <Formulario></Formulario>
             </div>
             <Beneficios></Beneficios>
+            <Caus></Caus>
             <Footer></Footer>
             <Whatsapp></Whatsapp>
             

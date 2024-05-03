@@ -3,21 +3,63 @@ import 'boxicons'
 
 export const Beneficios = () => {
     return (
-        <div className="flex flex-row mq980:flex-col justify-evenly gap-1 items-center my-12">
-            <div className='flex flex-col justify-center items-center w-[500px]'>
-                <box-icon name='football' size='132px' color='#006C5B' ></box-icon>
-                <h2 className="font-bold flex justify-center items-center text-[18px] text-grisoscuro w-[340px] text-center">
-                    Beneficios para deportistas federados 10% de descuento en aranceles.
-                </h2>
+        <div className="bg-blanco py-[20px]">
+            <h1 className=" w-[95%] font-bold flex justify-center items-center text-center text-[32px] mq980:text-[24px] text-verde mq980:pt-[0px]">
+                Beneficios
+            </h1>
+        
+        <div className=" flex flex-wrap justify-around p-4 text-sm">
+            <div className="bg-verdeclaro flex flex-row justify-center items-center p-5 w-[33%] mb-[0.4%] hover:scale-105 transition-transform duration-300 cursor-pointer">
+                <box-icon name='football' size='50px' color='#FFFFFF' ></box-icon>
+                <h2 className="text-blanco ml-5">
+                <a className="text-blanco font-semibold">Descuento para deportistas federados, </a> 
+                en aranceles, para carreras de pre-grado y grado.</h2>
             </div>
-            <div className='flex flex-col justify-center items-center w-[500px]'>
-                <div className='bg-verde rounded-[100px] w-[116px] h-[116px] flex items-center justify-center mb-[8px] mt-[32px]'>
-                    <i className="fa-solid fa-handshake fa-5x" style={{ color: '#fafcff' }}></i>
-                </div>
-                <h2 className="font-bold flex justify-center items-center text-[18px] text-grisoscuro w-[440px] mq980:w-screen mq980:px-[20px] text-center">
-                    Beneficio por "organización amiga" 10% de bonificación sobre los aranceles de carreras de grado para miembros de empresas con convenio y sus familias.
-                </h2>
+            <div className="bg-grisoscuro2 flex flex-row justify-center items-center p-5 w-[33%] h-[33%] mb-[0.4%] hover:scale-105 transition-transform duration-300 cursor-pointer">
+                <box-icon type='solid' name='graduation'  size='50px' color='#FFFFFF'></box-icon>
+                <h2 className="text-blanco ml-5">Si sos egresado de la Universidad, podés articular una nueva carrera, con descuento en sus aranceles.</h2>
             </div>
+            <div className="bg-verde flex flex-row justify-center items-center p-5 w-[33%] mb-[0.4%] hover:scale-105 transition-transform duration-300 cursor-pointer">
+                <i class="fa-solid fa-arrow-rotate-left fa-3x" style={{ color: '#FFFFFF' }}></i>
+                <h2 className="text-blanco ml-5">Garantía de Adaptación, para alumnos que cursan a distancia y necesitan cursar nuevamente el semestre inicial de la carrera</h2>
+            </div>
+
+            <div className="bg-grisoscuro2 flex flex-row justify-center items-center p-5 w-[33%] mb-[0.4%] hover:scale-105 transition-transform duration-300 cursor-pointer">
+                <box-icon type='solid' name='lock'  size='50px' color='#FFFFFF'></box-icon>
+                <h2 className="text-blanco ml-5">
+                <a className="text-blanco font-semibold">Seguro de Continuidad: </a>
+                te permite continuar un semestre gratis a vos o a tu cónyuge, en el caso de quedarse sin trabajo.</h2>
+            </div>
+            <div className="bg-verde flex flex-row justify-center items-center p-5 w-[33%] mb-[0.4%] hover:scale-105 transition-transform duration-300 cursor-pointer">
+                <i className="fa-regular fa-handshake fa-3x" style={{ color: '#FFFFFF' }}></i>
+                <h2 className="text-blanco ml-5">Miembros y familiares de 
+                <a className="text-blanco font-semibold"> Empresas Amigas, </a>
+                cuentan con una bonificación sobre los aranceles de carreras de grado.</h2>
+            </div>
+            <div className="bg-verdeclaro flex flex-row justify-center items-center p-5 w-[33%] mb-[0.4%] hover:scale-105 transition-transform duration-300 cursor-pointer">
+                <i class="fa-solid fa-list-check fa-3x" style={{ color: '#FFFFFF' }}></i>
+                <h2 className="text-blanco ml-5">Beneficio de descuento automático por buen rendimiento académico.</h2>
+            </div>
+
+            <div className="bg-verde flex flex-row justify-center items-center p-5 w-[33%] hover:scale-105 transition-transform duration-300 cursor-pointer">
+                <box-icon type='solid' name='user-plus' size='50px' color='#FFFFFF'></box-icon>
+                <h2 className="text-blanco ml-5">
+                <a className="text-blanco font-semibold">Beneficio por alumno referido. </a>
+                Si sos alumno y recomendás a un ingresante, ambos recibirán una bonificación sobre la matrícula.</h2>
+            </div>
+            <div className="bg-verdeclaro flex flex-row justify-center items-center p-5 w-[33%] hover:scale-105 transition-transform duration-300 cursor-pointer">
+                <i class="fa-solid fa-users fa-3x" style={{ color: '#FFFFFF' }}></i>
+                <h2 className="text-blanco ml-5">
+                <a className="text-blanco font-semibold">Beneficio por familiar directo, </a> 
+                 para hermanos, padres, hijos o cónyuges de alumnos de Siglo 21. </h2>
+            </div>
+            <div className="bg-grisoscuro2 flex flex-row justify-center items-center p-5 w-[33%] hover:scale-105 transition-transform duration-300 cursor-pointer">
+                <i class="fa-solid fa-hand-holding-dollar fa-3x" style={{ color: '#FFFFFF' }}></i>
+                <h2 className="text-blanco ml-5">
+                Ahorros y descuentos por inscripción anticipada en modalidades a distancia.</h2>
+            </div>
+           
+        </div>
         </div>
     )
 }
