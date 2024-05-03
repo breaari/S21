@@ -262,7 +262,7 @@ export const Formulario = () => {
                         className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                     <option disabled selected value='Seleccioná'>Seleccioná</option>
                     <option value='Mar del Plata'>Mar del Plata</option>
-                    <option value='Partido de La Costa'>Partido de La Costa</option>
+                    <option value='La Costa'>La Costa</option>
                     <option value='Villa Gesell'>Villa Gesell</option>
                     <option value='Necochea'>Necochea</option>
                 </select>
