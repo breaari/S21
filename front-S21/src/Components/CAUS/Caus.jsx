@@ -28,7 +28,7 @@ export const Caus = () => {
                     target="_blank" rel="noopener noreferrer">226 751-1914</a>
                 </div>
             </div>
-            <div className="shadow-md bg-blanco rounded-md flex flex-row text-md justify-start items-center w-[550px] p-5">
+            <div className="shadow-md bg-blanco rounded-md flex flex-row text-md justify-start items-center w-[550px] p-5 mq980:mb-5">
                 <img className= "h-[60px] w-[60px] mx-2"src={pinmap}></img>
                 <div className="flex flex-col">
                     <a className="font-bold  text-verde ">Centro de Aprendizaje Universitario Necochea</a>
