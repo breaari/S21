@@ -187,7 +187,10 @@ export const Formulario = () => {
 
     return (
         <div className=" bg-grisclaro w-[95%] mq980:w-full mq980:mr-0 mr-[20px] flex  mq980:justify-center items-start">
-            <form onSubmit={handleSubmit}
+            <form onSubmit={(e) => {
+                      fbq('track', 'Lead');
+                      handleSubmit(e);
+                  }}
                 className="bg-blanco rounded-md flex flex-col justify-start py-4 px-6 mq980:w-[90%] mq980:rounded-md min-w-[470px] mq980:min-w-[200px]">
                 <a className="text-verde font-semibold text-[24px]">Contacto</a>
                 <label className="text-grisoscuro py-1">Tipo de programa</label>
