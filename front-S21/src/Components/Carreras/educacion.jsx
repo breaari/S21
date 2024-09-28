@@ -51,7 +51,16 @@ export const Educacion = () => {
                     role="menuitem"
                     //onClick={educacionCloseDropdown}
                 >
-                    {`Licenciatura En Educación (CCC)`}
+                    {`Licenciatura en Psicología (PD)`}
+                    <a className="ml-2 bg-verde rounded-md h-10 w-10 text-white text-[10px] font-semibold py-1 px-2">Nueva carrera</a>
+                </a>
+                <a
+                    //href="#"
+                    className="block px-10 py-2 text-sm text-grisoscuro font-semibold "
+                    role="menuitem"
+                    //onClick={educacionCloseDropdown}
+                >
+                    {`Licenciatura en Educación (CCC)`}
                 </a>
                 <a
                     //href="#"
@@ -60,6 +69,14 @@ export const Educacion = () => {
                     //onClick={educacionCloseDropdown}
                 >
                     Licenciatura en Educación y Nuevas Tecnologías
+                </a>
+                <a
+                    //href="#"
+                    className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
+                    role="menuitem"
+                    //onClick={finanzasCloseDropdown}
+                >
+                    Licenciatura en Matemática
                 </a>
                 <a
                     //href="#"

@@ -49,9 +49,26 @@ export const Diseño = () => {
                     //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold "
                     role="menuitem"
+                    //onClick={educacionCloseDropdown}
+                >
+                    {`Licenciatura en Diseño Gráfico (PD)`}
+                    <a className="ml-2 bg-verde rounded-md h-10 w-10 text-white text-[10px] font-semibold py-1 px-2">Nueva carrera</a>
+                </a>
+                <a
+                    //href="#"
+                    className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
+                    role="menuitem"
+                    //onClick={derechoCloseDropdown}
+                >
+                    Licenciatura en Publicidad
+                </a>
+                <a
+                    //href="#"
+                    className="block px-10 py-2 text-sm text-grisoscuro font-semibold "
+                    role="menuitem"
                     //onClick={diseñoCloseDropdown}
                 >
-                    Licenciatura En Relaciones Públicas E Institucionales
+                    Licenciatura en Relaciones Públicas e Institucionales
                 </a>
                 <a
                     //href="#"
@@ -59,7 +76,7 @@ export const Diseño = () => {
                     role="menuitem"
                     //onClick={diseñoCloseDropdown}
                 >
-                    Licenciatura En Periodismo
+                    Licenciatura en Periodismo
                 </a>
                 <a
                     //href="#"
@@ -67,7 +84,7 @@ export const Diseño = () => {
                     role="menuitem"
                     //onClick={diseñoCloseDropdown}
                 >
-                    Licenciatura En Diseño Y Animación Digital
+                    Licenciatura en Diseño y Animación Digital
                 </a>
                 <a
                     //href="#"
@@ -75,7 +92,7 @@ export const Diseño = () => {
                     role="menuitem"
                     //onClick={diseñoCloseDropdown}
                 >
-                    Tecnicatura Universitaria En Gestión De Moda
+                    Tecnicatura Universitaria en Gestión de Moda
                 </a>
                 <a
                     //href="#"
@@ -83,7 +100,7 @@ export const Diseño = () => {
                     role="menuitem"
                     //onClick={diseñoCloseDropdown}
                 >
-                    Tecnicatura Universitaria En Diseño Y Animación Digital
+                    Tecnicatura Universitaria en Diseño y Animación Digital
                 </a>
                 <a
                     //href="#"
@@ -91,7 +108,7 @@ export const Diseño = () => {
                     role="menuitem"
                     //onClick={diseñoCloseDropdown}
                 >
-                    Tecnicatura En Dirección De Protocolo, Organización De Eventos Y Relaciones Públicas
+                    Tecnicatura en Dirección de Protocolo, Organización de Eventos y Relaciones Públicas
                 </a>
                 
                 </div>

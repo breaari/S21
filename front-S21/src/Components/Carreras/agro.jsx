@@ -67,14 +67,6 @@ export const Agro = () => {
                     role="menuitem"
                     //onClick={agroCloseDropdown}
                 >
-                    Licenciatura en Antropología Organizacional
-                </a>
-                <a
-                    //href="#"
-                    className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
-                    role="menuitem"
-                    //onClick={agroCloseDropdown}
-                >
                     Licenciatura en Administración Agraria
                 </a>
                 <a
@@ -84,6 +76,14 @@ export const Agro = () => {
                     //onClick={agroCloseDropdown}
                 >
                     Licenciatura en Gestión Ambiental
+                </a>
+                <a
+                    //href="#"
+                    className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
+                    role="menuitem"
+                    //onClick={ingenieriaCloseDropdown}
+                >
+                    Tecnicatura en Higiene y Seguridad Laboral
                 </a>
                 <a
                     //href="#"

@@ -51,7 +51,7 @@ export const Derecho = () => {
                     role="menuitem"
                     //onClick={derechoCloseDropdown}
                 >
-                    Licenciatura En Criminología Y Seguridad
+                    Licenciatura en Criminología Y Seguridad
                 </a>
                 <a
                     //href="#"
@@ -59,7 +59,7 @@ export const Derecho = () => {
                     role="menuitem"
                    // onClick={derechoCloseDropdown}
                 >
-                    Licenciatura En Ciencia Política Y Gobierno
+                    Licenciatura en Ciencia Política y Gobierno
                 </a>
                 <a
                     //href="#"
@@ -67,7 +67,7 @@ export const Derecho = () => {
                     role="menuitem"
                     //onClick={derechoCloseDropdown}
                 >
-                    Licenciatura En Administración Pública
+                    Licenciatura en Administración Pública
                 </a>
                 <a
                     //href="#"
@@ -75,7 +75,7 @@ export const Derecho = () => {
                     role="menuitem"
                     //onClick={derechoCloseDropdown}
                 >
-                    Licenciatura En Relaciones Internacionales
+                    Licenciatura en Relaciones Internacionales
                 </a>
                 <a
                     //href="#"
@@ -84,6 +84,14 @@ export const Derecho = () => {
                     //onClick={derechoCloseDropdown}
                 >
                     Abogacía
+                </a>
+                <a
+                    //href="#"
+                    className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
+                    role="menuitem"
+                    //onClick={agroCloseDropdown}
+                >
+                    Licenciatura en Antropología Organizacional
                 </a>
                 <a
                     //href="#"
@@ -99,15 +107,7 @@ export const Derecho = () => {
                     role="menuitem"
                     //onClick={derechoCloseDropdown}
                 >
-                    Licenciatura En Publicidad
-                </a>
-                <a
-                    //href="#"
-                    className="block px-10 py-2 text-sm text-grisoscuro font-semibold"
-                    role="menuitem"
-                    //onClick={derechoCloseDropdown}
-                >
-                    Martillero, Corredor Público Y Corredor Inmobiliario
+                    Martillero, Corredor Público y Corredor Inmobiliario
                 </a>
                 <a
                     //href="#"
@@ -123,7 +123,7 @@ export const Derecho = () => {
                     role="menuitem"
                     //onClick={derechoCloseDropdown}
                 >
-                    Tecnicatura Universitaria En Administración Y Gestión De Políticas Públicas
+                    Tecnicatura Universitaria en Administración y Gestión de Políticas Públicas
                 </a>
                 <a
                     //href="#"
@@ -131,7 +131,7 @@ export const Derecho = () => {
                     role="menuitem"
                     //onClick={derechoCloseDropdown}
                 >
-                    Tecnicatura En Investigación De La Escena Del Crimen
+                    Tecnicatura en Investigación de la Escena del Crimen
                 </a>
                 
                 </div>

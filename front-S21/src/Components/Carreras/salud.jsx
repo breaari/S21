@@ -51,6 +51,24 @@ export const Salud = () => {
                     //href="#"
                     className="block px-10 py-2 text-sm text-grisoscuro font-semibold "
                     role="menuitem"
+                    //onClick={educacionCloseDropdown}
+                >
+                    {`Licenciatura en Fonoaudiología (PD)`}
+                    <a className="ml-2 bg-verde rounded-md h-10 w-10 text-white text-[10px] font-semibold py-1 px-2">Nueva carrera</a>
+                </a>
+                <a
+                    //href="#"
+                    className="block px-10 py-2 text-sm text-grisoscuro font-semibold "
+                    role="menuitem"
+                    //onClick={educacionCloseDropdown}
+                >
+                    {`Licenciatura en Nutrición (PD)`}
+                    <a className="ml-2 bg-verde rounded-md h-10 w-10 text-white text-[10px] font-semibold py-1 px-2">Nueva carrera</a>
+                </a>
+                <a
+                    //href="#"
+                    className="block px-10 py-2 text-sm text-grisoscuro font-semibold "
+                    role="menuitem"
                     //onClick={saludCloseDropdown}
                 >
                     Licenciatura en Gerontología
@@ -69,7 +87,16 @@ export const Salud = () => {
                     role="menuitem"
                     //onClick={saludCloseDropdown}
                 >
-                    Licenciatura En Terapia Ocupacional Y Desarrollo Humano
+                    Licenciatura en Terapia Ocupacional y Desarrollo Humano
+                </a>
+                <a
+                    //href="#"
+                    className="block px-10 py-2 text-sm text-grisoscuro font-semibold "
+                    role="menuitem"
+                    //onClick={educacionCloseDropdown}
+                >
+                    {`Tecnicatura en Enfermería (PD)`}
+                    <a className="ml-2 bg-verde rounded-md h-10 w-10 text-white text-[10px] font-semibold py-1 px-2">Nueva carrera</a>
                 </a>
                 <a
                     //href="#"
@@ -77,7 +104,7 @@ export const Salud = () => {
                     role="menuitem"
                     //onClick={saludCloseDropdown}
                 >
-                    Tecnicatura Universitaria En Gestión Administrativa De Servicios De Salud
+                    Tecnicatura Universitaria en Gestión Administrativa de Servicios de Salud
                 </a>
                 <a
                     //href="#"

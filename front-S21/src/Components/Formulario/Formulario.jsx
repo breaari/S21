@@ -182,7 +182,10 @@ export const Formulario = () => {
         }
       };
 
-    const { getProgramsByType } = usePrograms();
+    // const { getProgramsByType } = usePrograms();
+    const { getProgramsByModalityAndType } = usePrograms();
+
+    const filteredPrograms = getProgramsByModalityAndType(input.modality, input.type);
 
 
     return (
@@ -193,6 +196,15 @@ export const Formulario = () => {
                   }}
                 className="bg-blanco rounded-md flex flex-col justify-start py-4 px-6 mq980:w-[90%] mq980:rounded-md min-w-[470px] mq980:min-w-[200px]">
                 <a className="text-verde font-semibold text-[24px]">Contacto</a>
+                <label className="text-grisoscuro py-1">Modalidad</label>
+                <select name='modality' onChange={handleChange} onClick={handleChange} value= {input.modality? input.modality : 'Seleccioná'}
+                        className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
+                    <option disabled selected value='Seleccioná'>Seleccioná</option>
+                    <option value='presencial'>Educación Presencial Distribuida</option>
+                    <option value='distancia'>Educación Distribuida (1 Encuentro Semanal)</option>
+                    <option value='distancia'>Educación Distribuida Home (100% Online)</option>
+                </select>
+                <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.modality.error}</p>
                 <label className="text-grisoscuro py-1">Tipo de programa</label>
                 <select name='type' onChange={handleProgramChange} onClick={handleProgramChange} value= {input.type? input.type : 'Seleccioná'}
                         className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
@@ -206,7 +218,12 @@ export const Formulario = () => {
                 <select name="program" value={input.program} onChange={handleProgramChange} onClick={handleProgramChange}  
                         className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                     <option disabled selected value='Seleccioná' className="">Seleccioná</option>
-                    {getProgramsByType(input.type)?.map((program) => (
+                    {/* {getProgramsByType(input.type)?.map((program) => (
+                      <option key={program.name} value={program.name}>
+                        {program.name}
+                      </option>
+                    ))} */}
+                    {filteredPrograms.map((program) => (
                       <option key={program.name} value={program.name}>
                         {program.name}
                       </option>
@@ -223,14 +240,6 @@ export const Formulario = () => {
                     />
                     <label className="text-grisoscuro font-semibold py-2"> Quiero acreditar equivalencias</label>
                 </div>
-                <label className="text-grisoscuro py-1">Modalidad</label>
-                <select name='modality' onChange={handleChange} onClick={handleChange} value= {input.modality? input.modality : 'Seleccioná'}
-                        className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
-                    <option disabled selected value='Seleccioná'>Seleccioná</option>
-                    <option value='ED'>Educación Distribuida (1 Encuentro Semanal)</option>
-                    <option value='EDH'>Educación Distribuida Home (100% Online)</option>
-                </select>
-                <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.modality.error}</p>
                 <label className="text-grisoscuro py-1">Correo Electrónico</label>
                 <input name='email' value={input.email} onChange={handleChange} maxLength={36}
                         className="bg-grisclaro p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
