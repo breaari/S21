@@ -1,58 +1,104 @@
+// import React, { useState } from "react";
+// import { IoIosArrowDown } from "react-icons/io";
+
+// export const Distribuida = () => {
+//   const [distribuidaIsOpen, setDistribuidaIsOpen] = useState(false);
+
+//   const distribuidaToggleDropdown = () => {
+//     setDistribuidaIsOpen(!distribuidaIsOpen);
+//   };
+
+//   return (
+//     <div className="w-full bg-white py-4 px-2 rounded-md mq980:mb-4">
+//       <button
+//         type="button"
+//         className="font-medium flex justify-between items-center text-[22px] text-verde px-3 w-full"
+//         onClick={distribuidaToggleDropdown}
+//         aria-expanded={distribuidaIsOpen ? 'true' : 'false'}
+//       >
+//         <span className="font-lexend font-light">Educación Distribuida</span>
+//         <IoIosArrowDown className="ml-auto" />
+//       </button>
+    
+//     {distribuidaIsOpen && (
+//         <div className="w-[95%] rounded-md bg-transparent mt-2">
+//             <a className="block px-10 py-2 text-sm" role="menuitem">    
+//                 <ul className="list-inside list-disc text-grisoscuro">
+//                     <li>Estudiá de manera <strong>online</strong>, adaptando el cursado a tus necesidades.</li>
+//                     <li >Asistí a <strong>4 encuentros presenciales</strong> OPEN CLASS por materia, cada 15 días en tu <strong>Centro de Apoyo Universitario (CAU)</strong> y el resto cursalo a través de la <strong>Plataforma Multimedia</strong> con el respaldo de un <strong>profesor</strong>.</li>
+//                     <li >Viví diferentes instancias en el recorrido de tus materias:</li>
+//                     <li ><strong>SAM CLASS:</strong> desarrollá consignas prácticas para trabajar con tus compañeros y el tutor dinamizador.</li>
+//                     <li ><strong>EVA 21:</strong> instancia en donde presentarás un trabajo práctico con el apoyo de un tutor dinamizador.</li>
+//                     <li><strong>EXPERIENCIAS 21:</strong> etapa de aprendizaje diferencial donde buscamos sumar valor a tu perfil profesional llenándolo de experiencias que lo enriquezcan.</li>
+//                 </ul>
+//             </a>
+//         </div>
+//     )}
+
+//     </div>
+//   );
+// };
+
 import React, { useState } from "react";
+import { IoIosArrowDown } from "react-icons/io";
 
 export const Distribuida = () => {
+  const [distribuidaIsOpen, setDistribuidaIsOpen] = useState(false);
 
-        const [distribuidaIsOpen, setDistribuidaIsOpen] = useState(false);
-      
-        const distribuidaToggleDropdown = () => {
-          setDistribuidaIsOpen(!distribuidaIsOpen);
-        };
-      
-        const distribuidaCloseDropdown = () => {
-          setDistribuidaIsOpen(false);
-        };
+  const distribuidaToggleDropdown = () => {
+    setDistribuidaIsOpen(!distribuidaIsOpen);
+  };
 
-    return (
-        <div className={`${distribuidaIsOpen ? 'h-auto' : 'h-[60px]'} shadow-md w-[320px] bg-verde py-4 px-2 rounded-md m-1 `}>
-            <button
-                type="button"
-                className="font-bold flex justify-center items-center text-[18px] text-blanco dropdown-toggle ml-3"
-                onClick={distribuidaToggleDropdown}
-                aria-expanded={distribuidaIsOpen ? 'true' : 'false'}
-            >
-                Educación Distribuida
-                <svg
-                    className={`mr-1 ml-20 h-5 w-5 ${distribuidaIsOpen ? 'transform rotate-180' : ''}`}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                    >
-                    <path
-                        fillRule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 11.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                    />
-                </svg>
-            </button>
-           
-            {distribuidaIsOpen && (
-                <div
-                className="relative w-[300px] rounded-md bg-transparent  dropdown-menu "
-                role="menu"
-                aria-orientation="vertical"
-                >
-                <a
-                    //href="#"
-                    className="block px-10 py-2 text-sm text-blanco "
-                    role="menuitem"
-                    //onClick={distribuidaCloseDropdown}
-                >
-                    Reúne las mejores prácticas de la educación a distancia y las mejores de la educación presencial. Se estudia de manera online y se asiste 1 vez por semana a una teleclase en el Centro de Apoyo Universitario más cercano. Todo en compañía de compañeros de cursado y un tutor de aprendizaje presencial. Los exámenes se rinden en el mismo lugar.
-                </a>
-                
-                </div>
-            )}
-        </div> 
-    )
+  return (
+    <div className="w-full bg-white py-4 px-2 rounded-md mq980:mb-4 m-1 mq980:m-0">
+      <button
+        type="button"
+        className="font-medium flex justify-between items-center text-[22px] text-verde px-3 w-full"
+        onClick={distribuidaToggleDropdown}
+        aria-expanded={distribuidaIsOpen ? 'true' : 'false'}
+      >
+        <span className="font-lexend font-light">Educación Distribuida</span>
+        <IoIosArrowDown className="ml-auto" />
+      </button>
+
+      <div
+        className={`transition-[max-height] duration-500 ease-in-out overflow-hidden ${
+          distribuidaIsOpen ? "max-h-[500px]" : "max-h-0"
+        }`}
+      >
+        <div className="w-[95%] rounded-md bg-transparent mt-2">
+          <a className="block px-10 py-2 text-sm" role="menuitem">
+            <ul className="list-inside list-disc text-grisoscuro">
+              <li>
+                Estudiá de manera <strong>online</strong>, adaptando el cursado a
+                tus necesidades.
+              </li>
+              <li>
+                Asistí a <strong>4 encuentros presenciales</strong> OPEN CLASS por
+                materia, cada 15 días en tu{" "}
+                <strong>Centro de Apoyo Universitario (CAU)</strong> y el resto
+                cursalo a través de la{" "}
+                <strong>Plataforma Multimedia</strong> con el respaldo de un{" "}
+                <strong>profesor</strong>.
+              </li>
+              <li>Viví diferentes instancias en el recorrido de tus materias:</li>
+              <li>
+                <strong>SAM CLASS:</strong> desarrollá consignas prácticas para
+                trabajar con tus compañeros y el tutor dinamizador.
+              </li>
+              <li>
+                <strong>EVA 21:</strong> instancia en donde presentarás un trabajo
+                práctico con el apoyo de un tutor dinamizador.
+              </li>
+              <li>
+                <strong>EXPERIENCIAS 21:</strong> etapa de aprendizaje diferencial
+                donde buscamos sumar valor a tu perfil profesional llenándolo de
+                experiencias que lo enriquezcan.
+              </li>
+            </ul>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
 };

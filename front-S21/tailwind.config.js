@@ -9,9 +9,12 @@ module.exports = {
           grisoscuro: "#666666",
           grisclaro: "#F5F5F5",
           verdeclaro: "#009486",
-          grisoscuro2: "#4D5159"
+          grisoscuro2: "#4D5159",
+          violeta: "#772583",
+          verdeoscuro: "#093838"
         },
         fontFamily: {
+            lexend: ['Lexend', 'sans-serif'],
             sans: ['Barlow', 'Montserrat', 'Roboto', 'sans-serif'],
         },
         borderRadius: {

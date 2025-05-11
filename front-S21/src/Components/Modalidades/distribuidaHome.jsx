@@ -1,58 +1,43 @@
+
+
+// 
 import React, { useState } from "react";
+import { IoIosArrowDown } from "react-icons/io";
 
 export const DistribuidaHome = () => {
+  const [distribuidaHomeIsOpen, setDistribuidaHomeIsOpen] = useState(false);
 
-        const [distribuidaHomeIsOpen, setDistribuidaHomeIsOpen] = useState(false);
-      
-        const distribuidaHomeToggleDropdown = () => {
-          setDistribuidaHomeIsOpen(!distribuidaHomeIsOpen);
-        };
-      
-        const distribuidaHomeCloseDropdown = () => {
-          setDistribuidaHomeIsOpen(false);
-        };
+  const distribuidaHomeToggleDropdown = () => {
+    setDistribuidaHomeIsOpen(!distribuidaHomeIsOpen);
+  };
 
-    return (
-        <div className={`${distribuidaHomeIsOpen ? 'h-auto' : 'h-[60px]'} shadow-md w-[320px] bg-verde py-4 px-2 rounded-md m-1 mq980:mb-[45px] `}>
-            <button
-                type="button"
-                className="font-bold flex justify-center items-center text-[18px] text-blanco dropdown-toggle ml-3"
-                onClick={distribuidaHomeToggleDropdown}
-                aria-expanded={distribuidaHomeIsOpen ? 'true' : 'false'}
-            >
-                Educación Distribuida Home
-                <svg
-                    className={`mr-1 ml-8 h-5 w-5 ${distribuidaHomeIsOpen ? 'transform rotate-180' : ''}`}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                    >
-                    <path
-                        fillRule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 11.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                    />
-                </svg>
-            </button>
+  return (
+    <div className="w-full bg-white py-4 px-2 rounded-md m-1 mq980:m-0">
+      <button
+        type="button"
+        className="font-medium flex justify-between items-center text-[22px] text-verde px-3 w-full"
+        onClick={distribuidaHomeToggleDropdown}
+        aria-expanded={distribuidaHomeIsOpen ? 'true' : 'false'}
+      >
+        <span className="font-lexend font-light mq980:text-start">Educación Distribuida Home</span>
+        <IoIosArrowDown className="ml-auto" />
+      </button>
 
-            {distribuidaHomeIsOpen && (
-                <div
-                className="relative w-[300px] rounded-md bg-transparent dropdown-menu transition-all duration-1000 ease-linear"
-                role="menu"
-                aria-orientation="vertical"
-                >
-                <a
-                    //href="#"
-                    className="block px-10 py-2 text-sm text-blanco"
-                    role="menuitem"
-                    //onClick={distribuidaHomeCloseDropdown}
-                >
-                    Modalidad 100% online pensada para quienes quieren alcanzar un título y no cuentan con la posibilidad o prefieren no asistir a clases presenciales. Cuenta con innovaciones tecnológicas que permiten la comunicación constante y en tiempo real con compañeros y profesores virtuales en cada materia.
-                </a>
-                
-                </div>
-            )}
-        </div> 
-    )
-}
+      <div
+        className={`transition-[max-height] duration-500 ease-in-out overflow-hidden ${
+          distribuidaHomeIsOpen ? "max-h-[500px]" : "max-h-0"
+        }`}
+      >
+        <div className="w-[95%] rounded-md bg-transparent mt-2">
+          <a className="block px-10 py-2 text-sm" role="menuitem">
+            <ul className="list-inside list-disc text-grisoscuro">
+              <li>Formate <strong>desde donde estés</strong>.</li>
+              <li>Estudiá de manera <strong>online</strong> a través de nuestro <strong>Sistema de Aprendizaje Multimedial</strong>.</li>
+              <li>Asistí al <strong>Centro de Apoyo Universitario (CAU)</strong> más cercano, solamente para <strong>rendir exámenes parciales y finales</strong>, y el resto del aprendizaje será <strong>online</strong>.</li>
+            </ul>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+};

@@ -58,8 +58,6 @@ export const Formulario = () => {
 
           if (name === 'email') {
             const { valid, error } = isValidEmail(value);
-            console.log("valid", valid)
-            console.log("error", error)
             setInputError((prevInputError) => ({
               ...prevInputError,
               email: { valid, error }
@@ -189,25 +187,30 @@ export const Formulario = () => {
 
 
     return (
-        <div className=" bg-grisclaro w-[95%] mq980:w-full mq980:mr-0 mr-[20px] flex  mq980:justify-center items-start">
+        <div className=" bg-white w-full mq980:w-full mq980:mr-0 mr-[20px] flex flex-col justify-center items-start mq980:items-center p-16 mq980:p-4 mq980:py-8">
+          <h1 className=" font-bold flex justify-center items-center text-center text-[48px] mq980:text-[38px] text-verdeoscuro  mq980:pt-[0px]">
+            Inscribite
+          </h1>
+          <h2 className=" font-regular flex justify-center items-center text-center text-[24px] mq980:text-[24px] text-verde  mq980:pt-[0px] mb-[60px] mq980:mb-[30px]">
+            Completá tus datos para más información y rebelate en La Siglo 21.
+          </h2>
             <form onSubmit={(e) => {
                       fbq('track', 'Lead');
                       handleSubmit(e);
                   }}
-                className="bg-blanco rounded-md flex flex-col justify-start py-4 px-6 mq980:w-[90%] mq980:rounded-md min-w-[470px] mq980:min-w-[200px]">
-                <a className="text-verde font-semibold text-[24px]">Contacto</a>
+                className="bg-grisclaro rounded-md flex flex-col justify-start py-4 px-6 mq980:w-[90%] mq980:rounded-md w-full mq980:min-w-[200px]">
                 <label className="text-grisoscuro py-1">Modalidad</label>
                 <select name='modality' onChange={handleChange} onClick={handleChange} value= {input.modality? input.modality : 'Seleccioná'}
-                        className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
+                        className="bg-white cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                     <option disabled selected value='Seleccioná'>Seleccioná</option>
-                    <option value='presencial'>Educación Presencial Distribuida</option>
-                    <option value='distancia'>Educación Distribuida (1 Encuentro Semanal)</option>
-                    <option value='distancia'>Educación Distribuida Home (100% Online)</option>
+                    <option value='presencial'>Presencial Distribuida</option>
+                    <option value='distancia'>Educación Distribuida</option>
+                    <option value='distancia'>Educación Distribuida Home</option>
                 </select>
                 <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.modality.error}</p>
                 <label className="text-grisoscuro py-1">Tipo de programa</label>
                 <select name='type' onChange={handleProgramChange} onClick={handleProgramChange} value= {input.type? input.type : 'Seleccioná'}
-                        className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
+                        className="bg-white cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                     <option disabled selected value='Seleccioná'>Seleccioná</option>
                     <option value='grado'>Grado</option>
                     <option value='pregrado'>Pregrado</option>
@@ -216,13 +219,9 @@ export const Formulario = () => {
                 <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.type.error}</p>
                 <label className="text-grisoscuro py-1">Programa</label>
                 <select name="program" value={input.program} onChange={handleProgramChange} onClick={handleProgramChange}  
-                        className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
+                        className="bg-white cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                     <option disabled selected value='Seleccioná' className="">Seleccioná</option>
-                    {/* {getProgramsByType(input.type)?.map((program) => (
-                      <option key={program.name} value={program.name}>
-                        {program.name}
-                      </option>
-                    ))} */}
+
                     {filteredPrograms.map((program) => (
                       <option key={program.name} value={program.name}>
                         {program.name}
@@ -242,45 +241,65 @@ export const Formulario = () => {
                 </div>
                 <label className="text-grisoscuro py-1">Correo Electrónico</label>
                 <input name='email' value={input.email} onChange={handleChange} maxLength={36}
-                        className="bg-grisclaro p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
+                        className="bg-white p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                 </input>
                 <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.email.error}</p>
-                <div className="flex flex-row justify-between w-full mq980:flex-col">
-                    <div className="mq980:flex mq980:flex-col">
+
+                <div className="flex flex-row justify-between space-x-2 mq980:space-x-0 w-full mq980:flex-col">
+                    <div className="flex flex-col w-full">
                         <label className="text-grisoscuro py-1">Nombre</label>
-                        <input name='name' value={input.name} onChange={handleChange} maxLength={36}
-                                className="bg-grisclaro p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none"></input>
-                                <p className="hidden mq980:block w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.name.error}</p>
+                        <input
+                            name='name'
+                            value={input.name}
+                            onChange={handleChange}
+                            maxLength={36}
+                            className="w-full bg-white p-2 border border-solid border-gray-200 mt-1 text-grisoscuro rounded-md focus:outline-none"
+                        />
+                        <p className="hidden mq980:block w-full text-start text-[13px] text-red-600 py-2">{inputError.name.error}</p>
                     </div>
-                    
-                    <div className="mq980:flex mq980:flex-col">
+
+                    <div className="flex flex-col w-full">
                         <label className="text-grisoscuro py-1">Apellido</label>
-                        <input name='lastName' value={input.lastName} onChange={handleChange} maxLength={36}
-                                className="bg-grisclaro p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none"></input>
-                                <p className="hidden mq980:block w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.lastName.error}</p>
+                        <input
+                            name='lastName'
+                            value={input.lastName}
+                            onChange={handleChange}
+                            maxLength={36}
+                            className="w-full bg-white p-2 border border-solid border-gray-200 mt-1 text-grisoscuro rounded-md focus:outline-none"
+                        />
+                        <p className="hidden mq980:block w-full text-start text-[13px] text-red-600 py-2">{inputError.lastName.error}</p>
                     </div>
                 </div>
+
                 <div className=" mq980:hidden flex flex-row justify-between gap-2">
                     <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.name.error}</p>
                     <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.lastName.error}</p>
                 </div>
                 <label className="text-grisoscuro py-1">WhatsApp</label>
                 <input name='whatsapp' value={input.whatsapp} onChange={handleChange} maxLength={10}
-                        className="bg-grisclaro p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
+                        className="bg-white p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                 </input>
                 <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.whatsapp.error}</p>
-                <label className="text-grisoscuro py-1">Sede más cercana</label>
-                <select name='branch' onChange={handleChange} onClick={handleChange} value= {input.branch? input.branch : 'Seleccioná'}
-                        className="bg-grisclaro cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
+                <label className="text-grisoscuro py-1">Localidad</label>
+                <input
+                  name="branch"
+                  value={input.branch || ''}
+                  onChange={handleChange}
+                  maxLength={50}
+                  className="bg-white p-2 border border-solid border-gray-200 mt-1 text-grisoscuro rounded-md focus:outline-none"
+                />
+
+                {/* <select name='branch' onChange={handleChange} onClick={handleChange} value= {input.branch? input.branch : 'Seleccioná'}
+                        className="bg-white cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                     <option disabled selected value='Seleccioná'>Seleccioná</option>
                     <option value='Mar del Plata'>Mar del Plata</option>
                     <option value='La Costa'>La Costa</option>
                     <option value='Villa Gesell'>Villa Gesell</option>
                     <option value='Necochea'>Necochea</option>
-                </select>
+                </select> */}
                 <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.branch.error}</p>
-                <button className="flex w-48 active:scale-95 bg-verde cursor-pointer text-blanco px-4 py-2 rounded-md font-semibold">
-                    Solicitar información
+                <button className="flex w-[80px] active:scale-95 bg-verde cursor-pointer text-blanco px-4 py-2 rounded-md font-regular">
+                    Enviar
                 </button>
                 <ToastContainer
                   position="top-center"

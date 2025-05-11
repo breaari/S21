@@ -1,6 +1,6 @@
 import React from "react";
 import portadaMovil from '../../assets/portada-movil.jpeg';
-import portadaPc from '../../assets/portada-pc.jpg'
+import portadaPc from '../../assets/portada-pc.png'
 
 export const Portada = () => {
     return (

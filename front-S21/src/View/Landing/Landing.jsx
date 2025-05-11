@@ -15,11 +15,9 @@ export const Landing = () => {
         <div className=" max-w-full container mx-0">
             <Portada></Portada>
             <Cualidades></Cualidades>
-            <div className="flex flex-row  mq980:flex-col bg-grisclaro py-[45px]">
             <Oferta></Oferta>
             <Formulario></Formulario>
-            </div>
-            <Beneficios></Beneficios>
+            {/* <Beneficios></Beneficios> */}
             <Caus></Caus>
             <Footer></Footer>
             <Whatsapp></Whatsapp>
