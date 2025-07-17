@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { isValidBranch } from "../Validaciones/isValidBranch";
 import { isValidEmail } from "../Validaciones/isValidEmail";
 import { isValidLastName } from "../Validaciones/isValidLastName";
@@ -288,15 +288,6 @@ export const Formulario = () => {
                   maxLength={50}
                   className="bg-white p-2 border border-solid border-gray-200 mt-1 text-grisoscuro rounded-md focus:outline-none"
                 />
-
-                {/* <select name='branch' onChange={handleChange} onClick={handleChange} value= {input.branch? input.branch : 'Seleccioná'}
-                        className="bg-white cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
-                    <option disabled selected value='Seleccioná'>Seleccioná</option>
-                    <option value='Mar del Plata'>Mar del Plata</option>
-                    <option value='La Costa'>La Costa</option>
-                    <option value='Villa Gesell'>Villa Gesell</option>
-                    <option value='Necochea'>Necochea</option>
-                </select> */}
                 <p className=" w-[100%] text-start text-[13px] text-red-600 py-2">{inputError.branch.error}</p>
                 <button className="flex w-[80px] active:scale-95 bg-verde cursor-pointer text-blanco px-4 py-2 rounded-md font-regular">
                     Enviar

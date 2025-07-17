@@ -62,8 +62,8 @@ export const Caus = () => {
                 <img className= "h-[80px] w-[80px] mx-2"src={pinmap}></img>
                 <div className="flex flex-col">
                     <a className="font-bold text-[28px] text-grisoscuro ">CAU Olavarría</a>
-                    <a className="text-verde font-semibold text-[22px] hover:underline" href="https://maps.app.goo.gl/551n224qZwXRRJdK6" target="_blank" rel="noopener noreferrer">
-                        Juan XXIII & Rivadavia, Olavarría.</a>
+                    <a className="text-verde font-semibold text-[22px] hover:underline" href="https://maps.app.goo.gl/hg7kGQgFYaucoQ577" target="_blank" rel="noopener noreferrer">
+                        Rivadavia 4870, local 140 paseo ChangoMás, Olavarría.</a>
                     <a className="text-verde font-semibold text-[22px] hover:underline" href='https://api.whatsapp.com/send?phone=5492284237484&text=Hola%21%20Quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%E2%80%A6'
                     target="_blank" rel="noopener noreferrer">228 423-7484</a>
                 </div>
