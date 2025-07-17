@@ -3,3 +3,5 @@
 /node_modules
 
 package-lock.json
+
+back-S21/src/TestVocacional/google-credentials.json
