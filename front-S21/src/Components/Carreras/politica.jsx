@@ -9,6 +9,7 @@ export const Politica = () => {
     };
 
     const carreras = [
+        { nombre: "Especialización en Políticas Públicas de Seguridad y Criminológicas", nueva: true },
         { nombre: "Licenciatura en Ciencia Política y Gobierno", nueva: false },
         // { nombre: "Licenciatura en Ciencia Política", nueva: false },
         { nombre: "Licenciatura en Relaciones Internacionales", nueva: false },

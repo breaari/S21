@@ -1,24 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useTest } from "./TestContext";
-import imagentest from "../assets/imagentest.svg";
+import { useTest } from "./TestContext2";
+import imagentest from "../assets/vocacion.jpg";
 import { MdArrowOutward } from "react-icons/md";
 import { Navbar } from "./Navbar";
 
-export const InicioTest = () => {
+export const InicioVocacion = () => {
   const { nombre, setNombre } = useTest();
   const [touched, setTouched] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.title = "Test Vocacional | Universidad Siglo 21";
+    document.title = "Test Carrera vs. Vocación | Universidad Siglo 21";
   }, []);
-
 
   const handleStartTest = () => {
     setTouched(true);
     if (!nombre.trim()) return;
-    navigate("/testvocacional/preguntas");
+    navigate("/mivocacion/preguntas");
   };
 
   const showError = touched && !nombre.trim();
@@ -28,15 +27,14 @@ export const InicioTest = () => {
       <Navbar />
       <section className="text-center">
         <h1 className="font-bold text-[50px] text-grisoscuro2 leading-tight">
-          Descubrí tu vocación
+        CARRERA VS VOCACIÓN,
         </h1>
         <h2 className="font-bold text-[50px] text-verdeclaro mb-4 leading-tight">
-          y elegí lo que querés ser
+          ¿COINCIDEN?
         </h2>
 
         <p className="text-grisoscuro text-[18px] mb-10 px-[20%]">
-          Un espacio para que en pocos pasos puedas conocer las carreras que se
-          acercan más a tus intereses...
+        Reflexioná sobre tu presente académico y laboral para descubrir si estás realmente en el camino que te apasiona. Elegí la opción que mejor te represente en cada pregunta y conocé qué tan alineado estás con lo que verdaderamente te motiva.
         </p>
 
         <div className="text-start mb-10 px-[25%] mq980:px-[10%]">
@@ -74,8 +72,8 @@ export const InicioTest = () => {
           )}
         </div>
 
-        <div className="flex justify-center mb-10">
-          <img src={imagentest} alt="Ilustración de test vocacional" className="w-[85%]" />
+        <div className="flex justify-center">
+          <img src={imagentest} alt="Ilustración de test vocacional" className="w-full" />
         </div>
       </section>
     </main>

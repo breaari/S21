@@ -22,6 +22,10 @@ export const Final = () => {
       localidad: "",
     });
 
+    localStorage.removeItem("nombre");
+    localStorage.removeItem("respuestas");
+    localStorage.removeItem("datosContacto");
+
     navigate("/testvocacional"); // Volver al inicio del test
   };
 

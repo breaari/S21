@@ -1,0 +1,53 @@
+[
+  {
+    "pregunta": "¿Cómo te sentís con lo que estudiás o hacés actualmente?",
+    "respuestas": [
+      "Me apasiona y me siento realizado/a.",
+      "Me gusta, aunque hay cosas que cambiaría.",
+      "Me da igual: ni me entusiasma ni me desagrada.",
+      "No me motiva, pero lo sigo haciendo para cumplir.",
+      "No me gusta para nada, siento que estoy en el lugar equivocado."
+    ]
+  },
+  {
+    "pregunta": "¿Tus habilidades y talentos naturales están reflejados en tu carrera o trabajo actual?",
+    "respuestas": [
+      "Sí, me siento realizado y en sintonía con lo que hago.",
+      "En parte, aunque hay conexión, siento que podría dar más.",
+      "Aún estoy descubriendo mis verdaderas habilidades.",
+      "Rara vez siento que uso mi potencial real.",
+      "Para nada, no me representa y eso me desmotiva."
+    ]
+  },
+  {
+    "pregunta": "¿Tu carrera o trabajo actual se alinea con la vida que querés para vos en el futuro?",
+    "respuestas": [
+      "Completamente, es lo que siempre soñé.",
+      "Me acerca a lo que quiero, aunque hay cosas por mejorar.",
+      "Aún no tengo del todo clara mi proyección.",
+      "No logro imaginar un futuro con esto.",
+      "No me representa, quiero otra realidad."
+    ]
+  },
+  {
+    "pregunta": "¿Qué tan motivado/a te sentís al comenzar una nueva semana?",
+    "respuestas": [
+      "Con muchas ganas, me entusiasma lo que hago.",
+      "Bien, aunque a veces me cuesta arrancar.",
+      "Depende de la semana.",
+      "Suelo sentir cansancio o desgano.",
+      "Me frustra o aburre lo que hago."
+    ]
+  },
+  {
+    "pregunta": "¿Cómo fue tu elección de carrera o actividad actual?",
+    "respuestas": [
+      "Fue una elección personal y consciente.",
+      "Estaba entre varias opciones y me decidí por esta.",
+      "Me dejé llevar por lo que había disponible, sin evaluarlo demasiado.",
+      "Fue una decisión influenciada por otras personas.",
+      "No fué una elección, fué por descarte, peor es nada."
+    ]
+  }
+
+]
