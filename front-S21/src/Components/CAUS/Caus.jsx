@@ -3,7 +3,7 @@ import pinmap from "../../assets/pinmap-S21.png"
 
 export const Caus = () => {
     return (
-        <div className="bg-grisclaro py-[100px] px-16 mq980:px-8">
+        <div className="bg-grisclaro py-[60px] px-16 mq980:px-8">
             <h1 className=" w-[95%] font-bold flex justify-center items-center text-center text-[48px] mq980:text-[38px] text-verdeoscuro pb-[50px] mq980:pt-[0px]">
                 Centros de Aprendizajes Universitarios
             </h1>

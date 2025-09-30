@@ -10,8 +10,8 @@ export const Salud = () => {
 
   const carreras = [
     // { nombre: "Licenciatura en Fonoaudiología (PD)", nueva: true },
-    { nombre: "Licenciatura en Psicología (PD)", nueva: true },
-    { nombre: "Licenciatura en Nutrición (PD)", nueva: true },
+    { nombre: "Licenciatura en Psicología (Sólo Presencial)", nueva: true },
+    { nombre: "Licenciatura en Nutrición (Sólo Presencial)", nueva: true },
     // { nombre: "Tecnicatura en Enfermería (PD)", nueva: true },
     { nombre: "Licenciatura en Psicopedagogía (CCC)", nueva: true },
     { nombre: "Licenciatura en Gerontología", nueva: false },
@@ -40,7 +40,7 @@ export const Salud = () => {
   return (
     <div
       onClick={toggleDropdown}
-      className={`cursor-pointer transition-all duration-300 overflow-hidden w-full bg-blanco rounded-md m-1 mb-4 px-3 py-5`}
+      className={`cursor-pointer transition-all duration-300 overflow-hidden w-full bg-grisclaro rounded-md m-1 mb-4 px-3 py-5`}
     >
       <div className="font-bold flex justify-start items-center text-[28px] text-grisoscuro mq980:flex-col">
         <div className="mr-[8px] flex items-center">

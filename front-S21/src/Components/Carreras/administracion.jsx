@@ -40,38 +40,9 @@ export const Administracion = () => {
     ];
 
     return (
-        // <div
-        //     onClick={toggleDropdown}
-        //     className={`cursor-pointer transition-all duration-300 overflow-hidden w-full bg-blanco rounded-md m-1 mb-4 px-3 py-5`}
-        // >
-        //     <div className="font-bold flex justify-start items-center text-[28px] text-grisoscuro mq980:flex-col">
-        //         <div className="mr-[8px] flex items-center">
-        //             <img src={administracionimage} className="w-[40px] mx-2 mq980:w-[60px] mq980:mx-0 mq980:mb-4" alt="Administración" />
-        //         </div>
-        //         Administración
-        //     </div>
-
-        //     {administracionIsOpen && (
-        //         <div className="relative w-[95%] rounded-md bg-transparent max-h-[350px] overflow-y-auto  mt-2">
-        //             {carreras.map((carrera, index) => (
-        //                 <div
-        //                     key={index}
-        //                     className="block px-10 py-2 text-[18px] text-grisoscuro font-semibold"
-        //                 >
-        //                     {carrera.nombre}
-        //                     {carrera.nueva && (
-        //                         <span className="ml-2 bg-verde rounded-md w-auto text-white text-[10px] font-semibold py-1 px-2">
-        //                             Nueva carrera
-        //                         </span>
-        //                     )}
-        //                 </div>
-        //             ))}
-        //         </div>
-        //     )}
-        // </div>
         <div
         onClick={toggleDropdown}
-        className={`cursor-pointer transition-all duration-300 overflow-hidden w-full bg-blanco rounded-md m-1 mb-4 px-3 py-5`}
+        className={`cursor-pointer transition-all duration-300 overflow-hidden w-full bg-grisclaro rounded-md m-1 mb-4 px-3 py-5`}
     >
         <div className="font-bold flex justify-start items-center text-[28px] text-grisoscuro mq980:flex-col">
             <div className="mr-[8px] flex items-center">

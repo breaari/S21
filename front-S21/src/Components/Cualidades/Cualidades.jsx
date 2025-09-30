@@ -9,11 +9,11 @@ export const Cualidades = () => {
     ];
 
     return (
-        <div className="my-[80px] relative w-full h-auto  flex justify-center items-center flex-col text-violeta text-[48px] leading-[1.2]">
+        <div className="bg-grisclaro py-[40px] relative w-full h-auto  flex justify-center items-center flex-col text-violeta text-[48px] leading-[1.2]">
             {textos.map((texto, index) => (
                 <h1 
                     key={index} 
-                    className={`font-bold text-center mq980:text-[38px] mq980:mb-8 max-w-[80%]`}
+                    className={`font-bold text-center mq980:text-[32px] max-w-[80%]`}
                 >
                     {texto}
                 </h1>
