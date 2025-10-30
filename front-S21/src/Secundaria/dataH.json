@@ -1,0 +1,82 @@
+[
+  {
+    "pregunta": "En un trabajo en grupo sos el/la que…",
+    "respuestas": [
+      "Arma el plan, reparte tareas y se asegura de que salga bien 💼",
+      "Propone ideas locas y diseña la presentación 🎨",
+      "Hace las cuentas y ordena los datos 📊",
+      "Investiga todo y quiere saber el por qué de todo 🔍",
+      "Escucha a todos y busca que no haya drama 🫶"
+    ]
+  },
+  {
+    "pregunta": "Te dan una semana libre del cole… ¿qué hacés?",
+    "respuestas": [
+      "Planeo algo productivo (laburo, curso o proyecto 💻)",
+      "Me prendo a un viaje con amigos 🌎",
+      "Miro series de crímenes o misterios 🕵",
+      "Me pongo creativo/a con algo (video, diseño, dibujo, TikTok) ✨",
+      "Paso tiempo con mi gente, me gusta escuchar o aconsejar 💬"
+    ]
+  },
+  {
+    "pregunta": "En un conflicto entre amigos, vos…",
+    "respuestas": [
+      "Mediás y tratás de que se entiendan ⚖",
+      "Sos el/la que dice “calma, pensemos un plan” 🧠",
+      "Analizás todo y decís quién tiene razón lógica 📈",
+      "Tratás de distraerlos o sacarlos de ese humor con algo creativo 🤪",
+      "Preguntás cómo se sienten y los acompañás 💚"
+    ]
+  },
+  {
+    "pregunta": "Si pudieras tener un superpoder, sería…",
+    "respuestas": [
+      "Convencer a cualquiera con mis argumentos 🗣",
+      "Calcular cualquier cosa en segundos 🔢",
+      "Crear cosas con solo imaginarlo 💡",
+      "Descubrir verdades ocultas 🕵‍♀",
+      "Entender lo que piensan los demás 🧠💞"
+    ]
+  },
+  {
+    "pregunta": "¿Qué materia te resulta más vos?",
+    "respuestas": [
+      "Formación Ética o Derecho ⚖",
+      "Matemática o Economía 💸",
+      "Arte, Diseño o Tecnología 🎬",
+      "Biología, Psicología o Sociología 🧬",
+      "Educación Física o Geografía 🌍"
+    ]
+  },
+  {
+    "pregunta": "En tu celu, ¿qué app usás más?",
+    "respuestas": [
+      "TikTok o CapCut (para crear cosas 🔥)",
+      "Google Maps o Airbnb (amo planear viajes 🌎)",
+      "Notas y Excel (para organizar todo 📊)",
+      "Threads o WhatsApp (para charlar y escuchar 💬)",
+      "Netflix o YouTube (documentales, casos, misterios 👀)"
+    ]
+  },
+  {
+    "pregunta": "Cuando pensás en tu futuro, te imaginás…",
+    "respuestas": [
+      "Dirigiendo un equipo o un proyecto 💼",
+      "Investigando algo importante 🕵‍♂",
+      "Diseñando o creando algo nuevo 💻",
+      "Ayudando a personas a crecer 💬",
+      "Emprendiendo o armando mi propio negocio 💪"
+    ]
+  },
+  {
+    "pregunta": "Si tu grupo te define con una frase sería:",
+    "respuestas": [
+      "La mente lógica del grupo 🤓",
+      "La que siempre tiene una idea nueva 💡",
+      "El/la que arregla los quilombos 🧘‍♀",
+      "El/la que ve más allá 👁",
+      "El/la que organiza todo 📋"
+    ]
+  }
+]

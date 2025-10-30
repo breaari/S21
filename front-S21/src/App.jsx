@@ -9,6 +9,10 @@ import { InicioVocacion } from './CarreravsVocacion/InicioTest'
 import { Vocacion } from './CarreravsVocacion/preguntas'
 import { EnviarVocacion } from './CarreravsVocacion/enviar'
 import { FinalVocacion } from './CarreravsVocacion/final'
+import { Secundaria } from './Secundaria/preguntasH'
+import { EnviarSecundaria } from './Secundaria/enviarH'
+import { FinalSecundaria } from './Secundaria/finalH'
+import { InicioSecundaria } from './Secundaria/InicioTestH'
 
 function App() {
 
@@ -24,6 +28,10 @@ function App() {
       <Route path='/mivocacion/preguntas' element={<Vocacion/>}></Route>
       <Route path='/mivocacion/enviar' element={<EnviarVocacion/>}></Route>
       <Route path='/mivocacion/gracias' element={<FinalVocacion/>}></Route>
+      <Route path='/secundaria' element={<InicioSecundaria/>}></Route>
+      <Route path='/secundaria/preguntas' element={<Secundaria/>}></Route>
+      <Route path='/secundaria/enviar' element={<EnviarSecundaria/>}></Route>
+      <Route path='/secundaria/gracias' element={<FinalSecundaria/>}></Route>
     </Routes>
         
     </>
