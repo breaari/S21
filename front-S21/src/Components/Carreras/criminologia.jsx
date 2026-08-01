@@ -15,12 +15,6 @@ export const Criminologia = () => {
       nueva: false,
     },
     { nombre: "Especialización en Cibercrimen", nueva: false },
-    // { nombre: "Licenciatura en Criminalística", nueva: false },
-    // { nombre: "Licenciatura en Psicología Forense", nueva: false },
-
-    // { nombre: "Tecnicatura en Ciencias Forenses", nueva: false },
-    // { nombre: "Licenciatura en Derecho Penal", nueva: false },
-    // { nombre: "Licenciatura en Seguridad Pública", nueva: false },
   ];
 
   return (

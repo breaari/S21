@@ -13,6 +13,7 @@ import { Secundaria } from './Secundaria/preguntasH'
 import { EnviarSecundaria } from './Secundaria/enviarH'
 import { FinalSecundaria } from './Secundaria/finalH'
 import { InicioSecundaria } from './Secundaria/InicioTestH'
+import { Ruleta } from './Ruleta/Ruleta'
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
       <Route path='/secundaria/preguntas' element={<Secundaria/>}></Route>
       <Route path='/secundaria/enviar' element={<EnviarSecundaria/>}></Route>
       <Route path='/secundaria/gracias' element={<FinalSecundaria/>}></Route>
+      <Route path='/ruleta' element={<Ruleta/>}></Route>
     </Routes>
         
     </>

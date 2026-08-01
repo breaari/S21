@@ -9,32 +9,16 @@ export const Salud = () => {
   };
 
   const carreras = [
-    // { nombre: "Licenciatura en Fonoaudiología (PD)", nueva: true },
-    { nombre: "Licenciatura en Psicología (Sólo Presencial)", nueva: true },
-    { nombre: "Licenciatura en Nutrición (Sólo Presencial)", nueva: true },
-    // { nombre: "Tecnicatura en Enfermería (PD)", nueva: true },
+    { nombre: "Licenciatura en Fonoaudiología (Sólo Presencial, 2027)", nueva: false },
+    { nombre: "Licenciatura en Psicología (Sólo Presencial, 2027)", nueva: false },
+    { nombre: "Licenciatura en Nutrición (Sólo Presencial, 2027)", nueva: false },
+    { nombre: "Tecnicatura en Enfermería (Sólo Presencial, 2027)", nueva: false },
     { nombre: "Licenciatura en Psicopedagogía (CCC)", nueva: true },
     { nombre: "Licenciatura en Gerontología", nueva: false },
-    {
-      nombre: "Licenciatura en Administración de Servicios de Salud",
-      nueva: false,
-    },
     {
       nombre: "Licenciatura en Terapia Ocupacional y Desarrollo Humano",
       nueva: false,
     },
-    {
-      nombre: "Lic. en Higiene, Seguridad y Medio Ambiente del Trabajo",
-      nueva: false,
-    },
-    { nombre: "Tec. en Higiene y Seguridad Laboral", nueva: false },
-    {
-      nombre: "Tec. en Gestión Administrativa de Servicios de Salud",
-      nueva: false,
-    },
-
-    // { nombre: "Tecnicatura Universitaria en Gestión Administrativa de Servicios de Salud", nueva: false },
-    // { nombre: "Licenciatura en Bioinformática", nueva: false },
   ];
 
   return (

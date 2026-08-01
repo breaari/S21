@@ -5,7 +5,7 @@ export const Cualidades = () => {
     const textos = [
         "Es momento de estudiar lo que te gusta.",
         "Elegí el camino que te va a llevar más lejos.",
-        "Mar del Plata - Villa Gesell - Necochea - La Costa - Tandil - Olavarría."
+        "Mar del Plata - Villa Gesell - Necochea - La Costa - Tandil - Olavarría - Azul."
     ];
 
     return (

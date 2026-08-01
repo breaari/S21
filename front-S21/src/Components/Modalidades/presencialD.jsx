@@ -16,7 +16,7 @@ export const PresencialD = () => {
         onClick={presencialDToggleDropdown}
         aria-expanded={presencialDIsOpen ? 'true' : 'false'}
       >
-        <span className="font-lexend font-light flex-grow text-center mq980:text-start">Presencial Distribuida</span>
+        <span className="font-lexend font-light flex-grow text-center">Presencial Distribuida (2027)</span>
         <span className="ml-auto text-right">{/* Aquí va tu fecha */}</span>
         <IoIosArrowDown className="ml-2" />
       </button>

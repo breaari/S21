@@ -9,20 +9,27 @@ export const Ingenieria = () => {
   };
 
   const carreras = [
-    // { nombre: "Ingeniería en Innovación y Desarrollo (PD)", nueva: true },
-    { nombre: "Lic. en Ambiente y Energías Renovables", nueva: false },
+    { nombre: "Ingeniería en Innovación y Desarrollo (Sólo Presencial, 2027)", nueva: false },
+    { nombre: "Licenciatura en Bioinformática", nueva: false },
     { nombre: "Lic. en Agroinformática", nueva: true },
-
-    { nombre: "Licenciatura en Informática", nueva: false },
-    // { nombre: "Licenciatura en Administración de Infraestructura Tecnológica", nueva: false },
     { nombre: "Licenciatura en Ciencia de Datos", nueva: false },
-    { nombre: "Licenciatura en Seguridad Informática", nueva: false },
+    { nombre: "Licenciatura en Gestión de la Información", nueva: false },
+    {
+      nombre: "Licenciatura en Higiene, Seguridad y Medioambiente del Trabajo",
+      nueva: false,
+    },
+    { nombre: "Licenciatura en Informática", nueva: false },
     {
       nombre: "Licenciatura en Inteligencia Artificial y Robótica",
       nueva: false,
     },
-    { nombre: "Licenciatura en Bioinformática", nueva: false },
-    { nombre: "Licenciatura en Matemática", nueva: false },
+    { nombre: "Licenciatura en Seguridad Informática", nueva: false },
+
+    {
+      nombre: "Licenciatura en Administración de Infraestructura Tecnológica",
+      nueva: false,
+    },
+
     {
       nombre:
         "Tecnicatura Universitaria en Redes Informáticas y Telecomunicaciones",
@@ -30,6 +37,15 @@ export const Ingenieria = () => {
     },
     {
       nombre: "Tecnicatura Universitaria en Hidrocarburos Y Geociencia",
+      nueva: false,
+    },
+    {
+      nombre: "Tecnicatura Universitaria en Higiene y Seguridad Laboral",
+      nueva: false,
+    },
+    {
+      nombre:
+        "Tecnicatura Universitaria en Estadística Aplicada y Análisis Avanzado",
       nueva: false,
     },
   ];
@@ -47,7 +63,7 @@ export const Ingenieria = () => {
             alt="Ingeniería"
           />
         </div>
-        Ingenierías
+        Tecnología e Informática
       </div>
 
       <div

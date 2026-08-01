@@ -9,34 +9,20 @@ export const Derecho = () => {
   };
 
   const carreras = [
-    // { nombre: "Licenciatura en Criminología y Seguridad", nueva: false },
-    // { nombre: "Licenciatura en Ciencia Política y Gobierno", nueva: false },
-    // { nombre: "Licenciatura en Administración Pública", nueva: false },
-    // { nombre: "Licenciatura en Relaciones Internacionales", nueva: false },
+    
     { nombre: "Abogacía", nueva: false },
     { nombre: "Procurador", nueva: false },
-    // { nombre: "Licenciatura en Antropología Organizacional", nueva: false },
     { nombre: "Escribanía", nueva: false },
     {
       nombre: "Martillero, Corredor Público y Corredor Inmobiliario",
       nueva: false,
     },
-
-    { nombre: "Contador Público", nueva: false },
-    { nombre: "Actuario", nueva: false },
     { nombre: "Maestría en Derecho Internacional", nueva: false },
     { nombre: "Maestría en Derecho Procesal", nueva: false },
     {
       nombre: "Esp. en Derecho de Familia, Niñez y Adolescencia",
       nueva: false,
-    },
-    // { nombre: "Martillero, Corredor Público y Corredor Inmobiliario", nueva: false },
-    // { nombre: "Procurador", nueva: false },
-    // {
-    //     nombre: "Tecnicatura Universitaria en Administración y Gestión de Políticas Públicas",
-    //     nueva: false,
-    // },
-    // { nombre: "Tecnicatura en Investigación de la Escena del Crimen", nueva: false },
+    }
   ];
 
   return (

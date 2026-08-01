@@ -1,0 +1,132 @@
+.ruleta-container {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at center, rgba(0, 120, 255, 0.25), transparent 45%),
+    #06142b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  color: white;
+  overflow: hidden;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.ruleta-stage {
+  --stage-size: min(98vw, 90dvh);
+
+  width: var(--stage-size);
+  height: var(--stage-size);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 calc(var(--stage-size) * 0.055) rgba(37, 130, 255, 0.45));
+}
+
+.ruleta-stage::before {
+  content: "";
+  position: absolute;
+  width: 95%;
+  height: 95%;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #293447, #08111f);
+  box-shadow:
+    inset 0 0 calc(var(--stage-size) * 0.03) rgba(255, 255, 255, 0.18),
+    inset 0 0 calc(var(--stage-size) * 0.07) rgba(0, 0, 0, 0.9),
+    0 0 calc(var(--stage-size) * 0.07) rgba(48, 135, 255, 0.35);
+  z-index: 1;
+}
+
+.ruleta-img {
+  width: 88.7%;
+  height: 88.7%;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  transition: transform 4.2s cubic-bezier(0.12, 0.85, 0.18, 1);
+  transform-origin: center center;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.borde-luces {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.borde-luces span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--stage-size) * 0.024);
+  height: calc(var(--stage-size) * 0.024);
+  margin-left: calc(var(--stage-size) * -0.012);
+  margin-top: calc(var(--stage-size) * -0.012);
+  border-radius: 50%;
+  background: white;
+  transform: rotate(var(--angle)) translateY(calc(var(--stage-size) * -0.46));
+  box-shadow:
+    0 0 calc(var(--stage-size) * 0.013) white,
+    0 0 calc(var(--stage-size) * 0.026) #8fc7ff,
+    0 0 calc(var(--stage-size) * 0.048) #2c8cff;
+}
+
+.centro-fijo {
+  position: absolute;
+  width: 25%;
+  height: 25%;
+  border-radius: 50%;
+  background: white;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 0 calc(var(--stage-size) * 0.013) rgba(8, 20, 38, 0.75),
+    inset 0 0 calc(var(--stage-size) * 0.03) rgba(0, 0, 0, 0.15),
+    0 calc(var(--stage-size) * 0.013) calc(var(--stage-size) * 0.039) rgba(0, 0, 0, 0.5);
+}
+
+.centro-fijo img {
+  width: 80%;
+  max-height: 58%;
+  object-fit: contain;
+}
+
+.puntero {
+  position: absolute;
+  top: 1.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+
+  width: 0;
+  height: 0;
+
+  border-left: calc(var(--stage-size) * 0.045) solid transparent;
+  border-right: calc(var(--stage-size) * 0.045) solid transparent;
+  border-top: calc(var(--stage-size) * 0.08) solid white;
+
+  filter:
+    drop-shadow(0 3px 2px rgba(0, 0, 0, 0.85))
+    drop-shadow(0 0 calc(var(--stage-size) * 0.02) rgba(255, 255, 255, 0.55));
+}
+
+.instruccion {
+  margin: 4px 0 0;
+  font-size: clamp(15px, 2.8dvh, 21px);
+  text-align: center;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.resultado {
+  margin-top: 8px;
+  font-size: clamp(20px, 4dvh, 29px);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
+}

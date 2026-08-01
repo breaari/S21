@@ -10,15 +10,8 @@ export const Marketing = () => {
 
   const carreras = [
     { nombre: "Licenciatura en Comercialización (Marketing)", nueva: false },
-    { nombre: "Licenciatura en Comercio Internacional", nueva: false },
-    { nombre: "Licenciatura en Publicidad", nueva: false },
-    { nombre: "Licenciatura en Periodismo", nueva: false },
     {
-      nombre: "Licenciatura en Relaciones Públicas e Institucionales",
-      nueva: false,
-    },
-    {
-      nombre: "Tecnicatura en Dir. de Protocolo, Org. de Eventos y RRPP",
+      nombre: "Licenciatura en Inteligencia de Negocios Digitales",
       nueva: false,
     },
     { nombre: "Tecnicatura en Dirección equipos de venta", nueva: false },

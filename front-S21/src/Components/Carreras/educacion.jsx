@@ -9,15 +9,26 @@ export const Educacion = () => {
   };
 
   const carreras = [
-    // { nombre: "Licenciatura en Psicología (PD)", nueva: true },
-    { nombre: "Licenciatura en Educación (CCC)", nueva: true },
+    { nombre: "Licenciatura en Educación (CCC)", nueva: false },
     { nombre: "Licenciatura en Educación y Nuevas Tecnologías", nueva: false },
+    { nombre: "Licenciatura en Matemática", nueva: false },
+    { nombre: "Licenciatura en Psicopedagogía (CCC)", nueva: false },
+    {
+      nombre:
+        "Profesorado Universitario para el Nivel Secundario Superior (CCC)",
+      nueva: false,
+    },
+
+    {
+      nombre:
+        "Tecnicatura Universitaria en Promoción Comunitaria en Niñez y Adolescencia",
+      nueva: false,
+    },
+    {
+      nombre: "Tecnicatura en Responsabilidad y Gestión Social",
+      nueva: false,
+    },
     { nombre: "Maestría en Innovación Educativa", nueva: false },
-    // { nombre: "Licenciatura en Matemática", nueva: false },
-    // {
-    //     nombre: "Tecnicatura Universitaria en Promoción Comunitaria en Niñez y Adolescencia",
-    //     nueva: false,
-    // },
   ];
 
   return (

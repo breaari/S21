@@ -15,7 +15,7 @@ export const RuletaPremios = () => {
   const referencias = [
     { emoji: "🖊️", texto: "Birome de La Siglo" },
     { emoji: "🍬🍭", texto: "Golosinas" },
-    { emoji: "📱", texto: "Soporte para celu de La Siglo" },
+    { emoji: "📱", texto: "Soporte de celular de La Siglo" },
   ];
 
   const [mustSpin, setMustSpin] = useState(false);

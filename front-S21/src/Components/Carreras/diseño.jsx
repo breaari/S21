@@ -11,12 +11,17 @@ export const Diseño = () => {
   const carreras = [
     // { nombre: "Licenciatura en Diseño Gráfico (PD)", nueva: true },
     { nombre: "Licenciatura en Diseño y Animación Digital", nueva: false },
+     { nombre: "Licenciatura en Publicidad", nueva: false },
     {
       nombre: "Tecnicatura Universitaria en Diseño y Animación Digital",
       nueva: false,
     },
     {
       nombre: "Tecnicatura Universitaria en Diseño y Desarrollo de Videojuegos",
+      nueva: false,
+    },
+     {
+      nombre: "Tecnicatura en Gestión de Moda",
       nueva: false,
     },
   ];

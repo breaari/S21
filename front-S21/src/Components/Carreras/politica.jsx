@@ -14,20 +14,22 @@ export const Politica = () => {
         "Especialización en Políticas Públicas de Seguridad y Criminológicas",
       nueva: true,
     },
+    { nombre: "Licenciatura en Administración Pública", nueva: false },
     { nombre: "Licenciatura en Ciencia Política y Gobierno", nueva: false },
-    // { nombre: "Licenciatura en Ciencia Política", nueva: false },
-    { nombre: "Licenciatura en Relaciones Internacionales", nueva: false },
-    // { nombre: "Licenciatura en Política y Gobierno", nueva: true },
+    { nombre: "Licenciatura en Periodismo", nueva: false },
     {
-      nombre: "Tec. en Promoción Comunitaria en Niñez y Adolesc.",
+      nombre: "Licenciatura en Relaciones Públicas e Institucionales",
       nueva: false,
     },
-    { nombre: "Tecnicatura en Relaciones Laborales", nueva: false },
-    { nombre: "Tecnicatura en Responsabilidad y Gestión Social", nueva: false },
-    // { nombre: "Licenciatura en Derecho", nueva: false },
-    // { nombre: "Licenciatura en Comunicación Social", nueva: true },
-    // { nombre: "Licenciatura en Sociología", nueva: false },
-    // { nombre: "Tecnicatura Universitaria en Políticas Públicas", nueva: false },
+    { nombre: "Licenciatura en Relaciones Internacionales", nueva: false },
+    {
+      nombre: "Tec. en Dir. de Protocolo, Org. de Eventos y RR PP",
+      nueva: false,
+    },
+    {
+      nombre: "Tec. en Administración y Gestión de Políticas Públicas",
+      nueva: false,
+    },
   ];
 
   return (
@@ -40,7 +42,7 @@ export const Politica = () => {
           <img
             src={politicaimage}
             className="w-[40px] mx-2 mq980:w-[60px] mq980:mx-0 mq980:mb-4"
-            alt="Política"
+            alt="Política y Comunicación"
           />
         </div>
         Política
