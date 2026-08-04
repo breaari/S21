@@ -157,22 +157,70 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
     });
   };
 
-  const comprobarCarreraMisteriosa = () => {
+  const comprobarCarreraMisteriosa = async () => {
     if (!respuesta.trim() || resultado) return;
 
     const respuestaNormalizada = normalizarTexto(respuesta);
 
-    const esCorrecta = pregunta.respuestasAceptadas.some(
+    const coincideLocalmente = pregunta.respuestasAceptadas.some(
       (respuestaAceptada) =>
         normalizarTexto(respuestaAceptada) === respuestaNormalizada,
     );
 
-    setResultado({
-      esCorrecta,
-      titulo: esCorrecta ? "¡Respuesta correcta!" : "Respuesta incorrecta",
-      detalle: pregunta.explicacion,
-      respuestaCorrecta: pregunta.respuestaCorrecta,
-    });
+    if (coincideLocalmente) {
+      setResultado({
+        esCorrecta: true,
+        titulo: "¡Respuesta correcta!",
+        detalle: pregunta.explicacion,
+        respuestaCorrecta: pregunta.respuestaCorrecta,
+      });
+
+      return;
+    }
+
+    try {
+      setResultado({
+        esCorrecta: false,
+        esCargando: true,
+        titulo: "Analizando respuesta...",
+      });
+
+      const response = await fetch("https://back.universidadsiglo21online.com/validar-carrera", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          respuestaUsuario: respuesta,
+          respuestaCorrecta: pregunta.respuestaCorrecta,
+          respuestasAceptadas: pregunta.respuestasAceptadas,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error ?? "No se pudo validar la respuesta.");
+      }
+
+      setResultado({
+        esCorrecta: data.correcta,
+        titulo: data.correcta ? "¡Respuesta correcta!" : "Respuesta incorrecta",
+        detalle: data.correcta
+          ? pregunta.explicacion
+          : data.motivo || "La respuesta no identifica la carrera esperada.",
+        respuestaCorrecta: pregunta.respuestaCorrecta,
+      });
+    } catch (error) {
+      console.error("Error validando con IA:", error);
+
+      setResultado({
+        esCorrecta: false,
+        esError: true,
+        titulo: "No se pudo validar la respuesta",
+        detalle: "Revisá que el backend esté encendido e intentá nuevamente.",
+      });
+    }
   };
 
   const registrarRespuestaAbierta = () => {
@@ -430,59 +478,56 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
     }
   };
 
-return (
-  <div className="pregunta-pantalla">
-    <div className="pregunta-card">
-      <span className="pregunta-categoria">
-        {categoria}
-      </span>
+  return (
+    <div className="pregunta-pantalla">
+      <div className="pregunta-card">
+        <span className="pregunta-categoria">{categoria}</span>
 
-      <h2 className="pregunta-titulo">
-        {pregunta.pregunta}
-      </h2>
+        <h2 className="pregunta-titulo">{pregunta.pregunta}</h2>
 
-      {renderContenido()}
+        {renderContenido()}
 
-      {resultado && (
-        <div
-          className={`pregunta-resultado ${
-            resultado.esError
-              ? "pregunta-resultado-error"
-              : resultado.esCorrecta
-                ? "pregunta-resultado-correcto"
-                : "pregunta-resultado-incorrecto"
-          }`}
-        >
-          <h3>{resultado.titulo}</h3>
+        {resultado && (
+          <div
+            className={`pregunta-resultado ${
+              resultado.esCargando
+                ? "pregunta-resultado-cargando"
+                : resultado.esError
+                  ? "pregunta-resultado-error"
+                  : resultado.esCorrecta
+                    ? "pregunta-resultado-correcto"
+                    : "pregunta-resultado-incorrecto"
+            }`}
+          >
+            <h3>{resultado.titulo}</h3>
 
-          {resultado.respuestaCorrecta !== undefined && (
-            <p>
-              <strong>Respuesta correcta:</strong>{" "}
-              {resultado.respuestaCorrecta}{" "}
-              {resultado.unidad ?? ""}
-            </p>
-          )}
+            {resultado.respuestaCorrecta !== undefined && (
+              <p>
+                <strong>Respuesta correcta:</strong>{" "}
+                {resultado.respuestaCorrecta} {resultado.unidad ?? ""}
+              </p>
+            )}
 
-          <p>{resultado.detalle}</p>
-        </div>
-      )}
+            <p>{resultado.detalle}</p>
+          </div>
+        )}
 
-      {resultado && !resultado.esError && (
-        <button
-          type="button"
-          className="pregunta-boton pregunta-boton-principal"
-          onClick={onVolver}
-        >
-          Volver a la ruleta
-        </button>
-      )}
+        {resultado && !resultado.esError && (
+          <button
+            type="button"
+            className="pregunta-boton pregunta-boton-principal"
+            onClick={onVolver}
+          >
+            Volver a la ruleta
+          </button>
+        )}
 
-      <img
-        src={logoBlanco}
-        alt="Universidad Siglo 21"
-        className="pregunta-logo pregunta-logo-inferior"
-      />
+        <img
+          src={logoBlanco}
+          alt="Universidad Siglo 21"
+          className="pregunta-logo pregunta-logo-inferior"
+        />
+      </div>
     </div>
-  </div>
-);
+  );
 }

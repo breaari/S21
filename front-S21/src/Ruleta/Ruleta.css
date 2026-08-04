@@ -1022,4 +1022,11 @@ background: linear-gradient(135deg, #45b9a3, #208579);
     padding: 10px 15px;
     font-size: 14px;
   }
+
+  
+}
+.pregunta-resultado-cargando {
+  background: rgba(46, 165, 143, 0.14);
+  border-color: rgba(126, 224, 201, 0.45);
+  color: #d7fff5;
 }

@@ -7,16 +7,7 @@ export const preguntasPorCategoria = {
         "Todas las materias se aprueban de la misma manera, independientemente de su modalidad y tipología.",
       respuestaCorrecta: false,
       explicacion:
-        "Las materias pueden tener distintas modalidades y tipologías, por lo que sus condiciones de regularidad, promoción y aprobación pueden variar.",
-    },
-    {
-      id: "vf-2",
-      tipo: "verdadero-falso",
-      pregunta:
-        "En las carreras de grado, cursar materias electivas es completamente opcional.",
-      respuestaCorrecta: false,
-      explicacion:
-        "Las carreras de grado incluyen una cantidad de créditos electivos que deben completarse. Lo que puede elegirse es qué materias cursar entre las opciones habilitadas.",
+       "Las materias pueden ser MEC, MIA, MIP o MAP, y cada tipología tiene una estructura de cursado, actividades y evaluaciones diferente. También influye la modalidad: en Educación Distribuida (ED) se exige un 75% de asistencia a las Open Class, mientras que en Educación Distribuida Home (EDH) no se requiere asistencia al CAU.",
     },
     {
       id: "vf-3",
@@ -25,7 +16,7 @@ export const preguntasPorCategoria = {
         "Las materias de verano se cursan de manera intensiva y virtual.",
       respuestaCorrecta: true,
       explicacion:
-        "El cursado de verano tiene una duración intensiva de cinco semanas y se desarrolla en modalidad virtual.",
+        "El cursado de verano dura cinco semanas, se desarrolla de manera virtual y permite cursar únicamente materias bimestrales habilitadas, como MEC y MIA.",
     },
     {
       id: "vf-4",
@@ -34,7 +25,7 @@ export const preguntasPorCategoria = {
         "Durante el cursado de verano se pueden adelantar materias de cursado cuatrimestral.",
       respuestaCorrecta: false,
       explicacion:
-        "La oferta de verano está compuesta por materias especialmente habilitadas para ese período intensivo. No cualquier materia cuatrimestral puede adelantarse.",
+        "En el cursado de verano solo se habilitan materias de cursado bimestral.",
     },
     {
       id: "vf-5",
@@ -43,7 +34,7 @@ export const preguntasPorCategoria = {
         "El EFIP es una instancia obligatoria para todas las carreras y modalidades.",
       respuestaCorrecta: false,
       explicacion:
-        "El EFIP corresponde a las carreras de grado a distancia que contemplan esta instancia en su plan de estudios.",
+        "El EFIP —Examen Final Integrador Presencial— es una instancia propia de las carreras de grado a distancia. Estas carreras contemplan EFIP I y EFIP II, que integran y evalúan conocimientos de diferentes etapas del plan de estudios.",
     },
     {
       id: "vf-6",
@@ -52,7 +43,7 @@ export const preguntasPorCategoria = {
         "Promocionar una materia significa aprobarla sin necesidad de rendir un examen final.",
       respuestaCorrecta: true,
       explicacion:
-        "Cuando una materia se promociona, queda aprobada durante el cursado y no es necesario rendir su examen final.",
+         "La promoción puede ser directa, con ambos parciales aprobados con 7 o más y al menos 3 de los 4 trabajos prácticos con 7 o más, o indirecta, con parciales aprobados con 5 o 6 y los 4 trabajos prácticos con 7 o más. En ambos casos, la materia queda aprobada sin rendir examen final.",
     },
     {
       id: "vf-7",
@@ -61,7 +52,7 @@ export const preguntasPorCategoria = {
         "Regularizar una materia significa que ya está completamente aprobada.",
       respuestaCorrecta: false,
       explicacion:
-        "La regularidad indica que se cumplieron los requisitos del cursado, pero todavía debe aprobarse el examen final.",
+       "Una materia regular todavía no está aprobada: para completarla, se debe rendir y aprobar el examen final. La regularidad tiene una vigencia de 18 meses y otorga hasta 3 oportunidades; los aplazos y las ausencias también se computan. El final regular consta de 30 preguntas.",
     },
     {
       id: "vf-8",
@@ -70,7 +61,7 @@ export const preguntasPorCategoria = {
         "Un examen recuperatorio permite reemplazar la nota del parcial que se está recuperando.",
       respuestaCorrecta: true,
       explicacion:
-        "El recuperatorio brinda una nueva oportunidad sobre uno de los parciales y la calificación obtenida reemplaza la nota anterior.",
+        "El recuperatorio brinda una nueva oportunidad sobre uno de los parciales y la calificación obtenida reemplaza la nota anterior, incluso si esta es menor.",
     },
     {
       id: "vf-9",
@@ -82,121 +73,112 @@ export const preguntasPorCategoria = {
         "El examen integrador evalúa los contenidos de todos los módulos de la materia y reemplaza las notas de los dos parciales.",
     },
     {
-      id: "vf-10",
-      tipo: "verdadero-falso",
-      pregunta:
-        "La nota obtenida en un recuperatorio reemplaza la nota anterior, aunque sea más baja.",
-      respuestaCorrecta: true,
-      explicacion:
-        "La nota del recuperatorio reemplaza la calificación anterior del parcial recuperado, por lo que conviene prepararlo cuidadosamente.",
-    },
-    {
       id: "vf-11",
       tipo: "verdadero-falso",
       pregunta:
         "Los trabajos prácticos pueden influir en la posibilidad de promocionar o regularizar una materia.",
       respuestaCorrecta: true,
       explicacion:
-        "Los trabajos prácticos forman parte de las condiciones de cursado y pueden ser necesarios para alcanzar la promoción o la regularidad.",
+        "Los trabajos prácticos forman parte de los requisitos de aprobación del cursado. La cantidad aprobada y las notas obtenidas, junto con el resultado de los parciales, determinan si la materia queda regular, promocionada de forma directa o promocionada de forma indirecta.",
     },
     {
       id: "vf-12",
       tipo: "verdadero-falso",
       pregunta:
-        "Todas las actividades que aparecen en Canvas tienen una nota que influye en la condición final.",
+        "Todas las actividades que aparecen en Canvas tienen una nota que influye en la condición final de la materia.",
       respuestaCorrecta: false,
       explicacion:
-        "Las Actividades Prácticas son autoevaluativas y no llevan nota. No todo lo que aparece en Canvas impacta directamente en la condición final.",
+        "No todas las actividades de Canvas tienen incidencia en la condición final. Las Actividades Prácticas son autoevaluativas y no llevan nota; las calificaciones que determinan si la materia queda regular o promocionada son las obtenidas en los trabajos prácticos y en los parciales.",
     },
     {
       id: "vf-13",
       tipo: "verdadero-falso",
       pregunta:
-        "Cualquier estudiante puede cursar materias de verano desde su primer semestre.",
+        "Cualquier estudiante puede cursar materias de verano.",
       respuestaCorrecta: false,
       explicacion:
         "Las materias de verano están habilitadas para estudiantes que ya se encuentran cursando materias de su segundo semestre en adelante.",
     },
     {
-      id: "vf-14",
-      tipo: "verdadero-falso",
-      pregunta:
-        "Las materias electivas permiten orientar parte de la formación hacia intereses profesionales personales.",
-      respuestaCorrecta: true,
-      explicacion:
-        "Las electivas permiten ampliar el recorrido académico y elegir contenidos vinculados con los intereses o el perfil profesional de cada estudiante.",
-    },
-    {
-      id: "vf-15",
-      tipo: "verdadero-falso",
-      pregunta:
-        "La Práctica Solidaria propone una experiencia de aprendizaje vinculada con una organización de la comunidad.",
-      respuestaCorrecta: true,
-      explicacion:
-        "La Práctica Solidaria permite participar en una experiencia formativa junto con una organización y vincular el aprendizaje con necesidades de la comunidad.",
-    },
-    {
-      id: "vf-16",
-      tipo: "verdadero-falso",
-      pregunta:
-        "La Práctica Profesional permite aplicar conocimientos de la carrera en una experiencia relacionada con el campo profesional.",
-      respuestaCorrecta: true,
-      explicacion:
-        "Su propósito es integrar y aplicar conocimientos de la carrera en un contexto vinculado con el futuro desempeño profesional.",
-    },
-    {
-      id: "vf-17",
-      tipo: "verdadero-falso",
-      pregunta:
-        "Las equivalencias pueden permitir el reconocimiento de materias aprobadas anteriormente en otra institución.",
-      respuestaCorrecta: true,
-      explicacion:
-        "El trámite de equivalencias analiza estudios previos y puede reconocer materias cuyos contenidos y requisitos resulten equivalentes.",
-    },
+  id: "vf-14",
+  tipo: "verdadero-falso",
+  pregunta:
+    "Las materias electivas son opcionales y pueden omitirse sin afectar la finalización de la carrera.",
+  respuestaCorrecta: false,
+  explicacion:
+    "Aunque permiten elegir contenidos vinculados con distintos intereses y perfiles profesionales, los créditos de materias electivas son obligatorios en las carreras de grado. Para obtener el título, se debe completar la cantidad establecida en el plan de estudios.",
+},
+{
+  id: "vf-15",
+  tipo: "verdadero-falso",
+  pregunta:
+    "La Práctica Solidaria es una actividad voluntaria que cada estudiante puede decidir si realiza.",
+  respuestaCorrecta: false,
+  explicacion:
+    "La Práctica Solidaria es una materia obligatoria incluida en todos los planes de estudio de las carreras de grado. Se cursa a partir del tercer cuatrimestre e implica participar activamente en una organización social, aplicando competencias en un contexto comunitario.",
+},
+  {
+  id: "vf-16",
+  tipo: "verdadero-falso",
+  pregunta:
+    "Si un estudiante ya trabaja en un área vinculada con su carrera, queda automáticamente exceptuado de realizar la Práctica Profesional.",
+  respuestaCorrecta: false,
+  explicacion:
+    "La experiencia laboral previa no reemplaza automáticamente la Práctica Profesional. Aunque en algunos casos el estudiante pueda realizarla en su lugar de trabajo, debe cumplir el proceso académico, desarrollar tareas vinculadas con su carrera y presentar la documentación y las actividades requeridas por la Universidad.",
+},
+{
+  id: "vf-17",
+  tipo: "verdadero-falso",
+  pregunta:
+    "Quien estudió anteriormente en otra universidad debe comenzar una nueva carrera desde el primer año, aunque tenga materias aprobadas.",
+  respuestaCorrecta: false,
+  explicacion:
+    "Puede solicitar equivalencias para que la Universidad evalúe las materias aprobadas anteriormente. Si existe correspondencia entre los contenidos y la carga horaria, algunas pueden ser reconocidas, lo que permite retomar los estudios sin empezar desde cero.",
+},
   ],
 
   "Multiple choice": [
+ {
+  id: "mc-19",
+  tipo: "multiple-choice",
+  pregunta: "¿Con qué nota mínima se aprueba un examen final regular?",
+  opciones: [
     {
-      id: "mc-19",
-      tipo: "multiple-choice",
-      pregunta: "¿Con qué nota se aprueba un examen final?",
-      opciones: [
-        {
-          id: "a",
-          texto: "4.",
-        },
-        {
-          id: "b",
-          texto: "5.",
-        },
-        {
-          id: "c",
-          texto: "7.",
-        },
-        {
-          id: "d",
-          texto: "8.",
-        },
-      ],
-      respuestaCorrecta: "b",
-      explicacion:
-        "Los exámenes finales se aprueban con una calificación mínima de 5.",
+      id: "a",
+      texto: "4.",
     },
     {
-      id: "mc-1",
-      tipo: "multiple-choice",
-      pregunta:
-        "¿Hasta cuántas materias se pueden adelantar mediante el cursado de verano?",
-      opciones: [
-        { id: "a", texto: "2 materias." },
-        { id: "b", texto: "4 materias." },
-        { id: "c", texto: "3 materias." },
-        { id: "d", texto: "5 materias." },
-      ],
-      respuestaCorrecta: "a",
-      explicacion:
-        "Durante el período de verano se pueden adelantar hasta dos materias de la oferta habilitada.",
+      id: "b",
+      texto: "5.",
     },
+    {
+      id: "c",
+      texto: "7.",
+    },
+    {
+      id: "d",
+      texto: "8.",
+    },
+  ],
+  respuestaCorrecta: "a",
+  explicacion:
+    "El examen final regular se aprueba con una nota mínima de 4, equivalente a 14 respuestas correctas de un total de 30. En cambio, el examen libre por nota contiene 50 preguntas y también se aprueba con 4, equivalente a 24 respuestas correctas.",
+},
+    {
+  id: "mc-1",
+  tipo: "multiple-choice",
+  pregunta:
+    "¿Hasta cuántas materias puede cursar un estudiante durante el período de verano?",
+  opciones: [
+    { id: "a", texto: "2 materias." },
+    { id: "b", texto: "4 materias." },
+    { id: "c", texto: "3 materias." },
+    { id: "d", texto: "5 materias." },
+  ],
+  respuestaCorrecta: "c",
+  explicacion:
+    "Durante el período de verano se pueden cursar hasta 3 materias de la oferta habilitada. Esta posibilidad está disponible únicamente para estudiantes que se reinscriben, no para ingresantes.",
+},
     {
       id: "mc-2",
       tipo: "multiple-choice",
@@ -225,58 +207,63 @@ export const preguntasPorCategoria = {
         "La regularidad permite acceder al examen final. La materia queda aprobada cuando también se supera esa instancia.",
     },
     {
-      id: "mc-3",
-      tipo: "multiple-choice",
-      pregunta:
-        "¿Cuál de estas opciones no puede cursarse como materia electiva?",
-      opciones: [
-        {
-          id: "a",
-          texto: "Una materia habilitada para la carrera.",
-        },
-        {
-          id: "b",
-          texto: "Una materia que otorgue créditos electivos.",
-        },
-        {
-          id: "c",
-          texto: "Práctica Solidaria.",
-        },
-        {
-          id: "d",
-          texto: "Una materia vinculada con el perfil profesional.",
-        },
-      ],
-      respuestaCorrecta: "c",
-      explicacion:
-        "La Práctica Solidaria es una instancia formativa propia y no se utiliza para completar créditos de materias electivas.",
+  id: "mc-3",
+  tipo: "multiple-choice",
+  pregunta:
+    "¿Cuál de estas materias no puede utilizarse para completar los créditos electivos de una carrera?",
+  opciones: [
+    {
+      id: "a",
+      texto:
+        "Una materia electiva habilitada para el plan de estudios.",
     },
     {
-      id: "mc-4",
-      tipo: "multiple-choice",
-      pregunta: "¿Qué significa promocionar una materia?",
-      opciones: [
-        {
-          id: "a",
-          texto: "Terminar de cursarla y quedar libre.",
-        },
-        {
-          id: "b",
-          texto: "Aprobarla sin rendir un examen final.",
-        },
-        {
-          id: "c",
-          texto: "Poder recursarla sin costo.",
-        },
-        {
-          id: "d",
-          texto: "Aprobar únicamente los trabajos prácticos.",
-        },
-      ],
-      respuestaCorrecta: "b",
-      explicacion:
-        "Promocionar significa completar y aprobar la materia durante el cursado, sin necesidad de rendir un examen final.",
+      id: "b",
+      texto:
+        "Una materia electiva relacionada con otro campo profesional.",
     },
+    {
+      id: "c",
+      texto:
+        "Práctica Solidaria.",
+    },
+    {
+      id: "d",
+      texto:
+        "Una materia electiva que otorgue menos créditos de los requeridos.",
+    },
+  ],
+  respuestaCorrecta: "c",
+  explicacion:
+    "Los créditos electivos se completan mediante materias incluidas en la oferta de electivas. La Práctica Solidaria forma parte de las instancias obligatorias del plan de estudios y no puede utilizarse para reemplazar esos créditos.",
+},
+  {
+  id: "mc-4",
+  tipo: "multiple-choice",
+  pregunta:
+    "Un estudiante cumplió durante el cursado las condiciones necesarias para aprobar una materia y no debe rendir su examen final. ¿Qué condición obtuvo?",
+  opciones: [
+    {
+      id: "a",
+      texto: "Regular.",
+    },
+    {
+      id: "b",
+      texto: "Promocionada.",
+    },
+    {
+      id: "c",
+      texto: "Libre.",
+    },
+    {
+      id: "d",
+      texto: "Inscripta para final.",
+    },
+  ],
+  respuestaCorrecta: "b",
+  explicacion:
+    "La materia queda promocionada cuando se aprueba durante el cursado, ya sea mediante promoción directa o indirecta. A diferencia de la regularidad, no queda pendiente ningún examen final.",
+},
     {
       id: "mc-5",
       tipo: "multiple-choice",
@@ -317,86 +304,68 @@ export const preguntasPorCategoria = {
       explicacion:
         "El integrador abarca todos los módulos y reemplaza las calificaciones obtenidas en los dos parciales.",
     },
+{
+  id: "mc-7",
+  tipo: "multiple-choice",
+  pregunta:
+    "¿Dónde debería consultar un estudiante las fechas de parciales y entregas de trabajos prácticos?",
+  opciones: [
     {
-      id: "mc-7",
-      tipo: "multiple-choice",
-      pregunta:
-        "¿Qué debería revisar un estudiante para conocer las fechas de parciales y trabajos prácticos?",
-      opciones: [
-        {
-          id: "a",
-          texto: "El calendario académico.",
-        },
-        {
-          id: "b",
-          texto: "La página pública de la carrera.",
-        },
-        {
-          id: "c",
-          texto: "El diploma.",
-        },
-        {
-          id: "d",
-          texto: "El certificado analítico.",
-        },
-      ],
-      respuestaCorrecta: "a",
-      explicacion:
-        "El calendario académico reúne las fechas relevantes de cursado, evaluaciones y otras instancias académicas.",
+      id: "a",
+      texto:
+        "En el calendario académico",
     },
     {
-      id: "mc-8",
-      tipo: "multiple-choice",
-      pregunta: "¿Qué característica tienen las Actividades Prácticas?",
-      opciones: [
-        {
-          id: "a",
-          texto: "Son exámenes finales.",
-        },
-        {
-          id: "b",
-          texto: "Son autoevaluativas y no llevan nota.",
-        },
-        {
-          id: "c",
-          texto: "Reemplazan los parciales.",
-        },
-        {
-          id: "d",
-          texto: "Solo pueden realizarse presencialmente.",
-        },
-      ],
-      respuestaCorrecta: "b",
-      explicacion:
-        "Las Actividades Prácticas permiten ejercitar y verificar la comprensión de los contenidos, pero no llevan una calificación.",
+      id: "b",
+      texto:
+        "En Klarway, el mismo portal que se utiliza para rendir.",
     },
     {
-      id: "mc-9",
-      tipo: "multiple-choice",
-      pregunta:
-        "¿Qué sucede normalmente cuando una materia queda en condición regular?",
-      opciones: [
-        {
-          id: "a",
-          texto: "Debe rendirse un examen final.",
-        },
-        {
-          id: "b",
-          texto: "Se aprueba automáticamente.",
-        },
-        {
-          id: "c",
-          texto: "Se elimina del plan de estudios.",
-        },
-        {
-          id: "d",
-          texto: "Se transforma en materia electiva.",
-        },
-      ],
-      respuestaCorrecta: "a",
-      explicacion:
-        "La condición regular habilita a rendir el examen final necesario para completar la aprobación de la materia.",
+      id: "c",
+      texto:
+        "En el foro de cada materia, esperando que el docente publique un aviso.",
     },
+    {
+      id: "d",
+      texto:
+        "En la página pública de la carrera.",
+    },
+  ],
+  respuestaCorrecta: "a",
+  explicacion:
+    "El calendario académico informa las fechas de inicio y cierre de cada período habilitado para rendir parciales y entregar trabajos prácticos. Estas fechas se organizan según la tipología de la materia, por lo que es importante identificar si se trata de una MEC, MIA, MIP o MAP y en qué periodo del año queremos consultar",
+},
+    {
+  id: "mc-8",
+  tipo: "multiple-choice",
+  pregunta:
+    "¿Cuál de estas afirmaciones describe correctamente a las Actividades Prácticas?",
+  opciones: [
+    {
+      id: "a",
+      texto:
+        "Son ejercicios autoevaluativos que permiten practicar los contenidos sin afectar la nota final.",
+    },
+    {
+      id: "b",
+      texto:
+        "Son entregas obligatorias con calificación que determinan la promoción.",
+    },
+    {
+      id: "c",
+      texto:
+        "Son evaluaciones que reemplazan los trabajos prácticos.",
+    },
+    {
+      id: "d",
+      texto:
+        "Son actividades que deben presentarse al docente para recibir una devolución.",
+    },
+  ],
+  respuestaCorrecta: "a",
+  explicacion:
+    "Las Actividades Prácticas son ejercicios autoevaluativos disponibles en Canvas. Sirven para repasar contenidos y comprobar la comprensión antes de avanzar, pero no llevan nota ni modifican la condición final de la materia. Las calificaciones que sí influyen son las de los trabajos prácticos y los parciales.",
+},
     {
       id: "mc-10",
       tipo: "multiple-choice",
@@ -423,140 +392,98 @@ export const preguntasPorCategoria = {
       explicacion:
         "Las electivas permiten personalizar parte del recorrido académico y explorar áreas relacionadas con los intereses profesionales.",
     },
+   {
+  id: "mc-13",
+  tipo: "multiple-choice",
+  pregunta:
+    "¿Qué hace que una materia sea considerada una materia extra?",
+  opciones: [
     {
-      id: "mc-11",
-      tipo: "multiple-choice",
-      pregunta:
-        "¿Dónde aparecen las materias electivas habilitadas para cada estudiante?",
-      opciones: [
-        {
-          id: "a",
-          texto: "En Portal Estudiantes.",
-        },
-        {
-          id: "b",
-          texto: "En Klarway.",
-        },
-        {
-          id: "c",
-          texto: "En Google Classroom.",
-        },
-        {
-          id: "d",
-          texto: "En el correo personal.",
-        },
-      ],
-      respuestaCorrecta: "a",
-      explicacion:
-        "Las opciones electivas habilitadas de acuerdo con la carrera y el plan de estudios pueden consultarse en Portal Estudiantes.",
+      id: "a",
+      texto:
+        "Que se curse además de las materias previstas en la carga habitual del semestre.",
     },
     {
-      id: "mc-12",
-      tipo: "multiple-choice",
-      pregunta: "¿Qué característica tiene el cursado de verano?",
-      opciones: [
-        {
-          id: "a",
-          texto: "Es anual.",
-        },
-        {
-          id: "b",
-          texto: "Es exclusivamente presencial.",
-        },
-        {
-          id: "c",
-          texto: "Es intensivo y virtual.",
-        },
-        {
-          id: "d",
-          texto: "No incluye evaluaciones.",
-        },
-      ],
-      respuestaCorrecta: "c",
-      explicacion:
-        "Las materias de verano se desarrollan de manera intensiva durante cinco semanas y se cursan virtualmente.",
+      id: "b",
+      texto:
+        "Que se dicte fuera del calendario académico regular.",
     },
     {
-      id: "mc-13",
-      tipo: "multiple-choice",
-      pregunta: "¿Qué es una materia extra?",
-      opciones: [
-        {
-          id: "a",
-          texto: "Una materia que no pertenece a ninguna carrera.",
-        },
-        {
-          id: "b",
-          texto:
-            "Una materia adicional a las incluidas normalmente en el semestre.",
-        },
-        {
-          id: "c",
-          texto: "Una materia que no tiene trabajos prácticos.",
-        },
-        {
-          id: "d",
-          texto: "Una materia reconocida por equivalencia.",
-        },
-      ],
-      respuestaCorrecta: "b",
-      explicacion:
-        "Una materia extra se cursa de manera adicional a la carga académica habitual prevista para el semestre.",
+      id: "c",
+      texto:
+        "Que no otorgue créditos para completar el plan de estudios.",
     },
     {
-      id: "mc-14",
-      tipo: "multiple-choice",
-      pregunta: "¿Cuál es el objetivo principal de la Práctica Solidaria?",
-      opciones: [
-        {
-          id: "a",
-          texto: "Trabajar exclusivamente en una empresa privada.",
-        },
-        {
-          id: "b",
-          texto:
-            "Desarrollar una experiencia de aprendizaje junto con la comunidad.",
-        },
-        {
-          id: "c",
-          texto: "Rendir un examen integrador presencial.",
-        },
-        {
-          id: "d",
-          texto: "Obtener automáticamente créditos electivos.",
-        },
-      ],
-      respuestaCorrecta: "b",
-      explicacion:
-        "La Práctica Solidaria vincula la formación universitaria con una experiencia de participación y aprendizaje en la comunidad.",
+      id: "d",
+      texto:
+        "Que haya sido reconocida mediante un trámite de equivalencias.",
+    },
+  ],
+  respuestaCorrecta: "a",
+  explicacion:
+    "Una materia se considera extra cuando se suma a la carga académica prevista para el semestre. Puede ser obligatoria, electiva o una materia que deba recursarse, y permite adelantar o reorganizar el recorrido académico.",
+},
+   {
+  id: "mc-14",
+  tipo: "multiple-choice",
+  pregunta:
+    "¿Qué distingue principalmente a la Práctica Solidaria de otras experiencias formativas?",
+  opciones: [
+    {
+      id: "a",
+      texto:
+        "Se centra en adquirir experiencia laboral dentro de una empresa.",
     },
     {
-      id: "mc-15",
-      tipo: "multiple-choice",
-      pregunta: "¿Cuál es el objetivo principal de la Práctica Profesional?",
-      opciones: [
-        {
-          id: "a",
-          texto:
-            "Integrar conocimientos de la carrera en un contexto profesional.",
-        },
-        {
-          id: "b",
-          texto: "Reemplazar todas las materias electivas.",
-        },
-        {
-          id: "c",
-          texto: "Aprender a utilizar Canvas.",
-        },
-        {
-          id: "d",
-          texto: "Preparar el examen de ingreso.",
-        },
-      ],
-      respuestaCorrecta: "a",
-      explicacion:
-        "La Práctica Profesional permite aplicar conocimientos y desarrollar competencias en una experiencia vinculada con el campo laboral.",
+      id: "b",
+      texto:
+        "Integra el aprendizaje universitario con la participación activa en una organización de la comunidad.",
     },
+    {
+      id: "c",
+      texto:
+        "Se limita a observar el funcionamiento de una organización sin participar en sus actividades.",
+    },
+    {
+      id: "d",
+      texto:
+        "Permite reemplazar materias obligatorias por actividades comunitarias.",
+    },
+  ],
+  respuestaCorrecta: "b",
+  explicacion:
+    "La Práctica Solidaria vincula la formación universitaria con una experiencia concreta de participación social. El estudiante se integra a una organización, colabora en sus actividades y reflexiona sobre la realidad abordada, convirtiendo esa participación en una instancia de aprendizaje.",
+},
+   {
+  id: "mc-15",
+  tipo: "multiple-choice",
+  pregunta: "¿Cuál es el objetivo principal de la Práctica Profesional?",
+  opciones: [
+    {
+      id: "a",
+      texto:
+        "Integrar conocimientos de la carrera en un contexto profesional.",
+    },
+    {
+      id: "b",
+      texto:
+        "Reemplazar todas las materias electivas.",
+    },
+    {
+      id: "c",
+      texto:
+        "Observar el funcionamiento de una organización sin participar en tareas profesionales.",
+    },
+    {
+      id: "d",
+      texto:
+        "Asegurar la incorporación del estudiante como empleado al finalizar la práctica.",
+    },
+  ],
+  respuestaCorrecta: "a",
+  explicacion:
+    "La Práctica Profesional permite trasladar los conocimientos adquiridos durante la carrera a situaciones propias del campo laboral. El estudiante participa en actividades vinculadas con su perfil profesional, desarrolla competencias y obtiene experiencia concreta antes de graduarse.",
+},
     {
       id: "mc-16",
       tipo: "multiple-choice",
@@ -581,7 +508,7 @@ export const preguntasPorCategoria = {
       ],
       respuestaCorrecta: "b",
       explicacion:
-        "EFIP significa Examen Final Integrador Presencial y forma parte de las carreras de grado a distancia que contemplan esta instancia.",
+        "EFIP significa Examen Final Integrador Presencial y forma parte de las carreras de grado a distancia.",
     },
     {
       id: "mc-17",
@@ -610,97 +537,104 @@ export const preguntasPorCategoria = {
       explicacion:
         "Las equivalencias pueden reconocer asignaturas aprobadas previamente cuando cumplen con los criterios académicos correspondientes.",
     },
+  {
+  id: "mc-18",
+  tipo: "multiple-choice",
+  pregunta:
+    "¿Dónde se realizan los parciales y finales?",
+  opciones: [
     {
-      id: "mc-18",
-      tipo: "multiple-choice",
-      pregunta:
-        "¿Dónde se realizan habitualmente los parciales y finales virtuales?",
-      opciones: [
-        {
-          id: "a",
-          texto: "En Canvas.",
-        },
-        {
-          id: "b",
-          texto: "En La Nube.",
-        },
-        {
-          id: "c",
-          texto: "En SOE o Klarway.",
-        },
-        {
-          id: "d",
-          texto: "En ComunidadNET.",
-        },
-      ],
-      respuestaCorrecta: "c",
-      explicacion:
-        "Los parciales y finales virtuales se realizan habitualmente mediante SOE o Klarway, según la instancia correspondiente.",
+      id: "a",
+      texto:
+        "Únicamente de manera virtual, a través de SOE (Klarway).",
+    },
+    {
+      id: "b",
+      texto:
+        "Únicamente de manera presencial en el CAU, sin utilizar una plataforma.",
+    },
+    {
+      id: "c",
+      texto:
+        "De manera virtual o presencial en el CAU, utilizando SOE (Klarway) en ambos casos.",
+    },
+    {
+      id: "d",
+      texto:
+        "Los parciales se realizan en Canvas y los finales presencialmente en el CAU.",
     },
   ],
+  respuestaCorrecta: "c",
+  explicacion:
+    "Los parciales y finales pueden rendirse de manera virtual o presencial desde el CAU, pero en ambos casos se realizan mediante SOE (Klarway). La ventaja de rendir en el CAU es contar con acompañamiento en el momento y asistencia ante consultas o inconvenientes técnicos durante la evaluación.",
+},
 
-  Aproximación: [
+  ],
+  "Aproximación": [
+  {
+  id: "ap-1",
+  tipo: "aproximacion",
+  pregunta:
+    "¿Cuántos días tenés para aprobar una correlativa anterior y mantener la promoción?",
+  respuestaCorrecta: 60,
+  unidad: "días",
+  cantidadMinimaRespuestas: 2,
+  explicacion:
+    "Si alcanzaste la promoción en una materia, pero todavía debés aprobar una correlativa anterior, tenés 60 días desde la finalización del cursado para hacerlo. Si la aprobás dentro de ese plazo, conservás la promoción; de lo contrario, la materia queda regular y deberás rendir su examen final.",
+},
+   {
+  id: "ap-2",
+  tipo: "aproximacion",
+  pregunta: "¿Cuántas horas comprende la Práctica Profesional?",
+  respuestaCorrecta: 250,
+  unidad: "horas",
+  cantidadMinimaRespuestas: 2,
+  explicacion:
+    "La Práctica Profesional comprende 250 horas de experiencia en una organización vinculada con el campo profesional de la carrera. Además, para aprobar la materia, también se debe obtener una evaluación de desempeño de 7 o más y cumplir con los trabajos prácticos requeridos.",
+},
+{
+  id: "ap-3",
+  tipo: "aproximacion",
+  pregunta:
+    "¿Cuántas semanas dura la instancia organizacional de Práctica Solidaria?",
+  respuestaCorrecta: 12,
+  unidad: "semanas",
+  cantidadMinimaRespuestas: 2,
+  explicacion:
+    "La instancia organizacional de Práctica Solidaria se desarrolla durante 12 semanas. En ese período, el estudiante participa de manera sostenida en una organización de la comunidad, colabora en las actividades acordadas y vincula esa experiencia con los contenidos y trabajos académicos de la materia.",
+},
     {
-      id: "ap-1",
-      tipo: "aproximacion",
-      pregunta:
-        "¿Cuántos días tenés para aprobar una correlativa anterior y mantener la promoción?",
-      respuestaCorrecta: 60,
-      unidad: "días",
-      cantidadMinimaRespuestas: 2,
-      explicacion:
-        "El plazo indicado para aprobar la correlativa anterior y conservar la promoción es de 60 días.",
-    },
-    {
-      id: "ap-2",
-      tipo: "aproximacion",
-      pregunta: "¿Cuántas horas comprende la Práctica Profesional?",
-      respuestaCorrecta: 250,
-      unidad: "horas",
-      cantidadMinimaRespuestas: 2,
-      explicacion: "La Práctica Profesional comprende un total de 250 horas.",
-    },
-    {
-      id: "ap-3",
-      tipo: "aproximacion",
-      pregunta:
-        "¿Cuántas semanas dura la instancia organizacional de Práctica Solidaria?",
-      respuestaCorrecta: 12,
-      unidad: "semanas",
-      cantidadMinimaRespuestas: 2,
-      explicacion:
-        "La instancia organizacional de Práctica Solidaria dura 12 semanas.",
-    },
-    {
-      id: "ap-4",
-      tipo: "aproximacion",
-      pregunta: "¿Cuántas preguntas tiene un parcial de modalidad ED o EDH?",
-      respuestaCorrecta: 20,
-      unidad: "preguntas",
-      cantidadMinimaRespuestas: 2,
-      explicacion: "Un parcial de modalidad ED o EDH tiene 20 preguntas.",
-    },
-    {
-      id: "ap-5",
-      tipo: "aproximacion",
-      pregunta:
-        "¿Cuántas preguntas tiene un examen integrador de modalidad ED o EDH?",
-      respuestaCorrecta: 30,
-      unidad: "preguntas",
-      cantidadMinimaRespuestas: 2,
-      explicacion:
-        "Un examen integrador de modalidad ED o EDH tiene 30 preguntas.",
-    },
-    {
-      id: "ap-6",
-      tipo: "aproximacion",
-      pregunta: "¿Cuántos módulos abarca un examen integrador?",
-      respuestaCorrecta: 4,
-      unidad: "módulos",
-      cantidadMinimaRespuestas: 2,
-      explicacion:
-        "El examen integrador abarca los cuatro módulos de la materia.",
-    },
+  id: "ap-4",
+  tipo: "aproximacion",
+  pregunta:
+    "¿Cuántas preguntas tiene un parcial de modalidad ED o EDH?",
+  respuestaCorrecta: 20,
+  unidad: "preguntas",
+  cantidadMinimaRespuestas: 2,
+  explicacion:
+    "Los parciales de las modalidades ED y EDH tienen 20 preguntas de opción múltiple y una duración máxima de 40 minutos. Se aprueban con una nota mínima de 5, equivalente a responder correctamente al menos 9 preguntas.",
+},
+   {
+  id: "ap-5",
+  tipo: "aproximacion",
+  pregunta:
+    "¿Cuántas preguntas tiene un examen integrador de modalidad ED o EDH?",
+  respuestaCorrecta: 30,
+  unidad: "preguntas",
+  cantidadMinimaRespuestas: 2,
+  explicacion:
+    "El examen integrador tiene 30 preguntas, abarca los contenidos evaluados en el primer y segundo parcial y dispone de hasta 60 minutos para completarse. Se aprueba con una nota mínima de 5, equivalente a entre 13 y 15 respuestas correctas, y la calificación obtenida reemplaza las notas de ambos parciales.",
+},
+   {
+  id: "ap-6",
+  tipo: "aproximacion",
+  pregunta: "¿Cuántos módulos abarca un examen integrador?",
+  respuestaCorrecta: 4,
+  unidad: "módulos",
+  cantidadMinimaRespuestas: 2,
+  explicacion:
+    "El examen integrador evalúa los 4 módulos de la materia y la calificación obtenida reemplaza las notas de ambos parciales.",
+},
     {
       id: "ap-7",
       tipo: "aproximacion",
@@ -709,39 +643,31 @@ export const preguntasPorCategoria = {
       respuestaCorrecta: 4,
       unidad: "trabajos prácticos",
       cantidadMinimaRespuestas: 2,
-      explicacion:
-        "Las materias programáticas suelen incluir cuatro trabajos prácticos.",
+      
+       explicacion:
+  "Las materias programáticas incluyen 4 trabajos prácticos, uno por cada módulo. Sus notas influyen, junto con los parciales, en la condición final de la materia.",
     },
-    {
-      id: "ap-8",
-      tipo: "aproximacion",
-      pregunta: "¿Cuántos parciales se rinden normalmente durante una materia?",
-      respuestaCorrecta: 2,
-      unidad: "parciales",
-      cantidadMinimaRespuestas: 2,
-      explicacion:
-        "Durante el cursado de una materia normalmente se rinden dos parciales.",
-    },
-    {
-      id: "ap-9",
-      tipo: "aproximacion",
-      pregunta: "¿Cuánto dura normalmente un parcial virtual?",
-      respuestaCorrecta: 40,
-      unidad: "minutos",
-      cantidadMinimaRespuestas: 2,
-      explicacion:
-        "La duración habitual de un parcial virtual es de 40 minutos.",
-    },
-    {
-      id: "ap-10",
-      tipo: "aproximacion",
-      pregunta: "¿Cuánto dura normalmente un examen integrador virtual?",
-      respuestaCorrecta: 60,
-      unidad: "minutos",
-      cantidadMinimaRespuestas: 2,
-      explicacion:
-        "La duración habitual de un examen integrador virtual es de 60 minutos.",
-    },
+    
+  {
+  id: "ap-9",
+  tipo: "aproximacion",
+  pregunta: "¿Cuánto dura normalmente un parcial virtual?",
+  respuestaCorrecta: 40,
+  unidad: "minutos",
+  cantidadMinimaRespuestas: 2,
+  explicacion:
+    "Un parcial virtual dura hasta 40 minutos y consta de 20 preguntas. El tiempo comienza a correr al iniciar la evaluación en SOE (Klarway), por lo que conviene contar previamente con una conexión estable y un espacio adecuado para rendir.",
+},
+  {
+  id: "ap-10",
+  tipo: "aproximacion",
+  pregunta: "¿Cuánto dura normalmente un examen integrador virtual?",
+  respuestaCorrecta: 60,
+  unidad: "minutos",
+  cantidadMinimaRespuestas: 2,
+  explicacion:
+    "Un examen integrador virtual dura hasta 60 minutos, consta de 30 preguntas y evalúa los contenidos de los cuatro módulos de la materia. La calificación obtenida reemplaza las notas de ambos parciales.",
+},
     {
       id: "ap-11",
       tipo: "aproximacion",
@@ -751,7 +677,7 @@ export const preguntasPorCategoria = {
       unidad: "oportunidades",
       cantidadMinimaRespuestas: 2,
       explicacion:
-        "Una materia regular cuenta normalmente con hasta tres oportunidades para rendir su examen final.",
+        "Una materia regular cuenta normalmente con hasta tres oportunidades para rendir su examen final en un plazo de 18 meses desde regularizada la materia.",
     },
     {
       id: "ap-12",
@@ -762,29 +688,29 @@ export const preguntasPorCategoria = {
       unidad: "meses",
       cantidadMinimaRespuestas: 2,
       explicacion:
-        "La regularidad de una materia suele mantenerse durante 18 meses.",
+        "La regularidad de una materia tiene una vigencia de 18 meses. Durante ese período, el estudiante dispone de hasta 3 oportunidades para rendir y aprobar el examen final.",
     },
-    {
-      id: "ap-13",
-      tipo: "aproximacion",
-      pregunta:
-        "¿Hasta cuántas materias extra pueden realizarse durante un año?",
-      respuestaCorrecta: 9,
-      unidad: "materias",
-      cantidadMinimaRespuestas: 2,
-      explicacion:
-        "Durante el año pueden realizarse hasta nueve materias extra.",
-    },
+   {
+  id: "ap-13",
+  tipo: "aproximacion",
+  pregunta:
+    "¿Hasta cuántas materias extra pueden realizarse durante un año?",
+  respuestaCorrecta: 7,
+  unidad: "materias",
+  cantidadMinimaRespuestas: 2,
+  explicacion:
+    "Durante el año se pueden cursar hasta 7 materias extra: 2 en cada semestre y hasta 3 durante el cursado de verano. Esto aplica tanto a carreras de grado como de pregrado.",
+},
     {
       id: "ap-14",
       tipo: "aproximacion",
       pregunta:
-        "¿Cuántos créditos electivos requieren normalmente las carreras de grado, excepto los planes que establecen otra cantidad?",
+        "¿Cuántos créditos electivos requieren normalmente las carreras de grado?",
       respuestaCorrecta: 8,
       unidad: "créditos",
       cantidadMinimaRespuestas: 2,
       explicacion:
-        "Las carreras de grado requieren normalmente ocho créditos electivos, salvo que el plan de estudios indique otra cantidad.",
+        "Las carreras de grado requieren  ocho créditos electivos, salvo la carrera de Abogacía que requiere 4 créditos electivos.",
     },
     {
       id: "ap-15",
@@ -1078,24 +1004,7 @@ export const preguntasPorCategoria = {
       explicacion:
         "Esta tecnicatura se enfoca en la observación, preservación y análisis de indicios presentes en una escena.",
     },
-    {
-      id: "cm-9",
-      tipo: "carrera-misteriosa",
-      pregunta: "¿De qué carrera se trata?",
-      pistas: [
-        "Diseño y construyo soluciones digitales.",
-        "Trabajo con programación y arquitectura tecnológica.",
-        "Puedo desarrollar sistemas que utilicen miles de personas.",
-      ],
-      respuestasAceptadas: [
-        "ingeniería en software",
-        "ingenieria en software",
-        "software",
-      ],
-      respuestaCorrecta: "Ingeniería en Software",
-      explicacion:
-        "Ingeniería en Software se ocupa del diseño, desarrollo y mantenimiento de sistemas y aplicaciones.",
-    },
+   
     {
       id: "cm-10",
       tipo: "carrera-misteriosa",
@@ -1221,6 +1130,105 @@ export const preguntasPorCategoria = {
         "Esta tecnicatura integra planificación de eventos, ceremonial, protocolo, relaciones públicas y comunicación institucional.",
     },
     {
+  id: "cm-17",
+  tipo: "carrera-misteriosa",
+  pregunta: "¿De qué carrera se trata?",
+  pistas: [
+    "Diseño mecánicas, personajes y escenarios.",
+    "Combino programación, animación y narrativa.",
+    "Creo experiencias interactivas utilizando motores de videojuegos.",
+  ],
+  respuestasAceptadas: [
+    "tecnicatura universitaria en diseño y desarrollo de videojuegos",
+    "diseño y desarrollo de videojuegos",
+    "desarrollo de videojuegos",
+    "diseño de videojuegos",
+    "videojuegos",
+  ],
+  respuestaCorrecta:
+    "Tecnicatura Universitaria en Diseño y Desarrollo de Videojuegos",
+  explicacion:
+    "Esta tecnicatura integra diseño, programación, animación y narrativa para crear videojuegos, prototipos y experiencias interactivas.",
+},
+{
+  id: "cm-18",
+  tipo: "carrera-misteriosa",
+  pregunta: "¿De qué carrera se trata?",
+  pistas: [
+    "Creo personajes, escenarios y contenidos visuales.",
+    "Trabajo con animación, modelado y producción en 2D y 3D.",
+    "Puedo participar en proyectos audiovisuales, publicitarios o de videojuegos.",
+  ],
+  respuestasAceptadas: [
+    "tecnicatura universitaria en diseño y animacion digital",
+    "diseño y animacion digital",
+    "animacion digital",
+    "diseño digital",
+  ],
+  respuestaCorrecta:
+    "Tecnicatura Universitaria en Diseño y Animación Digital",
+  explicacion:
+    "Esta tecnicatura forma para desarrollar animaciones, piezas gráficas y producciones digitales mediante herramientas de diseño, modelado y postproducción.",
+},
+{
+  id: "cm-19",
+  tipo: "carrera-misteriosa",
+  pregunta: "¿De qué carrera se trata?",
+  pistas: [
+    "Analizo el impacto ambiental de proyectos y actividades productivas.",
+    "Promuevo el aprovechamiento sustentable de los recursos.",
+    "Participo en proyectos vinculados con energía solar, eólica y otras fuentes renovables.",
+  ],
+  respuestasAceptadas: [
+    "licenciatura en ambiente y energias renovables",
+    "ambiente y energias renovables",
+    "energias renovables",
+    "ambiente y energia",
+  ],
+  respuestaCorrecta:
+    "Licenciatura en Ambiente y Energías Renovables",
+  explicacion:
+    "Esta licenciatura combina gestión ambiental y energías renovables para diseñar soluciones sustentables, evaluar impactos y participar en proyectos energéticos.",
+},
+{
+  id: "cm-20",
+  tipo: "carrera-misteriosa",
+  pregunta: "¿De qué carrera se trata?",
+  pistas: [
+    "Aplico tecnología y análisis de datos a la producción agropecuaria.",
+    "Trabajo con sensores, sistemas y herramientas digitales.",
+    "Busco que el campo produzca de manera más eficiente, segura y sustentable.",
+  ],
+  respuestasAceptadas: [
+    "licenciatura en agroinformatica",
+    "agroinformatica",
+    "agro informatica",
+  ],
+  respuestaCorrecta:
+    "Licenciatura en Agroinformática",
+  explicacion:
+    "Esta licenciatura integra tecnología, datos y producción agropecuaria para desarrollar soluciones digitales aplicadas al campo y a la agricultura de precisión.",
+},
+{
+  id: "cm-21",
+  tipo: "carrera-misteriosa",
+  pregunta: "¿De qué carrera se trata?",
+  pistas: [
+    "Gestiono procesos y recursos dentro del Estado.",
+    "Analizo necesidades sociales y diseño respuestas desde el sector público.",
+    "Participo en la planificación, implementación y evaluación de políticas públicas.",
+  ],
+  respuestasAceptadas: [
+    "licenciatura en administracion publica",
+    "administracion publica",
+    "administración pública",
+  ],
+  respuestaCorrecta:
+    "Licenciatura en Administración Pública",
+  explicacion:
+    "Esta licenciatura forma profesionales capaces de gestionar organismos estatales, intervenir en procesos administrativos y participar en el diseño y evaluación de políticas públicas.",
+},
+    {
       id: "cm-16",
       tipo: "carrera-misteriosa",
       pregunta: "¿De qué carrera se trata?",
@@ -1234,155 +1242,187 @@ export const preguntasPorCategoria = {
         "marketing y publicidad digital",
         "publicidad digital",
         "marketing digital",
+        "marketing",
       ],
       respuestaCorrecta:
         "Tecnicatura Universitaria en Marketing y Publicidad Digital",
       explicacion:
         "Esta tecnicatura se orienta a la creación, gestión y análisis de campañas, contenidos y estrategias para medios digitales.",
     },
+    
   ],
 
   "Desafío rápido": [
-    {
-      id: "dr-1",
-      tipo: "desafio-rapido",
-      pregunta: "Nombrá tres carreras relacionadas con la tecnología.",
-      validacion: "manual",
-      explicacion:
-        "Algunas opciones son Ingeniería en Software, Ciencia de Datos, Inteligencia Artificial y Robótica y Seguridad Informática.",
-    },
-    {
-      id: "dr-2",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Nombrá tres carreras en las que sea importante saber comunicarse bien.",
-      validacion: "manual",
-      explicacion:
-        "La comunicación es transversal a muchas profesiones. Lo importante es poder explicar por qué resulta relevante en las carreras elegidas.",
-    },
-    {
-      id: "dr-3",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Nombrá tres profesiones que puedan trabajar dentro de una empresa.",
-      validacion: "manual",
-      explicacion:
-        "Una empresa puede integrar profesionales de administración, contabilidad, recursos humanos, marketing, tecnología y muchas otras áreas.",
-    },
-    {
-      id: "dr-4",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Nombrá tres carreras relacionadas con la justicia o la seguridad.",
-      validacion: "manual",
-      explicacion:
-        "Algunas opciones son Abogacía, Criminología y Seguridad e Investigación de la Escena del Crimen.",
-    },
-    {
-      id: "dr-5",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Nombrá tres carreras en las que se trabaje habitualmente con números.",
-      validacion: "manual",
-      explicacion:
-        "Algunas opciones son Contador Público, Finanzas, Ciencia de Datos y Administración.",
-    },
-    {
-      id: "dr-6",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Nombrá tres carreras que puedan generar un impacto positivo en la sociedad.",
-      validacion: "manual",
-      explicacion:
-        "Todas las profesiones pueden generar impacto. El desafío consiste en elegir tres y explicar brevemente de qué manera podrían hacerlo.",
-    },
-    {
-      id: "dr-7",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Elegí una carrera distinta a la tuya y explicá en diez segundos por qué podría interesarte.",
-      validacion: "manual",
-      explicacion:
-        "El objetivo es descubrir afinidades y aspectos interesantes de una formación diferente.",
-    },
-    {
-      id: "dr-8",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Describí tu carrera sin decir su nombre y hacé que el grupo la adivine.",
-      validacion: "manual",
-      explicacion:
-        "Podés mencionar actividades, conocimientos, ámbitos de trabajo o problemas que resuelve, pero no su nombre.",
-    },
-    {
-      id: "dr-9",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Representá con mímica una profesión para que el grupo la descubra.",
-      validacion: "manual",
-      explicacion:
-        "El desafío se completa cuando el grupo logra identificar la profesión representada.",
-    },
-    {
-      id: "dr-10",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Buscá a una persona que estudie una carrera diferente y encuentren algo que ambas carreras tengan en común.",
-      validacion: "manual",
-      explicacion:
-        "Carreras diferentes pueden compartir habilidades, herramientas, ámbitos de trabajo o problemas que ayudan a resolver.",
-    },
-    {
-      id: "dr-11",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Nombrá tres cosas que no pueden faltar en la mochila o el escritorio de un estudiante.",
-      validacion: "manual",
-      explicacion:
-        "No existe una única combinación correcta. El objetivo es compartir recursos, objetos o hábitos útiles para estudiar.",
-    },
-    {
-      id: "dr-12",
-      tipo: "desafio-rapido",
-      pregunta: "Decí tres excusas típicas para postergar un trabajo práctico.",
-      validacion: "manual",
-      explicacion:
-        "El desafío propone reconocer con humor algunas formas habituales de postergar tareas.",
-    },
-    {
-      id: "dr-13",
-      tipo: "desafio-rapido",
-      pregunta: "Inventá un nombre de grupo de WhatsApp para tu curso.",
-      validacion: "manual",
-      explicacion:
-        "El nombre puede relacionarse con la carrera, las materias, el grupo o alguna situación típica de estudiantes.",
-    },
-    {
-      id: "dr-14",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Explicá qué es un parcial utilizando solamente cinco palabras.",
-      validacion: "manual",
-      explicacion:
-        "La explicación debe tener exactamente cinco palabras y comunicar una idea comprensible.",
-    },
-    {
-      id: "dr-15",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Mencioná tres estrategias para atravesar una semana con muchas entregas.",
-      validacion: "manual",
-      explicacion:
-        "Algunas estrategias posibles son priorizar tareas, organizar horarios, dividir trabajos grandes y pedir ayuda cuando sea necesario.",
-    },
-    {
-      id: "dr-16",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Presentate diciendo tu nombre, tu carrera y una habilidad inesperada que tengas.",
-      validacion: "manual",
-      explicacion:
-        "El objetivo es presentarse de una manera breve y permitir que el grupo conozca algo diferente sobre cada participante.",
-    },
-  ],
+  {
+    id: "dr-1",
+    tipo: "desafio-rapido",
+    pregunta:
+      "Tenés 10 segundos: nombrá tres carreras relacionadas con la tecnología.",
+    validacion: "manual",
+    explicacion:
+      "Algunas opciones son Ciencia de Datos, Inteligencia Artificial y Robótica, Seguridad Informática, Informática y Desarrollo de Videojuegos.",
+  },
+  {
+    id: "dr-2",
+    tipo: "desafio-rapido",
+    pregunta:
+      "En 15 segundos, nombrá una carrera en las que sea importante comunicarse bien y explicá tu elección",
+    validacion: "manual",
+    explicacion:
+      "La comunicación es transversal a muchas profesiones. El desafío se supera al nombrar tres carreras y justificar correctamente al menos una.",
+  },
+  {
+    id: "dr-3",
+    tipo: "desafio-rapido",
+    pregunta:
+      "Tenés 10 segundos: nombrá tres profesionales que podrían trabajar dentro de una misma empresa.",
+    validacion: "manual",
+    explicacion:
+      "Una empresa puede reunir profesionales de Administración, Contabilidad, Recursos Humanos, Marketing, Comunicación, Tecnología y muchas otras áreas.",
+  },
+  {
+    id: "dr-4",
+    tipo: "desafio-rapido",
+    pregunta:
+      "En menos de 10 segundos, nombrá tres carreras relacionadas con la justicia, la investigación o la seguridad.",
+    validacion: "manual",
+    explicacion:
+      "Algunas opciones son Abogacía, Criminología y Seguridad, Investigación de la Escena del Crimen y Seguridad Informática.",
+  },
+  {
+    id: "dr-5",
+    tipo: "desafio-rapido",
+    pregunta:
+      "Tenés 10 segundos: nombrá tres carreras en las que se trabaje habitualmente con números o datos.",
+    validacion: "manual",
+    explicacion:
+      "Algunas opciones son Contador Público, Finanzas, Ciencia de Datos, Administración, Economía y Actuario.",
+  },
+  {
+    id: "dr-7",
+    tipo: "desafio-rapido",
+    pregunta:
+      "En menos de 5 segundos, nombrá una carrera que comience con la letra A.",
+    validacion: "manual",
+    explicacion:
+      "Algunas respuestas posibles son Abogacía, Administración, Administración Pública, Agronegocios o Agroinformática.",
+  },
+  {
+    id: "dr-9",
+    tipo: "desafio-rapido",
+    pregunta:
+      "Tenés 10 segundos: nombrá dos carreras de grado y una tecnicatura.",
+    validacion: "manual",
+    explicacion:
+      "El desafío consiste en diferenciar correctamente los tipos de titulación y mencionar tres opciones válidas.",
+  },
+  {
+    id: "dr-10",
+    tipo: "desafio-rapido",
+    pregunta:
+      "En menos de 5 segundos, nombrá una carrera vinculada con el ambiente o la sustentabilidad.",
+    validacion: "manual",
+    explicacion:
+      "Una respuesta posible es la Licenciatura en Ambiente y Energías Renovables.",
+  },
+  {
+    id: "dr-12",
+    tipo: "desafio-rapido",
+    pregunta:
+      "En 10 segundos, decí tres excusas típicas para postergar un trabajo práctico sin repetir ninguna palabra clave.",
+    validacion: "manual",
+    explicacion:
+      "El desafío propone reconocer con humor algunas formas habituales de postergar tareas y responder con rapidez.",
+  },
+  {
+    id: "dr-13",
+    tipo: "desafio-rapido",
+    pregunta:
+      "En menos de 5 segundos, nombrá una carrera que pueda ejercerse tanto de manera independiente como dentro de una organización.",
+    validacion: "manual",
+    explicacion:
+      "Existen numerosas respuestas posibles, como Abogacía, Contador Público, Marketing, Diseño Gráfico, Recursos Humanos o Informática.",
+  },
+  {
+    id: "dr-15",
+    tipo: "desafio-rapido",
+    pregunta:
+      "En 15 segundos, mencioná tres estrategias para atravesar una semana con muchas entregas y cuál aplicarías primero.",
+    validacion: "manual",
+    explicacion:
+      "Algunas estrategias son priorizar tareas, organizar horarios, dividir trabajos grandes, evitar distracciones y pedir ayuda cuando sea necesario.",
+  },
+  {
+    id: "dr-16",
+    tipo: "desafio-rapido",
+    pregunta:
+      "Tenés 10 segundos para presentarte diciendo tu nombre, tu carrera y una habilidad inesperada que tengas.",
+    validacion: "manual",
+    explicacion:
+      "El objetivo es presentarse de manera breve, respetar el límite de tiempo y compartir algo diferente con el grupo.",
+  },
+  {
+    id: "dr-17",
+    tipo: "desafio-rapido",
+    pregunta:
+      "En menos de 5 segundos, nombrá una carrera que comience con la misma letra que tu nombre.",
+    validacion: "manual",
+    explicacion:
+      "La respuesta debe corresponder a una carrera real y comenzar con la misma letra que el nombre del participante.",
+  },
+  {
+    id: "dr-19",
+    tipo: "desafio-rapido",
+    pregunta:
+      "En menos de 5 segundos, nombrá una carrera que trabaje con datos.",
+    validacion: "manual",
+    explicacion:
+      "Algunas respuestas posibles son Ciencia de Datos, Inteligencia Artificial y Robótica, Agroinformática, Finanzas o Contador Público.",
+  },
+ {
+  id: "dr-32",
+  tipo: "desafio-rapido",
+  pregunta:
+    "En menos de 5 segundos, nombrá una carrera de Siglo 21 que contenga la letra B.",
+  validacion: "manual",
+  explicacion:
+    "Algunas respuestas posibles son Bioinformática, Abogacía o Escribanía.",
+},
+{
+  id: "dr-8",
+  tipo: "desafio-rapido",
+  pregunta:
+    "En menos de 5 segundos, nombrá una carrera de Siglo 21 que empiece con C.",
+  validacion: "manual",
+  explicacion:
+    "Algunas opciones son Contador Público, Ciencia de Datos, Comercio Internacional o Criminología y Seguridad.",
+},
+{
+  id: "dr-33",
+  tipo: "desafio-rapido",
+  pregunta:
+    "En menos de 5 segundos, nombrá una carrera que empiece con D.",
+  validacion: "manual",
+  explicacion:
+    "Algunas opciones son Diseño y Animación Digital y Diseño y Desarrollo de Videojuegos.",
+},
+{
+  id: "dr-34",
+  tipo: "desafio-rapido",
+  pregunta:
+    "En menos de 5 segundos, nombrá una carrera de Siglo 21 que empiece con M.",
+  validacion: "manual",
+  explicacion:
+    "Algunas opciones son Marketing y Publicidad Digital o Martillero, Corredor Público y Corredor Inmobiliario.",
+},
+{
+  id: "dr-11",
+  tipo: "desafio-rapido",
+  pregunta:
+    "En menos de 5 segundos, nombrá una carrera que empiece con la última letra de tu nombre.",
+  validacion: "manual",
+  explicacion:
+    "La respuesta debe ser una carrera real y comenzar con la última letra del nombre del participante. Si no existe una opción clara, puede utilizarse la primera letra.",
+},
+],
 };
