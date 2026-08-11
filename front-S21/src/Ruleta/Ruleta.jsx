@@ -3,12 +3,10 @@ import "./Ruleta.css";
 
 import ruletaImg from "../assets/ruleta.svg";
 import logoColor from "../assets/logocolor.png";
-import logoBlanco from "../assets/logo-blanco-sin-fondo.png";
 
 import tickSound from "../assets/tic.mp3";
 import winSound from "../assets/win.mp3";
 
-import { preguntasPorCategoria } from "./preguntas";
 import { Pregunta } from "./Pregunta";
 
 const opciones = [
@@ -64,12 +62,14 @@ const obtenerClaseCategoria = (categoria) => {
   return clases[categoria] ?? "";
 };
 
-export function Ruleta() {
+export function Ruleta({
+  preguntasPorCategoria = {},
+}) {
+
   const [rotation, setRotation] = useState(0);
   const [girando, setGirando] = useState(false);
 
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
-
   const [preguntaActual, setPreguntaActual] = useState(null);
   const [mostrarPregunta, setMostrarPregunta] = useState(false);
   const [resultadoEspecial, setResultadoEspecial] = useState(null);
@@ -87,6 +87,15 @@ export function Ruleta() {
   const sonidosListosRef = useRef(false);
 
   const ultimaPreguntaPorCategoriaRef = useRef({});
+
+  useEffect(() => {
+    ultimaPreguntaPorCategoriaRef.current = {};
+
+    setCategoriaSeleccionada(null);
+    setPreguntaActual(null);
+    setMostrarPregunta(false);
+    setResultadoEspecial(null);
+  }, [preguntasPorCategoria]);
 
   const cargarBuffer = async (url) => {
     const response = await fetch(url);
@@ -250,7 +259,8 @@ export function Ruleta() {
   };
 
   const obtenerPreguntaAleatoria = (categoria) => {
-    const preguntasDisponibles = preguntasPorCategoria[categoria] ?? [];
+    const preguntasDisponibles =
+      preguntasPorCategoria[categoria] ?? [];
 
     if (preguntasDisponibles.length === 0) {
       return null;
@@ -259,12 +269,14 @@ export function Ruleta() {
     if (preguntasDisponibles.length === 1) {
       const unicaPregunta = preguntasDisponibles[0];
 
-      ultimaPreguntaPorCategoriaRef.current[categoria] = unicaPregunta.id;
+      ultimaPreguntaPorCategoriaRef.current[categoria] =
+        unicaPregunta.id;
 
       return unicaPregunta;
     }
 
-    const ultimaPreguntaId = ultimaPreguntaPorCategoriaRef.current[categoria];
+    const ultimaPreguntaId =
+      ultimaPreguntaPorCategoriaRef.current[categoria];
 
     const preguntasSinLaUltima = preguntasDisponibles.filter(
       (pregunta) => pregunta.id !== ultimaPreguntaId,
@@ -274,15 +286,18 @@ export function Ruleta() {
       Math.random() * preguntasSinLaUltima.length,
     );
 
-    const preguntaSeleccionada = preguntasSinLaUltima[indiceAleatorio];
+    const preguntaSeleccionada =
+      preguntasSinLaUltima[indiceAleatorio];
 
-    ultimaPreguntaPorCategoriaRef.current[categoria] = preguntaSeleccionada.id;
+    ultimaPreguntaPorCategoriaRef.current[categoria] =
+      preguntaSeleccionada.id;
 
     return preguntaSeleccionada;
   };
 
   const abrirPreguntaDeCategoria = (categoria) => {
-    const preguntaSeleccionada = obtenerPreguntaAleatoria(categoria);
+    const preguntaSeleccionada =
+      obtenerPreguntaAleatoria(categoria);
 
     setCategoriaSeleccionada(categoria);
     setPreguntaActual(preguntaSeleccionada);
@@ -335,7 +350,11 @@ export function Ruleta() {
   };
 
   const girarRuleta = async () => {
-    if (girandoRef.current || mostrarPregunta || !sonidosListosRef.current) {
+    if (
+      girandoRef.current ||
+      mostrarPregunta ||
+      !sonidosListosRef.current
+    ) {
       return;
     }
 
@@ -352,7 +371,9 @@ export function Ruleta() {
      */
     const margenSector = Math.min(4, SECTOR * 0.1);
 
-    const sectorAleatorio = Math.floor(Math.random() * opciones.length);
+    const sectorAleatorio = Math.floor(
+      Math.random() * opciones.length,
+    );
 
     const posicionDentroDelSector =
       sectorAleatorio * SECTOR +
@@ -363,7 +384,8 @@ export function Ruleta() {
       360 - posicionDentroDelSector + AJUSTE_PUNTERO,
     );
 
-    const rotacionActualNormalizada = normalizarAngulo(rotationRef.current);
+    const rotacionActualNormalizada =
+      normalizarAngulo(rotationRef.current);
 
     const desplazamientoHastaObjetivo = normalizarAngulo(
       rotacionObjetivo - rotacionActualNormalizada,
@@ -372,7 +394,9 @@ export function Ruleta() {
     const vueltasCompletas = 360 * 6;
 
     const nuevaRotacion =
-      rotationRef.current + vueltasCompletas + desplazamientoHastaObjetivo;
+      rotationRef.current +
+      vueltasCompletas +
+      desplazamientoHastaObjetivo;
 
     rotationRef.current = nuevaRotacion;
     ultimoSectorRef.current = null;
@@ -380,7 +404,9 @@ export function Ruleta() {
     playTick();
     setRotation(nuevaRotacion);
 
-    rafRef.current = requestAnimationFrame(escucharCrucesDeSector);
+    rafRef.current = requestAnimationFrame(
+      escucharCrucesDeSector,
+    );
 
     timerRef.current = setTimeout(() => {
       girandoRef.current = false;
@@ -389,7 +415,8 @@ export function Ruleta() {
       cancelAnimationFrame(rafRef.current);
       playWin();
 
-      const indiceGanador = obtenerIndiceGanador(nuevaRotacion);
+      const indiceGanador =
+        obtenerIndiceGanador(nuevaRotacion);
 
       const categoriaGanadora = opciones[indiceGanador];
 
@@ -407,8 +434,8 @@ export function Ruleta() {
   useEffect(() => {
     const handleKeyDown = (event) => {
       const elementoActivo = document.activeElement;
-
-      const etiquetaActiva = elementoActivo?.tagName?.toLowerCase();
+      const etiquetaActiva =
+        elementoActivo?.tagName?.toLowerCase();
 
       const estaEscribiendo =
         etiquetaActiva === "input" ||
@@ -419,7 +446,10 @@ export function Ruleta() {
         return;
       }
 
-      if (event.key === "Enter" || event.code === "Space") {
+      if (
+        event.key === "Enter" ||
+        event.code === "Space"
+      ) {
         event.preventDefault();
         girarRuleta();
       }
@@ -428,7 +458,10 @@ export function Ruleta() {
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener(
+        "keydown",
+        handleKeyDown,
+      );
     };
   }, [mostrarPregunta]);
 
@@ -437,33 +470,44 @@ export function Ruleta() {
       <div className="ruleta-container">
         <div className="pregunta-pantalla">
           <div className="pregunta-card pregunta-card-especial">
-            <span className="pregunta-categoria">{categoriaSeleccionada}</span>
+            <span className="pregunta-categoria">
+              {categoriaSeleccionada}
+            </span>
 
-            <h2 className="pregunta-titulo">{resultadoEspecial.titulo}</h2>
+            <h2 className="pregunta-titulo">
+              {resultadoEspecial.titulo}
+            </h2>
 
             <p className="resultado-especial-descripcion">
               {resultadoEspecial.descripcion}
             </p>
 
-            {resultadoEspecial.tipo === "elegir-categoria" ? (
+            {resultadoEspecial.tipo ===
+            "elegir-categoria" ? (
               <>
                 <h3 className="seleccion-categoria-titulo">
                   Elegí una categoría
                 </h3>
 
                 <div className="seleccion-categorias">
-                  {categoriasConPreguntas.map((categoria) => (
-                    <button
-                      key={categoria}
-                      type="button"
-                      className={`seleccion-categoria-chip ${obtenerClaseCategoria(
-                        categoria,
-                      )}`}
-                      onClick={() => elegirCategoriaEspecial(categoria)}
-                    >
-                      {categoria}
-                    </button>
-                  ))}
+                  {categoriasConPreguntas.map(
+                    (categoria) => (
+                      <button
+                        key={categoria}
+                        type="button"
+                        className={`seleccion-categoria-chip ${obtenerClaseCategoria(
+                          categoria,
+                        )}`}
+                        onClick={() =>
+                          elegirCategoriaEspecial(
+                            categoria,
+                          )
+                        }
+                      >
+                        {categoria}
+                      </button>
+                    ),
+                  )}
                 </div>
               </>
             ) : (
@@ -495,11 +539,18 @@ export function Ruleta() {
 
   return (
     <div className="ruleta-container">
+
       <div
-        className={`ruleta-stage ${girando ? "ruleta-stage-girando" : ""}`}
+        className={`ruleta-stage ${
+          girando ? "ruleta-stage-girando" : ""
+        }`}
         role="button"
         tabIndex={0}
-        aria-label={girando ? "La ruleta está girando" : "Girar la ruleta"}
+        aria-label={
+          girando
+            ? "La ruleta está girando"
+            : "Girar la ruleta"
+        }
         aria-disabled={girando}
         onClick={girarRuleta}
         onPointerDown={activarAudio}
@@ -511,7 +562,9 @@ export function Ruleta() {
             <span
               key={opcion}
               style={{
-                "--angle": `${index * SECTOR + SECTOR / 2}deg`,
+                "--angle": `${
+                  index * SECTOR + SECTOR / 2
+                }deg`,
               }}
             />
           ))}
@@ -529,7 +582,11 @@ export function Ruleta() {
         />
 
         <div className="centro-fijo">
-          <img src={logoColor} alt="Siglo 21" draggable="false" />
+          <img
+            src={logoColor}
+            alt="Siglo 21"
+            draggable="false"
+          />
         </div>
       </div>
     </div>

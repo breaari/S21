@@ -3,11 +3,7 @@
   min-height: 100dvh;
 
   background:
-    radial-gradient(
-      circle at center,
-      rgba(56, 150, 132, 0.2),
-      transparent 45%
-    ),
+    radial-gradient(circle at center, rgba(56, 150, 132, 0.2), transparent 45%),
     #0c3636;
 
   display: flex;
@@ -22,12 +18,13 @@
   padding: 16px;
   box-sizing: border-box;
 }
+
 /* =========================================================
    RULETA
 ========================================================= */
 
 .ruleta-stage {
-  --stage-size: min(98vw, 90dvh);
+  --stage-size: min(94vw, 82dvh);
 
   width: var(--stage-size);
   height: var(--stage-size);
@@ -40,8 +37,7 @@
   outline: none;
 
   filter: drop-shadow(
-    0 0 calc(var(--stage-size) * 0.055)
-    rgba(77, 201, 177, 0.42)
+    0 0 calc(var(--stage-size) * 0.055) rgba(77, 201, 177, 0.42)
   );
 
   transition:
@@ -52,16 +48,14 @@
   cursor: wait;
 
   filter: drop-shadow(
-    0 0 calc(var(--stage-size) * 0.065)
-    rgba(77, 201, 177, 0.5)
+    0 0 calc(var(--stage-size) * 0.065) rgba(77, 201, 177, 0.5)
   );
 }
 .ruleta-stage:not(.ruleta-stage-girando):hover {
   transform: scale(1.01);
 
   filter: drop-shadow(
-    0 0 calc(var(--stage-size) * 0.07)
-    rgba(98, 224, 198, 0.58)
+    0 0 calc(var(--stage-size) * 0.07) rgba(98, 224, 198, 0.58)
   );
 }
 .ruleta-stage:focus-visible {
@@ -82,12 +76,9 @@
   background: linear-gradient(145deg, #293447, #08111f);
 
   box-shadow:
-    inset 0 0 calc(var(--stage-size) * 0.03)
-      rgba(255, 255, 255, 0.18),
-    inset 0 0 calc(var(--stage-size) * 0.07)
-      rgba(0, 0, 0, 0.9),
-   0 0 calc(var(--stage-size) * 0.07)
-  rgba(65, 190, 166, 0.32);
+    inset 0 0 calc(var(--stage-size) * 0.03) rgba(255, 255, 255, 0.18),
+    inset 0 0 calc(var(--stage-size) * 0.07) rgba(0, 0, 0, 0.9),
+    0 0 calc(var(--stage-size) * 0.07) rgba(65, 190, 166, 0.32);
 
   z-index: 1;
 }
@@ -126,14 +117,12 @@
   border-radius: 50%;
   background: white;
 
-  transform:
-    rotate(var(--angle))
-    translateY(calc(var(--stage-size) * -0.46));
+  transform: rotate(var(--angle)) translateY(calc(var(--stage-size) * -0.46));
 
-box-shadow:
-  0 0 calc(var(--stage-size) * 0.013) white,
-  0 0 calc(var(--stage-size) * 0.026) #9de8d8,
-  0 0 calc(var(--stage-size) * 0.048) #38a994;
+  box-shadow:
+    0 0 calc(var(--stage-size) * 0.013) white,
+    0 0 calc(var(--stage-size) * 0.026) #9de8d8,
+    0 0 calc(var(--stage-size) * 0.048) #38a994;
 }
 
 .centro-fijo {
@@ -149,12 +138,9 @@ box-shadow:
   justify-content: center;
 
   box-shadow:
-    0 0 0 calc(var(--stage-size) * 0.013)
-      rgba(8, 20, 38, 0.75),
-    inset 0 0 calc(var(--stage-size) * 0.03)
-      rgba(0, 0, 0, 0.15),
-    0 calc(var(--stage-size) * 0.013)
-      calc(var(--stage-size) * 0.039)
+    0 0 0 calc(var(--stage-size) * 0.013) rgba(8, 20, 38, 0.75),
+    inset 0 0 calc(var(--stage-size) * 0.03) rgba(0, 0, 0, 0.15),
+    0 calc(var(--stage-size) * 0.013) calc(var(--stage-size) * 0.039)
       rgba(0, 0, 0, 0.5);
 }
 
@@ -174,24 +160,14 @@ box-shadow:
   width: 0;
   height: 0;
 
-  border-left:
-    calc(var(--stage-size) * 0.045)
-    solid transparent;
+  border-left: calc(var(--stage-size) * 0.045) solid transparent;
 
-  border-right:
-    calc(var(--stage-size) * 0.045)
-    solid transparent;
+  border-right: calc(var(--stage-size) * 0.045) solid transparent;
 
-  border-top:
-    calc(var(--stage-size) * 0.08)
-    solid white;
+  border-top: calc(var(--stage-size) * 0.08) solid white;
 
-  filter:
-    drop-shadow(0 3px 2px rgba(0, 0, 0, 0.85))
-    drop-shadow(
-      0 0 calc(var(--stage-size) * 0.02)
-      rgba(255, 255, 255, 0.55)
-    );
+  filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.85))
+    drop-shadow(0 0 calc(var(--stage-size) * 0.02) rgba(255, 255, 255, 0.55));
 }
 
 /* =========================================================
@@ -227,16 +203,15 @@ box-shadow:
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 28px;
 
-background:
-  linear-gradient(
+  background: linear-gradient(
     145deg,
     rgba(20, 78, 75, 0.98),
     rgba(7, 39, 39, 0.99)
   );
- box-shadow:
-  0 28px 80px rgba(0, 0, 0, 0.45),
-  inset 0 1px 0 rgba(255, 255, 255, 0.12),
-  0 0 60px rgba(48, 160, 142, 0.18);
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 60px rgba(48, 160, 142, 0.18);
 
   animation: aparecerPregunta 0.35s ease;
 }
@@ -273,9 +248,9 @@ background:
 
   padding: 9px 18px;
   border-radius: 999px;
-background: rgba(78, 196, 170, 0.16);
-border: 1px solid rgba(126, 224, 201, 0.42);
-color: #d7fff5;
+  background: rgba(78, 196, 170, 0.16);
+  border: 1px solid rgba(126, 224, 201, 0.42);
+  color: #d7fff5;
 
   font-size: clamp(13px, 1.6vw, 16px);
   font-weight: 700;
@@ -487,22 +462,19 @@ color: #d7fff5;
 
 .aproximacion-input-wrapper input {
   min-height: 62px;
-  padding: 15px 110px 15px 18px;
+  padding: 15px 150px 15px 18px;
 }
 
 .aproximacion-unidad {
   position: absolute;
   right: 16px;
 
-  max-width: 88px;
-
   color: #a9c9ec;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
 
   pointer-events: none;
-  overflow: hidden;
-  text-overflow: ellipsis;
+
   white-space: nowrap;
 }
 
@@ -642,7 +614,7 @@ color: #d7fff5;
 
   min-width: min(320px, 100%);
 
-background: linear-gradient(135deg, #2ea58f, #176c61);
+  background: linear-gradient(135deg, #2ea58f, #176c61);
   color: white;
 
   box-shadow:
@@ -651,7 +623,7 @@ background: linear-gradient(135deg, #2ea58f, #176c61);
 }
 
 .pregunta-boton-principal:hover:not(:disabled) {
-background: linear-gradient(135deg, #45b9a3, #208579);
+  background: linear-gradient(135deg, #45b9a3, #208579);
 
   box-shadow:
     0 16px 32px rgba(0, 78, 180, 0.42),
@@ -765,14 +737,33 @@ background: linear-gradient(135deg, #45b9a3, #208579);
 ========================================================= */
 
 @media (max-width: 760px) {
+  .ruleta-header {
+    width: 100%;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    padding: 4px 6px;
+  }
+
+  .ruleta-titulo {
+    font-size: 24px;
+  }
+
+  .ruleta-publico {
+    font-size: 11px;
+  }
+
+  .ruleta-cambiar-publico {
+    min-height: 38px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
   .ruleta-container {
     padding: 8px;
   }
 
-.ruleta-stage {
-  --stage-size: min(98vw, 90dvh);
-
-}
+  .ruleta-stage {
+    --stage-size: min(98vw, 82dvh);
+  }
 
   .pregunta-pantalla {
     min-height: calc(100dvh - 16px);
@@ -838,19 +829,31 @@ background: linear-gradient(135deg, #45b9a3, #208579);
   }
 
   .aproximacion-input-wrapper input {
-    padding-right: 90px;
+    padding-right: 125px;
   }
 
   .aproximacion-unidad {
     right: 12px;
-    max-width: 72px;
-    font-size: 13px;
+    font-size: 12px;
+    white-space: nowrap;
   }
 }
 
 @media (max-height: 700px) and (min-width: 761px) {
   .ruleta-stage {
-    --stage-size: min(90vw, 94dvh);
+    --stage-size: min(82vw, 78dvh);
+  }
+
+  .ruleta-header {
+    margin-bottom: 2px;
+  }
+
+  .ruleta-titulo {
+    font-size: 24px;
+  }
+
+  .ruleta-publico {
+    font-size: 11px;
   }
 
   .pregunta-card {
@@ -892,10 +895,8 @@ background: linear-gradient(135deg, #45b9a3, #208579);
 }
 
 /* Oculta las flechas de los inputs number en Chrome, Edge y Safari */
-.aproximacion-input-wrapper
-  input[type="number"]::-webkit-inner-spin-button,
-.aproximacion-input-wrapper
-  input[type="number"]::-webkit-outer-spin-button {
+.aproximacion-input-wrapper input[type="number"]::-webkit-inner-spin-button,
+.aproximacion-input-wrapper input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
   appearance: none;
   -webkit-appearance: none;
@@ -1022,11 +1023,92 @@ background: linear-gradient(135deg, #45b9a3, #208579);
     padding: 10px 15px;
     font-size: 14px;
   }
-
-  
 }
 .pregunta-resultado-cargando {
   background: rgba(46, 165, 143, 0.14);
   border-color: rgba(126, 224, 201, 0.45);
   color: #d7fff5;
+}
+
+/* =========================================================
+   CONTADOR DESAFÍO RÁPIDO
+========================================================= */
+
+.desafio-contador {
+  width: 180px;
+  height: 180px;
+
+  align-self: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(78, 196, 170, 0.22),
+      rgba(20, 78, 75, 0.6)
+    );
+
+  border: 3px solid rgba(126, 224, 201, 0.55);
+
+  box-shadow:
+    0 0 35px rgba(78, 196, 170, 0.24),
+    inset 0 0 25px rgba(255, 255, 255, 0.06);
+
+  animation: pulsoContador 1s ease-in-out infinite;
+}
+
+.desafio-contador-numero {
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 74px;
+  font-weight: 800;
+  line-height: 0.95;
+
+  color: white;
+}
+
+.desafio-contador-texto {
+  margin-top: 8px;
+
+  color: #bcebe2;
+
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.desafio-tiempo-finalizado {
+  align-self: center;
+
+  padding: 12px 28px;
+
+  border-radius: 999px;
+
+  background: rgba(191, 5, 96, 0.18);
+  border: 1px solid rgba(255, 73, 156, 0.5);
+
+  color: #ffd8ea;
+
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+
+  animation: aparecerResultado 0.25s ease;
+}
+
+@keyframes pulsoContador {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.04);
+  }
 }

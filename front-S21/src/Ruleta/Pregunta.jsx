@@ -12,12 +12,37 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
 
   const [resultado, setResultado] = useState(null);
 
+  const [desafioIniciado, setDesafioIniciado] = useState(false);
+  const [tiempoRestante, setTiempoRestante] = useState(5);
+  const [desafioFinalizado, setDesafioFinalizado] = useState(false);
+
   useEffect(() => {
     setRespuesta("");
     setRespuestaSeleccionada(null);
     setRespuestasAproximacion(["", ""]);
     setResultado(null);
+
+    setDesafioIniciado(false);
+    setTiempoRestante(5);
+    setDesafioFinalizado(false);
   }, [pregunta]);
+
+  useEffect(() => {
+    if (!desafioIniciado || desafioFinalizado) {
+      return;
+    }
+
+    if (tiempoRestante <= 0) {
+      setDesafioFinalizado(true);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setTiempoRestante((actual) => actual - 1);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [desafioIniciado, desafioFinalizado, tiempoRestante]);
 
   if (!pregunta) {
     return (
@@ -68,7 +93,8 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
   const comprobarMultipleChoice = () => {
     if (!respuestaSeleccionada || resultado) return;
 
-    const esCorrecta = respuestaSeleccionada === pregunta.respuestaCorrecta;
+    const esCorrecta =
+      respuestaSeleccionada === pregunta.respuestaCorrecta;
 
     setResultado({
       esCorrecta,
@@ -86,6 +112,7 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
       ),
     );
   };
+
   const agregarRespuestaAproximacion = () => {
     if (resultado && !resultado.esError) return;
 
@@ -185,30 +212,38 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
         titulo: "Analizando respuesta...",
       });
 
-      const response = await fetch("https://back.universidadsiglo21online.com/validar-carrera", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "https://back.universidadsiglo21online.com/validar-carrera",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            respuestaUsuario: respuesta,
+            respuestaCorrecta: pregunta.respuestaCorrecta,
+            respuestasAceptadas: pregunta.respuestasAceptadas,
+          }),
         },
-        body: JSON.stringify({
-          respuestaUsuario: respuesta,
-          respuestaCorrecta: pregunta.respuestaCorrecta,
-          respuestasAceptadas: pregunta.respuestasAceptadas,
-        }),
-      });
+      );
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error ?? "No se pudo validar la respuesta.");
+        throw new Error(
+          data.error ?? "No se pudo validar la respuesta.",
+        );
       }
 
       setResultado({
         esCorrecta: data.correcta,
-        titulo: data.correcta ? "¡Respuesta correcta!" : "Respuesta incorrecta",
+        titulo: data.correcta
+          ? "¡Respuesta correcta!"
+          : "Respuesta incorrecta",
         detalle: data.correcta
           ? pregunta.explicacion
-          : data.motivo || "La respuesta no identifica la carrera esperada.",
+          : data.motivo ||
+            "La respuesta no identifica la carrera esperada.",
         respuestaCorrecta: pregunta.respuestaCorrecta,
       });
     } catch (error) {
@@ -218,7 +253,8 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
         esCorrecta: false,
         esError: true,
         titulo: "No se pudo validar la respuesta",
-        detalle: "Revisá que el backend esté encendido e intentá nuevamente.",
+        detalle:
+          "Revisá que el backend esté encendido e intentá nuevamente.",
       });
     }
   };
@@ -232,12 +268,23 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
       detalle: pregunta.reflexion,
     });
   };
+
+  const iniciarDesafio = () => {
+    if (desafioIniciado || resultado) return;
+
+    setTiempoRestante(5);
+    setDesafioIniciado(true);
+    setDesafioFinalizado(false);
+  };
+
   const validarDesafio = (cumplido) => {
     if (resultado) return;
 
     setResultado({
       esCorrecta: cumplido,
-      titulo: cumplido ? "¡Desafío cumplido!" : "Desafío no cumplido",
+      titulo: cumplido
+        ? "¡Desafío cumplido!"
+        : "Desafío no cumplido",
       detalle: pregunta.explicacion,
     });
   };
@@ -344,7 +391,9 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
                           event.target.value,
                         );
                       }}
-                      disabled={Boolean(resultado && !resultado.esError)}
+                      disabled={Boolean(
+                        resultado && !resultado.esError,
+                      )}
                     />
 
                     {pregunta.unidad && (
@@ -418,7 +467,9 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
               className="pregunta-input"
               value={respuesta}
               placeholder="Escribí el nombre de la carrera"
-              onChange={(event) => setRespuesta(event.target.value)}
+              onChange={(event) =>
+                setRespuesta(event.target.value)
+              }
               disabled={Boolean(resultado)}
               onKeyDown={(event) => {
                 if (event.key === "Enter") {
@@ -443,28 +494,65 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
       case "desafio-rapido":
         return (
           <>
-            <p className="desafio-indicacion">
-              Una vez realizado el desafío, marcá el resultado.
-            </p>
-
-            {!resultado && (
-              <div className="pregunta-opciones pregunta-opciones-dos">
-                <button
-                  type="button"
-                  className="pregunta-opcion"
-                  onClick={() => validarDesafio(true)}
-                >
-                  Desafío cumplido
-                </button>
+            {!desafioIniciado && !resultado && (
+              <>
+                <p className="desafio-indicacion">
+                  Cuando estés listo, iniciá el desafío.
+                  Vas a tener 5 segundos.
+                </p>
 
                 <button
                   type="button"
-                  className="pregunta-opcion"
-                  onClick={() => validarDesafio(false)}
+                  className="pregunta-boton pregunta-boton-principal"
+                  onClick={iniciarDesafio}
                 >
-                  No cumplido
+                  Empezar desafío
                 </button>
-              </div>
+              </>
+            )}
+
+            {desafioIniciado &&
+              !desafioFinalizado &&
+              !resultado && (
+                <div className="desafio-contador">
+                  <span className="desafio-contador-numero">
+                    {tiempoRestante}
+                  </span>
+
+                  <span className="desafio-contador-texto">
+                    segundos
+                  </span>
+                </div>
+              )}
+
+            {desafioFinalizado && !resultado && (
+              <>
+                <div className="desafio-tiempo-finalizado">
+                  ¡Tiempo!
+                </div>
+
+                <p className="desafio-indicacion">
+                  ¿Pudiste completar el desafío?
+                </p>
+
+                <div className="pregunta-opciones pregunta-opciones-dos">
+                  <button
+                    type="button"
+                    className="pregunta-opcion"
+                    onClick={() => validarDesafio(true)}
+                  >
+                    Desafío cumplido
+                  </button>
+
+                  <button
+                    type="button"
+                    className="pregunta-opcion"
+                    onClick={() => validarDesafio(false)}
+                  >
+                    No cumplido
+                  </button>
+                </div>
+              </>
             )}
           </>
         );
@@ -481,9 +569,13 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
   return (
     <div className="pregunta-pantalla">
       <div className="pregunta-card">
-        <span className="pregunta-categoria">{categoria}</span>
+        <span className="pregunta-categoria">
+          {categoria}
+        </span>
 
-        <h2 className="pregunta-titulo">{pregunta.pregunta}</h2>
+        <h2 className="pregunta-titulo">
+          {pregunta.pregunta}
+        </h2>
 
         {renderContenido()}
 
@@ -501,10 +593,12 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
           >
             <h3>{resultado.titulo}</h3>
 
-            {resultado.respuestaCorrecta !== undefined && (
+            {resultado.respuestaCorrecta !==
+              undefined && (
               <p>
                 <strong>Respuesta correcta:</strong>{" "}
-                {resultado.respuestaCorrecta} {resultado.unidad ?? ""}
+                {resultado.respuestaCorrecta}{" "}
+                {resultado.unidad ?? ""}
               </p>
             )}
 
