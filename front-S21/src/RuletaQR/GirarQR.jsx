@@ -129,105 +129,79 @@ export function GirarQR() {
    */
 
   return (
-  <div className="qr-game-page">
-    <main className="qr-game-wheel">
-      <Ruleta
-        preguntasPorCategoria={
-          preguntasHighSchool
-        }
-        habilitada={Boolean(participante)}
-        onFinalizarParticipacion={
-          finalizarTurno
-        }
-      />
-    </main>
-
-    <aside className="qr-game-sidebar">
-      <div className="qr-sidebar-header">
-        <h1>
-          ESCANEÁ + GIRÁ + GANÁ
-        </h1>
-
-        <p>
-          Completá tus datos para participar.
-        </p>
-      </div>
-
-      <div className="qr-sidebar-code">
-        <QRCodeSVG
-          value={participarUrl}
-          size={220}
-          level="M"
-          includeMargin
+    <div className="qr-game-page">
+      <main className="qr-game-wheel">
+        <Ruleta
+          preguntasPorCategoria={preguntasHighSchool}
+          habilitada={Boolean(participante)}
+          onFinalizarParticipacion={finalizarTurno}
         />
-      </div>
+      </main>
 
-      <div className="qr-current-player">
-        <span className="qr-panel-label">
-          TURNO ACTUAL
-        </span>
+      <aside className="qr-game-sidebar">
+        <div className="qr-sidebar-header">
+          <span className="qr-sidebar-eyebrow">RULETA SIGLO 21</span>
 
-        {participante ? (
-          <>
-            <strong>
-              {participante.nombre}
-            </strong>
+          <h1>
+            ESCANEÁ.
+            <br />
+            <span>GIRÁ. GANÁ.</span>
+          </h1>
 
-            <div className="qr-player-ready">
-              <span />
-              LISTO PARA GIRAR
-            </div>
+          <p>Completá tus datos y esperá tu turno.</p>
+        </div>
 
-            <button
-              type="button"
-              className="qr-skip-button"
-              onClick={finalizarTurno}
-            >
-              Saltar turno
-            </button>
-          </>
-        ) : (
-          <p>
-            Esperando participante...
-          </p>
-        )}
-      </div>
+        <div className="qr-sidebar-code">
+          <QRCodeSVG value={participarUrl} size={190} level="M" />
+        </div>
 
-      <div className="qr-sidebar-queue">
-        <span className="qr-panel-label">
-          PRÓXIMOS
-        </span>
+        <div className="qr-current-player">
+          <span className="qr-panel-label">TURNO ACTUAL</span>
 
-        {cola.length === 0 ? (
-          <p>No hay personas esperando.</p>
-        ) : (
-          <div className="qr-queue-list">
-            {cola
-              .slice(0, 6)
-              .map((persona) => (
-                <div
-                  key={persona.id}
-                  className="qr-queue-person"
-                >
-                  <span>
-                    {persona.posicion}
-                  </span>
+          {participante ? (
+            <>
+              <strong>{participante.nombre}</strong>
 
-                  <strong>
-                    {persona.nombre}
-                  </strong>
+              <div className="qr-player-ready">
+                <span />
+                LISTO PARA GIRAR
+              </div>
+
+              <button
+                type="button"
+                className="qr-skip-button"
+                onClick={finalizarTurno}
+              >
+                Saltar turno
+              </button>
+            </>
+          ) : (
+            <p>Esperando participante...</p>
+          )}
+        </div>
+
+        <div className="qr-sidebar-queue">
+          <span className="qr-panel-label">PRÓXIMOS</span>
+
+          {cola.length === 0 ? (
+            <p>No hay personas esperando.</p>
+          ) : (
+            <div className="qr-queue-list">
+              {cola.slice(0, 5).map((persona) => (
+                <div key={persona.id} className="qr-queue-person">
+                  <span>{persona.posicion}</span>
+
+                  <strong>{persona.nombre}</strong>
                 </div>
               ))}
 
-            {cola.length > 6 && (
-              <p className="qr-queue-more">
-                + {cola.length - 6} más
-              </p>
-            )}
-          </div>
-        )}
-      </div>
-    </aside>
-  </div>
-);
+              {cola.length > 5 && (
+                <p className="qr-queue-more">+ {cola.length - 5} más</p>
+              )}
+            </div>
+          )}
+        </div>
+      </aside>
+    </div>
+  );
 }

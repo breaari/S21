@@ -30,8 +30,7 @@
 
   box-sizing: border-box;
 
-  box-shadow:
-    0 25px 60px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.28);
 }
 
 .qr-mobile-kicker {
@@ -108,8 +107,7 @@
 .qr-mobile-form input:focus {
   border-color: #76b900;
 
-  box-shadow:
-    0 0 0 3px rgba(118, 185, 0, 0.15);
+  box-shadow: 0 0 0 3px rgba(118, 185, 0, 0.15);
 }
 
 .qr-mobile-form button {
@@ -256,11 +254,7 @@
 .qr-screen-kicker {
   color: #c7f326;
 
-  font-size: clamp(
-    13px,
-    1.2vw,
-    18px
-  );
+  font-size: clamp(13px, 1.2vw, 18px);
 
   font-weight: 800;
 
@@ -274,11 +268,7 @@
 
   color: white;
 
-  font-size: clamp(
-    64px,
-    7vw,
-    120px
-  );
+  font-size: clamp(64px, 7vw, 120px);
 
   line-height: 0.88;
 
@@ -310,11 +300,7 @@
 
   color: white;
 
-  font-size: clamp(
-    18px,
-    1.7vw,
-    27px
-  );
+  font-size: clamp(18px, 1.7vw, 27px);
 
   font-weight: 700;
 }
@@ -347,9 +333,7 @@
 
   padding: 34px;
 
-  box-shadow:
-    0 30px 80px
-    rgba(0, 0, 0, 0.35);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
 
   text-align: center;
 }
@@ -366,9 +350,7 @@
 }
 
 .qr-code-card h2 {
-  margin:
-    15px 0
-    7px;
+  margin: 15px 0 7px;
 
   color: #07132f;
 
@@ -396,8 +378,7 @@
 .qr-ready-kicker {
   display: inline-block;
 
-  padding:
-    10px 18px;
+  padding: 10px 18px;
 
   margin-bottom: 25px;
 
@@ -418,11 +399,7 @@
 
   color: white;
 
-  font-size: clamp(
-    60px,
-    8vw,
-    130px
-  );
+  font-size: clamp(60px, 8vw, 130px);
 
   line-height: 0.95;
 
@@ -436,17 +413,11 @@
 }
 
 .qr-ready > p {
-  margin:
-    30px 0
-    10px;
+  margin: 30px 0 10px;
 
   color: white;
 
-  font-size: clamp(
-    25px,
-    3vw,
-    42px
-  );
+  font-size: clamp(25px, 3vw, 42px);
 }
 
 .qr-ready-arrow {
@@ -464,37 +435,25 @@
 
   border-radius: 18px;
 
-  padding:
-    22px 46px;
+  padding: 22px 46px;
 
   background: #c7f326;
 
   color: #07132f;
 
-  font-size: clamp(
-    22px,
-    2.5vw,
-    36px
-  );
+  font-size: clamp(22px, 2.5vw, 36px);
 
   font-weight: 900;
 
   cursor: pointer;
 
-  box-shadow:
-    0 18px 50px
-    rgba(199, 243, 38, 0.25);
+  box-shadow: 0 18px 50px rgba(199, 243, 38, 0.25);
 }
 
 .qr-ready .qr-dev-warning {
   margin-top: 22px;
 
-  color: rgba(
-    255,
-    255,
-    255,
-    0.45
-  );
+  color: rgba(255, 255, 255, 0.45);
 
   font-size: 12px;
 }
@@ -506,13 +465,11 @@
 
   margin-top: 22px;
 
-  padding:
-    8px 14px;
+  padding: 8px 14px;
 
   border-radius: 100px;
 
-  background:
-    rgba(199, 243, 38, 0.13);
+  background: rgba(199, 243, 38, 0.13);
 
   color: #7da000;
 
@@ -594,21 +551,31 @@
   font-size: 15px;
 }
 
+/* =========================================================
+   RULETA QR - LAYOUT PRINCIPAL
+========================================================= */
+
 .qr-game-page {
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
 
   display: grid;
-  grid-template-columns: minmax(0, 3fr) minmax(320px, 2fr);
+  grid-template-columns:
+    minmax(0, 60%)
+    minmax(330px, 40%);
 
   background: #073f3e;
 
   overflow: hidden;
 }
 
+/* =========================================================
+   RULETA
+========================================================= */
+
 .qr-game-wheel {
   min-width: 0;
-  min-height: 100vh;
+  height: 100vh;
 
   display: flex;
   align-items: center;
@@ -619,57 +586,302 @@
 
 .qr-game-wheel .ruleta-container {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 0;
 }
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
 
 .qr-game-sidebar {
   height: 100vh;
 
   box-sizing: border-box;
 
-  background: rgba(3, 42, 42, 0.95);
-
-  border-left: 1px solid
-    rgba(255, 255, 255, 0.12);
-
-  padding: 32px;
+  padding: 20px 28px 18px;
 
   display: flex;
   flex-direction: column;
 
-  overflow-y: auto;
+  gap: 12px;
 
   color: white;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 80% 0%,
+      rgba(49, 191, 154, 0.13),
+      transparent 35%
+    ),
+    #032f2f;
+
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* =========================================================
+   TITULO
+========================================================= */
+
+.qr-sidebar-header {
+  flex-shrink: 0;
+}
+
+.qr-sidebar-eyebrow {
+  display: inline-block;
+
+  margin-bottom: 5px;
+
+  color: #60d6ad;
+
+  font-size: 10px;
+  line-height: 1;
+
+  font-weight: 900;
+
+  letter-spacing: 2.2px;
 }
 
 .qr-sidebar-header h1 {
   margin: 0;
 
-  font-size: clamp(24px, 2vw, 38px);
-  line-height: 1;
-
   color: #fff;
+
+  font-size: clamp(28px, 2.45vw, 42px);
+  line-height: 0.9;
+
+  font-weight: 900;
+
+  letter-spacing: -1.5px;
+}
+
+.qr-sidebar-header h1 span {
+  color: #59d5ac;
 }
 
 .qr-sidebar-header p {
-  margin: 10px 0 0;
+  margin: 7px 0 0;
 
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.65);
+
+  font-size: 13px;
+  line-height: 1.2;
 }
 
+/* =========================================================
+   QR
+========================================================= */
+
 .qr-sidebar-code {
-  margin: 24px 0;
-
-  padding: 12px;
-
-  background: white;
-  border-radius: 18px;
+  flex-shrink: 0;
 
   align-self: center;
+
+  margin: 2px 0 0;
+
+  padding: 6px;
+
+  background: #fff;
+
+  border-radius: 13px;
+
+  line-height: 0;
+
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.2);
 }
 
 .qr-sidebar-code svg {
   display: block;
+
+  width: min(190px, 23vh);
+  height: auto;
+}
+
+/* =========================================================
+   LABELS
+========================================================= */
+
+.qr-panel-label {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: rgba(255, 255, 255, 0.45);
+
+  font-size: 10px;
+  line-height: 1;
+
+  font-weight: 900;
+
+  letter-spacing: 1.5px;
+}
+
+/* =========================================================
+   TURNO ACTUAL
+========================================================= */
+
+.qr-current-player {
+  flex-shrink: 0;
+
+  padding: 14px 16px;
+
+  border-radius: 14px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.04)
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.qr-current-player > strong {
+  display: block;
+
+  margin: 0;
+
+  color: #fff;
+
+  font-size: 26px;
+  line-height: 1;
+
+  font-weight: 900;
+}
+
+.qr-current-player > p {
+  margin: 2px 0 0;
+
+  color: rgba(255, 255, 255, 0.6);
+
+  font-size: 13px;
+}
+
+.qr-player-ready {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  margin-top: 7px;
+
+  color: #81e6b9;
+
+  font-size: 11px;
+  line-height: 1;
+
+  font-weight: 900;
+}
+
+.qr-player-ready span {
+  width: 8px;
+  height: 8px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #63dda8;
+
+  box-shadow: 0 0 10px rgba(99, 221, 168, 0.55);
+}
+
+.qr-skip-button {
+  margin: 9px 0 0;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: rgba(255, 255, 255, 0.5);
+
+  font-size: 11px;
+
+  text-decoration: underline;
+
+  cursor: pointer;
+}
+
+/* =========================================================
+   COLA
+========================================================= */
+
+.qr-sidebar-queue {
+  min-height: 0;
+
+  margin-top: 1px;
+
+  overflow: hidden;
+}
+
+.qr-queue-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.qr-queue-person {
+  min-height: 30px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 5px 9px;
+
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.qr-queue-person > span {
+  width: 21px;
+  height: 21px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.1);
+
+  color: rgba(255, 255, 255, 0.7);
+
+  font-size: 10px;
+}
+
+.qr-queue-person > strong {
+  color: white;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.qr-sidebar-queue > p {
+  margin: 2px 0 0;
+
+  color: rgba(255, 255, 255, 0.48);
+
+  font-size: 12px;
+}
+
+.qr-queue-more {
+  margin: 3px 0 0;
+
+  color: rgba(255, 255, 255, 0.45);
+
+  font-size: 11px;
 }
 
 .qr-panel-label {
@@ -692,8 +904,7 @@
 
   background: rgba(255, 255, 255, 0.07);
 
-  border: 1px solid
-    rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .qr-current-player > strong {
@@ -768,8 +979,7 @@
 
   border-radius: 10px;
 
-  background:
-    rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .qr-queue-person > span {
@@ -782,8 +992,7 @@
   align-items: center;
   justify-content: center;
 
-  background:
-    rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 
   font-size: 12px;
 }
@@ -791,8 +1000,7 @@
 .qr-queue-more {
   margin: 5px 0 0;
 
-  color:
-    rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.55);
 
   font-size: 13px;
 }
