@@ -62,126 +62,134 @@ export function ParticiparQR() {
 
   if (completado) {
     return (
-      <div className="qr-mobile-page">
-        <div className="qr-mobile-card qr-success-card">
-          <div className="qr-success-icon">✓</div>
+      <div className="qr-mobile-page qr-success-page">
+        <div className="qr-mobile-shell">
+          <div className="qr-mobile-brand-outside">
+            <img src={logoBlanco} alt="Universidad Siglo 21" />
+          </div>
 
-          <h1>¡Listo!</h1>
+          <div className="qr-mobile-card qr-success-card">
+            <div className="qr-success-icon">✓</div>
 
-          <p className="qr-success-name">{form.nombre}</p>
+            <div className="qr-mobile-kicker">REGISTRO COMPLETADO</div>
 
-          <p>Ya estás participando.</p>
+            <h1 className="qr-success-title">
+              ¡LISTO,
+              <br />
+              <span>{form.nombre.toUpperCase()}!</span>
+            </h1>
 
-          <p className="qr-success-highlight">
-            Acercate a la ruleta y esperá tu turno.
-          </p>
+            <p className="qr-success-copy">Ya estás en la fila para jugar.</p>
 
-          <span>Podés cerrar esta pantalla.</span>
+            <div className="qr-success-status">
+              <span className="qr-success-status-dot" />
+
+              <div>
+                <strong>Esperá tu turno</strong>
+
+                <p>
+                  Tu nombre aparecerá en la pantalla cuando la ruleta esté lista
+                  para vos.
+                </p>
+              </div>
+            </div>
+
+            <p className="qr-success-footer">Podés cerrar esta pantalla.</p>
+          </div>
         </div>
       </div>
     );
   }
 
- return (
-  <div className="qr-mobile-page">
-    <div className="qr-mobile-shell">
-      <div className="qr-mobile-card">
-        <div className="qr-mobile-kicker">
-          RULETA SIGLO 21
+  return (
+    <div className="qr-mobile-page">
+      <div className="qr-mobile-shell">
+        <div className="qr-mobile-brand-outside">
+          <img src={logoBlanco} alt="Universidad Siglo 21" />
         </div>
+        <div className="qr-mobile-card">
+          <div className="qr-mobile-kicker">RULETA SIGLO 21</div>
 
-        <h1 className="qr-mobile-title">
-          ESCANEÁ.
-          <br />
-          <span>GIRÁ. GANÁ.</span>
-        </h1>
+          <h1 className="qr-mobile-title">
+            ESCANEÁ.
+            <br />
+            <span>GIRÁ. GANÁ.</span>
+          </h1>
 
-      <p className="qr-mobile-description">
-        Completá tus datos y quedás en la fila para participar.
-      </p>
-
-      <form
-        className="qr-mobile-form"
-        onSubmit={handleSubmit}
-      >
-        <label>
-          Nombre
-          <input
-            type="text"
-            name="nombre"
-            value={form.nombre}
-            onChange={handleChange}
-            placeholder="Tu nombre"
-            autoComplete="given-name"
-          />
-        </label>
-
-        <label>
-          Apellido
-          <input
-            type="text"
-            name="apellido"
-            value={form.apellido}
-            onChange={handleChange}
-            placeholder="Tu apellido"
-            autoComplete="family-name"
-          />
-        </label>
-
-        <label>
-          Email
-          <input
-            type="email"
-            name="correo"
-            value={form.correo}
-            onChange={handleChange}
-            placeholder="nombre@email.com"
-            autoComplete="email"
-          />
-        </label>
-
-        <label>
-          Teléfono
-          <input
-            type="tel"
-            name="telefono"
-            value={form.telefono}
-            onChange={handleChange}
-            placeholder="223..."
-            autoComplete="tel"
-            inputMode="numeric"
-          />
-        </label>
-
-        <label>
-          Localidad
-          <input
-            type="text"
-            name="localidad"
-            value={form.localidad}
-            onChange={handleChange}
-            placeholder="Tu localidad"
-            autoComplete="address-level2"
-          />
-        </label>
-
-        {error && (
-          <p className="qr-form-error">
-            {error}
+          <p className="qr-mobile-description">
+            Completá tus datos y quedás en la fila para participar.
           </p>
-        )}
 
-        <button
-          type="submit"
-          disabled={enviando}
-        >
-          {enviando
-            ? "REGISTRANDO..."
-            : "QUIERO PARTICIPAR"}
-        </button>
-      </form>
+          <form className="qr-mobile-form" onSubmit={handleSubmit}>
+            <label>
+              Nombre
+              <input
+                type="text"
+                name="nombre"
+                value={form.nombre}
+                onChange={handleChange}
+                placeholder="Tu nombre"
+                autoComplete="given-name"
+              />
+            </label>
+
+            <label>
+              Apellido
+              <input
+                type="text"
+                name="apellido"
+                value={form.apellido}
+                onChange={handleChange}
+                placeholder="Tu apellido"
+                autoComplete="family-name"
+              />
+            </label>
+
+            <label>
+              Email
+              <input
+                type="email"
+                name="correo"
+                value={form.correo}
+                onChange={handleChange}
+                placeholder="nombre@email.com"
+                autoComplete="email"
+              />
+            </label>
+
+            <label>
+              Teléfono
+              <input
+                type="tel"
+                name="telefono"
+                value={form.telefono}
+                onChange={handleChange}
+                placeholder="2235501021"
+                autoComplete="tel"
+                inputMode="numeric"
+              />
+            </label>
+
+            <label>
+              Localidad
+              <input
+                type="text"
+                name="localidad"
+                value={form.localidad}
+                onChange={handleChange}
+                placeholder="Tu localidad"
+                autoComplete="address-level2"
+              />
+            </label>
+
+            {error && <p className="qr-form-error">{error}</p>}
+
+            <button type="submit" disabled={enviando}>
+              {enviando ? "REGISTRANDO..." : "QUIERO PARTICIPAR"}
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
-  </div>
-   </div>
-);
+  );
 }

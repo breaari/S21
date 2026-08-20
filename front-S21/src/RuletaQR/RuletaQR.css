@@ -32,13 +32,13 @@
 
 .qr-mobile-brand-outside {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
 
-  margin: 0 0 14px 6px;
+  margin-bottom: 14px;
 }
 
 .qr-mobile-brand-outside img {
-  width: 150px;
+  width: 145px;
   height: auto;
 
   display: block;
@@ -1011,4 +1011,137 @@
   color: rgba(255, 255, 255, 0.55);
 
   font-size: 13px;
+}
+
+.qr-success-page {
+  align-items: center;
+
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.qr-success-card {
+  text-align: left;
+
+  padding: 28px 24px;
+}
+
+.qr-success-icon {
+  width: 54px;
+  height: 54px;
+
+  margin-bottom: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    rgba(83, 215, 174, 0.15);
+
+  border:
+    1px solid rgba(83, 215, 174, 0.5);
+
+  color: #62dfb8;
+
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.qr-success-title {
+  margin: 0;
+
+  color: #fff;
+
+  font-size: clamp(
+    38px,
+    11vw,
+    52px
+  );
+
+  line-height: 0.9;
+
+  font-weight: 800;
+
+  letter-spacing: -1.6px;
+}
+
+.qr-success-title span {
+  color: #55d7ae;
+}
+
+.qr-success-copy {
+  margin: 14px 0 22px;
+
+  color:
+    rgba(255, 255, 255, 0.72);
+
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.qr-success-status {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 12px;
+
+  padding: 16px;
+
+  border-radius: 14px;
+
+  background:
+    rgba(255, 255, 255, 0.06);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.1);
+}
+
+.qr-success-status-dot {
+  width: 10px;
+  height: 10px;
+
+  margin-top: 4px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #5cddb5;
+
+  box-shadow:
+    0 0 12px
+    rgba(92, 221, 181, 0.5);
+}
+
+.qr-success-status strong {
+  display: block;
+
+  color: #fff;
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.qr-success-status p {
+  margin: 5px 0 0;
+
+  color:
+    rgba(255, 255, 255, 0.58);
+
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.qr-success-footer {
+  margin: 18px 0 0;
+
+  text-align: center;
+
+  color:
+    rgba(255, 255, 255, 0.38);
+
+  font-size: 12px;
 }
