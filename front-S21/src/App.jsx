@@ -18,6 +18,7 @@ import { Ruleta } from "./Ruleta/Ruleta";
 import { preguntasStudents } from "./Ruleta/preguntasStudents";
 import { preguntasHighSchool } from "./Ruleta/preguntasHighschool";
 import { ParticiparQR } from "./RuletaQR/ParticiparQR";
+import { GirarQR } from "./RuletaQR/GirarQR";
 
 function App() {
   return (
@@ -43,26 +44,16 @@ function App() {
 
         <Route
           path="/ruleta/students"
-          element={
-            <Ruleta
-              preguntasPorCategoria={preguntasStudents}
-            />
-          }
+          element={<Ruleta preguntasPorCategoria={preguntasStudents} />}
         />
 
         <Route
           path="/ruleta/highschool"
-          element={
-            <Ruleta
-              preguntasPorCategoria={preguntasHighSchool}
-            />
-          }
+          element={<Ruleta preguntasPorCategoria={preguntasHighSchool} />}
         />
 
-        <Route
-  path="/ruleta/qr/participar"
-  element={<ParticiparQR />}
-/>
+        <Route path="/ruleta/qr/participar" element={<ParticiparQR />} />
+        <Route path="/ruleta/qr/girar" element={<GirarQR />} />
       </Routes>
     </>
   );

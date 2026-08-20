@@ -2,6 +2,10 @@ import { useState } from "react";
 import axios from "axios";
 import "./RuletaQR.css";
 
+const API_URL = import.meta.env.PROD
+  ? ""
+  : `http://${window.location.hostname}:3003`;
+
 export function ParticiparQR() {
   const [form, setForm] = useState({
     nombre: "",
@@ -29,9 +33,7 @@ export function ParticiparQR() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const camposCompletos = Object.values(form).every(
-      (valor) => valor.trim(),
-    );
+    const camposCompletos = Object.values(form).every((valor) => valor.trim());
 
     if (!camposCompletos) {
       setError("Completá todos los campos.");
@@ -42,10 +44,7 @@ export function ParticiparQR() {
     setError("");
 
     try {
-      await axios.post(
-        "http://localhost:3003/ruleta-qr/participar",
-        form,
-      );
+      await axios.post(`${API_URL}/ruleta-qr/participar`, form);
 
       setCompletado(true);
     } catch (err) {
@@ -68,21 +67,15 @@ export function ParticiparQR() {
 
           <h1>¡Listo!</h1>
 
-          <p className="qr-success-name">
-            {form.nombre}
-          </p>
+          <p className="qr-success-name">{form.nombre}</p>
 
-          <p>
-            Ya estás participando.
-          </p>
+          <p>Ya estás participando.</p>
 
           <p className="qr-success-highlight">
             Acercate a la ruleta y esperá tu turno.
           </p>
 
-          <span>
-            Podés cerrar esta pantalla.
-          </span>
+          <span>Podés cerrar esta pantalla.</span>
         </div>
       </div>
     );
@@ -91,23 +84,15 @@ export function ParticiparQR() {
   return (
     <div className="qr-mobile-page">
       <div className="qr-mobile-card">
-        <div className="qr-mobile-kicker">
-          UNIVERSIDAD SIGLO 21
-        </div>
+        <div className="qr-mobile-kicker">UNIVERSIDAD SIGLO 21</div>
 
-        <h1 className="qr-mobile-title">
-          ESCANEÁ + GIRÁ + GANÁ
-        </h1>
+        <h1 className="qr-mobile-title">ESCANEÁ + GIRÁ + GANÁ</h1>
 
         <p className="qr-mobile-description">
-          Completá tus datos para habilitar tu
-          participación en la ruleta.
+          Completá tus datos para habilitar tu participación en la ruleta.
         </p>
 
-        <form
-          className="qr-mobile-form"
-          onSubmit={handleSubmit}
-        >
+        <form className="qr-mobile-form" onSubmit={handleSubmit}>
           <label>
             Nombre
             <input
@@ -169,19 +154,10 @@ export function ParticiparQR() {
             />
           </label>
 
-          {error && (
-            <p className="qr-form-error">
-              {error}
-            </p>
-          )}
+          {error && <p className="qr-form-error">{error}</p>}
 
-          <button
-            type="submit"
-            disabled={enviando}
-          >
-            {enviando
-              ? "REGISTRANDO..."
-              : "QUIERO PARTICIPAR"}
+          <button type="submit" disabled={enviando}>
+            {enviando ? "REGISTRANDO..." : "QUIERO PARTICIPAR"}
           </button>
         </form>
       </div>
