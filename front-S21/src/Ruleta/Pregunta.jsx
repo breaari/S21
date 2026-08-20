@@ -246,7 +246,6 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
             )}
           </>
         );
-
       case "multiple-choice":
         return (
           <>
@@ -411,7 +410,7 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
                 <button
                   type="button"
                   className="pregunta-boton pregunta-boton-principal"
-                  onClick={revelarVerdaderoFalso}
+                  onClick={responderVerdaderoFalso}
                 >
                   Ver respuesta
                 </button>
@@ -447,7 +446,7 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
                 <button
                   type="button"
                   className="pregunta-boton pregunta-boton-principal"
-                  onClick={revelarMultipleChoice}
+                  onClick={responderVerdaderoFalso}
                 >
                   Ver respuesta
                 </button>
