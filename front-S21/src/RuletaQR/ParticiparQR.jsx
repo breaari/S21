@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import "./RuletaQR.css";
+import logoBlanco from "../assets/logo-blanco-sin-fondo.png";
 
 const API_URL = import.meta.env.PROD
   ? ""
@@ -81,86 +82,106 @@ export function ParticiparQR() {
     );
   }
 
-  return (
-    <div className="qr-mobile-page">
+ return (
+  <div className="qr-mobile-page">
+    <div className="qr-mobile-shell">
       <div className="qr-mobile-card">
-        <div className="qr-mobile-kicker">UNIVERSIDAD SIGLO 21</div>
+        <div className="qr-mobile-kicker">
+          RULETA SIGLO 21
+        </div>
 
-        <h1 className="qr-mobile-title">ESCANEÁ + GIRÁ + GANÁ</h1>
+        <h1 className="qr-mobile-title">
+          ESCANEÁ.
+          <br />
+          <span>GIRÁ. GANÁ.</span>
+        </h1>
 
-        <p className="qr-mobile-description">
-          Completá tus datos para habilitar tu participación en la ruleta.
-        </p>
+      <p className="qr-mobile-description">
+        Completá tus datos y quedás en la fila para participar.
+      </p>
 
-        <form className="qr-mobile-form" onSubmit={handleSubmit}>
-          <label>
-            Nombre
-            <input
-              type="text"
-              name="nombre"
-              value={form.nombre}
-              onChange={handleChange}
-              placeholder="Tu nombre"
-              autoComplete="given-name"
-            />
-          </label>
+      <form
+        className="qr-mobile-form"
+        onSubmit={handleSubmit}
+      >
+        <label>
+          Nombre
+          <input
+            type="text"
+            name="nombre"
+            value={form.nombre}
+            onChange={handleChange}
+            placeholder="Tu nombre"
+            autoComplete="given-name"
+          />
+        </label>
 
-          <label>
-            Apellido
-            <input
-              type="text"
-              name="apellido"
-              value={form.apellido}
-              onChange={handleChange}
-              placeholder="Tu apellido"
-              autoComplete="family-name"
-            />
-          </label>
+        <label>
+          Apellido
+          <input
+            type="text"
+            name="apellido"
+            value={form.apellido}
+            onChange={handleChange}
+            placeholder="Tu apellido"
+            autoComplete="family-name"
+          />
+        </label>
 
-          <label>
-            Email
-            <input
-              type="email"
-              name="correo"
-              value={form.correo}
-              onChange={handleChange}
-              placeholder="nombre@email.com"
-              autoComplete="email"
-            />
-          </label>
+        <label>
+          Email
+          <input
+            type="email"
+            name="correo"
+            value={form.correo}
+            onChange={handleChange}
+            placeholder="nombre@email.com"
+            autoComplete="email"
+          />
+        </label>
 
-          <label>
-            Teléfono
-            <input
-              type="tel"
-              name="telefono"
-              value={form.telefono}
-              onChange={handleChange}
-              placeholder="223..."
-              autoComplete="tel"
-              inputMode="numeric"
-            />
-          </label>
+        <label>
+          Teléfono
+          <input
+            type="tel"
+            name="telefono"
+            value={form.telefono}
+            onChange={handleChange}
+            placeholder="223..."
+            autoComplete="tel"
+            inputMode="numeric"
+          />
+        </label>
 
-          <label>
-            Localidad
-            <input
-              type="text"
-              name="localidad"
-              value={form.localidad}
-              onChange={handleChange}
-              placeholder="Tu localidad"
-              autoComplete="address-level2"
-            />
-          </label>
+        <label>
+          Localidad
+          <input
+            type="text"
+            name="localidad"
+            value={form.localidad}
+            onChange={handleChange}
+            placeholder="Tu localidad"
+            autoComplete="address-level2"
+          />
+        </label>
 
-          {error && <p className="qr-form-error">{error}</p>}
+        {error && (
+          <p className="qr-form-error">
+            {error}
+          </p>
+        )}
 
-          <button type="submit" disabled={enviando}>
-            {enviando ? "REGISTRANDO..." : "QUIERO PARTICIPAR"}
-          </button>
-        </form>
-      </div>
+        <button
+          type="submit"
+          disabled={enviando}
+        >
+          {enviando
+            ? "REGISTRANDO..."
+            : "QUIERO PARTICIPAR"}
+        </button>
+      </form>
     </div>
-  );
+  </div>
+   </div>
+);
 }
