@@ -21,8 +21,6 @@ export function GirarQR() {
 
   const iniciandoRef = useRef(false);
 
-  const [mostrarRuleta, setMostrarRuleta] = useState(false);
-
   const [cola, setCola] = useState([]);
   /*
    * En producción:
@@ -102,8 +100,6 @@ export function GirarQR() {
 
     try {
       await axios.post(`${API_URL}/ruleta-qr/${participante.id}/finalizar`);
-
-      setMostrarRuleta(false);
       setParticipante(null);
 
       await consultarSiguiente();
@@ -126,48 +122,6 @@ export function GirarQR() {
    * =====================================================
    */
 
-  if (participante && mostrarRuleta) {
-    return (
-      <Ruleta
-        preguntasPorCategoria={preguntasHighSchool}
-        onFinalizarParticipacion={finalizarTurno}
-      />
-    );
-  }
-
-  if (participante) {
-    return (
-      <div className="qr-screen-page">
-        <div className="qr-ready">
-          <div className="qr-ready-kicker">¡YA PODÉS JUGAR!</div>
-
-          <h1>
-            ¡Listo, <span>{participante.nombre}</span>!
-          </h1>
-
-          <p>Tu ruleta está habilitada.</p>
-
-          <div className="qr-ready-arrow">↓</div>
-
-          <button
-            type="button"
-            className="qr-ready-button"
-            onClick={() => setMostrarRuleta(true)}
-          >
-            TOCÁ PARA GIRAR
-          </button>
-
-          {esperando > 0 && (
-            <div className="qr-waiting-count">
-              {esperando}{" "}
-              {esperando === 1 ? "persona esperando" : "personas esperando"}
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  }
-
   /*
    * =====================================================
    * ESPERANDO PARTICIPANTE
@@ -175,68 +129,105 @@ export function GirarQR() {
    */
 
   return (
-    <div className="qr-screen-page">
-      <div className="qr-screen-layout">
-        <div className="qr-screen-copy">
-          <div className="qr-screen-kicker">UNIVERSIDAD SIGLO 21</div>
+  <div className="qr-game-page">
+    <main className="qr-game-wheel">
+      <Ruleta
+        preguntasPorCategoria={
+          preguntasHighSchool
+        }
+        habilitada={Boolean(participante)}
+        onFinalizarParticipacion={
+          finalizarTurno
+        }
+      />
+    </main>
 
-          <h1>
-            ESCANEÁ
-            <br />
-            <span>+ GIRÁ</span>
-            <br />+ GANÁ
-          </h1>
+    <aside className="qr-game-sidebar">
+      <div className="qr-sidebar-header">
+        <h1>
+          ESCANEÁ + GIRÁ + GANÁ
+        </h1>
 
-          <div className="qr-screen-steps">
-            <div>
-              <strong>1</strong>
+        <p>
+          Completá tus datos para participar.
+        </p>
+      </div>
 
-              <span>Escaneá el QR</span>
+      <div className="qr-sidebar-code">
+        <QRCodeSVG
+          value={participarUrl}
+          size={220}
+          level="M"
+          includeMargin
+        />
+      </div>
+
+      <div className="qr-current-player">
+        <span className="qr-panel-label">
+          TURNO ACTUAL
+        </span>
+
+        {participante ? (
+          <>
+            <strong>
+              {participante.nombre}
+            </strong>
+
+            <div className="qr-player-ready">
+              <span />
+              LISTO PARA GIRAR
             </div>
 
-            <div>
-              <strong>2</strong>
+            <button
+              type="button"
+              className="qr-skip-button"
+              onClick={finalizarTurno}
+            >
+              Saltar turno
+            </button>
+          </>
+        ) : (
+          <p>
+            Esperando participante...
+          </p>
+        )}
+      </div>
 
-              <span>Completá tus datos</span>
-            </div>
+      <div className="qr-sidebar-queue">
+        <span className="qr-panel-label">
+          PRÓXIMOS
+        </span>
 
-            <div>
-              <strong>3</strong>
+        {cola.length === 0 ? (
+          <p>No hay personas esperando.</p>
+        ) : (
+          <div className="qr-queue-list">
+            {cola
+              .slice(0, 6)
+              .map((persona) => (
+                <div
+                  key={persona.id}
+                  className="qr-queue-person"
+                >
+                  <span>
+                    {persona.posicion}
+                  </span>
 
-              <span>Girá la ruleta</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="qr-code-card">
-          <div className="qr-code-wrapper">
-            <QRCodeSVG
-              value={participarUrl}
-              size={330}
-              level="M"
-              includeMargin
-            />
-          </div>
-
-          <h2>Escaneá para participar</h2>
-
-          <p>Completá tus datos desde tu celular.</p>
-
-          {cola.length > 0 && (
-            <div className="qr-queue">
-              <strong>Próximos</strong>
-
-              {cola.slice(0, 4).map((persona) => (
-                <div key={persona.id}>
-                  {persona.posicion}. {persona.nombre}
+                  <strong>
+                    {persona.nombre}
+                  </strong>
                 </div>
               ))}
 
-              {cola.length > 4 && <span>+ {cola.length - 4} más</span>}
-            </div>
-          )}
-        </div>
+            {cola.length > 6 && (
+              <p className="qr-queue-more">
+                + {cola.length - 6} más
+              </p>
+            )}
+          </div>
+        )}
       </div>
-    </div>
-  );
+    </aside>
+  </div>
+);
 }

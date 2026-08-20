@@ -52,6 +52,7 @@ const normalizarAngulo = (angulo) => {
 export function Ruleta({
   preguntasPorCategoria = {},
   onFinalizarParticipacion = null,
+  habilitada = true,
 }) {
   const [rotation, setRotation] = useState(0);
   const [girando, setGirando] = useState(false);
@@ -383,7 +384,12 @@ export function Ruleta({
   ========================================================= */
 
   const girarRuleta = async () => {
-    if (girandoRef.current || mostrarPregunta || !sonidosListosRef.current) {
+    if (
+      !habilitada ||
+      girandoRef.current ||
+      mostrarPregunta ||
+      !sonidosListosRef.current
+    ) {
       return;
     }
 
@@ -569,11 +575,13 @@ export function Ruleta({
         <Pregunta
           categoria={categoriaSeleccionada}
           pregunta={preguntaActual}
-          onVolver={
-            onFinalizarParticipacion
-              ? onFinalizarParticipacion
-              : volverALaRuleta
-          }
+          onVolver={() => {
+            volverALaRuleta();
+
+            if (onFinalizarParticipacion) {
+              onFinalizarParticipacion();
+            }
+          }}
         />
       </div>
     );
