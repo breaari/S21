@@ -51,6 +51,7 @@ const normalizarAngulo = (angulo) => {
 
 export function Ruleta({
   preguntasPorCategoria = {},
+  onFinalizarParticipacion = null,
 }) {
   const [rotation, setRotation] = useState(0);
   const [girando, setGirando] = useState(false);
@@ -598,13 +599,18 @@ export function Ruleta({
      VOLVER
   ========================================================= */
 
-  const volverALaRuleta = () => {
-    setMostrarPregunta(false);
+ const volverALaRuleta = () => {
+  if (onFinalizarParticipacion) {
+    onFinalizarParticipacion();
+    return;
+  }
 
-    setCategoriaSeleccionada(null);
-    setPreguntaActual(null);
-    setResultadoEspecial(null);
-  };
+  setMostrarPregunta(false);
+
+  setCategoriaSeleccionada(null);
+  setPreguntaActual(null);
+  setResultadoEspecial(null);
+};
 
   /* =========================================================
      ENTER GLOBAL DE LA RULETA
