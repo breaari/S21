@@ -283,7 +283,7 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
                       <input
                         type="number"
                         value={grupo.valor}
-                        placeholder="Ingresá respuesta"
+                        placeholder={`Respuesta ${grupo.nombre}`}
                         onChange={(event) => {
                           const nuevos = [...aproximaciones];
 
@@ -427,30 +427,22 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
         return (
           <>
             {!resultado && (
-              <>
-                <div className="pregunta-opciones">
-                  {pregunta.opciones.map((opcion) => (
-                    <div
-                      key={opcion.id}
-                      className="pregunta-opcion pregunta-opcion-oral"
-                    >
-                      <span className="pregunta-opcion-letra">
-                        {opcion.id.toUpperCase()}
-                      </span>
+              <div className="pregunta-opciones">
+                {pregunta.opciones.map((opcion) => (
+                  <button
+                    type="button"
+                    key={opcion.id}
+                    className="pregunta-opcion pregunta-opcion-seleccionable"
+                    onClick={() => responderMultipleChoice(opcion.id)}
+                  >
+                    <span className="pregunta-opcion-letra">
+                      {opcion.id.toUpperCase()}
+                    </span>
 
-                      <span>{opcion.texto}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <button
-                  type="button"
-                  className="pregunta-boton pregunta-boton-principal"
-                  onClick={responderVerdaderoFalso}
-                >
-                  Ver respuesta
-                </button>
-              </>
+                    <span>{opcion.texto}</span>
+                  </button>
+                ))}
+              </div>
             )}
           </>
         );
@@ -477,7 +469,7 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
                 <button
                   type="button"
                   className="pregunta-boton pregunta-boton-principal"
-                  onClick={revelarAproximacion}
+                  onClick={evaluarAproximacion}
                 >
                   Ver respuesta
                 </button>
@@ -596,7 +588,7 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
         <h2 className="pregunta-titulo">{pregunta.pregunta}</h2>
 
         {renderContenido()}
-        {resultado.tipo === "aproximacion" && (
+        {resultado?.tipo === "aproximacion" && (
           <div className="aproximacion-resultado">
             <h3>
               Respuesta correcta: {resultado.respuestaCorrecta}{" "}
