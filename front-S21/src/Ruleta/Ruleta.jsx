@@ -56,19 +56,13 @@ export function Ruleta({
   const [rotation, setRotation] = useState(0);
   const [girando, setGirando] = useState(false);
 
-  const [
-    categoriaSeleccionada,
-    setCategoriaSeleccionada,
-  ] = useState(null);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
 
-  const [preguntaActual, setPreguntaActual] =
-    useState(null);
+  const [preguntaActual, setPreguntaActual] = useState(null);
 
-  const [mostrarPregunta, setMostrarPregunta] =
-    useState(false);
+  const [mostrarPregunta, setMostrarPregunta] = useState(false);
 
-  const [resultadoEspecial, setResultadoEspecial] =
-    useState(null);
+  const [resultadoEspecial, setResultadoEspecial] = useState(null);
 
   const ruletaRef = useRef(null);
   const rotationRef = useRef(0);
@@ -107,16 +101,12 @@ export function Ruleta({
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error(
-        `No se pudo cargar el sonido: ${url}`,
-      );
+      throw new Error(`No se pudo cargar el sonido: ${url}`);
     }
 
     const arrayBuffer = await response.arrayBuffer();
 
-    return audioCtxRef.current.decodeAudioData(
-      arrayBuffer,
-    );
+    return audioCtxRef.current.decodeAudioData(arrayBuffer);
   };
 
   const activarAudio = async () => {
@@ -124,42 +114,30 @@ export function Ruleta({
       audioCtxRef.current = new AudioContext();
     }
 
-    if (
-      audioCtxRef.current.state === "suspended"
-    ) {
+    if (audioCtxRef.current.state === "suspended") {
       await audioCtxRef.current.resume();
     }
   };
 
-  const reproducir = async (
-    buffer,
-    volume = 0.7,
-  ) => {
+  const reproducir = async (buffer, volume = 0.7) => {
     if (!buffer) return;
 
     try {
       await activarAudio();
 
-      const source =
-        audioCtxRef.current.createBufferSource();
+      const source = audioCtxRef.current.createBufferSource();
 
-      const gain =
-        audioCtxRef.current.createGain();
+      const gain = audioCtxRef.current.createGain();
 
       source.buffer = buffer;
       gain.gain.value = volume;
 
       source.connect(gain);
-      gain.connect(
-        audioCtxRef.current.destination,
-      );
+      gain.connect(audioCtxRef.current.destination);
 
       source.start(0);
     } catch (error) {
-      console.error(
-        "No se pudo reproducir el sonido:",
-        error,
-      );
+      console.error("No se pudo reproducir el sonido:", error);
     }
   };
 
@@ -176,21 +154,17 @@ export function Ruleta({
       try {
         audioCtxRef.current = new AudioContext();
 
-        const [tickBuffer, winBuffer] =
-          await Promise.all([
-            cargarBuffer(tickSound),
-            cargarBuffer(winSound),
-          ]);
+        const [tickBuffer, winBuffer] = await Promise.all([
+          cargarBuffer(tickSound),
+          cargarBuffer(winSound),
+        ]);
 
         tickBufferRef.current = tickBuffer;
         winBufferRef.current = winBuffer;
 
         sonidosListosRef.current = true;
       } catch (error) {
-        console.error(
-          "No se pudieron preparar los sonidos:",
-          error,
-        );
+        console.error("No se pudieron preparar los sonidos:", error);
 
         /*
          * Aunque falle el audio,
@@ -206,10 +180,7 @@ export function Ruleta({
       clearTimeout(timerRef.current);
       cancelAnimationFrame(rafRef.current);
 
-      if (
-        audioCtxRef.current &&
-        audioCtxRef.current.state !== "closed"
-      ) {
+      if (audioCtxRef.current && audioCtxRef.current.state !== "closed") {
         audioCtxRef.current.close();
       }
     };
@@ -224,29 +195,20 @@ export function Ruleta({
 
     if (!element) return 0;
 
-    const transform =
-      window.getComputedStyle(element).transform;
+    const transform = window.getComputedStyle(element).transform;
 
-    if (
-      !transform ||
-      transform === "none"
-    ) {
+    if (!transform || transform === "none") {
       return 0;
     }
 
-    const matrix2D =
-      transform.match(/matrix\((.+)\)/);
+    const matrix2D = transform.match(/matrix\((.+)\)/);
 
     if (matrix2D) {
-      const values = matrix2D[1]
-        .split(",")
-        .map(Number);
+      const values = matrix2D[1].split(",").map(Number);
 
       const [a, b] = values;
 
-      let angle =
-        Math.atan2(b, a) *
-        (180 / Math.PI);
+      let angle = Math.atan2(b, a) * (180 / Math.PI);
 
       if (angle < 0) {
         angle += 360;
@@ -255,20 +217,15 @@ export function Ruleta({
       return angle;
     }
 
-    const matrix3D =
-      transform.match(/matrix3d\((.+)\)/);
+    const matrix3D = transform.match(/matrix3d\((.+)\)/);
 
     if (matrix3D) {
-      const values = matrix3D[1]
-        .split(",")
-        .map(Number);
+      const values = matrix3D[1].split(",").map(Number);
 
       const a = values[0];
       const b = values[1];
 
-      let angle =
-        Math.atan2(b, a) *
-        (180 / Math.PI);
+      let angle = Math.atan2(b, a) * (180 / Math.PI);
 
       if (angle < 0) {
         angle += 360;
@@ -283,44 +240,30 @@ export function Ruleta({
   const escucharCrucesDeSector = () => {
     const angle = getCurrentAngle();
 
-    const sectorActual =
-      Math.floor(angle / SECTOR);
+    const sectorActual = Math.floor(angle / SECTOR);
 
     if (
       ultimoSectorRef.current !== null &&
-      sectorActual !==
-        ultimoSectorRef.current
+      sectorActual !== ultimoSectorRef.current
     ) {
       playTick();
     }
 
-    ultimoSectorRef.current =
-      sectorActual;
+    ultimoSectorRef.current = sectorActual;
 
     if (girandoRef.current) {
-      rafRef.current =
-        requestAnimationFrame(
-          escucharCrucesDeSector,
-        );
+      rafRef.current = requestAnimationFrame(escucharCrucesDeSector);
     }
   };
 
-  const obtenerIndiceGanador = (
-    rotacionFinal,
-  ) => {
-    const anguloNormalizado =
-      normalizarAngulo(rotacionFinal);
+  const obtenerIndiceGanador = (rotacionFinal) => {
+    const anguloNormalizado = normalizarAngulo(rotacionFinal);
 
-    const anguloBajoPuntero =
-      normalizarAngulo(
-        360 -
-          anguloNormalizado +
-          AJUSTE_PUNTERO,
-      );
-
-    const indice = Math.floor(
-      anguloBajoPuntero / SECTOR,
+    const anguloBajoPuntero = normalizarAngulo(
+      360 - anguloNormalizado + AJUSTE_PUNTERO,
     );
+
+    const indice = Math.floor(anguloBajoPuntero / SECTOR);
 
     return indice % opciones.length;
   };
@@ -329,71 +272,44 @@ export function Ruleta({
      PREGUNTAS
   ========================================================= */
 
-  const obtenerPreguntaAleatoria = (
-    categoria,
-  ) => {
-    const preguntasDisponibles =
-      preguntasPorCategoria[categoria] ?? [];
+  const obtenerPreguntaAleatoria = (categoria) => {
+    const preguntasDisponibles = preguntasPorCategoria[categoria] ?? [];
 
-    if (
-      preguntasDisponibles.length === 0
-    ) {
+    if (preguntasDisponibles.length === 0) {
       return null;
     }
 
-    if (
-      preguntasDisponibles.length === 1
-    ) {
-      const unicaPregunta =
-        preguntasDisponibles[0];
+    if (preguntasDisponibles.length === 1) {
+      const unicaPregunta = preguntasDisponibles[0];
 
-      ultimaPreguntaPorCategoriaRef.current[
-        categoria
-      ] = unicaPregunta.id;
+      ultimaPreguntaPorCategoriaRef.current[categoria] = unicaPregunta.id;
 
       return unicaPregunta;
     }
 
-    const ultimaPreguntaId =
-      ultimaPreguntaPorCategoriaRef.current[
-        categoria
-      ];
+    const ultimaPreguntaId = ultimaPreguntaPorCategoriaRef.current[categoria];
 
-    const preguntasSinLaUltima =
-      preguntasDisponibles.filter(
-        (pregunta) =>
-          pregunta.id !==
-          ultimaPreguntaId,
-      );
-
-    const indiceAleatorio = Math.floor(
-      Math.random() *
-        preguntasSinLaUltima.length,
+    const preguntasSinLaUltima = preguntasDisponibles.filter(
+      (pregunta) => pregunta.id !== ultimaPreguntaId,
     );
 
-    const preguntaSeleccionada =
-      preguntasSinLaUltima[
-        indiceAleatorio
-      ];
+    const indiceAleatorio = Math.floor(
+      Math.random() * preguntasSinLaUltima.length,
+    );
 
-    ultimaPreguntaPorCategoriaRef.current[
-      categoria
-    ] = preguntaSeleccionada.id;
+    const preguntaSeleccionada = preguntasSinLaUltima[indiceAleatorio];
+
+    ultimaPreguntaPorCategoriaRef.current[categoria] = preguntaSeleccionada.id;
 
     return preguntaSeleccionada;
   };
 
-  const abrirPreguntaDeCategoria = (
-    categoria,
-  ) => {
-    const preguntaSeleccionada =
-      obtenerPreguntaAleatoria(categoria);
+  const abrirPreguntaDeCategoria = (categoria) => {
+    const preguntaSeleccionada = obtenerPreguntaAleatoria(categoria);
 
     setCategoriaSeleccionada(categoria);
 
-    setPreguntaActual(
-      preguntaSeleccionada,
-    );
+    setPreguntaActual(preguntaSeleccionada);
 
     setResultadoEspecial(null);
     setMostrarPregunta(true);
@@ -403,9 +319,7 @@ export function Ruleta({
      COMODINES
   ========================================================= */
 
-  const abrirResultadoEspecial = (
-    categoria,
-  ) => {
+  const abrirResultadoEspecial = (categoria) => {
     const resultados = {
       "Volvé a girar": {
         tipo: "volver-girar",
@@ -417,12 +331,10 @@ export function Ruleta({
 
       "Doble chance": {
         tipo: "categoria-aleatoria",
-        titulo:
-          "¡Felicitaciones! Ganaste doble premio",
+        titulo: "¡Felicitaciones! Ganaste doble premio",
         descripcion:
           "Tu próximo desafío vale doble. Presioná el botón y descubrí qué categoría te toca.",
-        textoBoton:
-          "Descubrir categoría",
+        textoBoton: "Descubrir categoría",
       },
 
       "Elegí a alguien": {
@@ -430,57 +342,35 @@ export function Ruleta({
         titulo: "¡Elegí a alguien!",
         descripcion:
           "Elegí a una persona para que responda por vos. Cuando esté lista, presioná el botón y descubrí la categoría.",
-        textoBoton:
-          "Descubrir categoría",
+        textoBoton: "Descubrir categoría",
       },
     };
 
     setCategoriaSeleccionada(categoria);
     setPreguntaActual(null);
 
-    setResultadoEspecial(
-      resultados[categoria],
-    );
+    setResultadoEspecial(resultados[categoria]);
 
     setMostrarPregunta(true);
   };
 
   const elegirCategoriaAleatoria = () => {
-    const categoriasDisponibles =
-      categoriasConPreguntas.filter(
-        (categoria) =>
-          (
-            preguntasPorCategoria[
-              categoria
-            ] ?? []
-          ).length > 0,
-      );
+    const categoriasDisponibles = categoriasConPreguntas.filter(
+      (categoria) => (preguntasPorCategoria[categoria] ?? []).length > 0,
+    );
 
-    if (
-      categoriasDisponibles.length === 0
-    ) {
+    if (categoriasDisponibles.length === 0) {
       volverALaRuleta();
       return;
     }
 
-    const indice = Math.floor(
-      Math.random() *
-        categoriasDisponibles.length,
-    );
+    const indice = Math.floor(Math.random() * categoriasDisponibles.length);
 
-    abrirPreguntaDeCategoria(
-      categoriasDisponibles[indice],
-    );
+    abrirPreguntaDeCategoria(categoriasDisponibles[indice]);
   };
 
-  const procesarCategoriaGanadora = (
-    categoria,
-  ) => {
-    if (
-      categoriasEspeciales.includes(
-        categoria,
-      )
-    ) {
+  const procesarCategoriaGanadora = (categoria) => {
+    if (categoriasEspeciales.includes(categoria)) {
       abrirResultadoEspecial(categoria);
       return;
     }
@@ -493,70 +383,43 @@ export function Ruleta({
   ========================================================= */
 
   const girarRuleta = async () => {
-    if (
-      girandoRef.current ||
-      mostrarPregunta ||
-      !sonidosListosRef.current
-    ) {
+    if (girandoRef.current || mostrarPregunta || !sonidosListosRef.current) {
       return;
     }
 
     await activarAudio();
 
     clearTimeout(timerRef.current);
-    cancelAnimationFrame(
-      rafRef.current,
-    );
+    cancelAnimationFrame(rafRef.current);
 
     girandoRef.current = true;
     setGirando(true);
 
-    const margenSector = Math.min(
-      4,
-      SECTOR * 0.1,
-    );
+    const margenSector = Math.min(4, SECTOR * 0.1);
 
-    const sectorAleatorio =
-      Math.floor(
-        Math.random() *
-          opciones.length,
-      );
+    const sectorAleatorio = Math.floor(Math.random() * opciones.length);
 
     const posicionDentroDelSector =
       sectorAleatorio * SECTOR +
       margenSector +
-      Math.random() *
-        (SECTOR -
-          margenSector * 2);
+      Math.random() * (SECTOR - margenSector * 2);
 
-    const rotacionObjetivo =
-      normalizarAngulo(
-        360 -
-          posicionDentroDelSector +
-          AJUSTE_PUNTERO,
-      );
+    const rotacionObjetivo = normalizarAngulo(
+      360 - posicionDentroDelSector + AJUSTE_PUNTERO,
+    );
 
-    const rotacionActualNormalizada =
-      normalizarAngulo(
-        rotationRef.current,
-      );
+    const rotacionActualNormalizada = normalizarAngulo(rotationRef.current);
 
-    const desplazamientoHastaObjetivo =
-      normalizarAngulo(
-        rotacionObjetivo -
-          rotacionActualNormalizada,
-      );
+    const desplazamientoHastaObjetivo = normalizarAngulo(
+      rotacionObjetivo - rotacionActualNormalizada,
+    );
 
-    const vueltasCompletas =
-      360 * 6;
+    const vueltasCompletas = 360 * 6;
 
     const nuevaRotacion =
-      rotationRef.current +
-      vueltasCompletas +
-      desplazamientoHastaObjetivo;
+      rotationRef.current + vueltasCompletas + desplazamientoHastaObjetivo;
 
-    rotationRef.current =
-      nuevaRotacion;
+    rotationRef.current = nuevaRotacion;
 
     ultimoSectorRef.current = null;
 
@@ -564,53 +427,36 @@ export function Ruleta({
 
     setRotation(nuevaRotacion);
 
-    rafRef.current =
-      requestAnimationFrame(
-        escucharCrucesDeSector,
-      );
+    rafRef.current = requestAnimationFrame(escucharCrucesDeSector);
 
-    timerRef.current =
-      setTimeout(() => {
-        girandoRef.current = false;
+    timerRef.current = setTimeout(() => {
+      girandoRef.current = false;
 
-        setGirando(false);
+      setGirando(false);
 
-        cancelAnimationFrame(
-          rafRef.current,
-        );
+      cancelAnimationFrame(rafRef.current);
 
-        playWin();
+      playWin();
 
-        const indiceGanador =
-          obtenerIndiceGanador(
-            nuevaRotacion,
-          );
+      const indiceGanador = obtenerIndiceGanador(nuevaRotacion);
 
-        const categoriaGanadora =
-          opciones[indiceGanador];
+      const categoriaGanadora = opciones[indiceGanador];
 
-        procesarCategoriaGanadora(
-          categoriaGanadora,
-        );
-      }, DURACION_GIRO);
+      procesarCategoriaGanadora(categoriaGanadora);
+    }, DURACION_GIRO);
   };
 
   /* =========================================================
      VOLVER
   ========================================================= */
 
- const volverALaRuleta = () => {
-  if (onFinalizarParticipacion) {
-    onFinalizarParticipacion();
-    return;
-  }
+  const volverALaRuleta = () => {
+    setMostrarPregunta(false);
 
-  setMostrarPregunta(false);
-
-  setCategoriaSeleccionada(null);
-  setPreguntaActual(null);
-  setResultadoEspecial(null);
-};
+    setCategoriaSeleccionada(null);
+    setPreguntaActual(null);
+    setResultadoEspecial(null);
+  };
 
   /* =========================================================
      ENTER GLOBAL DE LA RULETA
@@ -618,10 +464,7 @@ export function Ruleta({
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (
-        event.key !== "Enter" &&
-        event.code !== "Space"
-      ) {
+      if (event.key !== "Enter" && event.code !== "Space") {
         return;
       }
 
@@ -633,10 +476,7 @@ export function Ruleta({
        * Si hay una pregunta normal,
        * Pregunta.jsx controla ENTER.
        */
-      if (
-        mostrarPregunta &&
-        !resultadoEspecial
-      ) {
+      if (mostrarPregunta && !resultadoEspecial) {
         return;
       }
 
@@ -655,33 +495,21 @@ export function Ruleta({
        * Pantallas de comodines.
        */
       if (resultadoEspecial) {
-        if (
-          resultadoEspecial.tipo ===
-          "volver-girar"
-        ) {
+        if (resultadoEspecial.tipo === "volver-girar") {
           volverALaRuleta();
           return;
         }
 
-        if (
-          resultadoEspecial.tipo ===
-          "categoria-aleatoria"
-        ) {
+        if (resultadoEspecial.tipo === "categoria-aleatoria") {
           elegirCategoriaAleatoria();
         }
       }
     };
 
-    window.addEventListener(
-      "keydown",
-      handleKeyDown,
-    );
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener(
-        "keydown",
-        handleKeyDown,
-      );
+      window.removeEventListener("keydown", handleKeyDown);
     };
   });
 
@@ -689,45 +517,31 @@ export function Ruleta({
      PANTALLA ESPECIAL
   ========================================================= */
 
-  if (
-    mostrarPregunta &&
-    resultadoEspecial
-  ) {
+  if (mostrarPregunta && resultadoEspecial) {
     return (
       <div className="ruleta-container">
         <div className="pregunta-pantalla">
           <div className="pregunta-card pregunta-card-especial">
-            <span className="pregunta-categoria">
-              {categoriaSeleccionada}
-            </span>
+            <span className="pregunta-categoria">{categoriaSeleccionada}</span>
 
-            <h2 className="pregunta-titulo">
-              {resultadoEspecial.titulo}
-            </h2>
+            <h2 className="pregunta-titulo">{resultadoEspecial.titulo}</h2>
 
             <p className="resultado-especial-descripcion">
-              {
-                resultadoEspecial.descripcion
-              }
+              {resultadoEspecial.descripcion}
             </p>
 
             <button
               type="button"
               className="pregunta-boton pregunta-boton-principal"
               onClick={() => {
-                if (
-                  resultadoEspecial.tipo ===
-                  "volver-girar"
-                ) {
+                if (resultadoEspecial.tipo === "volver-girar") {
                   volverALaRuleta();
                 } else {
                   elegirCategoriaAleatoria();
                 }
               }}
             >
-              {
-                resultadoEspecial.textoBoton
-              }
+              {resultadoEspecial.textoBoton}
             </button>
 
             {/* <div className="enter-ayuda">
@@ -753,11 +567,13 @@ export function Ruleta({
     return (
       <div className="ruleta-container">
         <Pregunta
-          categoria={
-            categoriaSeleccionada
-          }
+          categoria={categoriaSeleccionada}
           pregunta={preguntaActual}
-          onVolver={volverALaRuleta}
+          onVolver={
+            onFinalizarParticipacion
+              ? onFinalizarParticipacion
+              : volverALaRuleta
+          }
         />
       </div>
     );
@@ -770,18 +586,10 @@ export function Ruleta({
   return (
     <div className="ruleta-container">
       <div
-        className={`ruleta-stage ${
-          girando
-            ? "ruleta-stage-girando"
-            : ""
-        }`}
+        className={`ruleta-stage ${girando ? "ruleta-stage-girando" : ""}`}
         role="button"
         tabIndex={0}
-        aria-label={
-          girando
-            ? "La ruleta está girando"
-            : "Girar la ruleta"
-        }
+        aria-label={girando ? "La ruleta está girando" : "Girar la ruleta"}
         aria-disabled={girando}
         onClick={girarRuleta}
         onPointerDown={activarAudio}
@@ -789,19 +597,14 @@ export function Ruleta({
         <div className="puntero" />
 
         <div className="borde-luces">
-          {opciones.map(
-            (opcion, index) => (
-              <span
-                key={opcion}
-                style={{
-                  "--angle": `${
-                    index * SECTOR +
-                    SECTOR / 2
-                  }deg`,
-                }}
-              />
-            ),
-          )}
+          {opciones.map((opcion, index) => (
+            <span
+              key={opcion}
+              style={{
+                "--angle": `${index * SECTOR + SECTOR / 2}deg`,
+              }}
+            />
+          ))}
         </div>
 
         <img
@@ -816,11 +619,7 @@ export function Ruleta({
         />
 
         <div className="centro-fijo">
-          <img
-            src={logoColor}
-            alt="Siglo 21"
-            draggable="false"
-          />
+          <img src={logoColor} alt="Siglo 21" draggable="false" />
         </div>
       </div>
 

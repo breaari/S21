@@ -550,3 +550,46 @@
     justify-self: center;
   }
 }
+.pregunta-resultado-incorrecto {
+  border-color: #ff5b5b;
+  background: rgba(255, 91, 91, 0.12);
+}
+
+.pregunta-resultado-incorrecto h3 {
+  color: #ff7676;
+}
+
+.pregunta-opcion-seleccionable {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.pregunta-opcion-seleccionable:hover {
+  transform: translateY(-3px);
+}
+
+.carrera-evaluacion {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.carrera-evaluacion > p {
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.carrera-evaluacion-botones {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.carrera-evaluacion-botones button {
+  border: none;
+  border-radius: 12px;
+  padding: 14px 20px;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 15px;
+}

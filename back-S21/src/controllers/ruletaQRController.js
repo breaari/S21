@@ -47,27 +47,27 @@ const obtenerSiguienteParticipante = () => {
       participante.estado === "jugando",
   );
 
-  if (jugando) {
-    return {
-      participante: jugando,
-      esperando: participantes.filter(
-        (participante) =>
-          participante.estado === "pendiente",
-      ).length,
-    };
-  }
-
-  const siguiente = participantes.find(
+  const pendientes = participantes.filter(
     (participante) =>
       participante.estado === "pendiente",
   );
 
+  const siguiente =
+    jugando || pendientes[0] || null;
+
   return {
-    participante: siguiente || null,
-    esperando: participantes.filter(
-      (participante) =>
-        participante.estado === "pendiente",
-    ).length,
+    participante: siguiente,
+
+    esperando: pendientes.length,
+
+    cola: pendientes.map(
+      (participante, index) => ({
+        posicion: index + 1,
+        id: participante.id,
+        nombre: participante.nombre,
+        apellido: participante.apellido,
+      }),
+    ),
   };
 };
 

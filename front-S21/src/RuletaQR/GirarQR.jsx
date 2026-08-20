@@ -22,6 +22,8 @@ export function GirarQR() {
   const iniciandoRef = useRef(false);
 
   const [mostrarRuleta, setMostrarRuleta] = useState(false);
+
+  const [cola, setCola] = useState([]);
   /*
    * En producción:
    * https://universidadsiglo21online.com/ruleta/qr/participar
@@ -36,7 +38,7 @@ export function GirarQR() {
       const { data } = await axios.get(`${API_URL}/ruleta-qr/siguiente`);
 
       setEsperando(data.esperando ?? 0);
-
+      setCola(data.cola ?? []);
       const siguiente = data.participante ?? null;
 
       if (!siguiente) {
@@ -220,10 +222,17 @@ export function GirarQR() {
 
           <p>Completá tus datos desde tu celular.</p>
 
-          {esperando > 0 && (
-            <div className="qr-waiting-count">
-              {esperando}{" "}
-              {esperando === 1 ? "persona esperando" : "personas esperando"}
+          {cola.length > 0 && (
+            <div className="qr-queue">
+              <strong>Próximos</strong>
+
+              {cola.slice(0, 4).map((persona) => (
+                <div key={persona.id}>
+                  {persona.posicion}. {persona.nombre}
+                </div>
+              ))}
+
+              {cola.length > 4 && <span>+ {cola.length - 4} más</span>}
             </div>
           )}
         </div>
