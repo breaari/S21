@@ -1,31 +1,45 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import logoBlanco from "../assets/logo-blanco-sin-fondo.png";
 
 export function Pregunta({ categoria, pregunta, onVolver }) {
-  const [respuesta, setRespuesta] = useState("");
-  const [respuestaSeleccionada, setRespuestaSeleccionada] = useState(null);
-
-  const [respuestasAproximacion, setRespuestasAproximacion] = useState([
-    "",
-    "",
-  ]);
-
   const [resultado, setResultado] = useState(null);
 
   const [desafioIniciado, setDesafioIniciado] = useState(false);
-  const [tiempoRestante, setTiempoRestante] = useState(5);
   const [desafioFinalizado, setDesafioFinalizado] = useState(false);
+  const [tiempoRestante, setTiempoRestante] = useState(0);
+
+  const bloqueadoRef = useRef(false);
+
+  /* =========================================================
+     DURACIÓN AUTOMÁTICA DEL DESAFÍO
+     Busca "5 segundos", "10 segundos", "15 segundos", etc.
+  ========================================================= */
+
+const duracionDesafio = useMemo(() => {
+  if (pregunta?.segundos) {
+    return pregunta.segundos;
+  }
+
+  return 5;
+}, [pregunta]);
+
+  /* =========================================================
+     RESET AL CAMBIAR DE PREGUNTA
+  ========================================================= */
 
   useEffect(() => {
-    setRespuesta("");
-    setRespuestaSeleccionada(null);
-    setRespuestasAproximacion(["", ""]);
     setResultado(null);
 
     setDesafioIniciado(false);
-    setTiempoRestante(5);
     setDesafioFinalizado(false);
-  }, [pregunta]);
+    setTiempoRestante(duracionDesafio);
+
+    bloqueadoRef.current = false;
+  }, [pregunta, duracionDesafio]);
+
+  /* =========================================================
+     CONTADOR DESAFÍO RÁPIDO
+  ========================================================= */
 
   useEffect(() => {
     if (!desafioIniciado || desafioFinalizado) {
@@ -34,6 +48,13 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
 
     if (tiempoRestante <= 0) {
       setDesafioFinalizado(true);
+
+      setResultado({
+        esCorrecta: true,
+        titulo: "¡Tiempo!",
+        detalle: pregunta.explicacion,
+      });
+
       return;
     }
 
@@ -42,13 +63,184 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [desafioIniciado, desafioFinalizado, tiempoRestante]);
+  }, [
+    desafioIniciado,
+    desafioFinalizado,
+    tiempoRestante,
+    pregunta,
+  ]);
+
+  /* =========================================================
+     RESULTADOS
+  ========================================================= */
+
+  const revelarVerdaderoFalso = () => {
+    if (resultado) return;
+
+    setResultado({
+      esCorrecta: true,
+      titulo: pregunta.respuestaCorrecta
+        ? "VERDADERO"
+        : "FALSO",
+      detalle: pregunta.explicacion,
+    });
+  };
+
+  const revelarMultipleChoice = () => {
+    if (resultado) return;
+
+    const opcionCorrecta = pregunta.opciones?.find(
+      (opcion) => opcion.id === pregunta.respuestaCorrecta,
+    );
+
+    setResultado({
+      esCorrecta: true,
+      titulo: opcionCorrecta
+        ? ` ${opcionCorrecta.id.toUpperCase()}. ${opcionCorrecta.texto}`
+        : "Respuesta correcta",
+      detalle: pregunta.explicacion,
+    });
+  };
+
+  const revelarAproximacion = () => {
+    if (resultado) return;
+
+    setResultado({
+      esCorrecta: true,
+      // titulo: "La respuesta es:",
+      detalle: pregunta.explicacion,
+      respuestaCorrecta: pregunta.respuestaCorrecta,
+      unidad: pregunta.unidad,
+    });
+  };
+
+  const revelarPreguntaAbierta = () => {
+    if (resultado) return;
+
+    setResultado({
+      esCorrecta: true,
+      titulo: "Para reflexionar",
+      detalle: pregunta.reflexion,
+    });
+  };
+
+  const revelarCarreraMisteriosa = () => {
+    if (resultado) return;
+
+    setResultado({
+      esCorrecta: true,
+      titulo: pregunta.respuestaCorrecta,
+      detalle: pregunta.explicacion,
+    });
+  };
+
+  const iniciarDesafio = () => {
+    if (desafioIniciado || resultado) return;
+
+    setTiempoRestante(duracionDesafio);
+    setDesafioIniciado(true);
+    setDesafioFinalizado(false);
+  };
+
+  /* =========================================================
+     ENTER = SIGUIENTE ACCIÓN
+  ========================================================= */
+
+  const avanzar = () => {
+    if (!pregunta || bloqueadoRef.current) return;
+
+    /*
+     * Si ya se mostró un resultado,
+     * ENTER vuelve a la ruleta.
+     *
+     * En desafío rápido, no permitimos continuar
+     * mientras el contador todavía está corriendo.
+     */
+    if (resultado) {
+      if (
+        pregunta.tipo === "desafio-rapido" &&
+        desafioIniciado &&
+        !desafioFinalizado
+      ) {
+        return;
+      }
+
+      onVolver();
+      return;
+    }
+
+    switch (pregunta.tipo) {
+      case "verdadero-falso":
+        revelarVerdaderoFalso();
+        break;
+
+      case "multiple-choice":
+        revelarMultipleChoice();
+        break;
+
+      case "aproximacion":
+        revelarAproximacion();
+        break;
+
+      case "pregunta-abierta":
+        revelarPreguntaAbierta();
+        break;
+
+      case "carrera-misteriosa":
+        revelarCarreraMisteriosa();
+        break;
+
+      case "desafio-rapido":
+        if (!desafioIniciado) {
+          iniciarDesafio();
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (
+        event.key !== "Enter" &&
+        event.code !== "Space"
+      ) {
+        return;
+      }
+
+      /*
+       * Evita repetición si el botón físico
+       * mantiene ENTER presionado unos milisegundos.
+       */
+      if (event.repeat) {
+        return;
+      }
+
+      event.preventDefault();
+
+      avanzar();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  });
+
+  /* =========================================================
+     SIN PREGUNTA
+  ========================================================= */
 
   if (!pregunta) {
     return (
       <div className="pregunta-pantalla">
         <div className="pregunta-card">
-          <span className="pregunta-categoria">{categoria}</span>
+          <span className="pregunta-categoria">
+            {categoria}
+          </span>
 
           <h2 className="pregunta-titulo">
             No hay preguntas disponibles en esta categoría.
@@ -66,430 +258,178 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
     );
   }
 
-  const normalizarTexto = (texto = "") => {
-    return texto
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[.,;:¿?¡!()]/g, "")
-      .trim()
-      .replace(/\s+/g, " ");
-  };
-
-  const comprobarVerdaderoFalso = (valor) => {
-    if (resultado) return;
-
-    setRespuestaSeleccionada(valor);
-
-    const esCorrecta = valor === pregunta.respuestaCorrecta;
-
-    setResultado({
-      esCorrecta,
-      titulo: esCorrecta ? "¡Respuesta correcta!" : "Respuesta incorrecta",
-      detalle: pregunta.explicacion,
-    });
-  };
-
-  const comprobarMultipleChoice = () => {
-    if (!respuestaSeleccionada || resultado) return;
-
-    const esCorrecta =
-      respuestaSeleccionada === pregunta.respuestaCorrecta;
-
-    setResultado({
-      esCorrecta,
-      titulo: esCorrecta ? "¡Respuesta correcta!" : "Respuesta incorrecta",
-      detalle: pregunta.explicacion,
-    });
-  };
-
-  const actualizarRespuestaAproximacion = (index, valor) => {
-    if (resultado && !resultado.esError) return;
-
-    setRespuestasAproximacion((actuales) =>
-      actuales.map((respuestaActual, i) =>
-        i === index ? valor : respuestaActual,
-      ),
-    );
-  };
-
-  const agregarRespuestaAproximacion = () => {
-    if (resultado && !resultado.esError) return;
-
-    setRespuestasAproximacion((actuales) => {
-      if (actuales.length >= 4) {
-        return actuales;
-      }
-
-      return [...actuales, ""];
-    });
-  };
-
-  const comprobarAproximacion = () => {
-    if (resultado && !resultado.esError) return;
-
-    const respuestasNumericas = respuestasAproximacion.map((valor) =>
-      valor === "" ? null : Number(valor),
-    );
-
-    const hayRespuestasInvalidas = respuestasNumericas.some(
-      (valor) => valor === null || Number.isNaN(valor),
-    );
-
-    if (hayRespuestasInvalidas) {
-      setResultado({
-        esCorrecta: false,
-        esError: true,
-        titulo: "Completá todas las respuestas",
-        detalle: "Cada participante o equipo debe ingresar un número.",
-      });
-
-      return;
-    }
-
-    const resultados = respuestasNumericas.map((valor, index) => ({
-      participante: index + 1,
-      respuesta: valor,
-      diferencia: Math.abs(valor - pregunta.respuestaCorrecta),
-    }));
-
-    const menorDiferencia = Math.min(
-      ...resultados.map((item) => item.diferencia),
-    );
-
-    const ganadores = resultados.filter(
-      (item) => item.diferencia === menorDiferencia,
-    );
-
-    const hayRespuestaExacta = menorDiferencia === 0;
-
-    let titulo;
-
-    if (ganadores.length > 1) {
-      titulo = hayRespuestaExacta
-        ? "¡Hay empate con la respuesta exacta!"
-        : "¡Hay empate!";
-    } else if (hayRespuestaExacta) {
-      titulo = `¡El equipo ${ganadores[0].participante} acertó exactamente!`;
-    } else {
-      titulo = `¡El equipo ${ganadores[0].participante} estuvo más cerca!`;
-    }
-
-    setResultado({
-      esCorrecta: true,
-      titulo,
-      detalle: pregunta.explicacion,
-      respuestaCorrecta: pregunta.respuestaCorrecta,
-      unidad: pregunta.unidad,
-    });
-  };
-
-  const comprobarCarreraMisteriosa = async () => {
-    if (!respuesta.trim() || resultado) return;
-
-    const respuestaNormalizada = normalizarTexto(respuesta);
-
-    const coincideLocalmente = pregunta.respuestasAceptadas.some(
-      (respuestaAceptada) =>
-        normalizarTexto(respuestaAceptada) === respuestaNormalizada,
-    );
-
-    if (coincideLocalmente) {
-      setResultado({
-        esCorrecta: true,
-        titulo: "¡Respuesta correcta!",
-        detalle: pregunta.explicacion,
-        respuestaCorrecta: pregunta.respuestaCorrecta,
-      });
-
-      return;
-    }
-
-    try {
-      setResultado({
-        esCorrecta: false,
-        esCargando: true,
-        titulo: "Analizando respuesta...",
-      });
-
-      const response = await fetch(
-        "https://back.universidadsiglo21online.com/validar-carrera",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            respuestaUsuario: respuesta,
-            respuestaCorrecta: pregunta.respuestaCorrecta,
-            respuestasAceptadas: pregunta.respuestasAceptadas,
-          }),
-        },
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          data.error ?? "No se pudo validar la respuesta.",
-        );
-      }
-
-      setResultado({
-        esCorrecta: data.correcta,
-        titulo: data.correcta
-          ? "¡Respuesta correcta!"
-          : "Respuesta incorrecta",
-        detalle: data.correcta
-          ? pregunta.explicacion
-          : data.motivo ||
-            "La respuesta no identifica la carrera esperada.",
-        respuestaCorrecta: pregunta.respuestaCorrecta,
-      });
-    } catch (error) {
-      console.error("Error validando con IA:", error);
-
-      setResultado({
-        esCorrecta: false,
-        esError: true,
-        titulo: "No se pudo validar la respuesta",
-        detalle:
-          "Revisá que el backend esté encendido e intentá nuevamente.",
-      });
-    }
-  };
-
-  const registrarRespuestaAbierta = () => {
-    if (resultado) return;
-
-    setResultado({
-      esCorrecta: true,
-      titulo: "Para reflexionar",
-      detalle: pregunta.reflexion,
-    });
-  };
-
-  const iniciarDesafio = () => {
-    if (desafioIniciado || resultado) return;
-
-    setTiempoRestante(5);
-    setDesafioIniciado(true);
-    setDesafioFinalizado(false);
-  };
-
-  const validarDesafio = (cumplido) => {
-    if (resultado) return;
-
-    setResultado({
-      esCorrecta: cumplido,
-      titulo: cumplido
-        ? "¡Desafío cumplido!"
-        : "Desafío no cumplido",
-      detalle: pregunta.explicacion,
-    });
-  };
-
-  const limpiarErrorAproximacion = () => {
-    if (resultado?.esError) {
-      setResultado(null);
-    }
-  };
+  /* =========================================================
+     CONTENIDO SEGÚN TIPO
+  ========================================================= */
 
   const renderContenido = () => {
     switch (pregunta.tipo) {
+      /* -----------------------------------------------------
+         VERDADERO / FALSO
+      ----------------------------------------------------- */
+
       case "verdadero-falso":
         return (
-          <div className="pregunta-opciones pregunta-opciones-dos">
-            <button
-              type="button"
-              className={`pregunta-opcion ${
-                respuestaSeleccionada === true
-                  ? "pregunta-opcion-seleccionada"
-                  : ""
-              }`}
-              onClick={() => comprobarVerdaderoFalso(true)}
-              disabled={Boolean(resultado)}
-            >
-              Verdadero
-            </button>
-
-            <button
-              type="button"
-              className={`pregunta-opcion ${
-                respuestaSeleccionada === false
-                  ? "pregunta-opcion-seleccionada"
-                  : ""
-              }`}
-              onClick={() => comprobarVerdaderoFalso(false)}
-              disabled={Boolean(resultado)}
-            >
-              Falso
-            </button>
-          </div>
-        );
-
-      case "multiple-choice":
-        return (
           <>
-            <div className="pregunta-opciones">
-              {pregunta.opciones.map((opcion) => (
-                <button
-                  key={opcion.id}
-                  type="button"
-                  className={`pregunta-opcion ${
-                    respuestaSeleccionada === opcion.id
-                      ? "pregunta-opcion-seleccionada"
-                      : ""
-                  }`}
-                  onClick={() => {
-                    if (!resultado) {
-                      setRespuestaSeleccionada(opcion.id);
-                    }
-                  }}
-                  disabled={Boolean(resultado)}
-                >
-                  <span className="pregunta-opcion-letra">
-                    {opcion.id.toUpperCase()}
-                  </span>
-
-                  <span>{opcion.texto}</span>
-                </button>
-              ))}
-            </div>
-
             {!resultado && (
-              <button
-                type="button"
-                className="pregunta-boton pregunta-boton-principal"
-                onClick={comprobarMultipleChoice}
-                disabled={!respuestaSeleccionada}
-              >
-                Comprobar respuesta
-              </button>
-            )}
-          </>
-        );
-
-      case "aproximacion":
-        return (
-          <>
-            <div className="aproximacion-respuestas">
-              {respuestasAproximacion.map((valor, index) => (
-                <label key={index} className="aproximacion-campo">
-                  <span>Equipo {index + 1}</span>
-
-                  <div className="aproximacion-input-wrapper">
-                    <input
-                      type="number"
-                      value={valor}
-                      placeholder="Ingresá un número"
-                      onChange={(event) => {
-                        limpiarErrorAproximacion();
-
-                        actualizarRespuestaAproximacion(
-                          index,
-                          event.target.value,
-                        );
-                      }}
-                      disabled={Boolean(
-                        resultado && !resultado.esError,
-                      )}
-                    />
-
-                    {pregunta.unidad && (
-                      <span className="aproximacion-unidad">
-                        {pregunta.unidad}
-                      </span>
-                    )}
+              <>
+                <div className="pregunta-opciones pregunta-opciones-dos">
+                  <div className="pregunta-opcion pregunta-opcion-oral">
+                    Verdadero
                   </div>
-                </label>
-              ))}
-            </div>
 
-            {!resultado || resultado.esError ? (
-              <div className="pregunta-acciones">
-                <button
-                  type="button"
-                  className="pregunta-boton pregunta-boton-secundario"
-                  onClick={agregarRespuestaAproximacion}
-                  disabled={respuestasAproximacion.length >= 4}
-                >
-                  {respuestasAproximacion.length >= 4
-                    ? "Máximo 4 equipos"
-                    : "Agregar equipo"}
-                </button>
+                  <div className="pregunta-opcion pregunta-opcion-oral">
+                    Falso
+                  </div>
+                </div>
 
                 <button
                   type="button"
                   className="pregunta-boton pregunta-boton-principal"
-                  onClick={comprobarAproximacion}
+                  onClick={revelarVerdaderoFalso}
                 >
-                  Comprobar respuestas
+                  Ver respuesta
                 </button>
-              </div>
-            ) : null}
+              </>
+            )}
           </>
         );
+
+      /* -----------------------------------------------------
+         MULTIPLE CHOICE
+      ----------------------------------------------------- */
+
+      case "multiple-choice":
+        return (
+          <>
+            {!resultado && (
+              <>
+                <div className="pregunta-opciones">
+                  {pregunta.opciones.map((opcion) => (
+                    <div
+                      key={opcion.id}
+                      className="pregunta-opcion pregunta-opcion-oral"
+                    >
+                      <span className="pregunta-opcion-letra">
+                        {opcion.id.toUpperCase()}
+                      </span>
+
+                      <span>{opcion.texto}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  className="pregunta-boton pregunta-boton-principal"
+                  onClick={revelarMultipleChoice}
+                >
+                  Ver respuesta
+                </button>
+              </>
+            )}
+          </>
+        );
+
+      /* -----------------------------------------------------
+         APROXIMACIÓN
+      ----------------------------------------------------- */
+
+      case "aproximacion":
+        return (
+          <>
+            {!resultado && (
+              <>
+                <div className="respuesta-oral-box">
+                  <span className="respuesta-oral-icono">
+                    ?
+                  </span>
+
+                  <div>
+                    <strong>
+                      Cada equipo dice un número
+                    </strong>
+
+                    <p>
+                      Cuando todos hayan respondido,
+                      revelá la respuesta.
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  className="pregunta-boton pregunta-boton-principal"
+                  onClick={revelarAproximacion}
+                >
+                  Ver respuesta
+                </button>
+              </>
+            )}
+          </>
+        );
+
+      /* -----------------------------------------------------
+         PREGUNTA ABIERTA
+      ----------------------------------------------------- */
 
       case "pregunta-abierta":
         return (
           <>
-            <p className="pregunta-oral-indicacion">
-              Respondé la consigna en voz alta.
-            </p>
-
             {!resultado && (
-              <button
-                type="button"
-                className="pregunta-boton pregunta-boton-principal"
-                onClick={registrarRespuestaAbierta}
-              >
-                Ver reflexión
-              </button>
+              <>
+                <p className="pregunta-oral-indicacion">
+                  Respondé la consigna en voz alta.
+                </p>
+
+                <button
+                  type="button"
+                  className="pregunta-boton pregunta-boton-principal"
+                  onClick={revelarPreguntaAbierta}
+                >
+                  Ver reflexión
+                </button>
+              </>
             )}
           </>
         );
+
+      /* -----------------------------------------------------
+         CARRERA MISTERIOSA
+      ----------------------------------------------------- */
 
       case "carrera-misteriosa":
         return (
           <>
-            <div className="carrera-pistas">
-              {pregunta.pistas.map((pista, index) => (
-                <div key={index} className="carrera-pista">
-                  <span>{index + 1}</span>
-                  <p>{pista}</p>
-                </div>
-              ))}
-            </div>
-
-            <input
-              type="text"
-              className="pregunta-input"
-              value={respuesta}
-              placeholder="Escribí el nombre de la carrera"
-              onChange={(event) =>
-                setRespuesta(event.target.value)
-              }
-              disabled={Boolean(resultado)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  comprobarCarreraMisteriosa();
-                }
-              }}
-            />
-
             {!resultado && (
-              <button
-                type="button"
-                className="pregunta-boton pregunta-boton-principal"
-                onClick={comprobarCarreraMisteriosa}
-                disabled={!respuesta.trim()}
-              >
-                Comprobar respuesta
-              </button>
+              <>
+                <div className="carrera-pistas">
+                  {pregunta.pistas.map((pista, index) => (
+                    <div
+                      key={index}
+                      className="carrera-pista"
+                    >
+                      <span>{index + 1}</span>
+                      <p>{pista}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  className="pregunta-boton pregunta-boton-principal"
+                  onClick={revelarCarreraMisteriosa}
+                >
+                  Descubrir carrera
+                </button>
+              </>
             )}
           </>
         );
+
+      /* -----------------------------------------------------
+         DESAFÍO RÁPIDO
+      ----------------------------------------------------- */
 
       case "desafio-rapido":
         return (
@@ -497,8 +437,8 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
             {!desafioIniciado && !resultado && (
               <>
                 <p className="desafio-indicacion">
-                  Cuando estés listo, iniciá el desafío.
-                  Vas a tener 5 segundos.
+                  Cuando estés listo, presioná el botón.
+                  Vas a tener {duracionDesafio} segundos.
                 </p>
 
                 <button
@@ -520,40 +460,12 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
                   </span>
 
                   <span className="desafio-contador-texto">
-                    segundos
+                    {tiempoRestante === 1
+                      ? "segundo"
+                      : "segundos"}
                   </span>
                 </div>
               )}
-
-            {desafioFinalizado && !resultado && (
-              <>
-                <div className="desafio-tiempo-finalizado">
-                  ¡Tiempo!
-                </div>
-
-                <p className="desafio-indicacion">
-                  ¿Pudiste completar el desafío?
-                </p>
-
-                <div className="pregunta-opciones pregunta-opciones-dos">
-                  <button
-                    type="button"
-                    className="pregunta-opcion"
-                    onClick={() => validarDesafio(true)}
-                  >
-                    Desafío cumplido
-                  </button>
-
-                  <button
-                    type="button"
-                    className="pregunta-opcion"
-                    onClick={() => validarDesafio(false)}
-                  >
-                    No cumplido
-                  </button>
-                </div>
-              </>
-            )}
           </>
         );
 
@@ -580,23 +492,12 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
         {renderContenido()}
 
         {resultado && (
-          <div
-            className={`pregunta-resultado ${
-              resultado.esCargando
-                ? "pregunta-resultado-cargando"
-                : resultado.esError
-                  ? "pregunta-resultado-error"
-                  : resultado.esCorrecta
-                    ? "pregunta-resultado-correcto"
-                    : "pregunta-resultado-incorrecto"
-            }`}
-          >
+          <div className="pregunta-resultado pregunta-resultado-correcto">
             <h3>{resultado.titulo}</h3>
 
-            {resultado.respuestaCorrecta !==
-              undefined && (
+            {resultado.respuestaCorrecta !== undefined && (
               <p>
-                <strong>Respuesta correcta:</strong>{" "}
+                <strong>Respuesta:</strong>{" "}
                 {resultado.respuestaCorrecta}{" "}
                 {resultado.unidad ?? ""}
               </p>
@@ -606,7 +507,7 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
           </div>
         )}
 
-        {resultado && !resultado.esError && (
+        {resultado && (
           <button
             type="button"
             className="pregunta-boton pregunta-boton-principal"
@@ -615,6 +516,21 @@ export function Pregunta({ categoria, pregunta, onVolver }) {
             Volver a la ruleta
           </button>
         )}
+
+        {/* <div className="enter-ayuda">
+          <span className="enter-ayuda-tecla">
+            ENTER
+          </span>
+
+          <span>
+            {resultado
+              ? "para volver a la ruleta"
+              : pregunta.tipo === "desafio-rapido" &&
+                  desafioIniciado
+                ? "esperá a que termine el tiempo"
+                : "para continuar"}
+          </span>
+        </div> */}
 
         <img
           src={logoBlanco}

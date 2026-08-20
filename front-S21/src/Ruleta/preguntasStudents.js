@@ -1231,177 +1231,196 @@ export const preguntasStudents = {
         "Esta tecnicatura se orienta a la creación, gestión y análisis de campañas, contenidos y estrategias para medios digitales.",
     },
   ],
-
-  "Desafío rápido": [
-    {
-      id: "dr-1",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Tenés 10 segundos: nombrá tres carreras relacionadas con la tecnología.",
-      validacion: "manual",
-      explicacion:
-        "Algunas opciones son Ciencia de Datos, Inteligencia Artificial y Robótica, Seguridad Informática, Informática y Desarrollo de Videojuegos.",
-    },
-    {
-      id: "dr-2",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Tenés 10 segundos: nombrá 3 carreras donde comunicarse bien sea clave.",
-      validacion: "manual",
-      explicacion:
-        "Algunas carreras pueden ser Abogacía, Publicidad y Recursos Humanos. En todas, comunicar ideas con claridad, escuchar y adaptar el mensaje a distintas personas es una parte importante del trabajo profesional.",
-    },
-    {
-      id: "dr-3",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Tenés 10 segundos: nombrá tres profesionales que podrían trabajar dentro de una misma empresa.",
-      validacion: "manual",
-      explicacion:
-        "Una empresa puede reunir profesionales de Administración, Contabilidad, Recursos Humanos, Marketing, Comunicación, Tecnología y muchas otras áreas.",
-    },
-    {
-      id: "dr-4",
-      tipo: "desafio-rapido",
-      pregunta:
-        "En menos de 10 segundos, nombrá tres carreras relacionadas con la justicia, la investigación o la seguridad.",
-      validacion: "manual",
-      explicacion:
-        "Algunas opciones son Abogacía, Criminología y Seguridad, Investigación de la Escena del Crimen y Seguridad Informática.",
-    },
-    {
-      id: "dr-5",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Tenés 10 segundos: nombrá tres carreras en las que se trabaje habitualmente con números o datos.",
-      validacion: "manual",
-      explicacion:
-        "Algunas opciones son Contador Público, Finanzas, Ciencia de Datos, Administración, Economía y Actuario.",
-    },
-    {
-      id: "dr-7",
-      tipo: "desafio-rapido",
-      pregunta:
-        "En menos de 5 segundos, nombrá una carrera que comience con la letra A.",
-      validacion: "manual",
-      explicacion:
-        "Algunas respuestas posibles son Abogacía, Administración, Administración Pública, Agronegocios o Agroinformática.",
-    },
-    {
-      id: "dr-9",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Tenés 10 segundos: nombrá dos carreras de grado y una tecnicatura.",
-      validacion: "manual",
-      explicacion:
-        "Algunas opciones pueden ser Abogacía, Licenciatura en Administración y Tecnicatura en Marketing y Publicidad Digital. La diferencia está en el tipo y alcance de la titulación: las carreras de grado suelen tener una formación más amplia, mientras que las tecnicaturas son más cortas y específicas.",
-    },
-    {
-      id: "dr-10",
-      tipo: "desafio-rapido",
-      pregunta:
-        "En menos de 5 segundos, nombrá una carrera vinculada con el ambiente o la sustentabilidad.",
-      validacion: "manual",
-      explicacion:
-        "Una respuesta posible es la Licenciatura en Ambiente y Energías Renovables o la Tecnicatura en Hidrocarburos y Geociencia.",
-    },
-    {
-      id: "dr-12",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Tenés 10 segundos: nombrá 3 excusas típicas para postergar un trabajo práctico.",
-      validacion: "manual",
-      explicacion:
-        "Algunas pueden ser: 'después lo hago', 'todavía hay tiempo' o 'primero termino otra cosa'. Procrastinar suele empezar con pequeñas postergaciones que después se acumulan.",
-    },
-    {
-      id: "dr-13",
-      tipo: "desafio-rapido",
-      pregunta:
-        "En menos de 5 segundos, nombrá una carrera que pueda ejercerse tanto de manera independiente como dentro de una organización.",
-      validacion: "manu0al",
-      explicacion:
-        "Existen numerosas respuestas posibles, como Abogacía, Contador Público, Marketing, Diseño Gráfico, Recursos Humanos o Informática.",
-    },
-    {
-      id: "dr-15",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Tenés 10 segundos: nombrá 3 formas de organizarte en una semana con muchas entregas.",
-      validacion: "manual",
-      explicacion:
-        "Algunas pueden ser priorizar tareas, armar un cronograma y dividir los trabajos grandes en partes más pequeñas. Organizarse ayuda a bajar la carga mental y evitar dejar todo para último momento.",
-    },
-    {
-      id: "dr-16",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Tenés 10 segundos para presentarte diciendo tu nombre, tu carrera y una habilidad inesperada que tengas.",
-      validacion: "manual",
-      explicacion:
-        "Podría ser: 'Soy Sofía, estudio Psicología y sé hacer malabares'. Una presentación breve y concreta ayuda a contar quién sos de forma clara y a generar conexión con otras personas.",
-    },
-    {
-      id: "dr-17",
-      tipo: "desafio-rapido",
-      pregunta:
-        "En menos de 5 segundos, nombrá una carrera que comience con la misma letra que tu nombre.",
-      validacion: "manual",
-      explicacion:
-        "Por ejemplo: Martina podría decir Marketing, Sofía podría decir Sociología y Agustín, Abogacía.",
-    },
-    {
-      id: "dr-19",
-      tipo: "desafio-rapido",
-      pregunta:
-        "En menos de 5 segundos, nombrá una carrera que trabaje con datos.",
-      validacion: "manual",
-      explicacion:
-        "Algunas respuestas posibles son Ciencia de Datos, Inteligencia Artificial y Robótica, Agroinformática, Finanzas o Contador Público.",
-    },
-    {
-      id: "dr-32",
-      tipo: "desafio-rapido",
-      pregunta:
-        "En menos de 5 segundos, nombrá una carrera que contenga la letra B.",
-      validacion: "manual",
-      explicacion:
-        "Algunas respuestas posibles son Bioinformática, Abogacía o Escribanía.",
-    },
-    {
-      id: "dr-8",
-      tipo: "desafio-rapido",
-      pregunta:
-        "En menos de 5 segundos, nombrá una carrera que empiece con la letra C.",
-      validacion: "manual",
-      explicacion:
-        "Algunas opciones son Contador Público, Ciencia de Datos, Comercio Internacional o Criminología y Seguridad.",
-    },
-    {
-      id: "dr-33",
-      tipo: "desafio-rapido",
-      pregunta: "En menos de 5 segundos, nombrá una carrera que empiece con D.",
-      validacion: "manual",
-      explicacion:
-        "Algunas opciones son Diseño y Animación Digital y Diseño y Desarrollo de Videojuegos.",
-    },
-    {
-      id: "dr-34",
-      tipo: "desafio-rapido",
-      pregunta:
-        "En menos de 5 segundos, nombrá una carrera que empiece con la letra M.",
-      validacion: "manual",
-      explicacion:
-        "Algunas opciones son Marketing y Publicidad Digital o Martillero, Corredor Público y Corredor Inmobiliario.",
-    },
-    {
-      id: "dr-11",
-      tipo: "desafio-rapido",
-      pregunta:
-        "En menos de 5 segundos, nombrá una carrera que empiece con la última letra de tu nombre.",
-      validacion: "manual",
-      explicacion:
-        "Por ejemplo: si tu nombre termina en A, podrías decir Abogacía; si termina en M, Marketing; y si termina en P, Psicología.",
-    },
-  ],
+"Desafío rápido": [
+  {
+    id: "dr-1",
+    tipo: "desafio-rapido",
+    segundos: 10,
+    pregunta:
+      "Tenés 10 segundos: nombrá tres carreras relacionadas con la tecnología.",
+    validacion: "manual",
+    explicacion:
+      "Algunas opciones son Ciencia de Datos, Inteligencia Artificial y Robótica, Seguridad Informática, Informática y Desarrollo de Videojuegos.",
+  },
+  {
+    id: "dr-2",
+    tipo: "desafio-rapido",
+    segundos: 10,
+    pregunta:
+      "Tenés 10 segundos: nombrá 3 carreras donde comunicarse bien sea clave.",
+    validacion: "manual",
+    explicacion:
+      "Algunas carreras pueden ser Abogacía, Publicidad y Recursos Humanos. En todas, comunicar ideas con claridad, escuchar y adaptar el mensaje a distintas personas es una parte importante del trabajo profesional.",
+  },
+  {
+    id: "dr-3",
+    tipo: "desafio-rapido",
+    segundos: 10,
+    pregunta:
+      "Tenés 10 segundos: nombrá tres profesionales que podrían trabajar dentro de una misma empresa.",
+    validacion: "manual",
+    explicacion:
+      "Una empresa puede reunir profesionales de Administración, Contabilidad, Recursos Humanos, Marketing, Comunicación, Tecnología y muchas otras áreas.",
+  },
+  {
+    id: "dr-4",
+    tipo: "desafio-rapido",
+    segundos: 10,
+    pregunta:
+      "En menos de 10 segundos, nombrá tres carreras relacionadas con la justicia, la investigación o la seguridad.",
+    validacion: "manual",
+    explicacion:
+      "Algunas opciones son Abogacía, Criminología y Seguridad, Investigación de la Escena del Crimen y Seguridad Informática.",
+  },
+  {
+    id: "dr-5",
+    tipo: "desafio-rapido",
+    segundos: 10,
+    pregunta:
+      "Tenés 10 segundos: nombrá tres carreras en las que se trabaje habitualmente con números o datos.",
+    validacion: "manual",
+    explicacion:
+      "Algunas opciones son Contador Público, Finanzas, Ciencia de Datos, Administración, Economía y Actuario.",
+  },
+  {
+    id: "dr-7",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "En menos de 5 segundos, nombrá una carrera que comience con la letra A.",
+    validacion: "manual",
+    explicacion:
+      "Algunas respuestas posibles son Abogacía, Administración, Administración Pública, Agronegocios o Agroinformática.",
+  },
+  {
+    id: "dr-9",
+    tipo: "desafio-rapido",
+    segundos: 10,
+    pregunta:
+      "Tenés 10 segundos: nombrá dos carreras de grado y una tecnicatura.",
+    validacion: "manual",
+    explicacion:
+      "Algunas opciones pueden ser Abogacía, Licenciatura en Administración y Tecnicatura en Marketing y Publicidad Digital. La diferencia está en el tipo y alcance de la titulación: las carreras de grado suelen tener una formación más amplia, mientras que las tecnicaturas son más cortas y específicas.",
+  },
+  {
+    id: "dr-10",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "En menos de 5 segundos, nombrá una carrera vinculada con el ambiente o la sustentabilidad.",
+    validacion: "manual",
+    explicacion:
+      "Una respuesta posible es la Licenciatura en Ambiente y Energías Renovables o la Tecnicatura en Hidrocarburos y Geociencia.",
+  },
+  {
+    id: "dr-12",
+    tipo: "desafio-rapido",
+    segundos: 10,
+    pregunta:
+      "Tenés 10 segundos: nombrá 3 excusas típicas para postergar un trabajo práctico.",
+    validacion: "manual",
+    explicacion:
+      "Algunas pueden ser: 'después lo hago', 'todavía hay tiempo' o 'primero termino otra cosa'. Procrastinar suele empezar con pequeñas postergaciones que después se acumulan.",
+  },
+  {
+    id: "dr-13",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "En menos de 5 segundos, nombrá una carrera que pueda ejercerse tanto de manera independiente como dentro de una organización.",
+    validacion: "manual",
+    explicacion:
+      "Existen numerosas respuestas posibles, como Abogacía, Contador Público, Marketing, Diseño Gráfico, Recursos Humanos o Informática.",
+  },
+  {
+    id: "dr-15",
+    tipo: "desafio-rapido",
+    segundos: 10,
+    pregunta:
+      "Tenés 10 segundos: nombrá 3 formas de organizarte en una semana con muchas entregas.",
+    validacion: "manual",
+    explicacion:
+      "Algunas pueden ser priorizar tareas, armar un cronograma y dividir los trabajos grandes en partes más pequeñas. Organizarse ayuda a bajar la carga mental y evitar dejar todo para último momento.",
+  },
+  {
+    id: "dr-16",
+    tipo: "desafio-rapido",
+    segundos: 10,
+    pregunta:
+      "Tenés 10 segundos para presentarte diciendo tu nombre, tu carrera y una habilidad inesperada que tengas.",
+    validacion: "manual",
+    explicacion:
+      "Podría ser: 'Soy Sofía, estudio Psicología y sé hacer malabares'. Una presentación breve y concreta ayuda a contar quién sos de forma clara y a generar conexión con otras personas.",
+  },
+  {
+    id: "dr-17",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "En menos de 5 segundos, nombrá una carrera que comience con la misma letra que tu nombre.",
+    validacion: "manual",
+    explicacion:
+      "Por ejemplo: Martina podría decir Marketing, Sofía podría decir Sociología y Agustín, Abogacía.",
+  },
+  {
+    id: "dr-19",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "En menos de 5 segundos, nombrá una carrera que trabaje con datos.",
+    validacion: "manual",
+    explicacion:
+      "Algunas respuestas posibles son Ciencia de Datos, Inteligencia Artificial y Robótica, Agroinformática, Finanzas o Contador Público.",
+  },
+  {
+    id: "dr-32",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "En menos de 5 segundos, nombrá una carrera que contenga la letra B.",
+    validacion: "manual",
+    explicacion:
+      "Algunas respuestas posibles son Bioinformática, Abogacía o Escribanía.",
+  },
+  {
+    id: "dr-8",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "En menos de 5 segundos, nombrá una carrera que empiece con la letra C.",
+    validacion: "manual",
+    explicacion:
+      "Algunas opciones son Contador Público, Ciencia de Datos, Comercio Internacional o Criminología y Seguridad.",
+  },
+  {
+    id: "dr-33",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "En menos de 5 segundos, nombrá una carrera que empiece con D.",
+    validacion: "manual",
+    explicacion:
+      "Algunas opciones son Diseño y Animación Digital y Diseño y Desarrollo de Videojuegos.",
+  },
+  {
+    id: "dr-34",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "En menos de 5 segundos, nombrá una carrera que empiece con la letra M.",
+    validacion: "manual",
+    explicacion:
+      "Algunas opciones son Marketing y Publicidad Digital o Martillero, Corredor Público y Corredor Inmobiliario.",
+  },
+  {
+    id: "dr-11",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "En menos de 5 segundos, nombrá una carrera que empiece con la última letra de tu nombre.",
+    validacion: "manual",
+    explicacion:
+      "Por ejemplo: si tu nombre termina en A, podrías decir Abogacía; si termina en M, Marketing; y si termina en P, Psicología.",
+  },
+],
 };

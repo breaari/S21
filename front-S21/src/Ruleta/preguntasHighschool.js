@@ -373,7 +373,7 @@ export const preguntasHighSchool = {
       unidad: "centros",
       cantidadMinimaRespuestas: 2,
       explicacion:
-        "Según el material de la actividad, la Universidad cuenta con aproximadamente 326 Centros de Apoyo Universitario distribuidos en el país. Estos espacios permiten brindar orientación, acompañamiento y servicios presenciales a estudiantes de diferentes localidades.",
+        "La Universidad cuenta con aproximadamente 326 Centros de Apoyo Universitario distribuidos en el país. Estos espacios permiten brindar orientación, acompañamiento y servicios presenciales a estudiantes de diferentes localidades.",
     },
     {
       id: "hs-ap-4",
@@ -384,7 +384,7 @@ export const preguntasHighSchool = {
       unidad: "graduados",
       cantidadMinimaRespuestas: 2,
       explicacion:
-        "El material señala que alrededor de 110.000 profesionales se graduaron de la Universidad. Cada graduado representa un recorrido académico diferente y una incorporación de nuevos conocimientos y competencias al mundo profesional.",
+        "En la actualidad, la Universidad Siglo 21 acumula alrededor de 110.000 profesionales graduados. Esta cifra corresponde a 31 años de trayectoria educativa.",
     },
     {
       id: "hs-ap-5",
@@ -405,7 +405,7 @@ export const preguntasHighSchool = {
       unidad: "materias",
       cantidadMinimaRespuestas: 2,
       explicacion:
-        "El material toma como referencia unas 48 materias para una licenciatura. La cantidad exacta depende de cada plan de estudios e incluye diferentes tipos de asignaturas, prácticas, electivas y espacios de integración profesional.",
+        "Para completar el plan de estudios de una licenciatura se debe aprobar alrededor de 48 materias.",
     },
     {
       id: "hs-ap-7",
@@ -427,7 +427,7 @@ export const preguntasHighSchool = {
       unidad: "organizaciones",
       cantidadMinimaRespuestas: 2,
       explicacion:
-        "El material menciona una vinculación con aproximadamente 20.500 empresas y organizaciones. Estos vínculos pueden acercar la formación universitaria al mundo productivo, profesional y social mediante experiencias, proyectos y prácticas.",
+        "La Universidad se mantiene vinculada con aproximadamente 20.500 empresas y organizaciones. Estos vínculos pueden acercar la formación universitaria al mundo productivo, profesional y social mediante experiencias, proyectos y prácticas.",
     },
     {
       id: "hs-ap-9",
@@ -438,7 +438,7 @@ export const preguntasHighSchool = {
       unidad: "materias",
       cantidadMinimaRespuestas: 2,
       explicacion:
-        "El material utiliza como referencia unas 20 materias para una tecnicatura. Estas carreras suelen tener una duración menor que una licenciatura y se orientan al desarrollo de competencias específicas para una rápida inserción profesional.",
+        "Para completar el plan de estudios de una tecnicatura se debe aprobar alrededor de 20 materias. Estas carreras suelen tener una duración menor que una licenciatura y se orientan al desarrollo de competencias específicas para una rápida inserción profesional.",
     },
     {
       id: "hs-ap-10",
@@ -449,7 +449,7 @@ export const preguntasHighSchool = {
       unidad: "minutos",
       cantidadMinimaRespuestas: 2,
       explicacion:
-        "El material indica que un parcial de opción múltiple dispone de hasta 40 minutos. La organización del tiempo, la lectura atenta y la preparación previa son importantes para resolver las preguntas dentro del plazo establecido.",
+        "Para un parcial de opción múltiple se dispone de hasta 40 minutos. La organización del tiempo, la lectura atenta y la preparación previa son importantes para resolver las preguntas dentro del plazo establecido.",
     },
   ],
 
@@ -813,122 +813,148 @@ export const preguntasHighSchool = {
     },
   ],
 
-  "Desafío rápido": [
-    {
-      id: "hs-dr-1",
-      tipo: "desafio-rapido",
-      pregunta: "Nombrá tres carreras en menos de cinco segundos.",
-      explicacion:
-        "Algunas pueden ser Bioinformática, Agroinformática o Inteligencia de Negocios Digitales.",
-    },
-    {
-      id: "hs-dr-2",
-      tipo: "desafio-rapido",
-      pregunta: "Nombrá una carrera que empiece con la letra B.",
-      explicacion: "Una respuesta podría ser, por ejemplo, Bioinformática.",
-    },
-    {
-      id: "hs-dr-3",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Tenés 5 segundos: nombrá tres aplicaciones que uses todos los días.",
-      explicacion:
-        "Algunas pueden ser WhatsApp, Instagram y Google Maps. Las aplicaciones forman parte de casi todas las actividades cotidianas y detrás de ellas intervienen áreas como programación, diseño, análisis de datos y comunicación.",
-    },
-    {
-      id: "hs-dr-4",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Tenés 5 segundos: nombrá tres plataformas o aplicaciones que uses para estudiar.",
-      explicacion:
-        "Algunas pueden ser Google Classroom, Duolingo y ChatGPT. Hoy estudiar también implica buscar información, organizar tareas, crear materiales y trabajar de forma colaborativa con herramientas digitales.",
-    },
-    {
-      id: "hs-dr-5",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Tenés 5 segundos: nombrá una carrera relacionada con el deporte.",
-      explicacion:
-        "Algunas pueden ser Gestión Deportiva, Nutrición o Kinesiología. El deporte también necesita profesionales de muchas áreas, no solo del entrenamiento.",
-    },
-    {
-      id: "hs-dr-6",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Tenés cinco segundos: nombrá tres trabajos que puedan realizarse de manera remota.",
-      explicacion:
-        "Algunos pueden ser desarrollador de software, diseñador gráfico o analista de datos. Cada vez más profesiones permiten trabajar desde distintos lugares usando herramientas digitales.",
-    },
-    {
-      id: "hs-dr-7",
-      tipo: "desafio-rapido",
-      pregunta:
-        "Tenés 5 segundos: nombrá una carrera relacionada con la salud.",
-      explicacion:
-        "Algunas pueden ser Nutrición, Psicología o Bioinformática. El campo de la salud reúne profesionales que trabajan tanto en atención y bienestar como en investigación, tecnología y análisis de datos.",
-    },
-    {
-      id: "hs-dr-8",
-      tipo: "desafio-rapido",
-      pregunta: "Nombrá una carrera que comience con la letra A.",
-      explicacion:
-        "Algunas respuestas posibles son Abogacía, Actuario, Administración o Agroinformática. El desafío permite descubrir la variedad de opciones disponibles.",
-    },
-    {
-      id: "hs-dr-9",
-      tipo: "desafio-rapido",
-      pregunta: "Nombrá tres carreras relacionadas con tecnología.",
-      explicacion:
-        "Podés mencionar Informática, Ciencia de Datos, Inteligencia Artificial, Robótica, Bioinformática, Agroinformática, Diseño Digital u otras carreras con un fuerte componente tecnológico.",
-    },
-    {
-      id: "hs-dr-10",
-      tipo: "desafio-rapido",
-      pregunta: "Nombrá una carrera que empiece con la letra L.",
-      explicacion:
-        "Algunas respuestas posibles son Logística Global o Licenciaturas de distintas áreas. Lo importante es responder dentro del tiempo del desafío.",
-    },
-    {
-      id: "hs-dr-11",
-      tipo: "desafio-rapido",
-      pregunta: "Nombrá una carrera que empiece con la letra H.",
-      explicacion:
-        "Una respuesta posible es Hidrocarburos y Geociencias. También puede aceptarse Higiene y Seguridad si corresponde a la oferta considerada.",
-    },
-    {
-      id: "hs-dr-12",
-      tipo: "desafio-rapido",
-      pregunta: "Nombrá una carrera que contenga la letra O.",
-      explicacion:
-        "Hay muchas respuestas posibles. El objetivo es pensar rápidamente en nombres de carreras y prestar atención a cómo están escritos.",
-    },
-    {
-      id: "hs-dr-13",
-      tipo: "desafio-rapido",
-      pregunta: "Nombrá una carrera que empiece con la letra P.",
-      explicacion:
-        "Algunas respuestas posibles son Publicidad, Periodismo, Psicología o Programación, según la oferta académica con la que estén trabajando.",
-    },
-    {
-      id: "hs-dr-14",
-      tipo: "desafio-rapido",
-      pregunta: "Nombrá una carrera que empiece con la letra F.",
-      explicacion:
-        "Una respuesta posible es Finanzas. El desafío ayuda a recordar opciones vinculadas con distintas áreas profesionales.",
-    },
-    {
-      id: "hs-dr-15",
-      tipo: "desafio-rapido",
-      pregunta: "Nombrá una carrera que empiece con la letra E.",
-      explicacion:
-        "Podés responder Educación, Estadística o Escribanía, según las carreras incluidas en la propuesta académica.",
-    },
-    {
-      id: "hs-dr-16",
-      tipo: "desafio-rapido",
-      pregunta: "Nombrá una carrera que empiece con la letra M.",
-      explicacion:
-        "Algunas respuestas posibles son Marketing, Martillero o carreras vinculadas con management. El reto consiste en encontrar una opción rápidamente.",
-    },
-  ],
+"Desafío rápido": [
+  {
+    id: "hs-dr-1",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta: "Nombrá tres carreras en menos de cinco segundos.",
+    explicacion:
+      "Algunas pueden ser Bioinformática, Agroinformática o Inteligencia de Negocios Digitales.",
+  },
+  {
+    id: "hs-dr-2",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta: "Nombrá una carrera que empiece con la letra B.",
+    explicacion:
+      "Una respuesta podría ser, por ejemplo, Bioinformática.",
+  },
+  {
+    id: "hs-dr-3",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "Tenés 5 segundos: nombrá tres aplicaciones que uses todos los días.",
+    explicacion:
+      "Algunas pueden ser WhatsApp, Instagram y Google Maps. Las aplicaciones forman parte de casi todas las actividades cotidianas y detrás de ellas intervienen áreas como programación, diseño, análisis de datos y comunicación.",
+  },
+  {
+    id: "hs-dr-4",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "Tenés 5 segundos: nombrá tres plataformas o aplicaciones que uses para estudiar.",
+    explicacion:
+      "Algunas pueden ser Google Classroom, Duolingo y ChatGPT. Hoy estudiar también implica buscar información, organizar tareas, crear materiales y trabajar de forma colaborativa con herramientas digitales.",
+  },
+  {
+    id: "hs-dr-5",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "Tenés 5 segundos: nombrá una carrera relacionada con el deporte.",
+    explicacion:
+      "Algunas pueden ser Gestión Deportiva, Nutrición o Kinesiología. El deporte también necesita profesionales de muchas áreas, no solo del entrenamiento.",
+  },
+  {
+    id: "hs-dr-6",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "Tenés cinco segundos: nombrá tres trabajos que puedan realizarse de manera remota.",
+    explicacion:
+      "Algunos pueden ser desarrollador de software, diseñador gráfico o analista de datos. Cada vez más profesiones permiten trabajar desde distintos lugares usando herramientas digitales.",
+  },
+  {
+    id: "hs-dr-7",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "Tenés 5 segundos: nombrá una carrera relacionada con la salud.",
+    explicacion:
+      "Algunas pueden ser Nutrición, Psicología o Bioinformática. El campo de la salud reúne profesionales que trabajan tanto en atención y bienestar como en investigación, tecnología y análisis de datos.",
+  },
+  {
+    id: "hs-dr-8",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "Tenés 5 segundos: nombrá una carrera que comience con la letra A.",
+    explicacion:
+      "Algunas respuestas posibles son Abogacía, Actuario, Administración o Agroinformática.",
+  },
+  {
+    id: "hs-dr-9",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "Tenés 5 segundos: nombrá tres carreras relacionadas con tecnología.",
+    explicacion:
+      "Podés mencionar Informática, Ciencia de Datos, Inteligencia Artificial, Robótica, Bioinformática, Agroinformática, Diseño Digital u otras carreras con un fuerte componente tecnológico.",
+  },
+  {
+    id: "hs-dr-10",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "Tenés 5 segundos: nombrá una carrera que empiece con la letra L.",
+    explicacion:
+      "Algunas respuestas posibles son Logística Global o Licenciaturas de distintas áreas.",
+  },
+  {
+    id: "hs-dr-11",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "En menos de 5 segundos: nombrá una carrera que empiece con la letra H.",
+    explicacion:
+      "Una respuesta posible es Hidrocarburos y Geociencias o Higiene y Seguridad Laboral.",
+  },
+  {
+    id: "hs-dr-12",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "En menos de 5 segundos: nombrá una carrera que contenga la letra O.",
+    explicacion:
+      "Algunas pueden ser Abogacía, Comercio Internacional o Gestión Deportiva.",
+  },
+  {
+    id: "hs-dr-13",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "Tenés 5 segundos: nombrá una carrera que empiece con la letra P.",
+    explicacion:
+      "Algunas respuestas posibles son Publicidad, Periodismo o Programación.",
+  },
+  {
+    id: "hs-dr-14",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "Tenés 5 segundos: nombrá una carrera que empiece con la letra F.",
+    explicacion:
+      "Una respuesta posible es Finanzas.",
+  },
+  {
+    id: "hs-dr-15",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "Tenés 5 segundos: nombrá una carrera que empiece con la letra E.",
+    explicacion:
+      "Algunas opciones podrían ser Educación, Estadística o Escribanía.",
+  },
+  {
+    id: "hs-dr-16",
+    tipo: "desafio-rapido",
+    segundos: 5,
+    pregunta:
+      "Tenés 5 segundos: nombrá una carrera que empiece con la letra M.",
+    explicacion:
+      "Algunas respuestas posibles son Marketing o Martillero.",
+  },
+],
 };

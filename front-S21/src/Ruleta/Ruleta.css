@@ -1112,3 +1112,244 @@
     transform: scale(1.04);
   }
 }
+/* =========================================================
+   NAVEGACIÓN CON ENTER
+========================================================= */
+
+.enter-ayuda {
+  align-self: center;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  margin-top: 8px;
+
+  color: rgba(255, 255, 255, 0.7);
+
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.enter-ayuda-tecla {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 58px;
+  min-height: 28px;
+
+  padding: 4px 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 7px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.14),
+      rgba(255, 255, 255, 0.06)
+    );
+
+  color: white;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+
+  box-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.enter-ayuda-ruleta {
+  margin-top: 5px;
+  margin-bottom: 8px;
+}
+
+
+/* =========================================================
+   RESPUESTAS ORALES
+========================================================= */
+
+.pregunta-opcion-oral {
+  cursor: default;
+}
+
+.pregunta-opcion-oral:hover {
+  transform: none;
+}
+
+
+/* =========================================================
+   APROXIMACIÓN ORAL
+========================================================= */
+
+.respuesta-oral-box {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+
+  padding: 20px 22px;
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.055);
+
+  box-sizing: border-box;
+}
+
+.respuesta-oral-icono {
+  flex: 0 0 auto;
+
+  width: 54px;
+  height: 54px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: rgba(78, 196, 170, 0.16);
+
+  border: 1px solid rgba(126, 224, 201, 0.35);
+
+  color: #bcebe2;
+
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.respuesta-oral-box strong {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: white;
+
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 17px;
+}
+
+.respuesta-oral-box p {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.7);
+
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   DESAFÍO RÁPIDO
+========================================================= */
+
+.desafio-contador {
+  width: 180px;
+  height: 180px;
+
+  align-self: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(78, 196, 170, 0.22),
+      rgba(20, 78, 75, 0.6)
+    );
+
+  border: 3px solid rgba(126, 224, 201, 0.55);
+
+  box-shadow:
+    0 0 35px rgba(78, 196, 170, 0.24),
+    inset 0 0 25px rgba(255, 255, 255, 0.06);
+
+  animation: pulsoContador 1s ease-in-out infinite;
+}
+
+.desafio-contador-numero {
+  font-family: "Montserrat", Arial, sans-serif;
+
+  font-size: 74px;
+  font-weight: 800;
+  line-height: 0.95;
+
+  color: white;
+}
+
+.desafio-contador-texto {
+  margin-top: 8px;
+
+  color: #bcebe2;
+
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+@keyframes pulsoContador {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+  .enter-ayuda {
+    font-size: 11px;
+  }
+
+  .enter-ayuda-tecla {
+    min-width: 50px;
+    min-height: 25px;
+
+    font-size: 10px;
+  }
+
+  .respuesta-oral-box {
+    padding: 16px;
+
+    gap: 13px;
+  }
+
+  .respuesta-oral-icono {
+    width: 45px;
+    height: 45px;
+
+    font-size: 23px;
+  }
+
+  .desafio-contador {
+    width: 150px;
+    height: 150px;
+  }
+
+  .desafio-contador-numero {
+    font-size: 62px;
+  }
+}
