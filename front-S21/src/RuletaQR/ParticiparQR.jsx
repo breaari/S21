@@ -71,13 +71,13 @@ export function ParticiparQR() {
           <div className="qr-mobile-card qr-success-card">
             <div className="qr-success-icon">✓</div>
 
-            <div className="qr-mobile-kicker">REGISTRO COMPLETADO</div>
+            <div className="qr-mobile-kicker qr-success-kicker">
+              REGISTRO COMPLETADO
+            </div>
 
-            <h1 className="qr-success-title">
-              ¡LISTO,
-              <br />
-              <span>{form.nombre.toUpperCase()}!</span>
-            </h1>
+            <h1 className="qr-success-title">¡Listo!</h1>
+
+            <p className="qr-success-name">{form.nombre}</p>
 
             <p className="qr-success-copy">Ya estás en la fila para jugar.</p>
 

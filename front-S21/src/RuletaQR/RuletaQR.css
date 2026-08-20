@@ -1021,7 +1021,7 @@
 }
 
 .qr-success-card {
-  text-align: left;
+  text-align: center;
 
   padding: 28px 24px;
 }
@@ -1030,7 +1030,7 @@
   width: 54px;
   height: 54px;
 
-  margin-bottom: 18px;
+  margin: 0 auto 18px;
 
   display: flex;
   align-items: center;
@@ -1055,31 +1055,40 @@
 
   color: #fff;
 
-  font-size: clamp(
-    38px,
-    11vw,
-    52px
-  );
+  font-size: clamp(34px, 10vw, 42px);
+  line-height: 0.95;
 
-  line-height: 0.9;
+  font-weight: 700;
 
-  font-weight: 800;
-
-  letter-spacing: -1.6px;
+  letter-spacing: -1px;
 }
 
-.qr-success-title span {
+.qr-success-name {
+  margin: 6px 0 12px;
+
   color: #55d7ae;
+
+  font-size: 28px;
+  line-height: 1;
+
+  font-weight: 700;
 }
 
+.qr-success-kicker {
+  text-align: center;
+  margin-bottom: 10px;
+}
 .qr-success-copy {
-  margin: 14px 0 22px;
+  margin: 0 0 22px;
 
-  color:
-    rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.72);
 
-  font-size: 16px;
+  font-size: 15px;
+  line-height: 1.4;
   font-weight: 400;
+}
+.qr-success-status {
+  text-align: left;
 }
 
 .qr-success-status {

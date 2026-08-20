@@ -6,24 +6,26 @@ const {
 } = require(
   "../controllers/ruletaQRController",
 );
-console.log("RULETA CONTROLLER:", {
-  crearParticipante,
-  obtenerSiguienteParticipante,
-  iniciarParticipante,
-  finalizarParticipante,
-});
+
+const {
+  guardarParticipanteEnSheet,
+} = require(
+  "../services/googleSheetsService",
+);
 /* =========================================================
    PARTICIPAR
 ========================================================= */
 
-const participarRuletaQRHandler = (
+const participarRuletaQRHandler = async (
   req,
   res,
 ) => {
   try {
     const participante =
       crearParticipante(req.body);
-
+await guardarParticipanteEnSheet(
+  participante,
+);
     return res.status(201).json({
       ok: true,
       mensaje:
