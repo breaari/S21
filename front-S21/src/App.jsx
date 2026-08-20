@@ -17,6 +17,7 @@ import { SeleccionRuleta } from "./Ruleta/SeleccionRuleta";
 import { Ruleta } from "./Ruleta/Ruleta";
 import { preguntasStudents } from "./Ruleta/preguntasStudents";
 import { preguntasHighSchool } from "./Ruleta/preguntasHighschool";
+import { ParticiparQR } from "./RuletaQR/ParticiparQR";
 
 function App() {
   return (
@@ -57,6 +58,11 @@ function App() {
             />
           }
         />
+
+        <Route
+  path="/ruleta/qr/participar"
+  element={<ParticiparQR />}
+/>
       </Routes>
     </>
   );

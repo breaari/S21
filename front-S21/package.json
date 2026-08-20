@@ -21,6 +21,7 @@
     "axios": "^1.6.8",
     "boxicons": "^2.1.4",
     "postcss": "^8.4.38",
+    "qrcode.react": "^4.2.0",
     "react": "^18.2.0",
     "react-confetti": "^6.4.0",
     "react-custom-roulette": "^1.4.1",

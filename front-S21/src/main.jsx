@@ -9,8 +9,8 @@ import { TestProvider2 } from './CarreravsVocacion/TestContext2.jsx'
 import { TestProviderH } from './Secundaria/TestContextH.jsx'
 
 
-// axios.defaults.baseURL = 'http://localhost:3003'
-axios.defaults.baseURL = 'https://back.universidadsiglo21online.com'
+axios.defaults.baseURL = 'http://localhost:3003'
+// axios.defaults.baseURL = 'https://back.universidadsiglo21online.com'
 // axios.defaults.baseURL = 'https://s21-back.vercel.app/'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
