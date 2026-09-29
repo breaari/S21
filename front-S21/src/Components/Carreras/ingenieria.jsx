@@ -9,7 +9,7 @@ export const Ingenieria = () => {
   };
 
   const carreras = [
-    { nombre: "Ingeniería en Innovación y Desarrollo (Sólo Presencial, 2027)", nueva: false },
+    // { nombre: "Ingeniería en Innovación y Desarrollo (Sólo Presencial, 2027)", nueva: false },
     { nombre: "Licenciatura en Bioinformática", nueva: false },
     { nombre: "Lic. en Agroinformática", nueva: true },
     { nombre: "Licenciatura en Ciencia de Datos", nueva: false },

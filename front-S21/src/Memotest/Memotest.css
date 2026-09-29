@@ -1,0 +1,668 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap");
+
+.memo-page,
+.memo-page * {
+  font-family: "Montserrat", sans-serif;
+  box-sizing: border-box;
+}
+
+.memo-page {
+  min-height: 100vh;
+  padding: 28px 16px 60px;
+
+  color: white;
+
+  background:
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(40, 185, 166, 0.28),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(7, 189, 138, 0.22),
+      transparent 30%
+    ),
+    linear-gradient(155deg, #103f40 0%, #004c3d 52%, #006553 100%);
+}
+
+.memo-shell,
+.memo-challenge,
+.memo-game,
+.memo-result,
+.memo-loading {
+  width: 100%;
+  max-width: 620px;
+
+  margin: 0 auto;
+}
+
+.memo-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.memo-logo {
+  display: block;
+
+  width: 150px;
+
+  margin: 0 auto 28px;
+}
+
+.memo-card {
+  padding: 28px 20px;
+
+  background: rgba(16, 63, 64, 0.88);
+
+  border: 1px solid rgba(40, 185, 166, 0.3);
+  border-radius: 26px;
+
+  backdrop-filter: blur(12px);
+}
+
+.memo-kicker {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: #28b9a6;
+
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+
+  text-align: center;
+}
+
+.memo-card h1,
+.memo-challenge h1,
+.memo-result h1 {
+  margin: 0;
+
+  font-size: clamp(2.1rem, 9vw, 3.7rem);
+
+  line-height: 0.94;
+  font-weight: 900;
+
+  text-align: center;
+
+  color: white;
+}
+
+.memo-card h1 span,
+.memo-challenge h1 span,
+.memo-result h1 span {
+  color: #07bd8a;
+}
+
+.memo-intro,
+.memo-challenge > p,
+.memo-result > p {
+  margin: 18px auto 26px;
+
+  color: rgba(255, 255, 255, 0.88);
+
+  text-align: center;
+  line-height: 1.45;
+}
+
+.memo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.memo-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.memo-form input {
+  width: 100%;
+
+  padding: 14px 15px;
+
+  color: #103f40;
+
+  background: white;
+
+  border: 2px solid transparent;
+  border-radius: 13px;
+
+  font-size: 16px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.memo-form input:focus {
+  border-color: #28b9a6;
+
+  box-shadow: 0 0 0 3px rgba(40, 185, 166, 0.15);
+}
+
+.memo-grid-2 {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+}
+
+.memo-question {
+  padding-top: 10px;
+}
+
+.memo-question > p {
+  margin: 0 0 12px;
+
+  font-size: 0.98rem;
+  font-weight: 700;
+
+  line-height: 1.4;
+
+  color: white;
+}
+
+.memo-options {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 8px;
+}
+
+.memo-options button {
+  min-height: 42px;
+
+  padding: 10px 14px;
+
+  color: white;
+
+  background: rgba(56, 158, 126, 0.12);
+
+  border: 1px solid rgba(40, 185, 166, 0.35);
+  border-radius: 999px;
+
+  font-size: 0.88rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.2s;
+}
+
+.memo-options button:hover {
+  background: rgba(40, 185, 166, 0.18);
+
+  border-color: #28b9a6;
+}
+
+.memo-options button:active {
+  transform: scale(0.98);
+}
+
+.memo-options button.selected {
+  color: white;
+
+  background: linear-gradient(90deg, #006553, #009982, #07bd8a);
+
+  border-color: #28b9a6;
+
+  font-weight: 800;
+}
+
+.memo-primary {
+  width: 100%;
+
+  min-height: 54px;
+
+  margin-top: 8px;
+
+  padding: 13px 20px;
+
+  color: white;
+
+  background: linear-gradient(90deg, #006553, #009982, #07bd8a);
+
+  border: 0;
+  border-radius: 16px;
+
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+
+  cursor: pointer;
+
+  box-shadow: 0 8px 24px rgba(0, 153, 130, 0.22);
+
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    opacity 0.2s;
+}
+
+.memo-primary:hover {
+  transform: translateY(-1px);
+
+  box-shadow: 0 10px 28px rgba(0, 153, 130, 0.32);
+}
+
+.memo-primary:active {
+  transform: translateY(0);
+}
+
+.memo-primary:disabled {
+  opacity: 0.55;
+
+  cursor: default;
+
+  transform: none;
+}
+
+.memo-error {
+  padding: 11px 13px;
+
+  color: #ffffff;
+
+  background: rgba(0, 101, 83, 0.4);
+
+  border: 1px solid rgba(40, 185, 166, 0.55);
+  border-radius: 12px;
+
+  font-size: 0.88rem;
+}
+
+/* =========================================================
+   INSTRUCCIONES
+========================================================= */
+
+.memo-challenge,
+.memo-result,
+.memo-loading {
+  text-align: center;
+}
+
+.memo-time-intro {
+  width: 180px;
+  height: 180px;
+
+  margin: 24px auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(
+    145deg,
+    rgba(0, 101, 83, 0.42),
+    rgba(16, 63, 64, 0.82)
+  );
+
+  border: 2px solid #28b9a6;
+  border-radius: 50%;
+
+  box-shadow: 0 0 32px rgba(40, 185, 166, 0.18);
+}
+
+.memo-time-intro small {
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+}
+
+.memo-time-intro strong {
+  display: block;
+
+  margin: -2px 0;
+
+  font-size: 4.8rem;
+  line-height: 1;
+  font-weight: 900;
+
+  color: white;
+}
+
+.memo-time-intro span {
+  color: #07bd8a;
+
+  font-size: 0.83rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.memo-prize-copy {
+  max-width: 420px;
+
+  margin-left: auto !important;
+  margin-right: auto !important;
+
+  font-size: 0.95rem;
+}
+
+/* =========================================================
+   GAME
+========================================================= */
+
+.memo-game-page {
+  display: flex;
+  justify-content: center;
+}
+
+.memo-game {
+  max-width: 520px;
+}
+
+.memo-game-top {
+  margin-bottom: 20px;
+
+  text-align: center;
+}
+
+.memo-game-logo {
+  width: 110px;
+
+  margin: 0 auto 13px;
+}
+
+.memo-game-top > p {
+  margin: 0 0 10px;
+
+  font-size: 0.87rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.memo-countdown {
+  display: inline-flex;
+  flex-direction: column;
+
+  min-width: 132px;
+
+  padding: 9px 18px;
+
+  background: rgba(0, 101, 83, 0.32);
+
+  border: 1px solid rgba(40, 185, 166, 0.45);
+  border-radius: 18px;
+
+  transition:
+    transform 0.2s,
+    background 0.2s,
+    border-color 0.2s;
+}
+
+.memo-countdown small {
+  color: #28b9a6;
+
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+}
+
+.memo-countdown strong {
+  font-size: 2.1rem;
+  line-height: 1;
+
+  font-weight: 900;
+
+  font-variant-numeric: tabular-nums;
+}
+
+.memo-countdown.warning {
+  background: rgba(0, 153, 130, 0.36);
+
+  border-color: #07bd8a;
+}
+
+.memo-countdown.critical {
+  background: rgba(7, 189, 138, 0.48);
+
+  animation: memoPulse 0.65s infinite;
+}
+
+@keyframes memoPulse {
+  50% {
+    transform: scale(1.07);
+  }
+}
+
+.memo-progress {
+  margin-top: 11px;
+
+  color: rgba(255, 255, 255, 0.75);
+
+  font-size: 0.85rem;
+}
+
+.memo-progress strong {
+  color: #07bd8a;
+}
+
+.memo-board {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 11px;
+}
+
+.memo-tile {
+  position: relative;
+
+  aspect-ratio: 0.78;
+
+  padding: 0;
+
+  background: transparent;
+
+  border: 0;
+
+  perspective: 900px;
+
+  cursor: pointer;
+}
+
+.memo-tile-inner {
+  position: absolute;
+
+  inset: 0;
+
+  transform-style: preserve-3d;
+
+  transition: transform 0.42s cubic-bezier(0.2, 0.75, 0.3, 1);
+}
+
+.memo-tile.flipped .memo-tile-inner {
+  transform: rotateY(180deg);
+}
+
+.memo-tile-front,
+.memo-tile-back {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 15px;
+
+  backface-visibility: hidden;
+
+  overflow: hidden;
+}
+
+.memo-tile-back {
+  background: linear-gradient(145deg, #103f40, #004c3d);
+
+  border: 1px solid rgba(40, 185, 166, 0.3);
+}
+
+.memo-tile-front {
+  padding: 7%;
+
+  background: linear-gradient(
+    145deg,
+    rgba(56, 158, 126, 0.18),
+    rgba(0, 76, 61, 0.32)
+  );
+
+  border: 1px solid rgba(40, 185, 166, 0.65);
+
+  transform: rotateY(180deg);
+}
+
+.memo-tile img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+}
+
+.memo-tile-back img {
+  object-fit: cover;
+}
+
+.memo-tile.matched .memo-tile-front {
+  border-color: #07bd8a;
+
+  box-shadow:
+    inset 0 0 0 2px rgba(7, 189, 138, 0.25),
+    0 0 18px rgba(7, 189, 138, 0.12);
+}
+
+/* =========================================================
+   RESULTADOS
+========================================================= */
+
+.memo-result {
+  padding: 30px 20px;
+}
+
+.memo-code,
+.memo-draw-message {
+  max-width: 420px;
+
+  margin: 26px auto 20px;
+
+  padding: 20px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(0, 101, 83, 0.4),
+    rgba(16, 63, 64, 0.72)
+  );
+
+  border: 1px solid rgba(40, 185, 166, 0.48);
+  border-radius: 20px;
+}
+
+.memo-code small,
+.memo-draw-message small {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #28b9a6;
+
+  font-size: 0.73rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.memo-code strong {
+  display: block;
+
+  font-size: clamp(1.5rem, 6vw, 2.25rem);
+
+  letter-spacing: 0.06em;
+
+  color: white;
+}
+
+.memo-draw-message strong {
+  display: block;
+
+  color: #07bd8a;
+
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+
+.memo-result-copy {
+  max-width: 430px;
+
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.memo-secondary-message {
+  max-width: 420px;
+
+  margin: 20px auto;
+
+  padding: 13px 15px;
+
+  color: rgba(255, 255, 255, 0.92);
+
+  background: rgba(0, 153, 130, 0.18);
+
+  border: 1px solid rgba(40, 185, 166, 0.3);
+  border-radius: 13px;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+  .memo-page {
+    padding: 22px 13px 42px;
+  }
+
+  .memo-card {
+    padding: 24px 16px;
+  }
+
+  .memo-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .memo-board {
+    gap: 8px;
+  }
+
+  .memo-tile-front,
+  .memo-tile-back {
+    border-radius: 12px;
+  }
+
+  .memo-options button {
+    font-size: 0.83rem;
+  }
+
+  .memo-time-intro {
+    width: 160px;
+    height: 160px;
+  }
+
+  .memo-time-intro strong {
+    font-size: 4.2rem;
+  }
+}

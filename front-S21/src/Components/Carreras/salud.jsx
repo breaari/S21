@@ -9,10 +9,10 @@ export const Salud = () => {
   };
 
   const carreras = [
-    { nombre: "Licenciatura en Fonoaudiología (Sólo Presencial, 2027)", nueva: false },
-    { nombre: "Licenciatura en Psicología (Sólo Presencial, 2027)", nueva: false },
-    { nombre: "Licenciatura en Nutrición (Sólo Presencial, 2027)", nueva: false },
-    { nombre: "Tecnicatura en Enfermería (Sólo Presencial, 2027)", nueva: false },
+    // { nombre: "Licenciatura en Fonoaudiología (Sólo Presen", nueva: false },
+    // { nombre: "Licenciatura en Psicología (Sólo Presencial, 2027)", nueva: false },
+    // { nombre: "Licenciatura en Nutrición (Sólo Presencial, 2027)", nueva: false },
+    // { nombre: "Tecnicatura en Enfermería (Sólo Presencial, 2027)", nueva: false },
     { nombre: "Licenciatura en Psicopedagogía (CCC)", nueva: true },
     { nombre: "Licenciatura en Gerontología", nueva: false },
     {

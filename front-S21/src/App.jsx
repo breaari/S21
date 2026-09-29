@@ -19,6 +19,7 @@ import { preguntasStudents } from "./Ruleta/preguntasStudents";
 import { preguntasHighSchool } from "./Ruleta/preguntasHighschool";
 import { ParticiparQR } from "./RuletaQR/ParticiparQR";
 import { GirarQR } from "./RuletaQR/GirarQR";
+import { Memotest } from "./Memotest/Memotest";
 
 function App() {
   return (
@@ -54,6 +55,8 @@ function App() {
 
         <Route path="/ruleta/qr/participar" element={<ParticiparQR />} />
         <Route path="/ruleta/qr/girar" element={<GirarQR />} />
+
+        <Route path="/memotest" element={<Memotest />} />
       </Routes>
     </>
   );

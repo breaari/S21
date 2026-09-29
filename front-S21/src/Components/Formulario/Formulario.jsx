@@ -202,7 +202,7 @@ export const Formulario = () => {
                  <select name='modality' onChange={handleChange} onClick={handleChange} value= {input.modality? input.modality : 'Seleccioná'}
                          className="bg-white cursor-pointer p-2 border border-solid border-gray-200 mt-1 text-grisoscuro  rounded-md focus:outline-none">
                      <option disabled selected value='Seleccioná'>Seleccioná</option>
-                     <option value='presencial'>Presencial Distribuida</option>
+                     {/* <option value='presencial'>Presencial Distribuida</option> */}
                      <option value='distancia'>Educación Distribuida</option>
                      <option value='distancia'>Educación Distribuida Home</option>
                  </select>

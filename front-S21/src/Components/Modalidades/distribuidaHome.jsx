@@ -16,7 +16,7 @@ export const DistribuidaHome = () => {
         onClick={distribuidaHomeToggleDropdown}
         aria-expanded={distribuidaHomeIsOpen ? 'true' : 'false'}
       >
-        <span className="font-lexend font-light">Educación Distribuida Home (Mayo- 2026)</span>
+        <span className="font-lexend font-light">Educación Distribuida Home</span>
         <IoIosArrowDown className="ml-auto" />
       </button>
 

@@ -14,6 +14,12 @@ const {
   finalizarRuletaQRHandler,
 } = require("../handlers/ruletaQRHandler");
 
+const {
+  registrarMemotestHandler,
+  iniciarMemotestHandler,
+  finalizarMemotestHandler,
+} = require("../handlers/memotestHandler");
+
 const router = Router();
 
 router.post("/", sendEmailHandler);
@@ -40,6 +46,21 @@ router.post(
 router.post(
   "/ruleta-qr/:id/finalizar",
   finalizarRuletaQRHandler,
+);
+
+router.post(
+  "/memotest/participar",
+  registrarMemotestHandler,
+);
+
+router.post(
+  "/memotest/:id/iniciar",
+  iniciarMemotestHandler,
+);
+
+router.post(
+  "/memotest/:id/finalizar",
+  finalizarMemotestHandler,
 );
 
 module.exports = router;
