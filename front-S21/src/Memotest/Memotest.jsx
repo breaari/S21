@@ -401,6 +401,7 @@ export function Memotest() {
                     value={form.nombre}
                     onChange={handleChange}
                     autoComplete="given-name"
+                    placeholder="Tu nombre"
                   />
                 </label>
 
@@ -411,6 +412,7 @@ export function Memotest() {
                     value={form.apellido}
                     onChange={handleChange}
                     autoComplete="family-name"
+                    placeholder="Tu apellido"
                   />
                 </label>
               </div>
@@ -424,6 +426,7 @@ export function Memotest() {
                   onChange={handleChange}
                   autoComplete="tel"
                   inputMode="tel"
+                  placeholder="Tu teléfono"
                 />
               </label>
 
@@ -435,6 +438,7 @@ export function Memotest() {
                   value={form.email}
                   onChange={handleChange}
                   autoComplete="email"
+                  placeholder="tuemail@ejemplo.com"
                 />
               </label>
 
