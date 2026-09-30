@@ -45,10 +45,9 @@
 
 .memo-logo {
   display: block;
+  width: 145px;
 
-  width: 150px;
-
-  margin: 0 auto 28px;
+  margin: 0 auto 22px;
 }
 
 .memo-card {
@@ -83,8 +82,8 @@
 
   font-size: clamp(2.1rem, 9vw, 3.7rem);
 
-  line-height: 0.94;
-  font-weight: 900;
+  line-height: 0.98;
+  font-weight: 700;
 
   text-align: center;
 
@@ -124,30 +123,36 @@
 }
 
 .memo-form input {
-  width: 100%;
+
+
+  color: white;
+
+  background: rgba(255, 255, 255, 0.05);
+
+  border: 1px solid rgba(255, 255, 255, 0.22);
+    width: 100%;
 
   padding: 14px 15px;
-
-  color: #103f40;
-
-  background: white;
-
-  border: 2px solid transparent;
   border-radius: 13px;
 
   font-size: 16px;
+  font-weight: 500;
 
   outline: none;
 
   transition:
     border-color 0.2s,
+    background 0.2s,
     box-shadow 0.2s;
+}
+
+.memo-form input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .memo-form input:focus {
   border-color: #28b9a6;
-
-  box-shadow: 0 0 0 3px rgba(40, 185, 166, 0.15);
+  background: rgba(7, 189, 138, 0.08);
 }
 
 .memo-grid-2 {

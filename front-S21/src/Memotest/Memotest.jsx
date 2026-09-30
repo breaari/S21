@@ -380,10 +380,9 @@ export function Memotest() {
     return (
       <main className="memo-page">
         <section className="memo-shell">
-          <img className="memo-logo" src={logo} alt="Universidad Siglo 21" />
-
           <div className="memo-card">
-            <span className="memo-kicker">MARATÓN MAR DEL PLATA</span>
+            <img className="memo-logo" src={logo} alt="Universidad Siglo 21" />
+            <span className="memo-kicker">NB 21K MAR DEL PLATA</span>
 
             <h1>
               TU PRÓXIMO
@@ -553,9 +552,7 @@ export function Memotest() {
                 type="submit"
                 disabled={enviando}
               >
-                {enviando
-  ? "REGISTRANDO..."
-  : "COMENZAR DESAFÍO"}
+                {enviando ? "REGISTRANDO..." : "COMENZAR DESAFÍO"}
               </button>
             </form>
           </div>
