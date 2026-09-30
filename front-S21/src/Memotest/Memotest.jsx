@@ -384,10 +384,10 @@ export function Memotest() {
             <img className="memo-logo" src={logo} alt="Universidad Siglo 21" />
             <span className="memo-kicker">NB 21K MAR DEL PLATA</span>
 
-            <h1>
-              TU PRÓXIMO
-              <br />
-              DESAFÍO <span>EMPIEZA ACÁ</span>
+            <h1 className="memo-main-title">
+              <span className="memo-title-white">TU PRÓXIMO</span>
+              <span className="memo-title-white">DESAFÍO</span>
+              <span className="memo-title-green">EMPIEZA ACÁ</span>
             </h1>
 
             <p className="memo-intro">Completá tus datos para participar.</p>

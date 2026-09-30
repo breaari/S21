@@ -75,27 +75,12 @@
   text-align: center;
 }
 
-.memo-card h1 {
-  margin: 0;
-
-  font-family: "Pathway Gothic One", sans-serif;
-
-  font-size: clamp(2.7rem, 11vw, 4.4rem);
-  font-weight: 400;
-  line-height: 0.9;
-  letter-spacing: 0.015em;
-
-  text-align: center;
-  text-transform: uppercase;
-
-  color: white;
-}
-
 .memo-challenge h1,
 .memo-result h1 {
   margin: 0;
 
   font-size: clamp(2.1rem, 9vw, 3.7rem);
+
   line-height: 0.98;
   font-weight: 700;
 
@@ -104,7 +89,6 @@
   color: white;
 }
 
-.memo-card h1 span,
 .memo-challenge h1 span,
 .memo-result h1 span {
   color: #07bd8a;
@@ -178,6 +162,46 @@
 
   box-shadow: 0 0 0 3px rgba(40, 185, 166, 0.1);
 }
+
+.memo-main-title {
+  margin: 24px 0 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-family: "Pathway Gothic One", sans-serif;
+
+  font-size: clamp(3rem, 11vw, 4.6rem);
+  font-weight: 400;
+
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.memo-main-title span {
+  display: block;
+
+  font-family: "Pathway Gothic One", sans-serif;
+}
+
+.memo-title-white {
+  color: #ffffff;
+
+  -webkit-text-stroke: 0.7px #ffffff;
+  paint-order: stroke fill;
+}
+
+.memo-title-green {
+  color: #07bd8a;
+
+  -webkit-text-stroke: 0.7px #07bd8a;
+  paint-order: stroke fill;
+}
+
 
 .memo-grid-2 {
   display: grid;
