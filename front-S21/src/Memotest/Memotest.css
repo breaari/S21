@@ -186,22 +186,22 @@
   display: block;
 
   font-family: "Pathway Gothic One", sans-serif;
+  white-space: nowrap;
 }
 
 .memo-title-white {
   color: #ffffff;
 
-  -webkit-text-stroke: 0.7px #ffffff;
+  -webkit-text-stroke: 1px #ffffff;
   paint-order: stroke fill;
 }
 
 .memo-title-green {
   color: #07bd8a;
 
-  -webkit-text-stroke: 0.7px #07bd8a;
+  -webkit-text-stroke: 1px #07bd8a;
   paint-order: stroke fill;
 }
-
 
 .memo-grid-2 {
   display: grid;
