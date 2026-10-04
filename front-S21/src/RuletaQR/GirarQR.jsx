@@ -8,7 +8,7 @@ import { Ruleta } from "../Ruleta/Ruleta";
 import { preguntasHighSchool } from "../Ruleta/preguntasHighschool";
 
 const API_URL = import.meta.env.PROD
-  ? ""
+  ? "https://back.universidadsiglo21online.com"
   : `http://${window.location.hostname}:3003`;
 
 export function GirarQR() {
