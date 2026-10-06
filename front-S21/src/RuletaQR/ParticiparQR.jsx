@@ -3,9 +3,12 @@ import axios from "axios";
 import "./RuletaQR.css";
 import logoBlanco from "../assets/logo-blanco-sin-fondo.png";
 
-const API_URL = import.meta.env.PROD
-  ? "https://back.universidadsiglo21online.com"
-  : `http://${window.location.hostname}:3003`;
+const API_URL =
+  import.meta.env.VITE_RULETA_OFFLINE === "true"
+    ? `http://${window.location.hostname}:3004`
+    : import.meta.env.PROD
+      ? "https://back.universidadsiglo21online.com"
+      : `http://${window.location.hostname}:3003`;
 
 export function ParticiparQR() {
   const [form, setForm] = useState({
