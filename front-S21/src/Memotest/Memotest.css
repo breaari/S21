@@ -544,19 +544,13 @@
 
 .memo-tile-front,
 .memo-tile-back {
-  position: absolute;
+  background: linear-gradient(145deg, #103f40 0%, #006553 45%, #07bd8a 100%);
 
-  inset: 0;
+  border: 1.5px solid rgba(40, 185, 166, 0.5);
 
   display: flex;
   align-items: center;
   justify-content: center;
-
-  border-radius: 15px;
-
-  backface-visibility: hidden;
-
-  overflow: hidden;
 }
 
 .memo-tile-back {
@@ -589,12 +583,12 @@
 }
 
 .memo-tile-back img {
-  width: 48%;
+  width: 45%;
   height: auto;
 
-  object-fit: contain;
+  max-height: 45%;
 
-  max-height: 48%;
+  object-fit: contain;
 }
 
 .memo-tile.matched .memo-tile-front {
@@ -707,21 +701,15 @@
   }
 
   .memo-tile-front,
- .memo-tile-back {
-  background:
-    linear-gradient(
-      145deg,
-      #103f40 0%,
-      #006553 45%,
-      #07bd8a 100%
-    );
+  .memo-tile-back {
+    background: linear-gradient(145deg, #103f40 0%, #006553 45%, #07bd8a 100%);
 
-  border: 1.5px solid rgba(40, 185, 166, 0.5);
+    border: 1.5px solid rgba(40, 185, 166, 0.5);
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   .memo-options button {
     font-size: 0.83rem;
