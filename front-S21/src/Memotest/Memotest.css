@@ -26,6 +26,10 @@
     linear-gradient(155deg, #103f40 0%, #004c3d 52%, #006553 100%);
 }
 
+/* =========================================================
+   CONTENEDORES GENERALES
+========================================================= */
+
 .memo-shell,
 .memo-challenge,
 .memo-game,
@@ -33,7 +37,6 @@
 .memo-loading {
   width: 100%;
   max-width: 620px;
-
   margin: 0 auto;
 }
 
@@ -46,9 +49,12 @@
 .memo-logo {
   display: block;
   width: 145px;
-
   margin: 0 auto 22px;
 }
+
+/* =========================================================
+   CARD FORMULARIO
+========================================================= */
 
 .memo-card {
   padding: 28px 20px;
@@ -74,6 +80,55 @@
 
   text-align: center;
 }
+
+/* =========================================================
+   TÍTULO PRINCIPAL
+========================================================= */
+
+.memo-main-title {
+  margin: 24px 0 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-family: "Pathway Gothic One", sans-serif;
+
+  font-size: clamp(3rem, 11vw, 4.6rem);
+  font-weight: 400;
+
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.memo-main-title span {
+  display: block;
+
+  font-family: "Pathway Gothic One", sans-serif;
+
+  white-space: nowrap;
+}
+
+.memo-title-white {
+  color: #ffffff;
+
+  -webkit-text-stroke: 1px #ffffff;
+  paint-order: stroke fill;
+}
+
+.memo-title-green {
+  color: #07bd8a;
+
+  -webkit-text-stroke: 1px #07bd8a;
+  paint-order: stroke fill;
+}
+
+/* =========================================================
+   OTROS TÍTULOS
+========================================================= */
 
 .memo-challenge h1,
 .memo-result h1 {
@@ -105,6 +160,10 @@
   line-height: 1.45;
 }
 
+/* =========================================================
+   FORMULARIO
+========================================================= */
+
 .memo-form {
   display: flex;
   flex-direction: column;
@@ -120,6 +179,18 @@
   font-weight: 500;
 }
 
+.memo-grid-2 {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+}
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
 .memo-form input {
   width: 100%;
   min-height: 46px;
@@ -130,7 +201,7 @@
 
   background: rgba(56, 158, 126, 0.12);
 
-  border: 1px solid rgba(40, 185, 166, 0.35);
+  border: 1.5px solid rgba(40, 185, 166, 0.45);
   border-radius: 999px;
 
   font-family: "Montserrat", sans-serif;
@@ -152,7 +223,7 @@
 .memo-form input:hover {
   background: rgba(40, 185, 166, 0.16);
 
-  border-color: rgba(40, 185, 166, 0.55);
+  border-color: rgba(40, 185, 166, 0.6);
 }
 
 .memo-form input:focus {
@@ -163,53 +234,26 @@
   box-shadow: 0 0 0 3px rgba(40, 185, 166, 0.1);
 }
 
-.memo-main-title {
-  margin: 24px 0 0;
+/* Chrome autofill */
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.memo-form input:-webkit-autofill,
+.memo-form input:-webkit-autofill:hover,
+.memo-form input:-webkit-autofill:focus,
+.memo-form input:-webkit-autofill:active {
+  -webkit-text-fill-color: white !important;
 
-  font-family: "Pathway Gothic One", sans-serif;
+  -webkit-box-shadow: 0 0 0 1000px #174f49 inset !important;
 
-  font-size: clamp(3rem, 11vw, 4.6rem);
-  font-weight: 400;
+  box-shadow: 0 0 0 1000px #174f49 inset !important;
 
-  line-height: 0.9;
-  letter-spacing: 0.01em;
+  border: 1.5px solid rgba(40, 185, 166, 0.45) !important;
 
-  text-align: center;
-  text-transform: uppercase;
+  caret-color: white;
 }
 
-.memo-main-title span {
-  display: block;
-
-  font-family: "Pathway Gothic One", sans-serif;
-  white-space: nowrap;
-}
-
-.memo-title-white {
-  color: #ffffff;
-
-  -webkit-text-stroke: 1px #ffffff;
-  paint-order: stroke fill;
-}
-
-.memo-title-green {
-  color: #07bd8a;
-
-  -webkit-text-stroke: 1px #07bd8a;
-  paint-order: stroke fill;
-}
-
-.memo-grid-2 {
-  display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
-  gap: 12px;
-}
+/* =========================================================
+   PREGUNTAS
+========================================================= */
 
 .memo-question {
   padding-top: 10px;
@@ -242,7 +286,7 @@
 
   background: rgba(56, 158, 126, 0.12);
 
-  border: 1px solid rgba(40, 185, 166, 0.35);
+  border: 1.5px solid rgba(40, 185, 166, 0.45);
   border-radius: 999px;
 
   font-size: 0.88rem;
@@ -275,6 +319,10 @@
 
   font-weight: 800;
 }
+
+/* =========================================================
+   BOTÓN PRINCIPAL
+========================================================= */
 
 .memo-primary {
   width: 100%;
@@ -323,6 +371,10 @@
 
   transform: none;
 }
+
+/* =========================================================
+   ERROR
+========================================================= */
 
 .memo-error {
   padding: 11px 13px;
@@ -438,6 +490,10 @@
   letter-spacing: 0.1em;
 }
 
+/* =========================================================
+   CRONÓMETRO
+========================================================= */
+
 .memo-countdown {
   display: inline-flex;
   flex-direction: column;
@@ -504,6 +560,10 @@
   color: #07bd8a;
 }
 
+/* =========================================================
+   TABLERO
+========================================================= */
+
 .memo-board {
   display: grid;
 
@@ -511,6 +571,10 @@
 
   gap: 11px;
 }
+
+/* =========================================================
+   CARTA
+========================================================= */
 
 .memo-tile {
   position: relative;
@@ -542,22 +606,49 @@
   transform: rotateY(180deg);
 }
 
+/* =========================================================
+   CARAS DE LA CARTA
+========================================================= */
+
 .memo-tile-front,
 .memo-tile-back {
-  background: linear-gradient(145deg, #103f40 0%, #006553 45%, #07bd8a 100%);
+  position: absolute;
 
-  border: 1.5px solid rgba(40, 185, 166, 0.5);
+  inset: 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  border-radius: 15px;
+
+  backface-visibility: hidden;
+
+  overflow: hidden;
 }
+
+/* =========================================================
+   REVERSO
+========================================================= */
 
 .memo-tile-back {
-  background: linear-gradient(145deg, #103f40, #004c3d);
+  background: linear-gradient(145deg, #103f40 0%, #006553 45%, #28b9a6 100%);
 
-  border: 1px solid rgba(40, 185, 166, 0.3);
+  border: 1.5px solid rgba(40, 185, 166, 0.55);
 }
+
+.memo-tile-back img {
+  width: 38%;
+  height: auto;
+
+  max-height: 38%;
+
+  object-fit: contain;
+}
+
+/* =========================================================
+   FRENTE
+========================================================= */
 
 .memo-tile-front {
   padding: 7%;
@@ -573,20 +664,11 @@
   transform: rotateY(180deg);
 }
 
-.memo-tile img {
+.memo-tile-front img {
   display: block;
 
   width: 100%;
   height: 100%;
-
-  object-fit: contain;
-}
-
-.memo-tile-back img {
-  width: 45%;
-  height: auto;
-
-  max-height: 45%;
 
   object-fit: contain;
 }
@@ -702,13 +784,7 @@
 
   .memo-tile-front,
   .memo-tile-back {
-    background: linear-gradient(145deg, #103f40 0%, #006553 45%, #07bd8a 100%);
-
-    border: 1.5px solid rgba(40, 185, 166, 0.5);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: 12px;
   }
 
   .memo-options button {
