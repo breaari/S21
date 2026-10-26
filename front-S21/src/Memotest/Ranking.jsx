@@ -6,10 +6,10 @@ import winSound from "../assets/win.mp3";
 import "./Ranking.css";
 
 const API_URL = import.meta.env.PROD ? "" : `http://${window.location.hostname}:3003`;
-const DURACION_TOTAL = 5000;
+const DURACION_TOTAL = 7200;
 const SUBIDA_INICIO = 400;
 const SUBIDA_FIN = 4100;
-const DESTACADO_FIN = 4600;
+const DESTACADO_FIN = 6500;
 const formatoResultado = (p) =>
   `${p.tiempoSegundos.toFixed(1).replace(".", ",")} s · ${p.movimientos} movimientos`;
 // Avance lineal: no se frena antes de llegar al puesto definitivo.
@@ -19,6 +19,7 @@ export function RankingMemotest() {
   const [jugadores, setJugadores] = useState([]);
   const [pendientes, setPendientes] = useState([]);
   const [activo, setActivo] = useState(null);
+  const [puestoAnimado, setPuestoAnimado] = useState(null);
   const [estado, setEstado] = useState("Conectando...");
   const listaRef = useRef(null);
   const flotanteRef = useRef(null);
@@ -109,6 +110,7 @@ export function RankingMemotest() {
     if (!participante) return;
     activoRef.current = true;
     setActivo(id);
+    setPuestoAnimado(jugadores.length - 1);
 
     const lista = listaRef.current;
     // Esperamos al render de la fila flotante, sin reordenar el listado real.
@@ -138,6 +140,7 @@ export function RankingMemotest() {
           // Un tic por puesto superado; la cadencia se adapta al recorrido.
           for (let i = ultimoPaso; i > pasoActual; i--) reproducir("tic");
           ultimoPaso = pasoActual;
+          setPuestoAnimado(pasoActual);
         }
         // La fila recorre realmente la pantalla y el listado corre detrás.
         const progreso = Math.max(0, Math.min(1, avance));
@@ -152,6 +155,7 @@ export function RankingMemotest() {
           reproducir("win");
           animacionRef.current.premio = true;
           elemento.classList.add("ranking-flotante-final");
+          setPuestoAnimado(destino);
         }
         if (t >= DESTACADO_FIN) {
           const retorno = (t - DESTACADO_FIN) / (DURACION_TOTAL - DESTACADO_FIN);
@@ -162,6 +166,7 @@ export function RankingMemotest() {
           animacionRef.current.id = requestAnimationFrame(dibujar);
         } else {
           setActivo(null);
+          setPuestoAnimado(null);
           activoRef.current = false;
           animacionRef.current = null;
           area.scrollTop = 0;
@@ -177,6 +182,8 @@ export function RankingMemotest() {
 
   const podio = jugadores.slice(0, 3);
   const destacado = jugadores.find((p) => p.id === activo);
+  const destinoActivo = destacado ? destacado.puesto - 1 : -1;
+  const indiceVisual = puestoAnimado ?? jugadores.length - 1;
 
   return (
     <main className="ranking-page">
@@ -203,7 +210,7 @@ export function RankingMemotest() {
       <div className="ranking-area">
         <section className="ranking-lista" ref={listaRef}>
           {!jugadores.length && <p className="ranking-vacio">¡El desafío está por comenzar!</p>}
-          {jugadores.map((p) => <div key={p.id} className={`ranking-fila ${activo === p.id ? "ranking-fila-oculta" : ""}`}>
+          {jugadores.map((p, i) => <div key={p.id} className={`ranking-fila ${activo === p.id ? "ranking-fila-oculta" : ""}`} style={activo && i >= destinoActivo && i < indiceVisual && p.id !== activo ? { transform: "translateY(calc(-100% - 6px))" } : undefined}>
             <b>{p.puesto}°</b><span>{p.nombre}</span><strong>{formatoResultado(p)}</strong>
           </div>)}
         </section>
