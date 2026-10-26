@@ -573,16 +573,17 @@ export function Memotest() {
             <span>6 PARES</span>
           </h1>
 
-          <p>Encontrá los 6 pares lo más rápido posible. Si empatás en segundos, cuentan tus movimientos.</p>
+          <p className="memo-challenge-lead">Completá el desafío en el menor tiempo posible.</p>
 
-          <div className="memo-rules">
-            <strong>¿CÓMO SE DEFINE EL RANKING?</strong>
-            <p>Sin límite de tiempo: completá los 6 pares lo más rápido posible.</p>
-            <p>Si empatás en segundos, gana quien haya hecho menos movimientos.</p>
+          <div className="memo-rules memo-rules-simple">
+            <div><span>01</span><p>Encontrá los 6 pares. <strong>No hay límite de tiempo.</strong></p></div>
+            <div><span>02</span><p>Si hay empate en segundos, gana quien hizo <strong>menos movimientos.</strong></p></div>
           </div>
-          <p className="memo-prize-highlight">LOS 3 MEJORES PUESTOS DEL RANKING GANAN PREMIO</p>
 
-          <p className="memo-prize-copy">Al terminar, tu tiempo y tus movimientos se sumarán al ranking en vivo.</p>
+          <div className="memo-prize-banner">
+            <span>PREMIAMOS A LOS MEJORES</span>
+            <strong>LOS 3 PRIMEROS DEL RANKING GANAN PREMIO</strong>
+          </div>
 
           {error && <p className="memo-error">{error}</p>}
 
