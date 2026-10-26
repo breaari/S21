@@ -191,8 +191,8 @@ export function RankingMemotest() {
 
         </div>
       </header>
-      <h1>EN LA PISTA Y EN LA <span>MENTE</span></h1>
-      <p className="ranking-subtitle">LA VELOCIDAD TAMBIÉN SE ENTRENA CON LA MENTE</p>
+      <h1>MEMORIA <span>CONTRARRELOJ</span></h1>
+      <p className="ranking-subtitle">UNA CARRERA DE AGILIDAD MENTAL HACIA EL PODIO</p>
       <section className="ranking-podio">
         {[1, 0, 2].map((indice) => {
           const jugador = podio[indice];
