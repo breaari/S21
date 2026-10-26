@@ -18,7 +18,7 @@
 .puesto-3 .ranking-escalon { height:7vh; }
 .ranking-list-title { display:flex; justify-content:space-between; align-items:center; letter-spacing:.08em; gap:20px; font-size:clamp(13px,1.3vw,25px); }
 .ranking-list-title span { color:#28b9a6; }
-.ranking-lista { height:100%; overflow-y:auto; min-height:0; scrollbar-width:none; display:flex; flex-direction:column; gap:6px; scroll-behavior:smooth; }
+.ranking-lista { height:100%; overflow-y:auto; min-height:0; scrollbar-width:none; display:flex; flex-direction:column; gap:6px; scroll-behavior:auto; }
 .ranking-lista::-webkit-scrollbar { display:none; }
 .ranking-fila { transition:background .2s ease, box-shadow .2s ease; display:grid; grid-template-columns:9% 1fr auto; align-items:center; background:#ffffff15; border:1px solid #ffffff18; border-radius:9px; padding:1vh 1.5vw; min-height:6vh; gap:1vw; font-size:clamp(14px,1.65vw,30px); }
 .ranking-fila b { color:#28b9a6; }
@@ -122,3 +122,10 @@
   filter:brightness(1.16);
   box-shadow:0 0 45px rgba(7,189,138,.65);
 }
+
+/* Solo la fila seleccionada destaca; el fondo conserva el orden definitivo. */
+.ranking-lista .ranking-fila { transform:none; will-change:auto; transition:background-color .28s ease, box-shadow .28s ease; }
+.ranking-lista .ranking-destacado { background:#008d76; color:#fff; border-color:#28b9a6; animation:none; }
+.ranking-lista .ranking-destacado b { color:#fff; }
+.ranking-lista .ranking-llegada { background:#07bd8a; color:#053e35; box-shadow:0 0 26px rgba(7,189,138,.52); }
+.ranking-lista .ranking-llegada b { color:#053e35; }
