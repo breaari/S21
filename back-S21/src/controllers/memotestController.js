@@ -244,6 +244,7 @@ const finalizarJuego = async (
     codigoPremio,
 
     participaSorteo: true,
+    nuevoFinalizado: true,
   };
 };
 
