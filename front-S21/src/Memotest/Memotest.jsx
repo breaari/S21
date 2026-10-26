@@ -575,11 +575,12 @@ export function Memotest() {
 
           <p>Encontrá los 6 pares lo más rápido posible. Si empatás en segundos, cuentan tus movimientos.</p>
 
-          <div className="memo-time-intro">
-            <small>SIN LÍMITE DE TIEMPO</small>
-            <strong>6</strong>
-            <span>PARES POR ENCONTRAR</span>
+          <div className="memo-rules">
+            <strong>¿CÓMO SE DEFINE EL RANKING?</strong>
+            <p>Sin límite de tiempo: completá los 6 pares lo más rápido posible.</p>
+            <p>Si empatás en segundos, gana quien haya hecho menos movimientos.</p>
           </div>
+          <p className="memo-prize-highlight">LOS 3 MEJORES PUESTOS DEL RANKING GANAN PREMIO</p>
 
           <p className="memo-prize-copy">Al terminar, tu tiempo y tus movimientos se sumarán al ranking en vivo.</p>
 
@@ -696,6 +697,7 @@ export function Memotest() {
               <p>{Number(resultado.tiempoSegundos || 0).toFixed(1).replace(".", ",")} SEGUNDOS</p>
             </div>
             <p className="memo-result-copy">Buscá tu nombre en la pantalla del ranking en vivo.</p>
+            <a className="memo-primary memo-ranking-link" href="/memotest/ranking" target="_blank" rel="noopener noreferrer">VER RANKING</a>
           </>
         </section>
       </main>
@@ -723,6 +725,7 @@ export function Memotest() {
           <p>Esta experiencia permite una participación por persona.</p>
 
           <div className="memo-secondary-message">Tu resultado ya está registrado en el ranking.</div>
+          <a className="memo-primary memo-ranking-link" href="/memotest/ranking" target="_blank" rel="noopener noreferrer">VER RANKING</a>
         </section>
       </main>
     );
