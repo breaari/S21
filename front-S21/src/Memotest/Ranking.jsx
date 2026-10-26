@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import logo from "../assets/logo-blanco-sin-fondo.png";
+import tic from "../assets/tic.mp3";
+import win from "../assets/win.mp3";
 import "./Ranking.css";
 
 const API_URL = import.meta.env.PROD ? "" : `http://${window.location.hostname}:3003`;
@@ -14,7 +16,15 @@ export function RankingMemotest() {
   const listaRef = useRef(null);
   const vistos = useRef(new Set());
   const inicializado = useRef(false);
-  const posicionInicial = useRef(null);
+  const audioTic = useRef(null);
+  const audioWin = useRef(null);
+  const [sonidoActivo, setSonidoActivo] = useState(false);
+  const sonar = (ref) => {
+    const audio = ref.current;
+    if (!audio || !sonidoActivo) return;
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+  };
 
   const cargar = useCallback(async (anunciar = false) => {
     const { data } = await axios.get(`${API_URL}/memotest/ranking`, { timeout: 15000 });
@@ -45,57 +55,48 @@ export function RankingMemotest() {
     return () => { cerrado = true; fuente?.close(); clearInterval(revision); };
   }, [cargar]);
 
-  // Los nuevos jugadores entran desde el último lugar y ascienden de una vez.
+  // Al llegar una partida, la fila comienza abajo y sube puesto por puesto.
   useEffect(() => {
     if (animacion || !pendientes.length || !jugadores.length) return;
     const id = pendientes[0];
     const jugador = jugadores.find((p) => p.id === id);
     setPendientes((actual) => actual.slice(1));
-    if (jugador) setAnimacion({ id, fase: "inicio" });
+    if (jugador) setAnimacion({ id, indice: jugadores.length - 1, destino: jugador.puesto - 1, fase: "inicio" });
   }, [animacion, pendientes, jugadores]);
 
   useEffect(() => {
-    if (!animacion || animacion.fase !== "inicio") return;
+    if (!animacion) return;
     const lista = listaRef.current;
-    lista?.scrollTo({ top: lista.scrollHeight, behavior: "instant" });
-    const timer = setTimeout(() => {
-      const fila = document.getElementById(`ranking-${animacion.id}`);
-      posicionInicial.current = fila?.getBoundingClientRect() || null;
-      setAnimacion({ id: animacion.id, fase: "subiendo" });
-    }, 280);
-    return () => clearTimeout(timer);
-  }, [animacion]);
-
-  useEffect(() => {
-    if (!animacion || animacion.fase !== "subiendo") return;
     const fila = document.getElementById(`ranking-${animacion.id}`);
-    const lista = listaRef.current;
-    if (fila && lista) {
-      const destino = fila.getBoundingClientRect();
-      const origen = posicionInicial.current;
-      lista.scrollTo({
-        top: fila.offsetTop - lista.offsetTop - lista.clientHeight / 2 + fila.clientHeight / 2,
-        behavior: "smooth",
-      });
-      if (origen && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        fila.animate([
-          { transform: `translateY(${origen.top - destino.top}px) scale(1.035)`, filter: "brightness(1.5)" },
-          { transform: "translateY(0) scale(1)", filter: "brightness(1)" }
-        ], { duration: 950, easing: "cubic-bezier(.2,.8,.2,1)" });
-      }
+    if (animacion.fase === "inicio") {
+      lista?.scrollTo({ top: lista.scrollHeight, behavior: "instant" });
+      const timer = setTimeout(() => setAnimacion((actual) => actual && { ...actual, fase: "ascenso" }), 350);
+      return () => clearTimeout(timer);
     }
-    const timer = setTimeout(() => setAnimacion({ id: animacion.id, fase: "destino" }), 1000);
-    return () => clearTimeout(timer);
-  }, [animacion]);
-
-  useEffect(() => {
-    if (!animacion || animacion.fase !== "destino") return;
-    const timer = setTimeout(() => {
-      setAnimacion(null);
-      listaRef.current?.scrollTo({ top: 0, behavior: "smooth" });
-    }, 1100);
-    return () => clearTimeout(timer);
-  }, [animacion]);
+    if (animacion.fase === "ascenso") {
+      if (fila && lista) {
+        const objetivo = fila.offsetTop - lista.offsetTop - lista.clientHeight / 2 + fila.clientHeight / 2;
+        lista.scrollTo({ top: objetivo, behavior: "smooth" });
+      }
+      if (animacion.indice > animacion.destino) {
+        sonar(audioTic);
+        const timer = setTimeout(() => setAnimacion((actual) => actual && {
+          ...actual, indice: Math.max(actual.destino, actual.indice - 1),
+        }), 95);
+        return () => clearTimeout(timer);
+      }
+      sonar(audioWin);
+      const timer = setTimeout(() => setAnimacion((actual) => actual && { ...actual, fase: "final" }), 1250);
+      return () => clearTimeout(timer);
+    }
+    if (animacion.fase === "final") {
+      const timer = setTimeout(() => {
+        setAnimacion(null);
+        lista?.scrollTo({ top: 0, behavior: "smooth" });
+      }, 450);
+      return () => clearTimeout(timer);
+    }
+  }, [animacion, sonidoActivo]);
 
   const destacados = jugadores.slice(0, 3);
   const visibles = [...jugadores];
@@ -103,15 +104,17 @@ export function RankingMemotest() {
     const posicionReal = visibles.findIndex((p) => p.id === animacion.id);
     if (posicionReal !== -1) {
       const [jugador] = visibles.splice(posicionReal, 1);
-      visibles.splice(animacion.fase === "inicio" ? visibles.length : posicionReal, 0, jugador);
+      visibles.splice(animacion.indice, 0, jugador);
     }
   }
 
   return (
     <main className="ranking-page">
+      <audio ref={audioTic} src={tic} preload="auto" />
+      <audio ref={audioWin} src={win} preload="auto" />
       <header className="ranking-header">
         <img src={logo} alt="Universidad Siglo 21" />
-        <span>NB 21K MAR DEL PLATA · <b>{estado}</b></span>
+        <div className="ranking-toolbar"><span>NB 21K MAR DEL PLATA · <b>{estado}</b></span><button type="button" className="ranking-sound-button" onClick={() => { setSonidoActivo((actual) => !actual); }}>{sonidoActivo ? "SONIDO ACTIVADO" : "ACTIVAR SONIDO"}</button></div>
       </header>
       <h1>EL DESAFÍO DE <span>MEMORIA</span></h1>
       <p className="ranking-subtitle">MENOS TIEMPO GANA · MOVIMIENTOS DESEMPATAN</p>
