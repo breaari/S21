@@ -12,13 +12,13 @@
 .ranking-medalla { font-weight:900; font-size:clamp(26px,3.6vw,70px); color:#28b9a6; }
 .ranking-podio-slot strong { width:100%; max-width:100%; overflow:visible; white-space:normal; overflow-wrap:anywhere; line-height:1.15; min-height:2.3em; display:flex; align-items:flex-end; justify-content:center; font-size:clamp(14px,1.6vw,29px); padding:0 7px; }
 .ranking-podio-slot small { font-size:clamp(12px,1.2vw,22px); }
-.ranking-escalon { background:linear-gradient(150deg,#009982,#006553); border:1px solid #28b9a6; border-radius:12px 12px 0 0; width:100%; padding:2vh 1vw; font-size:clamp(10px,1vw,18px); font-weight:800; letter-spacing:.07em; }
+.ranking-escalon { flex-shrink:0; background:linear-gradient(150deg,#009982,#006553); border:1px solid #28b9a6; border-radius:12px 12px 0 0; width:100%; padding:2vh 1vw; font-size:clamp(10px,1vw,18px); font-weight:800; letter-spacing:.07em; }
 .puesto-1 .ranking-escalon { height:15vh; background:linear-gradient(150deg,#07bd8a,#006553); }
 .puesto-2 .ranking-escalon { height:10vh; }
 .puesto-3 .ranking-escalon { height:7vh; }
 .ranking-list-title { display:flex; justify-content:space-between; align-items:center; letter-spacing:.08em; gap:20px; font-size:clamp(13px,1.3vw,25px); }
 .ranking-list-title span { color:#28b9a6; }
-.ranking-lista { flex:1; overflow-y:auto; min-height:0; scrollbar-width:none; display:flex; flex-direction:column; gap:6px; scroll-behavior:smooth; }
+.ranking-lista { height:100%; overflow-y:auto; min-height:0; scrollbar-width:none; display:flex; flex-direction:column; gap:6px; scroll-behavior:smooth; }
 .ranking-lista::-webkit-scrollbar { display:none; }
 .ranking-fila { transition:background .2s ease, box-shadow .2s ease; display:grid; grid-template-columns:9% 1fr auto; align-items:center; background:#ffffff15; border:1px solid #ffffff18; border-radius:9px; padding:1vh 1.5vw; min-height:6vh; gap:1vw; font-size:clamp(14px,1.65vw,30px); }
 .ranking-fila b { color:#28b9a6; }
@@ -32,3 +32,18 @@
 .ranking-page footer { text-align:center; font-size:clamp(10px,1.1vw,20px); letter-spacing:.14em; color:#28b9a6; }
 @keyframes rankingPulso { 50% { filter:brightness(1.3); transform:scale(1.008); } }
 @media (prefers-reduced-motion:reduce) { .ranking-destacado { animation:none; } }
+
+/* Podio: escalones de altura realmente diferente sin quedar aplastados */
+.ranking-podio-slot { height:100%; }
+.ranking-podio-slot .ranking-escalon { flex:0 0 auto; }
+.puesto-1 .ranking-escalon { height:15vh; }
+.puesto-2 .ranking-escalon { height:10vh; }
+.puesto-3 .ranking-escalon { height:7vh; }
+
+/* Overlay de animación independiente del orden y layout de la lista */
+.ranking-area { position:relative; flex:1; min-height:0; overflow:hidden; }
+.ranking-flotante { position:absolute; left:0; right:0; top:0; z-index:10; pointer-events:none; will-change:transform; display:grid; grid-template-columns:9% 1fr auto; align-items:center; gap:1vw; min-height:6vh; padding:1vh 1.5vw; border-radius:9px; background:#07bd8a; color:#053e35; box-shadow:0 0 30px rgba(7,189,138,.45); font-size:clamp(14px,1.65vw,30px); font-weight:800; }
+.ranking-flotante span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.ranking-flotante strong { font-size:.85em; }
+.ranking-flotante-final { box-shadow:0 0 45px rgba(7,189,138,.7); filter:brightness(1.13); }
+.ranking-fila-oculta { visibility:hidden; }
