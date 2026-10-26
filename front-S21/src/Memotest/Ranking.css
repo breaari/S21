@@ -47,3 +47,68 @@
 .ranking-flotante strong { font-size:.85em; }
 .ranking-flotante-final { box-shadow:0 0 45px rgba(7,189,138,.7); filter:brightness(1.13); }
 .ranking-fila-oculta { visibility:hidden; }
+
+/* Podio adaptable: el contenido conserva su espacio a zoom 100%. */
+.ranking-podio {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  align-items:end;
+  column-gap:1.5vw;
+  height:auto;
+  min-height:0;
+  flex:0 0 auto;
+  padding-top:clamp(4px,.9vh,12px);
+}
+.ranking-podio-slot {
+  width:100%;
+  height:auto;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  gap:clamp(3px,.5vh,9px);
+}
+.ranking-medalla { line-height:1; font-size:clamp(24px,3.2vw,52px); }
+.ranking-podio-slot strong {
+  min-height:0;
+  display:block;
+  width:100%;
+  line-height:1.18;
+  font-size:clamp(14px,1.45vw,26px);
+  overflow-wrap:break-word;
+}
+.ranking-podio-slot small { line-height:1.15; font-size:clamp(11px,1.05vw,18px); }
+.ranking-escalon { padding:12px 8px; display:flex; justify-content:center; align-items:flex-start; font-size:clamp(10px,.95vw,16px); }
+.puesto-1 .ranking-escalon { height:clamp(90px,13vh,145px); }
+.puesto-2 .ranking-escalon { height:clamp(65px,9vh,105px); }
+.puesto-3 .ranking-escalon { height:clamp(45px,6vh,75px); }
+
+@media (max-width:700px) {
+  .ranking-page { padding:14px 12px 12px; gap:10px; }
+  .ranking-header { align-items:flex-start; font-size:10px; gap:8px; }
+  .ranking-header img { width:100px; }
+  .ranking-header > span { text-align:right; line-height:1.35; max-width:58%; }
+  .ranking-page h1 { font-size:clamp(23px,6vw,35px); line-height:1.05; margin:2px 0; }
+  .ranking-subtitle { font-size:10px; line-height:1.4; letter-spacing:.06em; }
+  .ranking-podio { gap:7px; padding-top:6px; }
+  .ranking-medalla { font-size:24px; }
+  .ranking-podio-slot strong { font-size:11px; line-height:1.2; }
+  .ranking-podio-slot small { font-size:9px; }
+  .ranking-escalon { font-size:9px; padding:9px 3px; letter-spacing:0; border-radius:7px 7px 0 0; }
+  .puesto-1 .ranking-escalon { height:90px; }
+  .puesto-2 .ranking-escalon { height:66px; }
+  .puesto-3 .ranking-escalon { height:48px; }
+  .ranking-list-title { font-size:11px; gap:6px; }
+  .ranking-list-title span { font-size:10px; white-space:nowrap; }
+  .ranking-fila,.ranking-flotante { grid-template-columns:12% minmax(0,1fr) auto; min-height:48px; font-size:12px; padding:8px; gap:6px; }
+  .ranking-fila span,.ranking-flotante span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .ranking-fila strong,.ranking-flotante strong { font-size:10px; text-align:right; max-width:130px; }
+  .ranking-page footer { font-size:9px; line-height:1.3; letter-spacing:.03em; }
+}
+@media (max-height:620px) and (min-width:701px) {
+  .ranking-medalla { font-size:clamp(24px,2.5vw,38px); }
+  .puesto-1 .ranking-escalon { height:85px; }
+  .puesto-2 .ranking-escalon { height:62px; }
+  .puesto-3 .ranking-escalon { height:45px; }
+  .ranking-page h1 { font-size:clamp(25px,3.5vw,56px); }
+}
