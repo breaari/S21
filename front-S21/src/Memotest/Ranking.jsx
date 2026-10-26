@@ -120,8 +120,13 @@ export function RankingMemotest() {
       const destino = Math.max(0, participantesIndex(jugadores, id));
       const filas = [...area.querySelectorAll(".ranking-fila")];
       const paso = filas.length > 1 ? filas[1].offsetTop - filas[0].offsetTop : 56;
-      const inicioScroll = area.scrollHeight - area.clientHeight;
-      const maxScroll = Math.max(0, inicioScroll);
+      const maxScroll = Math.max(0, area.scrollHeight - area.clientHeight);
+      const alturaFila = filas[0]?.getBoundingClientRect().height || 45;
+      const comienzoPantalla = Math.max(0, area.clientHeight - alturaFila - 8);
+      const yDestino = destino * paso;
+      const scrollDestino = Math.max(0, Math.min(maxScroll, yDestino - area.clientHeight * .42));
+      const finalPantalla = Math.max(0, yDestino - scrollDestino);
+      area.scrollTop = maxScroll;
       let ultimoPaso = n - 1;
       const inicio = performance.now();
       const dibujar = (ahora) => {
@@ -134,12 +139,12 @@ export function RankingMemotest() {
           for (let i = ultimoPaso; i > pasoActual; i--) reproducir("tic");
           ultimoPaso = pasoActual;
         }
-        const yAbsoluta = indiceVisual * paso;
-        // Seguimiento continuo: la cámara acompaña al participante durante todo el recorrido.
-        const scrollObjetivo = Math.max(0, Math.min(maxScroll, (yAbsoluta - area.clientHeight * .52) * .72));
-        // Scroll y fila flotante comparten un solo frame: evita tirones.
-        area.scrollTop = scrollObjetivo;
-        elemento.style.transform = `translate3d(0,${yAbsoluta - scrollObjetivo}px,0)`;
+        // La fila recorre realmente la pantalla y el listado corre detrás.
+        const progreso = Math.max(0, Math.min(1, avance));
+        const desplazamientoLista = maxScroll + (scrollDestino - maxScroll) * progreso;
+        const posicionPantalla = comienzoPantalla + (finalPantalla - comienzoPantalla) * progreso;
+        area.scrollTop = desplazamientoLista;
+        elemento.style.transform = `translate3d(0,${posicionPantalla}px,0)`;
         elemento.querySelector(".ranking-flotante-puesto").textContent = `${Math.floor(indiceVisual + 1)}°`;
         elemento.style.opacity = t < 170 ? String(t / 170) : "1";
 
@@ -150,7 +155,7 @@ export function RankingMemotest() {
         }
         if (t >= DESTACADO_FIN) {
           const retorno = (t - DESTACADO_FIN) / (DURACION_TOTAL - DESTACADO_FIN);
-          area.scrollTop = Math.max(0, scrollObjetivo * (1 - retorno));
+          area.scrollTop = scrollDestino * (1 - retorno);
           elemento.style.opacity = String(1 - retorno);
         }
         if (t < DURACION_TOTAL) {
