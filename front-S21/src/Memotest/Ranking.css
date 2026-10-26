@@ -8,9 +8,9 @@
 .ranking-page h1 span { color:#07bd8a; }
 .ranking-subtitle { text-align:center; letter-spacing:.2em; font-size:clamp(12px,1.25vw,23px); margin:0; }
 .ranking-podio { display:flex; align-items:flex-end; justify-content:center; gap:1.5vw; height:32vh; flex-shrink:0; }
-.ranking-podio-slot { width:27%; height:100%; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; text-align:center; min-width:0; gap:.5vh; }
+.ranking-podio-slot { width:30%; min-width:0; height:100%; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; text-align:center; min-width:0; gap:.5vh; }
 .ranking-medalla { font-weight:900; font-size:clamp(26px,3.6vw,70px); color:#28b9a6; }
-.ranking-podio-slot strong { max-width:100%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-size:clamp(14px,1.7vw,32px); }
+.ranking-podio-slot strong { width:100%; max-width:100%; overflow:visible; white-space:normal; overflow-wrap:anywhere; line-height:1.15; min-height:2.3em; display:flex; align-items:flex-end; justify-content:center; font-size:clamp(14px,1.6vw,29px); padding:0 7px; }
 .ranking-podio-slot small { font-size:clamp(12px,1.2vw,22px); }
 .ranking-escalon { background:linear-gradient(150deg,#009982,#006553); border:1px solid #28b9a6; border-radius:12px 12px 0 0; width:100%; padding:2vh 1vw; font-size:clamp(10px,1vw,18px); font-weight:800; letter-spacing:.07em; }
 .puesto-1 .ranking-escalon { height:15vh; background:linear-gradient(150deg,#07bd8a,#006553); }
@@ -28,8 +28,6 @@
 .ranking-destacado b { color:#053e35; }
 .ranking-ascendiendo { position:relative; z-index:2; font-weight:900; outline:none; }
 .ranking-toolbar { display:flex; align-items:center; gap:1.5vw; }
-.ranking-sound-button { color:#fff; background:#006553; border:1px solid #28b9a6; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:800; font-size:clamp(11px,.95vw,17px); white-space:nowrap; }
-.ranking-sound-button:hover { background:#009982; }
 .ranking-vacio { text-align:center; font-size:2vw; }
 .ranking-page footer { text-align:center; font-size:clamp(10px,1.1vw,20px); letter-spacing:.14em; color:#28b9a6; }
 @keyframes rankingPulso { 50% { filter:brightness(1.3); transform:scale(1.008); } }
