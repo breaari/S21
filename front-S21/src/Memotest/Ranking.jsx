@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import logo from "../assets/logo-blanco-sin-fondo.png";
 import tickSound from "../assets/tic.mp3";
@@ -6,30 +6,24 @@ import winSound from "../assets/win.mp3";
 import "./Ranking.css";
 
 const API_URL = import.meta.env.PROD ? "" : `http://${window.location.hostname}:3003`;
-const DURACION_TOTAL = 7200;
-const SUBIDA_INICIO = 400;
-const SUBIDA_FIN = 4100;
-const DESTACADO_FIN = 6500;
+const PAUSA_EN_PUESTO = 2800;
+const DURACION_SCROLL = 850;
+const DURACION_RETORNO = 900;
 const formatoResultado = (p) =>
   `${p.tiempoSegundos.toFixed(1).replace(".", ",")} s · ${p.movimientos} movimientos`;
-// Avance lineal: no se frena antes de llegar al puesto definitivo.
-const suavizar = (x) => x;
 
 export function RankingMemotest() {
   const [jugadores, setJugadores] = useState([]);
   const [pendientes, setPendientes] = useState([]);
   const [activo, setActivo] = useState(null);
-  const [puestoAnimado, setPuestoAnimado] = useState(null);
-  const posicionesAnteriores = useRef(null);
   const [estado, setEstado] = useState("Conectando...");
   const listaRef = useRef(null);
-  const flotanteRef = useRef(null);
   const vistos = useRef(new Set());
   const inicializado = useRef(false);
   const audioCtx = useRef(null);
   const buffers = useRef({});
   const activoRef = useRef(false);
-  const animacionRef = useRef(null);
+  const timersRef = useRef([]);
 
   const reproducir = (tipo) => {
     const ctx = audioCtx.current;
@@ -103,114 +97,55 @@ export function RankingMemotest() {
     return () => { cerrada = true; eventos?.close(); clearInterval(revision); };
   }, [cargar]);
 
+  // Animación sencilla: clasificación definitiva, viaje al puesto, pausa y regreso.
+  // El listado nunca cambia de orden y no se anima una fila aparte.
   useEffect(() => {
     if (activoRef.current || !pendientes.length || !jugadores.length) return;
     const id = pendientes[0];
-    const participante = jugadores.find((p) => p.id === id);
-    setPendientes((anteriores) => anteriores.slice(1));
-    if (!participante) return;
+    setPendientes((prev) => prev.slice(1));
+    if (!jugadores.some((p) => p.id === id)) return;
     activoRef.current = true;
     setActivo(id);
-    setPuestoAnimado(jugadores.length - 1);
+  }, [pendientes, jugadores]);
 
+  useEffect(() => {
+    if (!activo) return;
     const lista = listaRef.current;
-    // Esperamos al render de la fila flotante, sin reordenar el listado real.
-    setTimeout(() => {
-      const area = listaRef.current;
-      const elemento = flotanteRef.current;
-      if (!area || !elemento) { activoRef.current = false; setActivo(null); return; }
-      const n = jugadores.length;
-      const destino = Math.max(0, participantesIndex(jugadores, id));
-      const filas = [...area.querySelectorAll(".ranking-fila")];
-      const paso = filas.length > 1 ? filas[1].offsetTop - filas[0].offsetTop : 56;
-      const maxScroll = Math.max(0, area.scrollHeight - area.clientHeight);
-      const alturaFila = filas[0]?.getBoundingClientRect().height || 45;
-      const comienzoPantalla = Math.max(0, area.clientHeight - alturaFila - 8);
-      const yDestino = destino * paso;
-      const scrollDestino = Math.max(0, Math.min(maxScroll, yDestino - area.clientHeight * .42));
-      const finalPantalla = Math.max(0, yDestino - scrollDestino);
-      area.scrollTop = maxScroll;
-      let ultimoPaso = n - 1;
-      const inicio = performance.now();
-      const dibujar = (ahora) => {
-        const t = Math.min(DURACION_TOTAL, ahora - inicio);
-        const avance = Math.max(0, Math.min(1, (t - SUBIDA_INICIO) / (SUBIDA_FIN - SUBIDA_INICIO)));
-        const indiceVisual = (n - 1) - (n - 1 - destino) * suavizar(avance);
-        const pasoActual = Math.floor(indiceVisual + .00001);
-        if (pasoActual < ultimoPaso) {
-          // Un tic por puesto superado; la cadencia se adapta al recorrido.
-          for (let i = ultimoPaso; i > pasoActual; i--) reproducir("tic");
-          ultimoPaso = pasoActual;
-          const posiciones = new Map();
-          area.querySelectorAll("[data-player]").forEach((fila) => posiciones.set(fila.dataset.player, fila.offsetTop));
-          posicionesAnteriores.current = posiciones;
-          setPuestoAnimado(pasoActual);
-        }
-        // La fila recorre realmente la pantalla y el listado corre detrás.
-        const progreso = Math.max(0, Math.min(1, avance));
-        const desplazamientoLista = maxScroll + (scrollDestino - maxScroll) * progreso;
-        const posicionPantalla = comienzoPantalla + (finalPantalla - comienzoPantalla) * progreso;
-        area.scrollTop = desplazamientoLista;
-        elemento.style.transform = `translate3d(0,${posicionPantalla}px,0)`;
-        elemento.querySelector(".ranking-flotante-puesto").textContent = `${Math.floor(indiceVisual + 1)}°`;
-        elemento.style.opacity = t < 170 ? String(t / 170) : "1";
+    const fila = [...(lista?.querySelectorAll("[data-player]") || [])]
+      .find((item) => item.dataset.player === activo);
+    if (!lista || !fila) return;
 
-        if (t >= SUBIDA_FIN && !animacionRef.current?.premio) {
-          reproducir("win");
-          animacionRef.current.premio = true;
-          elemento.classList.add("ranking-flotante-final");
-          setPuestoAnimado(destino);
-        }
-        if (t >= DESTACADO_FIN) {
-          const retorno = (t - DESTACADO_FIN) / (DURACION_TOTAL - DESTACADO_FIN);
-          area.scrollTop = scrollDestino * (1 - retorno);
-          elemento.style.opacity = String(1 - retorno);
-        }
-        if (t < DURACION_TOTAL) {
-          animacionRef.current.id = requestAnimationFrame(dibujar);
-        } else {
-          setActivo(null);
-          setPuestoAnimado(null);
-          activoRef.current = false;
-          animacionRef.current = null;
-          area.scrollTop = 0;
-        }
-      };
-      animacionRef.current = { id: requestAnimationFrame(dibujar), premio: false };
-    }, 30);
-  }, [pendientes, jugadores, activo]);
+    const programar = (fn, ms) => {
+      const id = setTimeout(fn, ms);
+      timersRef.current.push(id);
+    };
+    // Un solo desplazamiento suave, directamente hasta el puesto final.
+    programar(() => {
+      const destino = fila.offsetTop - lista.offsetTop -
+        (lista.clientHeight - fila.clientHeight) / 2;
+      lista.scrollTo({ top: Math.max(0, destino), behavior: "smooth" });
+      reproducir("tic");
+    }, 120);
+    programar(() => {
+      reproducir("win");
+      fila.classList.add("ranking-llegada");
+    }, DURACION_SCROLL + 120);
+    // Se ve el nombre destacado durante casi tres segundos.
+    programar(() => {
+      fila.classList.remove("ranking-llegada");
+      lista.scrollTo({ top: 0, behavior: "smooth" });
+    }, DURACION_SCROLL + PAUSA_EN_PUESTO + 120);
+    programar(() => {
+      setActivo(null);
+      activoRef.current = false;
+    }, DURACION_SCROLL + PAUSA_EN_PUESTO + DURACION_RETORNO + 180);
+  }, [activo]);
 
   useEffect(() => () => {
-    if (animacionRef.current?.id) cancelAnimationFrame(animacionRef.current.id);
+    timersRef.current.forEach(clearTimeout);
   }, []);
 
-  useLayoutEffect(() => {
-    const anteriores = posicionesAnteriores.current;
-    posicionesAnteriores.current = null;
-    if (!anteriores) return;
-    listaRef.current?.querySelectorAll("[data-player]").forEach((fila) => {
-      const previo = anteriores.get(fila.dataset.player);
-      if (previo === undefined) return;
-      const delta = previo - fila.offsetTop;
-      if (Math.abs(delta) > 1) {
-        fila.animate([{ transform: "translateY(" + delta + "px)" }, { transform: "translateY(0)" }],
-          { duration: 180, easing: "cubic-bezier(.2,.75,.25,1)" });
-      }
-    });
-  }, [puestoAnimado]);
-
   const podio = jugadores.slice(0, 3);
-  const destacado = jugadores.find((p) => p.id === activo);
-
-  const indiceVisual = puestoAnimado ?? jugadores.length - 1;
-  const ordenVisual = [...jugadores];
-  if (activo) {
-    const actual = ordenVisual.findIndex((p) => p.id === activo);
-    if (actual !== -1) {
-      const [nuevo] = ordenVisual.splice(actual, 1);
-      ordenVisual.splice(Math.min(indiceVisual, ordenVisual.length), 0, nuevo);
-    }
-  }
 
   return (
     <main className="ranking-page">
@@ -237,20 +172,15 @@ export function RankingMemotest() {
       <div className="ranking-area">
         <section className="ranking-lista" ref={listaRef}>
           {!jugadores.length && <p className="ranking-vacio">¡El desafío está por comenzar!</p>}
-          {ordenVisual.map((p, i) => <div key={p.id} data-player={p.id} className={"ranking-fila " + (activo === p.id ? "ranking-fila-oculta" : "")}>
-            <b>{i + 1}°</b><span>{p.nombre}</span><strong>{formatoResultado(p)}</strong>
+          {jugadores.map((p) => <div key={p.id} data-player={p.id}
+            className={"ranking-fila " + (activo === p.id ? "ranking-destacado" : "")}>
+            <b>{p.puesto}°</b><span>{p.nombre}</span><strong>{formatoResultado(p)}</strong>
           </div>)}
         </section>
-        {destacado && <div className="ranking-flotante" ref={flotanteRef}>
-          <b className="ranking-flotante-puesto">{jugadores.length}°</b>
-          <span>{destacado.nombre}</span><strong>{formatoResultado(destacado)}</strong>
-        </div>}
+
       </div>
       <footer>LOS 3 MEJORES PUESTOS DEL RANKING GANAN PREMIO · UNIVERSIDAD SIGLO 21</footer>
     </main>
   );
 }
 
-function participantesIndex(jugadores, id) {
-  return jugadores.findIndex((p) => p.id === id);
-}
