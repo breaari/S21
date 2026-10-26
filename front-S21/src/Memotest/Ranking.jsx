@@ -14,7 +14,7 @@ export function RankingMemotest() {
   const [pendientes, setPendientes] = useState([]);
   const [animacion, setAnimacion] = useState(null);
   const [estado, setEstado] = useState("Conectando...");
-  const [sonidoActivo, setSonidoActivo] = useState(false);
+
 
   const listaRef = useRef(null);
   const vistos = useRef(new Set());
@@ -23,12 +23,7 @@ export function RankingMemotest() {
   const audioCtx = useRef(null);
   const buffers = useRef({});
 
-  // El audio solo puede habilitarse con una interacción del operador.
   const activarSonido = async () => {
-    if (sonidoActivo) {
-      setSonidoActivo(false);
-      return;
-    }
     try {
       if (!audioCtx.current) {
         audioCtx.current = new (window.AudioContext || window.webkitAudioContext)();
@@ -41,15 +36,15 @@ export function RankingMemotest() {
       };
       const [tic, win] = await Promise.all([cargar(tickSound), cargar(winSound)]);
       buffers.current = { tic, win };
-      setSonidoActivo(true);
+
     } catch (error) {
       console.error("No se pudo activar el sonido del ranking:", error);
-      setEstado("Audio no disponible");
+
     }
   };
 
   const reproducir = (tipo) => {
-    if (!sonidoActivo || !audioCtx.current || !buffers.current[tipo]) return;
+    if (!audioCtx.current || audioCtx.current.state !== "running" || !buffers.current[tipo]) return;
     const source = audioCtx.current.createBufferSource();
     const gain = audioCtx.current.createGain();
     source.buffer = buffers.current[tipo];
@@ -58,6 +53,19 @@ export function RankingMemotest() {
     gain.connect(audioCtx.current.destination);
     source.start();
   };
+
+  // Intentamos preparar el audio al abrir; los navegadores que bloquean autoplay
+  // lo desbloquearán en la primera interacción, sin botón visible.
+  useEffect(() => {
+    activarSonido();
+    const desbloquear = () => activarSonido();
+    window.addEventListener("pointerdown", desbloquear, { once: true });
+    window.addEventListener("keydown", desbloquear, { once: true });
+    return () => {
+      window.removeEventListener("pointerdown", desbloquear);
+      window.removeEventListener("keydown", desbloquear);
+    };
+  }, []);
 
   const cargar = useCallback(async (anunciar = false) => {
     const { data } = await axios.get(`${API_URL}/memotest/ranking`, { timeout: 15000 });
@@ -110,7 +118,7 @@ export function RankingMemotest() {
       if (Math.abs(distancia) < 1) return;
       fila.animate(
         [{ transform: `translateY(${distancia}px)` }, { transform: "translateY(0)" }],
-        { duration: 155, easing: "cubic-bezier(.22,.8,.24,1)" },
+        { duration: 225, easing: "cubic-bezier(.2,.7,.25,1)" },
       );
     });
   }, [animacion?.indice]);
@@ -136,7 +144,7 @@ export function RankingMemotest() {
             ...actual,
             indice: Math.max(actual.destino, actual.indice - 1),
           });
-        }, 170);
+        }, 210);
         return () => clearTimeout(timer);
       }
       reproducir("win");
@@ -150,7 +158,7 @@ export function RankingMemotest() {
       }, 450);
       return () => clearTimeout(timer);
     }
-  }, [animacion, sonidoActivo]);
+  }, [animacion]);
 
   // Mantener al jugador visible a medida que asciende.
   useEffect(() => {
@@ -180,13 +188,11 @@ export function RankingMemotest() {
         <img src={logo} alt="Universidad Siglo 21" />
         <div className="ranking-toolbar">
           <span>NB 21K MAR DEL PLATA · <b>{estado}</b></span>
-          <button type="button" className="ranking-sound-button" onClick={activarSonido}>
-            {sonidoActivo ? "SONIDO ACTIVADO" : "ACTIVAR SONIDO"}
-          </button>
+
         </div>
       </header>
-      <h1>EL DESAFÍO DE <span>MEMORIA</span></h1>
-      <p className="ranking-subtitle">MENOS TIEMPO GANA · MOVIMIENTOS DESEMPATAN</p>
+      <h1>EN LA PISTA Y EN LA <span>MENTE</span></h1>
+      <p className="ranking-subtitle">LA VELOCIDAD TAMBIÉN SE ENTRENA CON LA MENTE</p>
       <section className="ranking-podio">
         {[1, 0, 2].map((indice) => {
           const jugador = podio[indice];
