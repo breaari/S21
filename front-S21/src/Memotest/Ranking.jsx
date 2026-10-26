@@ -110,9 +110,8 @@ export function RankingMemotest() {
     setActivo(id);
 
     const lista = listaRef.current;
-    const flotante = flotanteRef.current;
     // Esperamos al render de la fila flotante, sin reordenar el listado real.
-    const timer = setTimeout(() => {
+    setTimeout(() => {
       const area = listaRef.current;
       const elemento = flotanteRef.current;
       if (!area || !elemento) { activoRef.current = false; setActivo(null); return; }
@@ -160,13 +159,11 @@ export function RankingMemotest() {
       };
       animacionRef.current = { id: requestAnimationFrame(dibujar), premio: false };
     }, 30);
-    return () => {
-      clearTimeout(timer);
-      if (animacionRef.current?.id) cancelAnimationFrame(animacionRef.current.id);
-      animacionRef.current = null;
-      activoRef.current = false;
-    };
   }, [pendientes, jugadores, activo]);
+
+  useEffect(() => () => {
+    if (animacionRef.current?.id) cancelAnimationFrame(animacionRef.current.id);
+  }, []);
 
   const podio = jugadores.slice(0, 3);
   const destacado = jugadores.find((p) => p.id === activo);
