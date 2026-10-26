@@ -7,12 +7,13 @@ import "./Ranking.css";
 
 const API_URL = import.meta.env.PROD ? "" : `http://${window.location.hostname}:3003`;
 const DURACION_TOTAL = 5000;
-const SUBIDA_INICIO = 550;
-const SUBIDA_FIN = 3700;
-const DESTACADO_FIN = 4500;
+const SUBIDA_INICIO = 400;
+const SUBIDA_FIN = 4100;
+const DESTACADO_FIN = 4600;
 const formatoResultado = (p) =>
   `${p.tiempoSegundos.toFixed(1).replace(".", ",")} s · ${p.movimientos} movimientos`;
-const suavizar = (x) => 1 - Math.pow(1 - x, 2.5);
+// Avance lineal: no se frena antes de llegar al puesto definitivo.
+const suavizar = (x) => x;
 
 export function RankingMemotest() {
   const [jugadores, setJugadores] = useState([]);
@@ -119,7 +120,6 @@ export function RankingMemotest() {
       const destino = Math.max(0, participantesIndex(jugadores, id));
       const filas = [...area.querySelectorAll(".ranking-fila")];
       const paso = filas.length > 1 ? filas[1].offsetTop - filas[0].offsetTop : 56;
-      const fondo = (n - 1) * paso;
       const inicioScroll = area.scrollHeight - area.clientHeight;
       const maxScroll = Math.max(0, inicioScroll);
       let ultimoPaso = n - 1;
@@ -135,7 +135,8 @@ export function RankingMemotest() {
           ultimoPaso = pasoActual;
         }
         const yAbsoluta = indiceVisual * paso;
-        const scrollObjetivo = Math.max(0, Math.min(maxScroll, yAbsoluta - area.clientHeight * .55));
+        // Seguimiento continuo: la cámara acompaña al participante durante todo el recorrido.
+        const scrollObjetivo = Math.max(0, Math.min(maxScroll, yAbsoluta - area.clientHeight * .52));
         // Scroll y fila flotante comparten un solo frame: evita tirones.
         area.scrollTop = scrollObjetivo;
         elemento.style.transform = `translate3d(0,${yAbsoluta - scrollObjetivo}px,0)`;
@@ -147,7 +148,11 @@ export function RankingMemotest() {
           animacionRef.current.premio = true;
           elemento.classList.add("ranking-flotante-final");
         }
-        if (t >= DESTACADO_FIN) area.scrollTop = Math.max(0, scrollObjetivo * (DURACION_TOTAL - t) / (DURACION_TOTAL - DESTACADO_FIN));
+        if (t >= DESTACADO_FIN) {
+          const retorno = (t - DESTACADO_FIN) / (DURACION_TOTAL - DESTACADO_FIN);
+          area.scrollTop = Math.max(0, scrollObjetivo * (1 - retorno));
+          elemento.style.opacity = String(1 - retorno);
+        }
         if (t < DURACION_TOTAL) {
           animacionRef.current.id = requestAnimationFrame(dibujar);
         } else {
