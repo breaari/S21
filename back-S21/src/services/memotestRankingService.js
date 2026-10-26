@@ -14,8 +14,8 @@ const obtenerRanking = async () => {
   }));
   participantes.sort((a, b) =>
     Number(b.completado) - Number(a.completado) ||
-    (a.completado ? a.tiempoMs - b.tiempoMs : 0) ||
     a.movimientos - b.movimientos ||
+    a.tiempoMs - b.tiempoMs ||
     a.finJuego.localeCompare(b.finJuego) ||
     a.id.localeCompare(b.id)
   );
