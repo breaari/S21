@@ -4,20 +4,16 @@ import logo from "../assets/logo-blanco-sin-fondo.png";
 import "./Ranking.css";
 
 const API_URL = import.meta.env.PROD ? "" : `http://${window.location.hostname}:3003`;
-const DURACION_AVISO = 6500;
-const formatoTiempo = (p) => `${p.tiempoSegundos.toFixed(1).replace(".", ",")} s`;
-const formatoResultado = (p) => `${p.movimientos} movimientos · ${formatoTiempo(p)}`;
+const formatoResultado = (p) => `${p.tiempoSegundos.toFixed(1).replace(".", ",")} s · ${p.movimientos} movimientos`;
 
 export function RankingMemotest() {
   const [jugadores, setJugadores] = useState([]);
-  const [destacado, setDestacado] = useState(null);
+  const [pendientes, setPendientes] = useState([]);
+  const [animacion, setAnimacion] = useState(null);
   const [estado, setEstado] = useState("Conectando...");
   const listaRef = useRef(null);
   const vistos = useRef(new Set());
-  const cola = useRef([]);
-  const activo = useRef(null);
-  const timeout = useRef(null);
-  const iniciado = useRef(false);
+  const inicializado = useRef(false);
 
   const cargar = useCallback(async (anunciar = false) => {
     const { data } = await axios.get(`${API_URL}/memotest/ranking`, { timeout: 15000 });
@@ -25,8 +21,10 @@ export function RankingMemotest() {
     data.ranking.forEach((p) => vistos.current.add(p.id));
     setJugadores(data.ranking);
     setEstado("EN VIVO");
-    if (iniciado.current && anunciar) cola.current.push(...nuevos);
-    iniciado.current = true;
+    if (inicializado.current && anunciar && nuevos.length) {
+      setPendientes((prev) => [...prev, ...nuevos.map((p) => p.id)]);
+    }
+    inicializado.current = true;
   }, []);
 
   useEffect(() => {
@@ -37,44 +35,62 @@ export function RankingMemotest() {
       if (cerrado) return;
       fuente = new EventSource(`${API_URL}/memotest/ranking/eventos`);
       fuente.onopen = () => { cargar(true).catch(() => setEstado("Reconectando...")); };
-      fuente.addEventListener("finalizado", () => {
-        cargar(true).catch(() => setEstado("Reconectando..."));
-      });
+      fuente.addEventListener("finalizado", () => cargar(true).catch(() => setEstado("Reconectando...")));
       fuente.onerror = () => setEstado("Reconectando...");
     };
     comenzar();
-    return () => {
-      cerrado = true;
-      fuente?.close();
-      clearTimeout(timeout.current);
-    };
+    // Recupera eventos que pudieran perderse al desconectarse.
+    const revision = setInterval(() => cargar(true).catch(() => setEstado("Reconectando...")), 15000);
+    return () => { cerrado = true; fuente?.close(); clearInterval(revision); };
   }, [cargar]);
 
   useEffect(() => {
-    if (activo.current || !cola.current.length) return;
-    const proximo = cola.current.shift();
-    activo.current = proximo.id;
-    setDestacado(proximo.id);
-    timeout.current = setTimeout(() => {
-      activo.current = null;
-      setDestacado(null);
-    }, DURACION_AVISO);
-  }, [jugadores, destacado]);
+    if (animacion || !pendientes.length || !jugadores.length) return;
+    const id = pendientes[0];
+    const jugador = jugadores.find((p) => p.id === id);
+    setPendientes((actual) => actual.slice(1));
+    if (jugador) setAnimacion({ id, indice: jugadores.length - 1, destino: jugador.puesto - 1 });
+  }, [animacion, pendientes, jugadores]);
 
   useEffect(() => {
-    if (!destacado) {
-      listaRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    if (!animacion) {
+      if (!pendientes.length) listaRef.current?.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
-    const timer = setTimeout(() => {
-      const elemento = document.getElementById(`ranking-${destacado}`);
-      elemento?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [destacado]);
+    const { id, indice, destino } = animacion;
+    const timerScroll = setTimeout(() => {
+      const fila = document.getElementById(`ranking-${id}`);
+      const lista = listaRef.current;
+      if (fila && lista) {
+        lista.scrollTo({
+          top: fila.offsetTop - lista.offsetTop - lista.clientHeight / 2 + fila.clientHeight / 2,
+          behavior: "smooth",
+        });
+      }
+    }, 70);
 
-  const podio = jugadores.slice(0, 3);
-  const jugadorActivo = jugadores.find((p) => p.id === destacado);
+    const timerSiguiente = setTimeout(() => {
+      if (indice > destino) {
+        setAnimacion((actual) => actual?.id === id
+          ? { ...actual, indice: Math.max(destino, actual.indice - 1) } : actual);
+      } else {
+        setAnimacion(null);
+      }
+    }, indice > destino ? 430 : 2200);
+
+    return () => { clearTimeout(timerScroll); clearTimeout(timerSiguiente); };
+  }, [animacion, pendientes.length]);
+
+  const destacados = jugadores.slice(0, 3);
+  const visibles = [...jugadores];
+  if (animacion) {
+    const posicionReal = visibles.findIndex((p) => p.id === animacion.id);
+    if (posicionReal !== -1) {
+      const [jugador] = visibles.splice(posicionReal, 1);
+      visibles.splice(Math.min(animacion.indice, visibles.length), 0, jugador);
+    }
+  }
+
   return (
     <main className="ranking-page">
       <header className="ranking-header">
@@ -85,7 +101,7 @@ export function RankingMemotest() {
       <p className="ranking-subtitle">MENOS TIEMPO GANA · MOVIMIENTOS DESEMPATAN</p>
       <section className="ranking-podio">
         {[1, 0, 2].map((indice) => {
-          const jugador = podio[indice];
+          const jugador = destacados[indice];
           return <div className={`ranking-podio-slot puesto-${indice + 1}`} key={indice}>
             <div className="ranking-medalla">{indice + 1}°</div>
             <strong>{jugador?.nombre || "Tu nombre acá"}</strong>
@@ -98,22 +114,17 @@ export function RankingMemotest() {
         <strong>CLASIFICACIÓN GENERAL</strong><span>{jugadores.length} PARTICIPANTES</span>
       </div>
       <section className="ranking-lista" ref={listaRef}>
-        {jugadores.length === 0 && <p className="ranking-vacio">¡El desafío está por comenzar!</p>}
-        {jugadores.map((p) => <div
+        {!jugadores.length && <p className="ranking-vacio">¡El desafío está por comenzar!</p>}
+        {visibles.map((p, indice) => <div
           key={p.id} id={`ranking-${p.id}`}
-          className={`ranking-fila ${destacado === p.id ? "ranking-destacado" : ""}`}
+          className={`ranking-fila ${animacion?.id === p.id ? "ranking-destacado ranking-ascendiendo" : ""}`}
         >
-          <b>{p.puesto}°</b><span>{p.nombre}</span>
+          <b>{animacion?.id === p.id ? indice + 1 : p.puesto}°</b>
+          <span>{p.nombre}</span>
           <strong>{formatoResultado(p)}</strong>
         </div>)}
       </section>
-      {jugadorActivo && <div className="ranking-alerta" key={jugadorActivo.id} role="status">
-        <div className="ranking-alerta-etiqueta">¡NUEVA PARTICIPACIÓN!</div>
-        <strong>{jugadorActivo.nombre}</strong>
-        <div>¡LLEGÓ AL PUESTO <b>#{jugadorActivo.puesto}</b>!</div>
-        <small>{formatoResultado(jugadorActivo)}</small>
-      </div>}
-      <footer>UNIVERSIDAD SIGLO 21 · CORRÉ HACIA TU PRÓXIMA META</footer>
+      <footer>LOS 3 MEJORES PUESTOS DEL RANKING GANAN PREMIO · UNIVERSIDAD SIGLO 21</footer>
     </main>
   );
 }
