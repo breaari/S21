@@ -24,9 +24,9 @@
 .ranking-fila b { color:#28b9a6; }
 .ranking-fila span { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
 .ranking-fila strong { font-size:.85em; }
-.ranking-destacado { background:#07bd8a; color:#053e35; border-color:#fff; box-shadow:0 0 35px #07bd8a80; animation:rankingPulso .45s ease-in-out 2; }
+.ranking-destacado { background:#07bd8a; color:#053e35; border-color:#28b9a6; box-shadow:0 0 35px #07bd8a80; animation:rankingPulso .45s ease-in-out 2; }
 .ranking-destacado b { color:#053e35; }
-.ranking-ascendiendo { position:relative; z-index:2; font-weight:900; outline:2px solid #fff; }
+.ranking-ascendiendo { position:relative; z-index:2; font-weight:900; outline:none; }
 .ranking-toolbar { display:flex; align-items:center; gap:1.5vw; }
 .ranking-sound-button { color:#fff; background:#006553; border:1px solid #28b9a6; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:800; font-size:clamp(11px,.95vw,17px); white-space:nowrap; }
 .ranking-sound-button:hover { background:#009982; }
