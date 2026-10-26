@@ -6,7 +6,7 @@ import "./Ranking.css";
 const API_URL = import.meta.env.PROD ? "" : `http://${window.location.hostname}:3003`;
 const DURACION_AVISO = 6500;
 const formatoTiempo = (p) => `${p.tiempoSegundos.toFixed(1).replace(".", ",")} s`;
-const formatoResultado = (p) => `${p.movimientos} movimientos · ${formatoResultado(p)}`;
+const formatoResultado = (p) => `${p.movimientos} movimientos · ${formatoTiempo(p)}`;
 
 export function RankingMemotest() {
   const [jugadores, setJugadores] = useState([]);
@@ -104,7 +104,7 @@ export function RankingMemotest() {
           className={`ranking-fila ${destacado === p.id ? "ranking-destacado" : ""}`}
         >
           <b>{p.puesto}°</b><span>{p.nombre}</span>
-          <strong>{formatoTiempo(p)}</strong>
+          <strong>{formatoResultado(p)}</strong>
         </div>)}
       </section>
       {jugadorActivo && <div className="ranking-alerta" key={jugadorActivo.id} role="status">
