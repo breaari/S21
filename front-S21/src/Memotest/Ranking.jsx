@@ -5,7 +5,8 @@ import "./Ranking.css";
 
 const API_URL = import.meta.env.PROD ? "" : `http://${window.location.hostname}:3003`;
 const DURACION_AVISO = 6500;
-const formatoTiempo = (p) => p.completado ? `${p.tiempoSegundos.toFixed(1).replace(".", ",")} s` : "Tiempo agotado";
+const formatoTiempo = (p) => `${p.tiempoSegundos.toFixed(1).replace(".", ",")} s`;
+const formatoResultado = (p) => `${p.movimientos} movimientos · ${formatoResultado(p)}`;
 
 export function RankingMemotest() {
   const [jugadores, setJugadores] = useState([]);
@@ -81,14 +82,14 @@ export function RankingMemotest() {
         <span>NB 21K MAR DEL PLATA · <b>{estado}</b></span>
       </header>
       <h1>EL DESAFÍO DE <span>MEMORIA</span></h1>
-      <p className="ranking-subtitle">¿QUIÉN TIENE LA MEMORIA MÁS RÁPIDA?</p>
+      <p className="ranking-subtitle">MENOS MOVIMIENTOS GANA · EL TIEMPO DESEMPATA</p>
       <section className="ranking-podio">
         {[1, 0, 2].map((indice) => {
           const jugador = podio[indice];
           return <div className={`ranking-podio-slot puesto-${indice + 1}`} key={indice}>
             <div className="ranking-medalla">{indice + 1}°</div>
             <strong>{jugador?.nombre || "Tu nombre acá"}</strong>
-            <small>{jugador ? formatoTiempo(jugador) : "Esperando participantes"}</small>
+            <small>{jugador ? formatoResultado(jugador) : "Esperando participantes"}</small>
             <div className="ranking-escalon">{indice === 0 ? "PRIMER PUESTO" : indice === 1 ? "SEGUNDO PUESTO" : "TERCER PUESTO"}</div>
           </div>;
         })}
@@ -110,7 +111,7 @@ export function RankingMemotest() {
         <div className="ranking-alerta-etiqueta">¡NUEVA PARTICIPACIÓN!</div>
         <strong>{jugadorActivo.nombre}</strong>
         <div>¡LLEGÓ AL PUESTO <b>#{jugadorActivo.puesto}</b>!</div>
-        <small>{formatoTiempo(jugadorActivo)}</small>
+        <small>{formatoResultado(jugadorActivo)}</small>
       </div>}
       <footer>UNIVERSIDAD SIGLO 21 · CORRÉ HACIA TU PRÓXIMA META</footer>
     </main>
