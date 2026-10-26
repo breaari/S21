@@ -20,19 +20,14 @@
 .ranking-list-title span { color:#a8cdb7; }
 .ranking-lista { flex:1; overflow-y:auto; min-height:0; scrollbar-width:none; display:flex; flex-direction:column; gap:6px; scroll-behavior:smooth; }
 .ranking-lista::-webkit-scrollbar { display:none; }
-.ranking-fila { display:grid; grid-template-columns:9% 1fr auto; align-items:center; background:#ffffff15; border:1px solid #ffffff18; border-radius:9px; padding:1vh 1.5vw; min-height:6vh; gap:1vw; font-size:clamp(14px,1.65vw,30px); }
+.ranking-fila { transition:transform .4s ease, background .35s ease, box-shadow .35s ease; display:grid; grid-template-columns:9% 1fr auto; align-items:center; background:#ffffff15; border:1px solid #ffffff18; border-radius:9px; padding:1vh 1.5vw; min-height:6vh; gap:1vw; font-size:clamp(14px,1.65vw,30px); }
 .ranking-fila b { color:#a9ff81; }
 .ranking-fila span { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
 .ranking-fila strong { font-size:.85em; }
 .ranking-destacado { background:#b5ff86; color:#073321; border-color:#fff; box-shadow:0 0 35px #acff87a6; animation:rankingPulso .8s ease-in-out 3; }
 .ranking-destacado b { color:#073321; }
-.ranking-alerta { position:absolute; z-index:5; top:23%; right:3vw; width:min(42vw,740px); padding:2.5vw; text-align:center; background:#b8ff8e; color:#092d1b; border:4px solid #fff; border-radius:22px; box-shadow:0 0 80px #9cfd84ad; animation:rankingEntrar .65s ease both; }
-.ranking-alerta strong { display:block; font-size:clamp(25px,3.3vw,65px); margin:1vh 0; overflow-wrap:anywhere; }
-.ranking-alerta-etiqueta { font-size:clamp(12px,1.3vw,24px); font-weight:900; letter-spacing:.1em; }
-.ranking-alerta div:not(.ranking-alerta-etiqueta) { font-size:clamp(18px,2vw,38px); font-weight:800; }
-.ranking-alerta small { display:block; margin-top:1vh; font-size:clamp(14px,1.4vw,26px); }
+.ranking-ascendiendo { position:relative; z-index:2; font-weight:800; }
 .ranking-vacio { text-align:center; font-size:2vw; }
 .ranking-page footer { text-align:center; font-size:clamp(10px,1.1vw,20px); letter-spacing:.14em; color:#b5e9c6; }
-@keyframes rankingEntrar { from { opacity:0; transform:translateX(80px) scale(.9); } to { opacity:1; transform:translateX(0) scale(1); } }
 @keyframes rankingPulso { 50% { filter:brightness(1.3); transform:scale(1.008); } }
-@media (prefers-reduced-motion:reduce) { .ranking-alerta,.ranking-destacado { animation:none; } }
+@media (prefers-reduced-motion:reduce) { .ranking-destacado { animation:none; } }
