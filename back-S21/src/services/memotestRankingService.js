@@ -14,6 +14,7 @@ const obtenerRanking = async () => {
   }));
   participantes.sort((a, b) =>
     Number(b.completado) - Number(a.completado) ||
+    Math.floor(a.tiempoMs / 1000) - Math.floor(b.tiempoMs / 1000) ||
     a.movimientos - b.movimientos ||
     a.tiempoMs - b.tiempoMs ||
     a.finJuego.localeCompare(b.finJuego) ||
