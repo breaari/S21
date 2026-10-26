@@ -7,20 +7,6 @@ const {
   actualizarJuego,
 } = require("../services/memotestSheetsService");
 
-/*
- * Tiempo visible para el participante.
- */
-const TIEMPO_LIMITE_SEGUNDOS = 30;
-
-/*
- * Pequeña tolerancia exclusivamente por demora
- * de red entre terminar y llegar al backend.
- */
-const GRACIA_RED_MS = 1500;
-
-const TIEMPO_LIMITE_BACKEND =
-  TIEMPO_LIMITE_SEGUNDOS * 1000 + GRACIA_RED_MS;
-
 /* =========================================================
    CÓDIGO DE PREMIO
 ========================================================= */
@@ -140,7 +126,6 @@ const iniciarJuego = async (id) => {
       yaFinalizado: false,
       participante,
       inicioJuego: participante.inicioJuego,
-      tiempoLimite: TIEMPO_LIMITE_SEGUNDOS,
     };
   }
 
@@ -155,7 +140,6 @@ const iniciarJuego = async (id) => {
     yaFinalizado: false,
     participante,
     inicioJuego,
-    tiempoLimite: TIEMPO_LIMITE_SEGUNDOS,
   };
 };
 
@@ -203,15 +187,8 @@ const finalizarJuego = async (
   const tiempoSegundos =
     Math.round((tiempoMs / 1000) * 10) / 10;
 
-  /*
-   * Para ser ganador:
-   * - debe haber encontrado los 6 pares
-   * - debe haber llegado al backend dentro del límite
-   *   + tolerancia de red.
-   */
-  const ganador =
-    Boolean(completado) &&
-    tiempoMs <= TIEMPO_LIMITE_BACKEND;
+  // Sin límite de tiempo: completar los seis pares define el éxito.
+  const ganador = Boolean(completado) && Number(movimientos) >= 6;
 
   const codigoPremio = ganador
     ? generarCodigoPremio()
@@ -252,5 +229,4 @@ module.exports = {
   registrarParticipante,
   iniciarJuego,
   finalizarJuego,
-  TIEMPO_LIMITE_SEGUNDOS,
 };
