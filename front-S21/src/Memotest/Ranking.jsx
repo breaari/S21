@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import logo from "../assets/logo-blanco-sin-fondo.png";
 import tickSound from "../assets/tic.mp3";
@@ -6,64 +6,69 @@ import winSound from "../assets/win.mp3";
 import "./Ranking.css";
 
 const API_URL = import.meta.env.PROD ? "" : `http://${window.location.hostname}:3003`;
+const DURACION_TOTAL = 5000;
+const SUBIDA_INICIO = 550;
+const SUBIDA_FIN = 3700;
+const DESTACADO_FIN = 4500;
 const formatoResultado = (p) =>
   `${p.tiempoSegundos.toFixed(1).replace(".", ",")} s · ${p.movimientos} movimientos`;
+const suavizar = (x) => 1 - Math.pow(1 - x, 2.5);
 
 export function RankingMemotest() {
   const [jugadores, setJugadores] = useState([]);
   const [pendientes, setPendientes] = useState([]);
-  const [animacion, setAnimacion] = useState(null);
+  const [activo, setActivo] = useState(null);
   const [estado, setEstado] = useState("Conectando...");
-
-
   const listaRef = useRef(null);
+  const flotanteRef = useRef(null);
   const vistos = useRef(new Set());
   const inicializado = useRef(false);
-  const anterioresRef = useRef(null);
   const audioCtx = useRef(null);
   const buffers = useRef({});
-
-  const activarSonido = async () => {
-    try {
-      if (!audioCtx.current) {
-        audioCtx.current = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      await audioCtx.current.resume();
-      const cargar = async (url) => {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error("No se pudo cargar el audio");
-        return audioCtx.current.decodeAudioData(await response.arrayBuffer());
-      };
-      const [tic, win] = await Promise.all([cargar(tickSound), cargar(winSound)]);
-      buffers.current = { tic, win };
-
-    } catch (error) {
-      console.error("No se pudo activar el sonido del ranking:", error);
-
-    }
-  };
+  const activoRef = useRef(false);
+  const animacionRef = useRef(null);
 
   const reproducir = (tipo) => {
-    if (!audioCtx.current || audioCtx.current.state !== "running" || !buffers.current[tipo]) return;
-    const source = audioCtx.current.createBufferSource();
-    const gain = audioCtx.current.createGain();
-    source.buffer = buffers.current[tipo];
-    gain.gain.value = tipo === "tic" ? 0.48 : 0.72;
-    source.connect(gain);
-    gain.connect(audioCtx.current.destination);
-    source.start();
+    const ctx = audioCtx.current;
+    const buffer = buffers.current[tipo];
+    if (!ctx || ctx.state !== "running" || !buffer) return;
+    const fuente = ctx.createBufferSource();
+    const volumen = ctx.createGain();
+    fuente.buffer = buffer;
+    volumen.gain.value = tipo === "tic" ? 0.48 : 0.75;
+    fuente.connect(volumen);
+    volumen.connect(ctx.destination);
+    fuente.start();
   };
 
-  // Intentamos preparar el audio al abrir; los navegadores que bloquean autoplay
-  // lo desbloquearán en la primera interacción, sin botón visible.
+  // Intentamos preparar los sonidos; si autoplay está bloqueado, la primera
+  // interacción sobre la página habilita el audio sin controles visibles.
   useEffect(() => {
-    activarSonido();
-    const desbloquear = () => activarSonido();
-    window.addEventListener("pointerdown", desbloquear, { once: true });
-    window.addEventListener("keydown", desbloquear, { once: true });
+    let cancelado = false;
+    const preparar = async () => {
+      try {
+        const Contexto = window.AudioContext || window.webkitAudioContext;
+        if (!Contexto) return;
+        if (!audioCtx.current) audioCtx.current = new Contexto();
+        const ctx = audioCtx.current;
+        if (ctx.state === "suspended") await ctx.resume();
+        if (buffers.current.tic || cancelado) return;
+        const cargar = async (url) => {
+          const response = await fetch(url);
+          if (!response.ok) throw new Error("Audio no disponible");
+          return ctx.decodeAudioData(await response.arrayBuffer());
+        };
+        const [tic, win] = await Promise.all([cargar(tickSound), cargar(winSound)]);
+        if (!cancelado) buffers.current = { tic, win };
+      } catch (error) { console.warn("Audio del ranking:", error); }
+    };
+    preparar();
+    window.addEventListener("pointerdown", preparar);
+    window.addEventListener("keydown", preparar);
     return () => {
-      window.removeEventListener("pointerdown", desbloquear);
-      window.removeEventListener("keydown", desbloquear);
+      cancelado = true;
+      window.removeEventListener("pointerdown", preparar);
+      window.removeEventListener("keydown", preparar);
     };
   }, []);
 
@@ -74,122 +79,103 @@ export function RankingMemotest() {
     setJugadores(data.ranking);
     setEstado("EN VIVO");
     if (inicializado.current && anunciar && nuevos.length) {
-      setPendientes((prev) => [...prev, ...nuevos.map((p) => p.id)]);
+      setPendientes((anteriores) => [...anteriores, ...nuevos.map((p) => p.id)]);
     }
     inicializado.current = true;
   }, []);
 
   useEffect(() => {
-    let cerrado = false;
-    let fuente;
-    const comenzar = async () => {
+    let cerrada = false;
+    let eventos;
+    const conectar = async () => {
       try { await cargar(false); } catch { setEstado("Sin conexión"); }
-      if (cerrado) return;
-      fuente = new EventSource(`${API_URL}/memotest/ranking/eventos`);
-      fuente.onopen = () => cargar(true).catch(() => setEstado("Reconectando..."));
-      fuente.addEventListener("finalizado", () => cargar(true).catch(() => setEstado("Reconectando...")));
-      fuente.onerror = () => setEstado("Reconectando...");
+      if (cerrada) return;
+      eventos = new EventSource(`${API_URL}/memotest/ranking/eventos`);
+      eventos.onopen = () => cargar(true).catch(() => setEstado("Reconectando..."));
+      eventos.addEventListener("finalizado", () => cargar(true).catch(() => setEstado("Reconectando...")));
+      eventos.onerror = () => setEstado("Reconectando...");
     };
-    comenzar();
+    conectar();
     const revision = setInterval(() => cargar(true).catch(() => setEstado("Reconectando...")), 15000);
-    return () => { cerrado = true; fuente?.close(); clearInterval(revision); };
+    return () => { cerrada = true; eventos?.close(); clearInterval(revision); };
   }, [cargar]);
 
   useEffect(() => {
-    if (animacion || !pendientes.length || !jugadores.length) return;
+    if (activoRef.current || !pendientes.length || !jugadores.length) return;
     const id = pendientes[0];
-    const jugador = jugadores.find((p) => p.id === id);
-    setPendientes((actual) => actual.slice(1));
-    if (jugador) {
-      setAnimacion({ id, indice: jugadores.length - 1, destino: jugador.puesto - 1, fase: "inicio" });
-    }
-  }, [animacion, pendientes, jugadores]);
+    const participante = jugadores.find((p) => p.id === id);
+    setPendientes((anteriores) => anteriores.slice(1));
+    if (!participante) return;
+    activoRef.current = true;
+    setActivo(id);
 
-  // FLIP: animar las posiciones reales de las filas, sin saltos de layout.
-  useLayoutEffect(() => {
-    if (!anterioresRef.current) return;
-    const anteriores = anterioresRef.current;
-    anterioresRef.current = null;
-    const filas = listaRef.current?.querySelectorAll("[data-ranking-id]") || [];
-    filas.forEach((fila) => {
-      const anterior = anteriores.get(fila.dataset.rankingId);
-      if (anterior == null) return;
-      const distancia = anterior - fila.offsetTop;
-      if (Math.abs(distancia) < 1) return;
-      fila.animate(
-        [{ transform: `translateY(${distancia}px)` }, { transform: "translateY(0)" }],
-        { duration: 225, easing: "cubic-bezier(.2,.7,.25,1)" },
-      );
-    });
-  }, [animacion?.indice]);
-
-  useEffect(() => {
-    if (!animacion) return;
     const lista = listaRef.current;
-    if (animacion.fase === "inicio") {
-      lista?.scrollTo({ top: lista.scrollHeight, behavior: "instant" });
-      const timer = setTimeout(() => setAnimacion((actual) => actual && { ...actual, fase: "ascenso" }), 350);
-      return () => clearTimeout(timer);
-    }
-    if (animacion.fase === "ascenso") {
-      if (animacion.indice > animacion.destino) {
-        const timer = setTimeout(() => {
-          const antes = new Map();
-          lista?.querySelectorAll("[data-ranking-id]").forEach((fila) =>
-            antes.set(fila.dataset.rankingId, fila.offsetTop),
-          );
-          anterioresRef.current = antes;
-          reproducir("tic");
-          setAnimacion((actual) => actual && {
-            ...actual,
-            indice: Math.max(actual.destino, actual.indice - 1),
-          });
-        }, 210);
-        return () => clearTimeout(timer);
-      }
-      reproducir("win");
-      const timer = setTimeout(() => setAnimacion((actual) => actual && { ...actual, fase: "final" }), 1100);
-      return () => clearTimeout(timer);
-    }
-    if (animacion.fase === "final") {
-      const timer = setTimeout(() => {
-        setAnimacion(null);
-        lista?.scrollTo({ top: 0, behavior: "smooth" });
-      }, 450);
-      return () => clearTimeout(timer);
-    }
-  }, [animacion]);
+    const flotante = flotanteRef.current;
+    // Esperamos al render de la fila flotante, sin reordenar el listado real.
+    const timer = setTimeout(() => {
+      const area = listaRef.current;
+      const elemento = flotanteRef.current;
+      if (!area || !elemento) { activoRef.current = false; setActivo(null); return; }
+      const n = jugadores.length;
+      const destino = Math.max(0, participantesIndex(jugadores, id));
+      const filas = [...area.querySelectorAll(".ranking-fila")];
+      const paso = filas.length > 1 ? filas[1].offsetTop - filas[0].offsetTop : 56;
+      const fondo = (n - 1) * paso;
+      const inicioScroll = area.scrollHeight - area.clientHeight;
+      const maxScroll = Math.max(0, inicioScroll);
+      let ultimoPaso = n - 1;
+      const inicio = performance.now();
+      const dibujar = (ahora) => {
+        const t = Math.min(DURACION_TOTAL, ahora - inicio);
+        const avance = Math.max(0, Math.min(1, (t - SUBIDA_INICIO) / (SUBIDA_FIN - SUBIDA_INICIO)));
+        const indiceVisual = (n - 1) - (n - 1 - destino) * suavizar(avance);
+        const pasoActual = Math.floor(indiceVisual + .00001);
+        if (pasoActual < ultimoPaso) {
+          // Un tic por puesto superado; la cadencia se adapta al recorrido.
+          for (let i = ultimoPaso; i > pasoActual; i--) reproducir("tic");
+          ultimoPaso = pasoActual;
+        }
+        const yAbsoluta = indiceVisual * paso;
+        const scrollObjetivo = Math.max(0, Math.min(maxScroll, yAbsoluta - area.clientHeight * .55));
+        // Scroll y fila flotante comparten un solo frame: evita tirones.
+        area.scrollTop = scrollObjetivo;
+        elemento.style.transform = `translate3d(0,${yAbsoluta - scrollObjetivo}px,0)`;
+        elemento.querySelector(".ranking-flotante-puesto").textContent = `${Math.floor(indiceVisual + 1)}°`;
+        elemento.style.opacity = t < 170 ? String(t / 170) : "1";
 
-  // Mantener al jugador visible a medida que asciende.
-  useEffect(() => {
-    if (!animacion || animacion.fase !== "ascenso") return;
-    const lista = listaRef.current;
-    const fila = document.getElementById(`ranking-${animacion.id}`);
-    if (!lista || !fila) return;
-    const centro = fila.offsetTop - lista.offsetTop - (lista.clientHeight - fila.clientHeight) / 2;
-    if (fila.offsetTop - lista.offsetTop < lista.scrollTop + lista.clientHeight * 0.25) {
-      lista.scrollTo({ top: Math.max(0, centro), behavior: "smooth" });
-    }
-  }, [animacion?.indice, animacion?.fase, animacion?.id]);
+        if (t >= SUBIDA_FIN && !animacionRef.current?.premio) {
+          reproducir("win");
+          animacionRef.current.premio = true;
+          elemento.classList.add("ranking-flotante-final");
+        }
+        if (t >= DESTACADO_FIN) area.scrollTop = Math.max(0, scrollObjetivo * (DURACION_TOTAL - t) / (DURACION_TOTAL - DESTACADO_FIN));
+        if (t < DURACION_TOTAL) {
+          animacionRef.current.id = requestAnimationFrame(dibujar);
+        } else {
+          setActivo(null);
+          activoRef.current = false;
+          animacionRef.current = null;
+          area.scrollTop = 0;
+        }
+      };
+      animacionRef.current = { id: requestAnimationFrame(dibujar), premio: false };
+    }, 30);
+    return () => {
+      clearTimeout(timer);
+      if (animacionRef.current?.id) cancelAnimationFrame(animacionRef.current.id);
+      animacionRef.current = null;
+      activoRef.current = false;
+    };
+  }, [pendientes, jugadores, activo]);
 
   const podio = jugadores.slice(0, 3);
-  const visibles = [...jugadores];
-  if (animacion) {
-    const posicionReal = visibles.findIndex((p) => p.id === animacion.id);
-    if (posicionReal !== -1) {
-      const [jugador] = visibles.splice(posicionReal, 1);
-      visibles.splice(animacion.indice, 0, jugador);
-    }
-  }
+  const destacado = jugadores.find((p) => p.id === activo);
 
   return (
     <main className="ranking-page">
       <header className="ranking-header">
         <img src={logo} alt="Universidad Siglo 21" />
-        <div className="ranking-toolbar">
-          <span>NB 21K MAR DEL PLATA · <b>{estado}</b></span>
-
-        </div>
+        <span>NB 21K MAR DEL PLATA · <b>{estado}</b></span>
       </header>
       <h1>MEMORIA <span>CONTRARRELOJ</span></h1>
       <p className="ranking-subtitle">UNA CARRERA DE AGILIDAD MENTAL HACIA EL PODIO</p>
@@ -207,18 +193,23 @@ export function RankingMemotest() {
       <div className="ranking-list-title">
         <strong>CLASIFICACIÓN GENERAL</strong><span>{jugadores.length} PARTICIPANTES</span>
       </div>
-      <section className="ranking-lista" ref={listaRef}>
-        {!jugadores.length && <p className="ranking-vacio">¡El desafío está por comenzar!</p>}
-        {visibles.map((p, indice) => <div
-          key={p.id} id={`ranking-${p.id}`} data-ranking-id={p.id}
-          className={`ranking-fila ${animacion?.id === p.id ? "ranking-destacado ranking-ascendiendo" : ""}`}
-        >
-          <b>{animacion?.id === p.id ? indice + 1 : p.puesto}°</b>
-          <span>{p.nombre}</span>
-          <strong>{formatoResultado(p)}</strong>
-        </div>)}
-      </section>
+      <div className="ranking-area">
+        <section className="ranking-lista" ref={listaRef}>
+          {!jugadores.length && <p className="ranking-vacio">¡El desafío está por comenzar!</p>}
+          {jugadores.map((p) => <div key={p.id} className={`ranking-fila ${activo === p.id ? "ranking-fila-oculta" : ""}`}>
+            <b>{p.puesto}°</b><span>{p.nombre}</span><strong>{formatoResultado(p)}</strong>
+          </div>)}
+        </section>
+        {destacado && <div className="ranking-flotante" ref={flotanteRef}>
+          <b className="ranking-flotante-puesto">{jugadores.length}°</b>
+          <span>{destacado.nombre}</span><strong>{formatoResultado(destacado)}</strong>
+        </div>}
+      </div>
       <footer>LOS 3 MEJORES PUESTOS DEL RANKING GANAN PREMIO · UNIVERSIDAD SIGLO 21</footer>
     </main>
   );
+}
+
+function participantesIndex(jugadores, id) {
+  return jugadores.findIndex((p) => p.id === id);
 }
