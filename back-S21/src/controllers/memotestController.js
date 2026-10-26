@@ -7,33 +7,6 @@ const {
   actualizarJuego,
 } = require("../services/memotestSheetsService");
 
-/*
- * Tiempo visible para el participante.
- */
-const TIEMPO_LIMITE_SEGUNDOS = 30;
-
-/*
- * Pequeña tolerancia exclusivamente por demora
- * de red entre terminar y llegar al backend.
- */
-const GRACIA_RED_MS = 1500;
-
-const TIEMPO_LIMITE_BACKEND =
-  TIEMPO_LIMITE_SEGUNDOS * 1000 + GRACIA_RED_MS;
-
-/* =========================================================
-   CÓDIGO DE PREMIO
-========================================================= */
-
-const generarCodigoPremio = () => {
-  const codigo = crypto
-    .randomBytes(4)
-    .toString("hex")
-    .toUpperCase();
-
-  return `S21-MDP-${codigo}`;
-};
-
 /* =========================================================
    REGISTRAR
 ========================================================= */
@@ -140,7 +113,6 @@ const iniciarJuego = async (id) => {
       yaFinalizado: false,
       participante,
       inicioJuego: participante.inicioJuego,
-      tiempoLimite: TIEMPO_LIMITE_SEGUNDOS,
     };
   }
 
@@ -155,7 +127,6 @@ const iniciarJuego = async (id) => {
     yaFinalizado: false,
     participante,
     inicioJuego,
-    tiempoLimite: TIEMPO_LIMITE_SEGUNDOS,
   };
 };
 
@@ -203,19 +174,8 @@ const finalizarJuego = async (
   const tiempoSegundos =
     Math.round((tiempoMs / 1000) * 10) / 10;
 
-  /*
-   * Para ser ganador:
-   * - debe haber encontrado los 6 pares
-   * - debe haber llegado al backend dentro del límite
-   *   + tolerancia de red.
-   */
-  const ganador =
-    Boolean(completado) &&
-    tiempoMs <= TIEMPO_LIMITE_BACKEND;
-
-  const codigoPremio = ganador
-    ? generarCodigoPremio()
-    : "";
+  // Sin límite de tiempo: completar los seis pares define el éxito.
+  const ganador = Boolean(completado) && Number(movimientos) >= 6;
 
   const finJuego = new Date().toISOString();
 
@@ -227,7 +187,6 @@ const finalizarJuego = async (
     tiempoSegundos,
     movimientos: Number(movimientos) || 0,
     ganador,
-    codigoPremio,
   });
 
   return {
@@ -241,9 +200,9 @@ const finalizarJuego = async (
     movimientos: Number(movimientos) || 0,
 
     ganador,
-    codigoPremio,
 
     participaSorteo: true,
+    nuevoFinalizado: true,
   };
 };
 
@@ -251,5 +210,4 @@ module.exports = {
   registrarParticipante,
   iniciarJuego,
   finalizarJuego,
-  TIEMPO_LIMITE_SEGUNDOS,
 };

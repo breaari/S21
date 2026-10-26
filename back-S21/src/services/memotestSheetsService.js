@@ -326,6 +326,7 @@ const actualizarJuego = async (
 module.exports = {
   normalizarEmail,
   normalizarTelefono,
+  obtenerFilas,
   buscarParticipanteExistente,
   buscarParticipantePorId,
   guardarParticipanteMemotest,

@@ -21,8 +21,6 @@ const API_URL = import.meta.env.PROD
   ? ""
   : `http://${window.location.hostname}:3003`;
 
-const TIEMPO_LIMITE = 30;
-
 const AREAS = [
   "Tecnología",
   "Negocios y Administración",
@@ -92,7 +90,8 @@ export function Memotest() {
 
   const [movimientos, setMovimientos] = useState(0);
 
-  const [tiempoRestante, setTiempoRestante] = useState(TIEMPO_LIMITE);
+  const [tiempoTranscurrido, setTiempoTranscurrido] = useState(0);
+  const inicioRef = useRef(null);
 
   const [jugando, setJugando] = useState(false);
 
@@ -224,7 +223,8 @@ export function Memotest() {
       setParejasEncontradas([]);
       setMovimientos(0);
 
-      setTiempoRestante(data.tiempoLimite || TIEMPO_LIMITE);
+      inicioRef.current = new Date(data.inicioJuego).getTime();
+      setTiempoTranscurrido(0);
 
       bloqueoRef.current = false;
 
@@ -239,28 +239,16 @@ export function Memotest() {
   };
 
   /* =====================================================
-     CRONÓMETRO
+     CRONÓMETRO ASCENDENTE (SIN LÍMITE)
   ===================================================== */
 
   useEffect(() => {
-    if (pantalla !== "juego" || !jugando) {
-      return;
-    }
-
-    if (tiempoRestante <= 0) {
-      setJugando(false);
-
-      finalizarJuego(false);
-
-      return;
-    }
-
-    const timer = setTimeout(() => {
-      setTiempoRestante((prev) => prev - 1);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, [pantalla, jugando, tiempoRestante]);
+    if (pantalla !== "juego" || !jugando) return;
+    const actualizar = () => setTiempoTranscurrido(Math.max(0, Math.floor((Date.now() - inicioRef.current) / 1000)));
+    actualizar();
+    const intervalo = setInterval(actualizar, 1000);
+    return () => clearInterval(intervalo);
+  }, [pantalla, jugando]);
 
   /* =====================================================
      CARTAS
@@ -585,18 +573,17 @@ export function Memotest() {
             <span>6 PARES</span>
           </h1>
 
-          <p>Completá el desafío antes de que termine el tiempo.</p>
+          <p className="memo-challenge-lead">Tu desafío: hacerlo en el menor tiempo posible.</p>
 
-          <div className="memo-time-intro">
-            <small>TENÉS</small>
-            <strong>30</strong>
-            <span>SEGUNDOS</span>
+          <div className="memo-rules memo-rules-simple">
+            <div><span>01</span><p><strong>Sin límite de tiempo.</strong> Jugá hasta encontrar los 6 pares.</p></div>
+            <div><span>02</span><p>Si hay empate en segundos, gana quien hizo <strong>menos movimientos.</strong></p></div>
           </div>
 
-          <p className="memo-prize-copy">
-            Si completás el desafío a tiempo, obtenés un código para retirar un
-            premio en nuestro stand.
-          </p>
+          <div className="memo-prize-banner">
+            <span>PREMIAMOS A LOS MEJORES</span>
+            <strong>LOS 3 MEJORES PUESTOS DEL RANKING GANAN PREMIO</strong>
+          </div>
 
           {error && <p className="memo-error">{error}</p>}
 
@@ -629,18 +616,12 @@ export function Memotest() {
 
             <p>ENCONTRÁ LOS 6 PARES</p>
 
-            <div
-              className={`memo-countdown ${
-                tiempoRestante <= 10 ? "warning" : ""
-              } ${tiempoRestante <= 5 ? "critical" : ""}`}
-            >
-              <small>TIEMPO</small>
-
-              <strong>
-                00:
-                {String(tiempoRestante).padStart(2, "0")}
-              </strong>
+            <div className="memo-countdown">
+              <small>TIEMPO TRANSCURRIDO</small>
+              <strong>{String(Math.floor(tiempoTranscurrido / 60)).padStart(2, "0")}:{String(tiempoTranscurrido % 60).padStart(2, "0")}</strong>
             </div>
+
+            <div className="memo-progress">Movimientos <strong>{movimientos}</strong></div>
 
             <div className="memo-progress">
               Pares encontrados <strong>{parejasEncontradas.length} / 6</strong>
@@ -707,57 +688,18 @@ export function Memotest() {
         <section className="memo-result">
           <img className="memo-logo" src={logo} alt="Universidad Siglo 21" />
 
-          {resultado.ganador ? (
-            <>
-              <span className="memo-kicker">¡DESAFÍO SUPERADO!</span>
-
-              <h1>
-                TENÉS UNA
-                <br />
-                <span>SORPRESA</span>
-              </h1>
-
-              <p>Hay un premio esperándote en nuestro stand.</p>
-
-              <div className="memo-code">
-                <small>TU CÓDIGO</small>
-
-                <strong>{resultado.codigoPremio}</strong>
-              </div>
-
-              <p className="memo-result-copy">
-                Presentá este código en el stand de Universidad Siglo 21 durante
-                la acreditación o el día de la Maratón.
-              </p>
-
-              <div className="memo-secondary-message">
-                Además, ya estás participando del sorteo especial.
-              </div>
-            </>
-          ) : (
-            <>
-              <span className="memo-kicker">¡DESAFÍO COMPLETADO!</span>
-
-              <h1>
-                TODAVÍA TENÉS
-                <br />
-                <span>UNA OPORTUNIDAD</span>
-              </h1>
-
-              <p>El tiempo terminó, pero tu participación tiene premio.</p>
-
-              <div className="memo-draw-message">
-                <small>YA ESTÁS PARTICIPANDO DEL</small>
-
-                <strong>SORTEO ESPECIAL</strong>
-              </div>
-
-              <p className="memo-result-copy">
-                No necesitás hacer nada más. Tu participación ya quedó
-                registrada.
-              </p>
-            </>
-          )}
+          <>
+            <span className="memo-kicker">¡DESAFÍO COMPLETADO!</span>
+            <h1>YA ESTÁS EN EL <span>RANKING</span></h1>
+            <p>Encontraste los seis pares.</p>
+            <div className="memo-draw-message">
+              <small>TU RESULTADO</small>
+              <strong>{resultado.movimientos} MOVIMIENTOS</strong>
+              <p>{Number(resultado.tiempoSegundos || 0).toFixed(1).replace(".", ",")} SEGUNDOS</p>
+            </div>
+            <p className="memo-result-copy">Buscá tu nombre en la pantalla del ranking en vivo.</p>
+            <a className="memo-primary memo-ranking-link" href="/memotest/ranking" target="_blank" rel="noopener noreferrer">VER RANKING</a>
+          </>
         </section>
       </main>
     );
@@ -783,21 +725,8 @@ export function Memotest() {
 
           <p>Esta experiencia permite una participación por persona.</p>
 
-          {resultado?.ganador && resultado?.codigoPremio && (
-            <div className="memo-code">
-              <small>TU CÓDIGO DE PREMIO</small>
-
-              <strong>{resultado.codigoPremio}</strong>
-
-              <p>Recordá presentarlo en el stand de Universidad Siglo 21.</p>
-            </div>
-          )}
-
-          {!resultado?.ganador && (
-            <div className="memo-secondary-message">
-              Ya estás participando del sorteo especial.
-            </div>
-          )}
+          <div className="memo-secondary-message">Tu resultado ya está registrado en el ranking.</div>
+          <a className="memo-primary memo-ranking-link" href="/memotest/ranking" target="_blank" rel="noopener noreferrer">VER RANKING</a>
         </section>
       </main>
     );

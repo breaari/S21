@@ -3,6 +3,8 @@ const {
   iniciarJuego,
   finalizarJuego,
 } = require("../controllers/memotestController");
+const { obtenerRanking } = require("../services/memotestRankingService");
+const { emitirFinalizacion, conectarRanking } = require("../services/memotestLiveService");
 
 /* =========================================================
    REGISTRAR
@@ -108,6 +110,7 @@ const finalizarMemotestHandler = async (
         req.body,
       );
 
+    if (participante.nuevoFinalizado) emitirFinalizacion(participante.id);
     return res.status(200).json({
       ok: true,
       participante,
@@ -125,7 +128,19 @@ const finalizarMemotestHandler = async (
   }
 };
 
+const rankingMemotestHandler = async (req, res) => {
+  try {
+    res.set('Cache-Control', 'no-store');
+    return res.json({ ok: true, ranking: await obtenerRanking() });
+  } catch (error) {
+    console.error('Error ranking memotest:', error);
+    return res.status(500).json({ ok: false, error: 'No se pudo obtener el ranking.' });
+  }
+};
+
 module.exports = {
+  rankingMemotestHandler,
+  conectarRanking,
   registrarMemotestHandler,
   iniciarMemotestHandler,
   finalizarMemotestHandler,

@@ -1,0 +1,131 @@
+:root { font-family: Montserrat, Arial, sans-serif; }
+.ranking-page { box-sizing:border-box; position:relative; height:100dvh; overflow:hidden; padding:2.4vh 4vw; color:#f5fff6; background:radial-gradient(circle at 50% -30%, #006553, #103f40 70%); display:flex; flex-direction:column; gap:1.2vh; }
+.ranking-page * { box-sizing:border-box; }
+.ranking-header { display:flex; justify-content:space-between; align-items:center; gap:2vw; font-size:clamp(12px,1.4vw,24px); letter-spacing:.07em; }
+.ranking-header img { width:clamp(120px,13vw,240px); max-height:7vh; object-fit:contain; }
+.ranking-header b { color:#28b9a6; }
+.ranking-page h1 { margin:1vh 0 0; font-size:clamp(26px,4vw,76px); font-weight:900; line-height:1; text-align:center; }
+.ranking-page h1 span { color:#07bd8a; }
+.ranking-subtitle { text-align:center; letter-spacing:.2em; font-size:clamp(12px,1.25vw,23px); margin:0; }
+.ranking-podio { display:flex; align-items:flex-end; justify-content:center; gap:1.5vw; height:32vh; flex-shrink:0; }
+.ranking-podio-slot { width:30%; min-width:0; height:100%; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; text-align:center; min-width:0; gap:.5vh; }
+.ranking-medalla { font-weight:900; font-size:clamp(26px,3.6vw,70px); color:#28b9a6; }
+.ranking-podio-slot strong { width:100%; max-width:100%; overflow:visible; white-space:normal; overflow-wrap:anywhere; line-height:1.15; min-height:2.3em; display:flex; align-items:flex-end; justify-content:center; font-size:clamp(14px,1.6vw,29px); padding:0 7px; }
+.ranking-podio-slot small { font-size:clamp(12px,1.2vw,22px); }
+.ranking-escalon { flex-shrink:0; background:linear-gradient(150deg,#009982,#006553); border:1px solid #28b9a6; border-radius:12px 12px 0 0; width:100%; padding:2vh 1vw; font-size:clamp(10px,1vw,18px); font-weight:800; letter-spacing:.07em; }
+.puesto-1 .ranking-escalon { height:15vh; background:linear-gradient(150deg,#07bd8a,#006553); }
+.puesto-2 .ranking-escalon { height:10vh; }
+.puesto-3 .ranking-escalon { height:7vh; }
+.ranking-list-title { display:flex; justify-content:space-between; align-items:center; letter-spacing:.08em; gap:20px; font-size:clamp(13px,1.3vw,25px); }
+.ranking-list-title span { color:#28b9a6; }
+.ranking-lista { height:100%; overflow-y:auto; min-height:0; scrollbar-width:none; display:flex; flex-direction:column; gap:6px; scroll-behavior:auto; }
+.ranking-lista::-webkit-scrollbar { display:none; }
+.ranking-fila { transition:background .2s ease, box-shadow .2s ease; display:grid; grid-template-columns:9% 1fr auto; align-items:center; background:#ffffff15; border:1px solid #ffffff18; border-radius:9px; padding:1vh 1.5vw; min-height:6vh; gap:1vw; font-size:clamp(14px,1.65vw,30px); }
+.ranking-fila b { color:#28b9a6; }
+.ranking-fila span { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+.ranking-fila strong { font-size:.85em; }
+.ranking-destacado { background:#07bd8a; color:#053e35; border-color:#28b9a6; box-shadow:0 0 35px #07bd8a80; animation:rankingPulso .45s ease-in-out 2; }
+.ranking-destacado b { color:#053e35; }
+.ranking-ascendiendo { position:relative; z-index:2; font-weight:900; outline:none; }
+.ranking-toolbar { display:flex; align-items:center; gap:1.5vw; }
+.ranking-vacio { text-align:center; font-size:2vw; }
+.ranking-page footer { text-align:center; font-size:clamp(10px,1.1vw,20px); letter-spacing:.14em; color:#28b9a6; }
+@keyframes rankingPulso { 50% { filter:brightness(1.3); transform:scale(1.008); } }
+@media (prefers-reduced-motion:reduce) { .ranking-destacado { animation:none; } }
+
+/* Podio: escalones de altura realmente diferente sin quedar aplastados */
+.ranking-podio-slot { height:100%; }
+.ranking-podio-slot .ranking-escalon { flex:0 0 auto; }
+.puesto-1 .ranking-escalon { height:15vh; }
+.puesto-2 .ranking-escalon { height:10vh; }
+.puesto-3 .ranking-escalon { height:7vh; }
+
+/* Overlay de animación independiente del orden y layout de la lista */
+.ranking-area { position:relative; flex:1; min-height:0; overflow:hidden; }
+.ranking-flotante { position:absolute; left:0; right:0; top:0; z-index:10; pointer-events:none; will-change:transform; display:grid; grid-template-columns:9% 1fr auto; align-items:center; gap:1vw; min-height:6vh; padding:1vh 1.5vw; border-radius:9px; background:#07bd8a; color:#053e35; box-shadow:0 0 30px rgba(7,189,138,.45); font-size:clamp(14px,1.65vw,30px); font-weight:800; }
+.ranking-flotante span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.ranking-flotante strong { font-size:.85em; }
+.ranking-flotante-final { box-shadow:0 0 45px rgba(7,189,138,.7); filter:brightness(1.13); }
+.ranking-fila-oculta { visibility:hidden; }
+
+/* Podio adaptable: el contenido conserva su espacio a zoom 100%. */
+.ranking-podio {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  align-items:end;
+  column-gap:1.5vw;
+  height:auto;
+  min-height:0;
+  flex:0 0 auto;
+  padding-top:clamp(4px,.9vh,12px);
+}
+.ranking-podio-slot {
+  width:100%;
+  height:auto;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  gap:clamp(3px,.5vh,9px);
+}
+.ranking-medalla { line-height:1; font-size:clamp(24px,3.2vw,52px); }
+.ranking-podio-slot strong {
+  min-height:0;
+  display:block;
+  width:100%;
+  line-height:1.18;
+  font-size:clamp(14px,1.45vw,26px);
+  overflow-wrap:break-word;
+}
+.ranking-podio-slot small { line-height:1.15; font-size:clamp(11px,1.05vw,18px); }
+.ranking-escalon { padding:12px 8px; display:flex; justify-content:center; align-items:flex-start; font-size:clamp(10px,.95vw,16px); }
+.puesto-1 .ranking-escalon { height:clamp(90px,13vh,145px); }
+.puesto-2 .ranking-escalon { height:clamp(65px,9vh,105px); }
+.puesto-3 .ranking-escalon { height:clamp(45px,6vh,75px); }
+
+@media (max-width:700px) {
+  .ranking-page { padding:14px 12px 12px; gap:10px; }
+  .ranking-header { align-items:flex-start; font-size:10px; gap:8px; }
+  .ranking-header img { width:100px; }
+  .ranking-header > span { text-align:right; line-height:1.35; max-width:58%; }
+  .ranking-page h1 { font-size:clamp(23px,6vw,35px); line-height:1.05; margin:2px 0; }
+  .ranking-subtitle { font-size:10px; line-height:1.4; letter-spacing:.06em; }
+  .ranking-podio { gap:7px; padding-top:6px; }
+  .ranking-medalla { font-size:24px; }
+  .ranking-podio-slot strong { font-size:11px; line-height:1.2; }
+  .ranking-podio-slot small { font-size:9px; }
+  .ranking-escalon { font-size:9px; padding:9px 3px; letter-spacing:0; border-radius:7px 7px 0 0; }
+  .puesto-1 .ranking-escalon { height:90px; }
+  .puesto-2 .ranking-escalon { height:66px; }
+  .puesto-3 .ranking-escalon { height:48px; }
+  .ranking-list-title { font-size:11px; gap:6px; }
+  .ranking-list-title span { font-size:10px; white-space:nowrap; }
+  .ranking-fila,.ranking-flotante { grid-template-columns:12% minmax(0,1fr) auto; min-height:48px; font-size:12px; padding:8px; gap:6px; }
+  .ranking-fila span,.ranking-flotante span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .ranking-fila strong,.ranking-flotante strong { font-size:10px; text-align:right; max-width:130px; }
+  .ranking-page footer { font-size:9px; line-height:1.3; letter-spacing:.03em; }
+}
+@media (max-height:620px) and (min-width:701px) {
+  .ranking-medalla { font-size:clamp(24px,2.5vw,38px); }
+  .puesto-1 .ranking-escalon { height:85px; }
+  .puesto-2 .ranking-escalon { height:62px; }
+  .puesto-3 .ranking-escalon { height:45px; }
+  .ranking-page h1 { font-size:clamp(25px,3.5vw,56px); }
+}
+
+/* Cada rival ocupa suavemente el espacio liberado cuando lo supera el nuevo jugador. */
+.ranking-lista .ranking-fila {
+  transition: transform 200ms cubic-bezier(.2,.8,.2,1), background 200ms ease;
+  will-change: transform;
+}
+.ranking-flotante-final {
+  filter:brightness(1.16);
+  box-shadow:0 0 45px rgba(7,189,138,.65);
+}
+
+/* Solo la fila seleccionada destaca; el fondo conserva el orden definitivo. */
+.ranking-lista .ranking-fila { transform:none; will-change:auto; transition:background-color .28s ease, box-shadow .28s ease; }
+.ranking-lista .ranking-destacado { background:#008d76; color:#fff; border-color:#28b9a6; animation:none; }
+.ranking-lista .ranking-destacado b { color:#fff; }
+.ranking-lista .ranking-llegada { background:#07bd8a; color:#053e35; box-shadow:0 0 26px rgba(7,189,138,.52); }
+.ranking-lista .ranking-llegada b { color:#053e35; }
