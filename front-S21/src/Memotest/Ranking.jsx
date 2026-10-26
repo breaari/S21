@@ -136,7 +136,7 @@ export function RankingMemotest() {
         }
         const yAbsoluta = indiceVisual * paso;
         // Seguimiento continuo: la cámara acompaña al participante durante todo el recorrido.
-        const scrollObjetivo = Math.max(0, Math.min(maxScroll, yAbsoluta - area.clientHeight * .52));
+        const scrollObjetivo = Math.max(0, Math.min(maxScroll, (yAbsoluta - area.clientHeight * .52) * .72));
         // Scroll y fila flotante comparten un solo frame: evita tirones.
         area.scrollTop = scrollObjetivo;
         elemento.style.transform = `translate3d(0,${yAbsoluta - scrollObjetivo}px,0)`;
