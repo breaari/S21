@@ -82,7 +82,7 @@ export function RankingMemotest() {
         <span>NB 21K MAR DEL PLATA · <b>{estado}</b></span>
       </header>
       <h1>EL DESAFÍO DE <span>MEMORIA</span></h1>
-      <p className="ranking-subtitle">MENOS MOVIMIENTOS GANA · EL TIEMPO DESEMPATA</p>
+      <p className="ranking-subtitle">MENOS TIEMPO GANA · MOVIMIENTOS DESEMPATAN</p>
       <section className="ranking-podio">
         {[1, 0, 2].map((indice) => {
           const jugador = podio[indice];
