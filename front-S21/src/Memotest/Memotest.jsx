@@ -573,7 +573,7 @@ export function Memotest() {
             <span>6 PARES</span>
           </h1>
 
-          <p>Encontrá los 6 pares utilizando la menor cantidad de movimientos posible.</p>
+          <p>Encontrá los 6 pares lo más rápido posible. Si empatás en segundos, cuentan tus movimientos.</p>
 
           <div className="memo-time-intro">
             <small>SIN LÍMITE DE TIEMPO</small>
@@ -581,10 +581,7 @@ export function Memotest() {
             <span>PARES POR ENCONTRAR</span>
           </div>
 
-          <p className="memo-prize-copy">
-            Al completar los seis pares, obtenés un código para retirar un
-            premio en nuestro stand.
-          </p>
+          <p className="memo-prize-copy">Al terminar, tu tiempo y tus movimientos se sumarán al ranking en vivo.</p>
 
           {error && <p className="memo-error">{error}</p>}
 
@@ -689,57 +686,17 @@ export function Memotest() {
         <section className="memo-result">
           <img className="memo-logo" src={logo} alt="Universidad Siglo 21" />
 
-          {resultado.ganador ? (
-            <>
-              <span className="memo-kicker">¡DESAFÍO SUPERADO!</span>
-
-              <h1>
-                TENÉS UNA
-                <br />
-                <span>SORPRESA</span>
-              </h1>
-
-              <p>Hay un premio esperándote en nuestro stand.</p>
-
-              <div className="memo-code">
-                <small>TU CÓDIGO</small>
-
-                <strong>{resultado.codigoPremio}</strong>
-              </div>
-
-              <p className="memo-result-copy">
-                Presentá este código en el stand de Universidad Siglo 21 durante
-                la acreditación o el día de la Maratón.
-              </p>
-
-              <div className="memo-secondary-message">
-                Además, ya estás participando del sorteo especial.
-              </div>
-            </>
-          ) : (
-            <>
-              <span className="memo-kicker">¡DESAFÍO COMPLETADO!</span>
-
-              <h1>
-                TODAVÍA TENÉS
-                <br />
-                <span>UNA OPORTUNIDAD</span>
-              </h1>
-
-              <p>Tu participación quedó registrada.</p>
-
-              <div className="memo-draw-message">
-                <small>YA ESTÁS PARTICIPANDO DEL</small>
-
-                <strong>SORTEO ESPECIAL</strong>
-              </div>
-
-              <p className="memo-result-copy">
-                No necesitás hacer nada más. Tu participación ya quedó
-                registrada.
-              </p>
-            </>
-          )}
+          <>
+            <span className="memo-kicker">¡DESAFÍO COMPLETADO!</span>
+            <h1>YA ESTÁS EN EL <span>RANKING</span></h1>
+            <p>Encontraste los seis pares.</p>
+            <div className="memo-draw-message">
+              <small>TU RESULTADO</small>
+              <strong>{resultado.movimientos} MOVIMIENTOS</strong>
+              <p>{Number(resultado.tiempoSegundos || 0).toFixed(1).replace(".", ",")} SEGUNDOS</p>
+            </div>
+            <p className="memo-result-copy">Buscá tu nombre en la pantalla del ranking en vivo.</p>
+          </>
         </section>
       </main>
     );
@@ -765,21 +722,7 @@ export function Memotest() {
 
           <p>Esta experiencia permite una participación por persona.</p>
 
-          {resultado?.ganador && resultado?.codigoPremio && (
-            <div className="memo-code">
-              <small>TU CÓDIGO DE PREMIO</small>
-
-              <strong>{resultado.codigoPremio}</strong>
-
-              <p>Recordá presentarlo en el stand de Universidad Siglo 21.</p>
-            </div>
-          )}
-
-          {!resultado?.ganador && (
-            <div className="memo-secondary-message">
-              Ya estás participando del sorteo especial.
-            </div>
-          )}
+          <div className="memo-secondary-message">Tu resultado ya está registrado en el ranking.</div>
         </section>
       </main>
     );
