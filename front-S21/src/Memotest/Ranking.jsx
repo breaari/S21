@@ -14,6 +14,7 @@ export function RankingMemotest() {
   const listaRef = useRef(null);
   const vistos = useRef(new Set());
   const inicializado = useRef(false);
+  const posicionInicial = useRef(null);
 
   const cargar = useCallback(async (anunciar = false) => {
     const { data } = await axios.get(`${API_URL}/memotest/ranking`, { timeout: 15000 });
@@ -44,42 +45,57 @@ export function RankingMemotest() {
     return () => { cerrado = true; fuente?.close(); clearInterval(revision); };
   }, [cargar]);
 
+  // Los nuevos jugadores entran desde el último lugar y ascienden de una vez.
   useEffect(() => {
     if (animacion || !pendientes.length || !jugadores.length) return;
     const id = pendientes[0];
     const jugador = jugadores.find((p) => p.id === id);
     setPendientes((actual) => actual.slice(1));
-    if (jugador) setAnimacion({ id, indice: jugadores.length - 1, destino: jugador.puesto - 1 });
+    if (jugador) setAnimacion({ id, fase: "inicio" });
   }, [animacion, pendientes, jugadores]);
 
   useEffect(() => {
-    if (!animacion) {
-      if (!pendientes.length) listaRef.current?.scrollTo({ top: 0, behavior: "smooth" });
-      return;
+    if (!animacion || animacion.fase !== "inicio") return;
+    const lista = listaRef.current;
+    lista?.scrollTo({ top: lista.scrollHeight, behavior: "instant" });
+    const timer = setTimeout(() => {
+      const fila = document.getElementById(`ranking-${animacion.id}`);
+      posicionInicial.current = fila?.getBoundingClientRect() || null;
+      setAnimacion({ id: animacion.id, fase: "subiendo" });
+    }, 280);
+    return () => clearTimeout(timer);
+  }, [animacion]);
+
+  useEffect(() => {
+    if (!animacion || animacion.fase !== "subiendo") return;
+    const fila = document.getElementById(`ranking-${animacion.id}`);
+    const lista = listaRef.current;
+    if (fila && lista) {
+      const destino = fila.getBoundingClientRect();
+      const origen = posicionInicial.current;
+      lista.scrollTo({
+        top: fila.offsetTop - lista.offsetTop - lista.clientHeight / 2 + fila.clientHeight / 2,
+        behavior: "smooth",
+      });
+      if (origen && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        fila.animate([
+          { transform: `translateY(${origen.top - destino.top}px) scale(1.035)`, filter: "brightness(1.5)" },
+          { transform: "translateY(0) scale(1)", filter: "brightness(1)" }
+        ], { duration: 950, easing: "cubic-bezier(.2,.8,.2,1)" });
+      }
     }
-    const { id, indice, destino } = animacion;
-    const timerScroll = setTimeout(() => {
-      const fila = document.getElementById(`ranking-${id}`);
-      const lista = listaRef.current;
-      if (fila && lista) {
-        lista.scrollTo({
-          top: fila.offsetTop - lista.offsetTop - lista.clientHeight / 2 + fila.clientHeight / 2,
-          behavior: "smooth",
-        });
-      }
-    }, 70);
+    const timer = setTimeout(() => setAnimacion({ id: animacion.id, fase: "destino" }), 1000);
+    return () => clearTimeout(timer);
+  }, [animacion]);
 
-    const timerSiguiente = setTimeout(() => {
-      if (indice > destino) {
-        setAnimacion((actual) => actual?.id === id
-          ? { ...actual, indice: Math.max(destino, actual.indice - 1) } : actual);
-      } else {
-        setAnimacion(null);
-      }
-    }, indice > destino ? 430 : 2200);
-
-    return () => { clearTimeout(timerScroll); clearTimeout(timerSiguiente); };
-  }, [animacion, pendientes.length]);
+  useEffect(() => {
+    if (!animacion || animacion.fase !== "destino") return;
+    const timer = setTimeout(() => {
+      setAnimacion(null);
+      listaRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    }, 1100);
+    return () => clearTimeout(timer);
+  }, [animacion]);
 
   const destacados = jugadores.slice(0, 3);
   const visibles = [...jugadores];
@@ -87,7 +103,7 @@ export function RankingMemotest() {
     const posicionReal = visibles.findIndex((p) => p.id === animacion.id);
     if (posicionReal !== -1) {
       const [jugador] = visibles.splice(posicionReal, 1);
-      visibles.splice(Math.min(animacion.indice, visibles.length), 0, jugador);
+      visibles.splice(animacion.fase === "inicio" ? visibles.length : posicionReal, 0, jugador);
     }
   }
 
