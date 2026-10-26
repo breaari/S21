@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import axios from "axios";
 import logo from "../assets/logo-blanco-sin-fondo.png";
 import tickSound from "../assets/tic.mp3";
@@ -20,6 +20,7 @@ export function RankingMemotest() {
   const [pendientes, setPendientes] = useState([]);
   const [activo, setActivo] = useState(null);
   const [puestoAnimado, setPuestoAnimado] = useState(null);
+  const posicionesAnteriores = useRef(null);
   const [estado, setEstado] = useState("Conectando...");
   const listaRef = useRef(null);
   const flotanteRef = useRef(null);
@@ -140,6 +141,9 @@ export function RankingMemotest() {
           // Un tic por puesto superado; la cadencia se adapta al recorrido.
           for (let i = ultimoPaso; i > pasoActual; i--) reproducir("tic");
           ultimoPaso = pasoActual;
+          const posiciones = new Map();
+          area.querySelectorAll("[data-player]").forEach((fila) => posiciones.set(fila.dataset.player, fila.offsetTop));
+          posicionesAnteriores.current = posiciones;
           setPuestoAnimado(pasoActual);
         }
         // La fila recorre realmente la pantalla y el listado corre detrás.
@@ -180,10 +184,33 @@ export function RankingMemotest() {
     if (animacionRef.current?.id) cancelAnimationFrame(animacionRef.current.id);
   }, []);
 
+  useLayoutEffect(() => {
+    const anteriores = posicionesAnteriores.current;
+    posicionesAnteriores.current = null;
+    if (!anteriores) return;
+    listaRef.current?.querySelectorAll("[data-player]").forEach((fila) => {
+      const previo = anteriores.get(fila.dataset.player);
+      if (previo === undefined) return;
+      const delta = previo - fila.offsetTop;
+      if (Math.abs(delta) > 1) {
+        fila.animate([{ transform: "translateY(" + delta + "px)" }, { transform: "translateY(0)" }],
+          { duration: 180, easing: "cubic-bezier(.2,.75,.25,1)" });
+      }
+    });
+  }, [puestoAnimado]);
+
   const podio = jugadores.slice(0, 3);
   const destacado = jugadores.find((p) => p.id === activo);
-  const destinoActivo = destacado ? destacado.puesto - 1 : -1;
+
   const indiceVisual = puestoAnimado ?? jugadores.length - 1;
+  const ordenVisual = [...jugadores];
+  if (activo) {
+    const actual = ordenVisual.findIndex((p) => p.id === activo);
+    if (actual !== -1) {
+      const [nuevo] = ordenVisual.splice(actual, 1);
+      ordenVisual.splice(Math.min(indiceVisual, ordenVisual.length), 0, nuevo);
+    }
+  }
 
   return (
     <main className="ranking-page">
@@ -210,8 +237,8 @@ export function RankingMemotest() {
       <div className="ranking-area">
         <section className="ranking-lista" ref={listaRef}>
           {!jugadores.length && <p className="ranking-vacio">¡El desafío está por comenzar!</p>}
-          {jugadores.map((p, i) => <div key={p.id} className={`ranking-fila ${activo === p.id ? "ranking-fila-oculta" : ""}`} style={activo && i >= destinoActivo && i < indiceVisual && p.id !== activo ? { transform: "translateY(calc(-100% - 6px))" } : undefined}>
-            <b>{p.puesto}°</b><span>{p.nombre}</span><strong>{formatoResultado(p)}</strong>
+          {ordenVisual.map((p, i) => <div key={p.id} data-player={p.id} className={"ranking-fila " + (activo === p.id ? "ranking-fila-oculta" : "")}>
+            <b>{i + 1}°</b><span>{p.nombre}</span><strong>{formatoResultado(p)}</strong>
           </div>)}
         </section>
         {destacado && <div className="ranking-flotante" ref={flotanteRef}>
