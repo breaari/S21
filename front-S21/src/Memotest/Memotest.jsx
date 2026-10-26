@@ -21,8 +21,6 @@ const API_URL = import.meta.env.PROD
   ? ""
   : `http://${window.location.hostname}:3003`;
 
-const TIEMPO_LIMITE = 30;
-
 const AREAS = [
   "Tecnología",
   "Negocios y Administración",
@@ -92,7 +90,8 @@ export function Memotest() {
 
   const [movimientos, setMovimientos] = useState(0);
 
-  const [tiempoRestante, setTiempoRestante] = useState(TIEMPO_LIMITE);
+  const [tiempoTranscurrido, setTiempoTranscurrido] = useState(0);
+  const inicioRef = useRef(null);
 
   const [jugando, setJugando] = useState(false);
 
@@ -224,7 +223,8 @@ export function Memotest() {
       setParejasEncontradas([]);
       setMovimientos(0);
 
-      setTiempoRestante(data.tiempoLimite || TIEMPO_LIMITE);
+      inicioRef.current = new Date(data.inicioJuego).getTime();
+      setTiempoTranscurrido(0);
 
       bloqueoRef.current = false;
 
@@ -239,28 +239,16 @@ export function Memotest() {
   };
 
   /* =====================================================
-     CRONÓMETRO
+     CRONÓMETRO ASCENDENTE (SIN LÍMITE)
   ===================================================== */
 
   useEffect(() => {
-    if (pantalla !== "juego" || !jugando) {
-      return;
-    }
-
-    if (tiempoRestante <= 0) {
-      setJugando(false);
-
-      finalizarJuego(false);
-
-      return;
-    }
-
-    const timer = setTimeout(() => {
-      setTiempoRestante((prev) => prev - 1);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, [pantalla, jugando, tiempoRestante]);
+    if (pantalla !== "juego" || !jugando) return;
+    const actualizar = () => setTiempoTranscurrido(Math.max(0, Math.floor((Date.now() - inicioRef.current) / 1000)));
+    actualizar();
+    const intervalo = setInterval(actualizar, 1000);
+    return () => clearInterval(intervalo);
+  }, [pantalla, jugando]);
 
   /* =====================================================
      CARTAS
@@ -585,16 +573,16 @@ export function Memotest() {
             <span>6 PARES</span>
           </h1>
 
-          <p>Completá el desafío antes de que termine el tiempo.</p>
+          <p>Encontrá los 6 pares utilizando la menor cantidad de movimientos posible.</p>
 
           <div className="memo-time-intro">
-            <small>TENÉS</small>
-            <strong>30</strong>
-            <span>SEGUNDOS</span>
+            <small>SIN LÍMITE DE TIEMPO</small>
+            <strong>6</strong>
+            <span>PARES POR ENCONTRAR</span>
           </div>
 
           <p className="memo-prize-copy">
-            Si completás el desafío a tiempo, obtenés un código para retirar un
+            Al completar los seis pares, obtenés un código para retirar un
             premio en nuestro stand.
           </p>
 
@@ -629,18 +617,12 @@ export function Memotest() {
 
             <p>ENCONTRÁ LOS 6 PARES</p>
 
-            <div
-              className={`memo-countdown ${
-                tiempoRestante <= 10 ? "warning" : ""
-              } ${tiempoRestante <= 5 ? "critical" : ""}`}
-            >
-              <small>TIEMPO</small>
-
-              <strong>
-                00:
-                {String(tiempoRestante).padStart(2, "0")}
-              </strong>
+            <div className="memo-countdown">
+              <small>TIEMPO TRANSCURRIDO</small>
+              <strong>{String(Math.floor(tiempoTranscurrido / 60)).padStart(2, "0")}:{String(tiempoTranscurrido % 60).padStart(2, "0")}</strong>
             </div>
+
+            <div className="memo-progress">Movimientos <strong>{movimientos}</strong></div>
 
             <div className="memo-progress">
               Pares encontrados <strong>{parejasEncontradas.length} / 6</strong>
@@ -744,7 +726,7 @@ export function Memotest() {
                 <span>UNA OPORTUNIDAD</span>
               </h1>
 
-              <p>El tiempo terminó, pero tu participación tiene premio.</p>
+              <p>Tu participación quedó registrada.</p>
 
               <div className="memo-draw-message">
                 <small>YA ESTÁS PARTICIPANDO DEL</small>
