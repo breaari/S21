@@ -8,19 +8,6 @@ const {
 } = require("../services/memotestSheetsService");
 
 /* =========================================================
-   CÓDIGO DE PREMIO
-========================================================= */
-
-const generarCodigoPremio = () => {
-  const codigo = crypto
-    .randomBytes(4)
-    .toString("hex")
-    .toUpperCase();
-
-  return `S21-MDP-${codigo}`;
-};
-
-/* =========================================================
    REGISTRAR
 ========================================================= */
 
@@ -190,10 +177,6 @@ const finalizarJuego = async (
   // Sin límite de tiempo: completar los seis pares define el éxito.
   const ganador = Boolean(completado) && Number(movimientos) >= 6;
 
-  const codigoPremio = ganador
-    ? generarCodigoPremio()
-    : "";
-
   const finJuego = new Date().toISOString();
 
   await actualizarJuego(rowNumber, {
@@ -204,7 +187,6 @@ const finalizarJuego = async (
     tiempoSegundos,
     movimientos: Number(movimientos) || 0,
     ganador,
-    codigoPremio,
   });
 
   return {
@@ -218,7 +200,6 @@ const finalizarJuego = async (
     movimientos: Number(movimientos) || 0,
 
     ganador,
-    codigoPremio,
 
     participaSorteo: true,
     nuevoFinalizado: true,
