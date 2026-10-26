@@ -576,7 +576,7 @@ export function Memotest() {
           <p className="memo-challenge-lead">Tu desafío: hacerlo en el menor tiempo posible.</p>
 
           <div className="memo-rules memo-rules-simple">
-            <div><span>01</span><p><strong>Sin límite de tiempo.</strong> El cronómetro cuenta hacia adelante.</p></div>
+            <div><span>01</span><p><strong>Sin límite de tiempo.</strong> Jugá hasta encontrar los 6 pares.</p></div>
             <div><span>02</span><p>Si hay empate en segundos, gana quien hizo <strong>menos movimientos.</strong></p></div>
           </div>
 
