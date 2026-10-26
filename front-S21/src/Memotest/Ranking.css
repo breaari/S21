@@ -112,3 +112,13 @@
   .puesto-3 .ranking-escalon { height:45px; }
   .ranking-page h1 { font-size:clamp(25px,3.5vw,56px); }
 }
+
+/* Cada rival ocupa suavemente el espacio liberado cuando lo supera el nuevo jugador. */
+.ranking-lista .ranking-fila {
+  transition: transform 200ms cubic-bezier(.2,.8,.2,1), background 200ms ease;
+  will-change: transform;
+}
+.ranking-flotante-final {
+  filter:brightness(1.16);
+  box-shadow:0 0 45px rgba(7,189,138,.65);
+}
