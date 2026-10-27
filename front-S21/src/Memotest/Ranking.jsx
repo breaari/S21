@@ -126,7 +126,7 @@ export function RankingMemotest() {
     if (!lista) return;
     const posiciones = new Map();
     lista.querySelectorAll("[data-player]").forEach((fila) =>
-      posiciones.set(fila.dataset.player, fila.getBoundingClientRect().top)
+      posiciones.set(fila.dataset.player, fila.offsetTop)
     );
     // La fila estaba última; guardamos su ubicación y cambiamos el orden real.
     posicionesRef.current = posiciones;
@@ -143,21 +143,21 @@ export function RankingMemotest() {
     lista.querySelectorAll("[data-player]").forEach((fila) => {
       const antes = anteriores.get(fila.dataset.player);
       if (antes === undefined) return;
-      const despues = fila.getBoundingClientRect().top;
+      const despues = fila.offsetTop;
       const delta = antes - despues;
       if (Math.abs(delta) > 1) {
         fila.animate([
           { transform: "translateY(" + delta + "px)" },
           { transform: "translateY(0px)" }
-        ], { duration: 1300, easing: "cubic-bezier(.25,.8,.25,1)" });
+        ], { duration: 1050, easing: "cubic-bezier(.25,.75,.3,1)" });
       }
     });
     const target = nuevaFila.offsetTop - lista.offsetTop -
       (lista.clientHeight - nuevaFila.clientHeight) / 2;
     lista.scrollTo({ top: Math.max(0,target), behavior: "smooth" });
     reproducir("tic");
-    const ganar = setTimeout(() => reproducir("win"), 1300);
-    const pausa = setTimeout(() => setFase("pausa"), 1350);
+    const ganar = setTimeout(() => reproducir("win"), 1050);
+    const pausa = setTimeout(() => setFase("pausa"), 1100);
     return () => { clearTimeout(ganar); clearTimeout(pausa); };
   }, [activo, fase]);
 
