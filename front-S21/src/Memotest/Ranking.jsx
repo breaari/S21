@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import axios from "axios";
 import logo from "../assets/logo-blanco-sin-fondo.png";
 import tickSound from "../assets/tic.mp3";
@@ -17,6 +17,7 @@ export function RankingMemotest() {
   const [pendientes, setPendientes] = useState([]);
   const [activo, setActivo] = useState(null);
   const [fase, setFase] = useState("reposo");
+  const posicionesRef = useRef(null);
   const [estado, setEstado] = useState("Conectando...");
   const listaRef = useRef(null);
   const vistos = useRef(new Set());
@@ -24,7 +25,7 @@ export function RankingMemotest() {
   const audioCtx = useRef(null);
   const buffers = useRef({});
   const activoRef = useRef(false);
-  const timersRef = useRef([]);
+
 
   const reproducir = (tipo) => {
     const ctx = audioCtx.current;
@@ -98,8 +99,7 @@ export function RankingMemotest() {
     return () => { cerrada = true; eventos?.close(); clearInterval(revision); };
   }, [cargar]);
 
-  // Animación sencilla: clasificación definitiva, viaje al puesto, pausa y regreso.
-  // El listado nunca cambia de orden y no se anima una fila aparte.
+  // Una incorporación: comienza al final, se mueve a su posición y se detiene.
   useEffect(() => {
     if (activoRef.current || !pendientes.length || !jugadores.length) return;
     const id = pendientes[0];
@@ -107,52 +107,83 @@ export function RankingMemotest() {
     if (!jugadores.some((p) => p.id === id)) return;
     activoRef.current = true;
     setActivo(id);
+    setFase("inicio");
   }, [pendientes, jugadores]);
 
   useEffect(() => {
-    if (!activo) return;
+    if (!activo || fase !== "inicio") return;
     const lista = listaRef.current;
-    const fila = [...(lista?.querySelectorAll("[data-player]") || [])]
-      .find((item) => item.dataset.player === activo);
-    if (!lista || !fila) return;
+    if (!lista) return;
+    // Mostrar la llegada al último lugar ANTES del cambio de posición.
+    lista.scrollTop = lista.scrollHeight;
+    const timer = setTimeout(() => setFase("subiendo"), 450);
+    return () => clearTimeout(timer);
+  }, [activo, fase]);
 
-    const programar = (fn, ms) => {
-      const id = setTimeout(fn, ms);
-      timersRef.current.push(id);
-    };
+  useLayoutEffect(() => {
+    if (!activo || fase !== "subiendo") return;
+    const lista = listaRef.current;
+    if (!lista) return;
+    const posiciones = new Map();
+    lista.querySelectorAll("[data-player]").forEach((fila) =>
+      posiciones.set(fila.dataset.player, fila.getBoundingClientRect().top)
+    );
+    // La fila estaba última; guardamos su ubicación y cambiamos el orden real.
+    posicionesRef.current = posiciones;
+    setFase("destino");
+  }, [activo, fase]);
 
-    setFase("entrada");
+  useLayoutEffect(() => {
+    if (!activo || fase !== "destino") return;
+    const lista = listaRef.current;
+    if (!lista) return;
+    const nuevaFila = lista.querySelector('[data-player="' + activo + '"]');
+    const anteriores = posicionesRef.current;
+    if (!nuevaFila || !anteriores) return;
+    lista.querySelectorAll("[data-player]").forEach((fila) => {
+      const antes = anteriores.get(fila.dataset.player);
+      if (antes === undefined) return;
+      const despues = fila.getBoundingClientRect().top;
+      const delta = antes - despues;
+      if (Math.abs(delta) > 1) {
+        fila.animate([
+          { transform: "translateY(" + delta + "px)" },
+          { transform: "translateY(0px)" }
+        ], { duration: 1300, easing: "cubic-bezier(.25,.8,.25,1)" });
+      }
+    });
+    const target = nuevaFila.offsetTop - lista.offsetTop -
+      (lista.clientHeight - nuevaFila.clientHeight) / 2;
+    lista.scrollTo({ top: Math.max(0,target), behavior: "smooth" });
     reproducir("tic");
+    const ganar = setTimeout(() => reproducir("win"), 1300);
+    const pausa = setTimeout(() => setFase("pausa"), 1350);
+    return () => { clearTimeout(ganar); clearTimeout(pausa); };
+  }, [activo, fase]);
 
-    // Si el puesto ya se ve, no hay desplazamiento: la entrada se destaca
-    // mediante una placa sobre la lista. Si no, hacemos un solo scroll directo.
-    const destino = fila.offsetTop - lista.offsetTop -
-      (lista.clientHeight - fila.clientHeight) / 2;
-    lista.scrollTo({ top: Math.max(0, destino), behavior: "smooth" });
+  useEffect(() => {
+    if (!activo || fase !== "pausa") return;
+    const timer = setTimeout(() => setFase("regreso"), 2800);
+    return () => clearTimeout(timer);
+  }, [activo, fase]);
 
-    programar(() => {
-      setFase("llegada");
-      reproducir("win");
-    }, 750);
-
-    programar(() => {
-      setFase("regreso");
-      lista.scrollTo({ top: 0, behavior: "smooth" });
-    }, 3900);
-
-    programar(() => {
+  useEffect(() => {
+    if (!activo || fase !== "regreso") return;
+    listaRef.current?.scrollTo({ top:0, behavior:"smooth" });
+    const timer = setTimeout(() => {
       setActivo(null);
       setFase("reposo");
       activoRef.current = false;
-    }, 4800);
-  }, [activo]);
-
-  useEffect(() => () => {
-    timersRef.current.forEach(clearTimeout);
-  }, []);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [activo, fase]);
 
   const podio = jugadores.slice(0, 3);
-  const nuevo = jugadores.find((p) => p.id === activo);
+  const ordenVisible = [...jugadores];
+  if (activo && (fase === "inicio" || fase === "subiendo")) {
+    const indice = ordenVisible.findIndex((p) => p.id === activo);
+    if (indice !== -1) ordenVisible.push(...ordenVisible.splice(indice, 1));
+  }
 
   return (
     <main className="ranking-page">
@@ -179,17 +210,12 @@ export function RankingMemotest() {
       <div className="ranking-area">
         <section className="ranking-lista" ref={listaRef}>
           {!jugadores.length && <p className="ranking-vacio">¡El desafío está por comenzar!</p>}
-          {jugadores.map((p) => <div key={p.id} data-player={p.id}
-            className={"ranking-fila " + (activo === p.id ? "ranking-destacado " + (fase === "llegada" ? "ranking-llegada" : "") : "")}>
-            <b>{p.puesto}°</b><span>{p.nombre}</span><strong>{formatoResultado(p)}</strong>
+          {ordenVisible.map((p, i) => <div key={p.id} data-player={p.id}
+            className={"ranking-fila " + (activo === p.id ? "ranking-destacado " + (fase === "pausa" ? "ranking-llegada" : "") : "")}>
+            <b>{i+1}°</b><span>{p.nombre}</span><strong>{formatoResultado(p)}</strong>
           </div>)}
         </section>
-        {nuevo && <div className={"ranking-anuncio ranking-anuncio-" + fase} role="status">
-          <span>NUEVO TIEMPO REGISTRADO</span>
-          <strong>{nuevo.nombre}</strong>
-          <div className="ranking-anuncio-marca">PUESTO {nuevo.puesto}°</div>
-          <small>{formatoResultado(nuevo)}</small>
-        </div>}
+
       </div>
       <footer>LOS 3 MEJORES PUESTOS DEL RANKING GANAN PREMIO · UNIVERSIDAD SIGLO 21</footer>
     </main>
