@@ -6,7 +6,7 @@ const rechargeSound = Object.values(rechargeFiles)[0];
 import "./Ranking.css";
 
 const API_URL = import.meta.env.PROD ? "" : `http://${window.location.hostname}:3003`;
-const PAUSA_EN_PUESTO = 2200;
+const PAUSA_EN_PUESTO = 2000;
 const DURACION_ASCENSO = 5000;
 const DURACION_SCROLL = 850;
 const DURACION_RETORNO = 900;
