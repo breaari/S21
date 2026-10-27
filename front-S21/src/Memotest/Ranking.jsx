@@ -149,15 +149,15 @@ export function RankingMemotest() {
         fila.animate([
           { transform: "translateY(" + delta + "px)" },
           { transform: "translateY(0px)" }
-        ], { duration: 1050, easing: "cubic-bezier(.25,.75,.3,1)" });
+        ], { duration: 1450, easing: "cubic-bezier(.25,.75,.3,1)" });
       }
     });
     const target = nuevaFila.offsetTop - lista.offsetTop -
       (lista.clientHeight - nuevaFila.clientHeight) / 2;
     lista.scrollTo({ top: Math.max(0,target), behavior: "smooth" });
     reproducir("tic");
-    const ganar = setTimeout(() => reproducir("win"), 1050);
-    const pausa = setTimeout(() => setFase("pausa"), 1100);
+    const ganar = setTimeout(() => reproducir("win"), 1450);
+    const pausa = setTimeout(() => setFase("pausa"), 1500);
     return () => { clearTimeout(ganar); clearTimeout(pausa); };
   }, [activo, fase]);
 
