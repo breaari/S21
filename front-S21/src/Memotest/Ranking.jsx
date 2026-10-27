@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import axios from "axios";
 import logo from "../assets/logo-blanco-sin-fondo.png";
-import tickSound from "../assets/tic.mp3";
-import winSound from "../assets/win.mp3";
+const rechargeFiles = import.meta.glob("../assets/recharge.{mp3,wav,ogg,m4a}", { eager: true, query: "?url", import: "default" });
+const rechargeSound = Object.values(rechargeFiles)[0];
 import "./Ranking.css";
 
 const API_URL = import.meta.env.PROD ? "" : `http://${window.location.hostname}:3003`;
-const PAUSA_EN_PUESTO = 2800;
+const PAUSA_EN_PUESTO = 2200;
+const DURACION_ASCENSO = 5000;
 const DURACION_SCROLL = 850;
 const DURACION_RETORNO = 900;
 const formatoResultado = (p) =>
@@ -34,7 +35,7 @@ export function RankingMemotest() {
     const fuente = ctx.createBufferSource();
     const volumen = ctx.createGain();
     fuente.buffer = buffer;
-    volumen.gain.value = tipo === "tic" ? 0.48 : 0.75;
+    volumen.gain.value = 0.65;
     fuente.connect(volumen);
     volumen.connect(ctx.destination);
     fuente.start();
@@ -51,14 +52,14 @@ export function RankingMemotest() {
         if (!audioCtx.current) audioCtx.current = new Contexto();
         const ctx = audioCtx.current;
         if (ctx.state === "suspended") await ctx.resume();
-        if (buffers.current.tic || cancelado) return;
+        if (buffers.current.recharge || cancelado || !rechargeSound) return;
         const cargar = async (url) => {
           const response = await fetch(url);
           if (!response.ok) throw new Error("Audio no disponible");
           return ctx.decodeAudioData(await response.arrayBuffer());
         };
-        const [tic, win] = await Promise.all([cargar(tickSound), cargar(winSound)]);
-        if (!cancelado) buffers.current = { tic, win };
+        const recharge = await cargar(rechargeSound);
+        if (!cancelado) buffers.current = { recharge };
       } catch (error) { console.warn("Audio del ranking:", error); }
     };
     preparar();
@@ -149,16 +150,15 @@ export function RankingMemotest() {
         fila.animate([
           { transform: "translateY(" + delta + "px)" },
           { transform: "translateY(0px)" }
-        ], { duration: 1450, easing: "cubic-bezier(.25,.75,.3,1)" });
+        ], { duration: DURACION_ASCENSO, easing: "cubic-bezier(.25,.75,.3,1)" });
       }
     });
     const target = nuevaFila.offsetTop - lista.offsetTop -
       (lista.clientHeight - nuevaFila.clientHeight) / 2;
     lista.scrollTo({ top: Math.max(0,target), behavior: "smooth" });
-    reproducir("tic");
-    const ganar = setTimeout(() => reproducir("win"), 1450);
-    const pausa = setTimeout(() => setFase("pausa"), 1500);
-    return () => { clearTimeout(ganar); clearTimeout(pausa); };
+    reproducir("recharge");
+    const pausa = setTimeout(() => setFase("pausa"), DURACION_ASCENSO + 50);
+    return () => clearTimeout(pausa);
   }, [activo, fase]);
 
   useEffect(() => {
