@@ -60,7 +60,7 @@ const normalizarTelefono = (telefono = "") =>
    ASEGURAR HOJA
 ========================================================= */
 
-const asegurarHoja = async () => {
+const verificarHoja = async () => {
   if (!SPREADSHEET_ID) {
     throw new Error("Falta RULETA_SHEET_ID");
   }
@@ -98,6 +98,19 @@ const asegurarHoja = async () => {
       },
     });
   }
+};
+
+// La estructura de la hoja se verifica una sola vez por proceso.
+// Si falla, se reintenta en la siguiente solicitud.
+let verificacionHoja = null;
+const asegurarHoja = () => {
+  if (!verificacionHoja) {
+    verificacionHoja = verificarHoja().catch((error) => {
+      verificacionHoja = null;
+      throw error;
+    });
+  }
+  return verificacionHoja;
 };
 
 /* =========================================================
