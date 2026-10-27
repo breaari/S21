@@ -117,7 +117,9 @@ export function RankingMemotest() {
     if (!lista) return;
     // Mostrar la llegada al último lugar ANTES del cambio de posición.
     lista.scrollTop = lista.scrollHeight;
-    const timer = setTimeout(() => setFase("subiendo"), 450);
+    // El sonido comienza un segundo antes del desplazamiento.
+    reproducir("recharge");
+    const timer = setTimeout(() => setFase("subiendo"), 1000);
     return () => clearTimeout(timer);
   }, [activo, fase]);
 
@@ -156,7 +158,6 @@ export function RankingMemotest() {
     const target = nuevaFila.offsetTop - lista.offsetTop -
       (lista.clientHeight - nuevaFila.clientHeight) / 2;
     lista.scrollTo({ top: Math.max(0,target), behavior: "smooth" });
-    reproducir("recharge");
     const pausa = setTimeout(() => setFase("pausa"), DURACION_ASCENSO + 50);
     return () => clearTimeout(pausa);
   }, [activo, fase]);
