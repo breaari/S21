@@ -129,3 +129,14 @@
 .ranking-lista .ranking-destacado b { color:#fff; }
 .ranking-lista .ranking-llegada { background:#07bd8a; color:#053e35; box-shadow:0 0 26px rgba(7,189,138,.52); }
 .ranking-lista .ranking-llegada b { color:#053e35; }
+
+/* Presentación breve para nuevos tiempos, incluso si el puesto ya está visible */
+.ranking-anuncio { position:absolute; z-index:15; left:50%; top:50%; width:min(90%,580px); transform:translate(-50%,-45%) scale(.93); opacity:0; pointer-events:none; text-align:center; border-radius:18px; padding:20px 26px; color:white; background:linear-gradient(120deg,#006553,#009982); border:1px solid #28b9a6; box-shadow:0 16px 55px #001f1980; transition:transform .45s cubic-bezier(.18,.85,.25,1),opacity .35s ease; }
+.ranking-anuncio-entrada,.ranking-anuncio-llegada { opacity:1; transform:translate(-50%,-50%) scale(1); }
+.ranking-anuncio-regreso { opacity:0; transform:translate(-50%,-60%) scale(.96); }
+.ranking-anuncio > span { display:block; color:#a6f0d9; font-weight:800; letter-spacing:.13em; font-size:clamp(10px,1vw,16px); }
+.ranking-anuncio strong { display:block; font-size:clamp(20px,2.5vw,43px); margin:8px 0; overflow-wrap:anywhere; }
+.ranking-anuncio-marca { font-size:clamp(24px,3vw,50px); font-weight:900; color:#fff; }
+.ranking-anuncio small { display:block; margin-top:5px; font-size:clamp(12px,1.2vw,20px); }
+@media(max-width:700px) { .ranking-anuncio { padding:15px 12px; } }
+@media(prefers-reduced-motion:reduce) { .ranking-anuncio { transition:none; } }
