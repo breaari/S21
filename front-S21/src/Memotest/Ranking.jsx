@@ -16,6 +16,7 @@ export function RankingMemotest() {
   const [jugadores, setJugadores] = useState([]);
   const [pendientes, setPendientes] = useState([]);
   const [activo, setActivo] = useState(null);
+  const [fase, setFase] = useState("reposo");
   const [estado, setEstado] = useState("Conectando...");
   const listaRef = useRef(null);
   const vistos = useRef(new Set());
@@ -119,26 +120,31 @@ export function RankingMemotest() {
       const id = setTimeout(fn, ms);
       timersRef.current.push(id);
     };
-    // Un solo desplazamiento suave, directamente hasta el puesto final.
+
+    setFase("entrada");
+    reproducir("tic");
+
+    // Si el puesto ya se ve, no hay desplazamiento: la entrada se destaca
+    // mediante una placa sobre la lista. Si no, hacemos un solo scroll directo.
+    const destino = fila.offsetTop - lista.offsetTop -
+      (lista.clientHeight - fila.clientHeight) / 2;
+    lista.scrollTo({ top: Math.max(0, destino), behavior: "smooth" });
+
     programar(() => {
-      const destino = fila.offsetTop - lista.offsetTop -
-        (lista.clientHeight - fila.clientHeight) / 2;
-      lista.scrollTo({ top: Math.max(0, destino), behavior: "smooth" });
-      reproducir("tic");
-    }, 120);
-    programar(() => {
+      setFase("llegada");
       reproducir("win");
-      fila.classList.add("ranking-llegada");
-    }, DURACION_SCROLL + 120);
-    // Se ve el nombre destacado durante casi tres segundos.
+    }, 750);
+
     programar(() => {
-      fila.classList.remove("ranking-llegada");
+      setFase("regreso");
       lista.scrollTo({ top: 0, behavior: "smooth" });
-    }, DURACION_SCROLL + PAUSA_EN_PUESTO + 120);
+    }, 3900);
+
     programar(() => {
       setActivo(null);
+      setFase("reposo");
       activoRef.current = false;
-    }, DURACION_SCROLL + PAUSA_EN_PUESTO + DURACION_RETORNO + 180);
+    }, 4800);
   }, [activo]);
 
   useEffect(() => () => {
@@ -146,6 +152,7 @@ export function RankingMemotest() {
   }, []);
 
   const podio = jugadores.slice(0, 3);
+  const nuevo = jugadores.find((p) => p.id === activo);
 
   return (
     <main className="ranking-page">
@@ -173,11 +180,16 @@ export function RankingMemotest() {
         <section className="ranking-lista" ref={listaRef}>
           {!jugadores.length && <p className="ranking-vacio">¡El desafío está por comenzar!</p>}
           {jugadores.map((p) => <div key={p.id} data-player={p.id}
-            className={"ranking-fila " + (activo === p.id ? "ranking-destacado" : "")}>
+            className={"ranking-fila " + (activo === p.id ? "ranking-destacado " + (fase === "llegada" ? "ranking-llegada" : "") : "")}>
             <b>{p.puesto}°</b><span>{p.nombre}</span><strong>{formatoResultado(p)}</strong>
           </div>)}
         </section>
-
+        {nuevo && <div className={"ranking-anuncio ranking-anuncio-" + fase} role="status">
+          <span>NUEVO TIEMPO REGISTRADO</span>
+          <strong>{nuevo.nombre}</strong>
+          <div className="ranking-anuncio-marca">PUESTO {nuevo.puesto}°</div>
+          <small>{formatoResultado(nuevo)}</small>
+        </div>}
       </div>
       <footer>LOS 3 MEJORES PUESTOS DEL RANKING GANAN PREMIO · UNIVERSIDAD SIGLO 21</footer>
     </main>
