@@ -29,6 +29,9 @@ const construirRanking = async () => {
 };
 
 const obtenerRanking = async () => {
+  if (process.env.MEMOTEST_STORAGE === "postgres") {
+    return require("./memotestRepository").obtenerRanking();
+  }
   if (cache && Date.now() < vigenteHasta) return cache;
   if (lecturaPendiente) return lecturaPendiente;
   lecturaPendiente = construirRanking().then((resultado) => {
