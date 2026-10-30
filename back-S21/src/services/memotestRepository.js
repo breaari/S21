@@ -52,7 +52,7 @@ const buscarExistente = async ({ email, telefono }) => {
     `SELECT ${fields} FROM memotest_participantes p
      JOIN memotest_partidas g ON g.participante_id = p.id
      WHERE ($1 <> '' AND LOWER(p.email) = $1)
-        OR ($2 <> '' AND regexp_replace(regexp_replace(p.telefono, '[^0-9]', '', 'g'), '^549?', '') = $2)
+        OR ($2 <> '' AND regexp_replace(regexp_replace(regexp_replace(p.telefono, '[^0-9]', '', 'g'), '^549', ''), '^54', '') = $2)
      ORDER BY p.fecha_registro ASC LIMIT 1`,
     [correo, numero]
   );
