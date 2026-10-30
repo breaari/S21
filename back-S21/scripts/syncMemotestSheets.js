@@ -8,6 +8,9 @@ const { getPool } = require("../src/services/memotestDb");
 const spreadsheetId = process.env.RULETA_SHEET_ID;
 const name = (process.env.MEMOTEST_SHEET_NAME || "Memotest Maraton").replace(/'/g, "''");
 if (!spreadsheetId) throw new Error("Falta RULETA_SHEET_ID");
+if (process.env.MEMOTEST_SYNC_ENABLED !== "1") {
+  throw new Error("Sincronización deshabilitada: requiere MEMOTEST_SYNC_ENABLED=1 tras validar la importación");
+}
 
 const auth = new google.auth.GoogleAuth({
   keyFile: path.resolve(__dirname, "../google-sheets-credentials.json"),
