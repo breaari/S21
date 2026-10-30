@@ -31,6 +31,7 @@ jobs:
           node --check scripts/importMemotestFromSheets.js
           node --check scripts/syncMemotestSheets.js
           node --check scripts/checkMemotestDatabase.js
+          node --check scripts/auditMemotestSheets.js
       - name: Unit tests without external services
         run: npm run test:memotest
 
