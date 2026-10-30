@@ -62,9 +62,9 @@ const run = async () => {
       const fin = validISO(r(14));
       const ms = r(15) === "" ? null : Number(r(15));
       const moves = r(17) === "" ? null : Number(r(17));
-      const completed = estado === "FINALIZADO" && Boolean(fin) && Number.isFinite(ms) && ms >= 0
+      const completed = estado === "FINALIZADO" && Boolean(comienzo) && Boolean(fin) && Number.isFinite(ms) && ms >= 0
         && Number.isInteger(moves) && moves >= 0;
-      if (estado === "FINALIZADO" && !completed) {
+      if ((estado === "FINALIZADO" && !completed) || (estado === "JUGANDO" && !comienzo)) {
         console.warn("Registro finalizado incompleto, omitido:", uuid);
         counts.skipped++;
         continue;
