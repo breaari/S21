@@ -3,7 +3,7 @@ const {
   iniciarJuego,
   finalizarJuego,
 } = require("../controllers/memotestController");
-const { obtenerRanking } = require("../services/memotestRankingService");
+const { obtenerRanking, invalidarRanking } = require("../services/memotestRankingService");
 const { emitirFinalizacion, conectarRanking } = require("../services/memotestLiveService");
 
 /* =========================================================
@@ -110,7 +110,10 @@ const finalizarMemotestHandler = async (
         req.body,
       );
 
-    if (participante.nuevoFinalizado) emitirFinalizacion(participante.id);
+    if (participante.nuevoFinalizado) {
+      invalidarRanking();
+      emitirFinalizacion(participante.id);
+    }
     return res.status(200).json({
       ok: true,
       participante,
