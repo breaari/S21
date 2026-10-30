@@ -17,6 +17,7 @@ const sheets = google.sheets({ version: "v4", auth });
 const sheetRange = (range) => `'${name}'!${range}`;
 const encode = (v) => v == null ? "" : String(v);
 const bool = (v) => v ? "SI" : "NO";
+const isUuid = (v) => /^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(String(v || ""));
 const fechaHora = (value) => {
   const date = new Date(value);
   const dt = new Intl.DateTimeFormat("es-AR", {
@@ -70,9 +71,9 @@ const worker = async () => {
     rows.forEach((row, i) => {
       const canonical = row[2];
       const shifted = row[18];
-      if (canonical) {
+      if (isUuid(canonical)) {
         if (!lookup.has(canonical)) lookup.set(canonical, { row: i + 1, shifted: false });
-      } else if (shifted) {
+      } else if (isUuid(shifted)) {
         if (!lookup.has(shifted)) lookup.set(shifted, { row: i + 1, shifted: true });
       }
     });
