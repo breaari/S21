@@ -10,6 +10,7 @@ const PAUSA_EN_PUESTO = 2000;
 const DURACION_ASCENSO = 5000;
 const DURACION_SCROLL = 850;
 const DURACION_RETORNO = 900;
+const MAX_ANIMACIONES_PENDIENTES = 5;
 const formatoResultado = (p) =>
   `${p.tiempoSegundos.toFixed(1).replace(".", ",")} s · ${p.movimientos} movimientos`;
 
@@ -26,6 +27,9 @@ export function RankingMemotest() {
   const audioCtx = useRef(null);
   const buffers = useRef({});
   const activoRef = useRef(false);
+  const cargandoRef = useRef(false);
+  const repetirCargaRef = useRef(false);
+  const anunciarRepeticionRef = useRef(false);
 
 
   const reproducir = (tipo) => {
@@ -72,16 +76,44 @@ export function RankingMemotest() {
     };
   }, []);
 
+  // Una sola consulta en curso: un evento SSE no dispara otra petición
+  // si ya estamos descargando el ranking. Al finalizar se aplica la última.
   const cargar = useCallback(async (anunciar = false) => {
-    const { data } = await axios.get(`${API_URL}/memotest/ranking`, { timeout: 15000 });
-    const nuevos = data.ranking.filter((p) => !vistos.current.has(p.id));
-    data.ranking.forEach((p) => vistos.current.add(p.id));
-    setJugadores(data.ranking);
-    setEstado("EN VIVO");
-    if (inicializado.current && anunciar && nuevos.length) {
-      setPendientes((anteriores) => [...anteriores, ...nuevos.map((p) => p.id)]);
+    if (cargandoRef.current) {
+      repetirCargaRef.current = true;
+      anunciarRepeticionRef.current ||= anunciar;
+      return;
     }
-    inicializado.current = true;
+    cargandoRef.current = true;
+    try {
+      do {
+        repetirCargaRef.current = false;
+        const notificar = anunciar || anunciarRepeticionRef.current;
+        anunciarRepeticionRef.current = false;
+        try {
+          const { data } = await axios.get(`${API_URL}/memotest/ranking`, { timeout: 15000 });
+          const ranking = Array.isArray(data.ranking) ? data.ranking : [];
+          const nuevos = ranking.filter((p) => !vistos.current.has(p.id));
+          ranking.forEach((p) => vistos.current.add(p.id));
+          setJugadores(ranking);
+          setEstado("EN VIVO");
+          if (inicializado.current && notificar && nuevos.length) {
+            setPendientes((prev) => {
+              const ids = [...new Set([...prev, ...nuevos.map((p) => p.id)])];
+              // La pantalla debe mantenerse actualizada incluso ante una ráfaga.
+              // Priorizamos las últimas incorporaciones; el podio siempre es completo.
+              return ids.slice(-MAX_ANIMACIONES_PENDIENTES);
+            });
+          }
+          inicializado.current = true;
+        } catch {
+          setEstado("Reconectando...");
+        }
+        anunciar = false;
+      } while (repetirCargaRef.current);
+    } finally {
+      cargandoRef.current = false;
+    }
   }, []);
 
   useEffect(() => {
@@ -164,7 +196,7 @@ export function RankingMemotest() {
 
   useEffect(() => {
     if (!activo || fase !== "pausa") return;
-    const timer = setTimeout(() => setFase("regreso"), 2800);
+    const timer = setTimeout(() => setFase("regreso"), PAUSA_EN_PUESTO + 800);
     return () => clearTimeout(timer);
   }, [activo, fase]);
 
@@ -175,7 +207,7 @@ export function RankingMemotest() {
       setActivo(null);
       setFase("reposo");
       activoRef.current = false;
-    }, 1000);
+    }, DURACION_RETORNO + 100);
     return () => clearTimeout(timer);
   }, [activo, fase]);
 
