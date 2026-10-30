@@ -2,7 +2,9 @@ const {
   registrarParticipante,
   iniciarJuego,
   finalizarJuego,
-} = require("../controllers/memotestController");
+} = require(process.env.MEMOTEST_STORAGE === "postgres"
+  ? "../controllers/memotestPgController"
+  : "../controllers/memotestController");
 const { obtenerRanking, invalidarRanking } = require("../services/memotestRankingService");
 const { emitirFinalizacion, conectarRanking } = require("../services/memotestLiveService");
 
