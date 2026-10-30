@@ -79,6 +79,7 @@ const registrar = async (datos) => {
       "INSERT INTO memotest_partidas (participante_id) VALUES ($1)",
       [id]
     );
+    await client.query("INSERT INTO memotest_sync (participante_id, tipo) VALUES ($1, $2)", [id, "REGISTRO"]);
     await client.query("COMMIT");
     return buscarPorId(id);
   } catch (error) {
@@ -151,6 +152,7 @@ const finalizar = (id, { movimientos, completado }) => {
       "UPDATE memotest_partidas SET tiempo_segundos=$2 WHERE participante_id=$1",
       [id, duracion]
     );
+    await client.query("INSERT INTO memotest_sync (participante_id, tipo) VALUES ($1, $2)", [id, "FINALIZACION"]);
     return { nuevoFinalizado: true, resultado: { ...rows[0], tiempo_segundos: duracion } };
   });
 };
