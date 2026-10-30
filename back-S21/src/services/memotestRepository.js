@@ -131,7 +131,7 @@ const finalizar = (id, { movimientos, completado }) => {
   }
   return withGameLock(id, async (client, game) => {
     if (game.estado === "FINALIZADO") {
-      return { nuevoFinalizado: false, resultado: { ...game } };
+      return { nuevoFinalizado: false, resultado: { ...game, tiempo_segundos: game.tiempo_segundos } };
     }
     if (game.estado !== "JUGANDO" || !game.inicio_juego) {
       throw new Error("El juego todavía no fue iniciado.");
@@ -146,11 +146,12 @@ const finalizar = (id, { movimientos, completado }) => {
       [id, mov, Boolean(completado) && mov >= 6]
     );
     // Keep the derived display duration consistent with the saved milliseconds.
+    const duracion = Math.round(rows[0].tiempo_ms / 100) / 10;
     await client.query(
-      "UPDATE memotest_partidas SET tiempo_segundos=ROUND(tiempo_ms::numeric / 1000, 1) WHERE participante_id=$1",
-      [id]
+      "UPDATE memotest_partidas SET tiempo_segundos=$2 WHERE participante_id=$1",
+      [id, duracion]
     );
-    return { nuevoFinalizado: true, resultado: rows[0] };
+    return { nuevoFinalizado: true, resultado: { ...rows[0], tiempo_segundos: duracion } };
   });
 };
 
