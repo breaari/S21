@@ -54,7 +54,7 @@ const worker = async () => {
     }
     locked = true;
     const pending = await client.query(`
-      SELECT s.id AS sync_id, s.tipo, p.*, g.*
+      SELECT s.id AS sync_id, s.tipo, p.*, g.estado, g.inicio_juego, g.fin_juego, g.tiempo_ms, g.tiempo_segundos, g.movimientos, g.completado, g.codigo_premio, g.participa_sorteo, g.canjeado
       FROM memotest_sync s
       JOIN memotest_participantes p ON p.id=s.participante_id
       JOIN memotest_partidas g ON g.participante_id=p.id
