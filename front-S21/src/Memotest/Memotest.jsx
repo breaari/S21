@@ -17,9 +17,7 @@ import carta06 from "../assets/carta-06.png";
 
 import reverso from "../assets/reverso.png";
 
-const API_URL = import.meta.env.PROD
-  ? ""
-  : `http://${window.location.hostname}:3003`;
+const API_URL = import.meta.env.VITE_MEMOTEST_API_URL || "https://back.universidadsiglo21online.com";
 
 const AREAS = [
   "Tecnología",
