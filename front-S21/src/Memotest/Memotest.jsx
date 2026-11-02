@@ -36,6 +36,17 @@ const AREAS = [
 
 const IMAGENES = [carta01, carta02, carta03, carta04, carta05, carta06];
 
+// Imágenes opcionales: subir premio-1.png ... premio-5.png a src/assets.
+// Hasta entonces las tarjetas mantienen el espacio sin romper la página.
+const archivosPremios = import.meta.glob("../assets/premio-*.{png,jpg,jpeg,webp}", { eager: true, query: "?url", import: "default" });
+const PREMIOS = [
+  { puesto: 1, nombre: "Smartwatch Xiaomi Smart Band 10 Pro", detalle: "AMOLED 1,74 · GPS · 5ATM · Negro" },
+  { puesto: 2, nombre: "Auriculares Bluetooth de conducción ósea", detalle: "Para natación · MP3 32 GB" },
+  { puesto: 3, nombre: "Chaleco mochila Aonijie", detalle: "Bolsa de hidratación de 1,5 L para running" },
+  { puesto: 4, nombre: "Combo Runner Airplus", detalle: "Chaleco running, medias y tiras nasales" },
+  { puesto: 5, nombre: "Pack de botellas flexibles Natway", detalle: "Soft Flask Runner para hidratación" },
+].map((premio) => ({ ...premio, imagen: Object.entries(archivosPremios).find(([ruta]) => new RegExp("/premio-" + premio.puesto + "\\.(png|jpg|jpeg|webp)$", "i").test(ruta))?.[1] }));
+
 const mezclarCartas = () => {
   const cartas = IMAGENES.flatMap((imagen, index) => [
     {
@@ -64,7 +75,7 @@ export function Memotest() {
 
   const origen = params.get("source") || "directo";
 
-  const [pantalla, setPantalla] = useState("formulario");
+  const [pantalla, setPantalla] = useState("premios");
 
   const [form, setForm] = useState({
     nombre: "",
@@ -361,6 +372,41 @@ export function Memotest() {
     parejasEncontradas.includes(carta.pareja);
 
   /* =====================================================
+     PREMIOS: ANTES DEL REGISTRO
+  ===================================================== */
+
+  if (pantalla === "premios") {
+    return (
+      <main className="memo-page memo-premios-page">
+        <section className="memo-premios-shell">
+          <img className="memo-logo" src={logo} alt="Universidad Siglo 21" />
+          <span className="memo-kicker">NB 21K MAR DEL PLATA · DESAFÍO DE MEMORIA</span>
+          <h1 className="memo-premios-title">ENTRENÁ TU MEMORIA.<br /><span>COMPETÍ POR ESTOS PREMIOS.</span></h1>
+          <p className="memo-premios-lead">Encontrá los 6 pares en el menor tiempo posible y subí en el ranking en vivo.</p>
+          <div className="memo-premios-grid">
+            {PREMIOS.map((premio) => (
+              <article key={premio.puesto} className={"memo-premio memo-premio-" + premio.puesto}>
+                <div className="memo-premio-imagen">
+                  {premio.imagen ? <img src={premio.imagen} alt={premio.nombre} /> : <span>IMAGEN DEL PREMIO</span>}
+                </div>
+                <div className="memo-premio-info">
+                  <span className="memo-premio-posicion">{premio.puesto}° PUESTO</span>
+                  <h2>{premio.nombre}</h2>
+                  <p>{premio.detalle}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+          <p className="memo-premios-condiciones">Los 5 mejores puestos del ranking ganan premio. Si hay empate en segundos, se define por menor cantidad de movimientos.</p>
+          <button type="button" className="memo-primary memo-premios-cta" onClick={() => { setPantalla("formulario"); window.scrollTo(0, 0); }}>
+            QUIERO PARTICIPAR
+          </button>
+        </section>
+      </main>
+    );
+  }
+
+  /* =====================================================
      FORMULARIO
   ===================================================== */
 
@@ -582,7 +628,7 @@ export function Memotest() {
 
           <div className="memo-prize-banner">
             <span>PREMIAMOS A LOS MEJORES</span>
-            <strong>LOS 3 MEJORES PUESTOS DEL RANKING GANAN PREMIO</strong>
+            <strong>LOS 5 MEJORES PUESTOS DEL RANKING GANAN PREMIO</strong>
           </div>
 
           {error && <p className="memo-error">{error}</p>}
