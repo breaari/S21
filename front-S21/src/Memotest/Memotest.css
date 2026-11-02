@@ -1186,3 +1186,25 @@
   .memo-formulario-page::before {width:125vw;left:-77vw;}
   .memo-formulario-page::after {width:125vw;right:-88vw;}
 }
+
+/* Título del formulario: misma tipografía y jerarquía que la portada. */
+.memo-formulario-page .memo-main-title,
+.memo-formulario-page .memo-main-title span {
+  font-family:"Montserrat",sans-serif;
+  font-weight:900;
+  font-stretch:normal;
+  letter-spacing:-.045em;
+  line-height:1.08;
+  -webkit-text-stroke:0;
+  paint-order:normal;
+}
+.memo-formulario-page .memo-main-title {
+  font-size:clamp(1.8rem,5vw,2.65rem);
+  gap:0;
+  margin:18px auto 0;
+}
+.memo-formulario-page .memo-main-title span { white-space:normal; }
+.memo-formulario-page .memo-title-green { color:#bdf8ed; }
+@media(max-width:480px) {
+  .memo-formulario-page .memo-main-title {font-size:clamp(1.65rem,7.4vw,2.2rem);}
+}
