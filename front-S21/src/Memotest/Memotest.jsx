@@ -376,32 +376,55 @@ export function Memotest() {
   ===================================================== */
 
   if (pantalla === "premios") {
+    const principal = PREMIOS[0];
     return (
       <main className="memo-page memo-premios-page">
         <section className="memo-premios-shell">
-          <img className="memo-logo" src={logo} alt="Universidad Siglo 21" />
-          <span className="memo-kicker">NB 21K MAR DEL PLATA · DESAFÍO DE MEMORIA</span>
-          <h1 className="memo-premios-title">¿TENÉS LA MENTE MÁS RÁPIDA?<br /><span>ESTOS PREMIOS PUEDEN SER TUYOS.</span></h1>
-          <p className="memo-premios-lead">Encontrá los 6 pares en el menor tiempo posible y competí por uno de los 5 premios.</p>
-          <div className="memo-premios-grid">
-            {PREMIOS.map((premio) => (
-              <article key={premio.puesto} className={"memo-premio memo-premio-" + premio.puesto}>
-                {premio.puesto === 1 && <span className="memo-premio-principal">PREMIO PRINCIPAL</span>}
-                <div className="memo-premio-imagen">
-                  {premio.imagen ? <img src={premio.imagen} alt={premio.nombre} /> : <span>IMAGEN DEL PREMIO</span>}
-                </div>
-                <div className="memo-premio-info">
-                  <span className="memo-premio-posicion">{premio.puesto}° PREMIO</span>
-                  <h2>{premio.nombre}</h2>
-                  <p>{premio.detalle}</p>
-                </div>
-              </article>
-            ))}
+          <header className="memo-premios-header">
+            <img className="memo-logo" src={logo} alt="Universidad Siglo 21" />
+            <span className="memo-kicker">NB 21K MAR DEL PLATA · DESAFÍO DE MEMORIA</span>
+            <h1 className="memo-premios-title">¿TENÉS LA MENTE MÁS RÁPIDA?<span>ESTOS PREMIOS PUEDEN SER TUYOS.</span></h1>
+            <p className="memo-premios-lead">Encontrá los 6 pares, marcá tu mejor tiempo y competí por uno de los 5 premios.</p>
+          </header>
+
+          <div className="memo-premios-layout">
+            <div className="memo-premio-destacado">
+              <div className="memo-premio-topline"><span>01 / PREMIO PRINCIPAL</span><strong>1° PUESTO</strong></div>
+              <div className="memo-premio-imagen memo-premio-imagen-principal">
+                {principal.imagen ? <img src={principal.imagen} alt={principal.nombre} /> : <span>IMAGEN DEL PREMIO</span>}
+              </div>
+              <div className="memo-premio-info">
+                <h2>{principal.nombre}</h2>
+                <p>{principal.detalle}</p>
+              </div>
+            </div>
+
+            <div className="memo-premios-secundarios">
+              {PREMIOS.slice(1).map((premio) => (
+                <article key={premio.puesto} className="memo-premio-mini">
+                  <div className="memo-premio-imagen">
+                    {premio.imagen ? <img src={premio.imagen} alt={premio.nombre} /> : <span>IMAGEN DEL PREMIO</span>}
+                  </div>
+                  <div className="memo-premio-mini-info">
+                    <span>{premio.puesto}° PREMIO</span>
+                    <h2>{premio.nombre}</h2>
+                    <p>{premio.detalle}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
-          <p className="memo-premios-condiciones">Los 5 mejores puestos del ranking ganan premio. Si hay empate en segundos, se define por menor cantidad de movimientos.</p>
-          <button type="button" className="memo-primary memo-premios-cta" onClick={() => { setPantalla("formulario"); window.scrollTo(0, 0); }}>
-            QUIERO PARTICIPAR
-          </button>
+
+          <div className="memo-premios-accion">
+            <div>
+              <strong>5 PUESTOS. 5 PREMIOS.</strong>
+              <span>Jugá, registrá tu tiempo y entrá al ranking en vivo.</span>
+            </div>
+            <button type="button" className="memo-primary memo-premios-cta" onClick={() => { setPantalla("formulario"); window.scrollTo(0, 0); }}>
+              QUIERO PARTICIPAR
+            </button>
+          </div>
+          <p className="memo-premios-condiciones">Ganan los 5 mejores puestos del ranking. En caso de empate en segundos, se define por menor cantidad de movimientos.</p>
         </section>
       </main>
     );
