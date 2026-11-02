@@ -412,3 +412,6 @@
   outline-offset:2px;
   filter:brightness(1.12);
 }
+
+/* Mismo turquesa del titular «ESTOS PREMIOS PUEDEN SER TUYOS». */
+.ranking-page h1 span { color:#72f2d8; }
