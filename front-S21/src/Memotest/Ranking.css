@@ -376,3 +376,39 @@
   .ranking-page {gap:5px;padding-top:1.6vh;padding-bottom:1.6vh;}
   .ranking-page .ranking-top-cinco {height:clamp(105px,23vh,155px);}
 }
+
+/* Cinco premios diferenciados con los colores del Manual Siglo 21 (2026).
+   Complementarios usados junto al fondo de verde institucional. */
+.ranking-page .ranking-top-cinco .puesto-1 .ranking-escalon {
+  background:linear-gradient(155deg,#F6BC4D,#F3A800);
+  border-color:#ffe2a0;
+  color:#103F40;
+  box-shadow:0 0 24px rgba(243,168,0,.28),inset 0 1px 0 rgba(255,255,255,.35);
+}
+.ranking-page .ranking-top-cinco .puesto-2 .ranking-escalon {
+  background:linear-gradient(155deg,#8D9DD0,#425DB2);
+  border-color:#cad4f3;
+  color:#fff;
+  box-shadow:0 5px 20px rgba(66,93,178,.20);
+}
+.ranking-page .ranking-top-cinco .puesto-3 .ranking-escalon {
+  background:linear-gradient(155deg,#D38EDC,#B644C5);
+  border-color:#efbaf4;
+  color:#fff;
+  box-shadow:0 5px 20px rgba(182,68,197,.20);
+}
+.ranking-page .ranking-top-cinco .puesto-4 .ranking-escalon {
+  background:linear-gradient(155deg,#07BD8A,#009982);
+  border-color:#8af4d5;
+  color:#fff;
+}
+.ranking-page .ranking-top-cinco .puesto-5 .ranking-escalon {
+  background:linear-gradient(155deg,#389E7E,#006553);
+  border-color:#97e2c3;
+  color:#fff;
+}
+.ranking-page .ranking-top-cinco .ranking-podio-activo .ranking-escalon {
+  outline:2px solid #fff;
+  outline-offset:2px;
+  filter:brightness(1.12);
+}
