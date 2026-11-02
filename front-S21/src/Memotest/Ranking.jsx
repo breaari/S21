@@ -180,7 +180,10 @@ export function RankingMemotest() {
   }, [activo, fase]);
 
   const podio = jugadores.slice(0, 5);
-  // Durante la llegada se muestra la lista completa para que el nuevo jugador\n  // pueda incorporarse desde el final, incluso si alcanza el top cinco.\n  // En reposo, el listado comienza en el puesto seis.\n  const ordenVisible = activo ? [...jugadores] : jugadores.slice(5);
+  // Durante la llegada se muestra la lista completa para que el nuevo jugador
+  // pueda incorporarse desde el final, incluso si alcanza el top cinco.
+  // En reposo, el listado comienza en el puesto seis.
+  const ordenVisible = activo ? [...jugadores] : jugadores.slice(5);
   if (activo && (fase === "inicio" || fase === "subiendo")) {
     const indice = ordenVisible.findIndex((p) => p.id === activo);
     if (indice !== -1) ordenVisible.push(...ordenVisible.splice(indice, 1));
