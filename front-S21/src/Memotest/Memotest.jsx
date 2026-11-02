@@ -385,7 +385,8 @@ export function Memotest() {
           <p className="memo-premios-lead">Encontrá los 6 pares en el menor tiempo posible y competí por uno de los 5 premios.</p>
           <div className="memo-premios-grid">
             {PREMIOS.map((premio) => (
-              <article key={premio.puesto} className={"memo-premio memo-premio-" + premio.puesto}>\n                {premio.puesto === 1 && <span className="memo-premio-principal">PREMIO PRINCIPAL</span>}
+              <article key={premio.puesto} className={"memo-premio memo-premio-" + premio.puesto}>
+                {premio.puesto === 1 && <span className="memo-premio-principal">PREMIO PRINCIPAL</span>}
                 <div className="memo-premio-imagen">
                   {premio.imagen ? <img src={premio.imagen} alt={premio.nombre} /> : <span>IMAGEN DEL PREMIO</span>}
                 </div>
