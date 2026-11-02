@@ -5,7 +5,7 @@ const rechargeFiles = import.meta.glob("../assets/recharge.{mp3,wav,ogg,m4a}", {
 const rechargeSound = Object.values(rechargeFiles)[0];
 import "./Ranking.css";
 
-const API_URL = import.meta.env.PROD ? "" : `http://${window.location.hostname}:3003`;
+const API_URL = import.meta.env.VITE_MEMOTEST_API_URL || "https://back.universidadsiglo21online.com";
 const PAUSA_EN_PUESTO = 2000;
 const DURACION_ASCENSO = 5000;
 const DURACION_SCROLL = 850;
@@ -213,7 +213,8 @@ export function RankingMemotest() {
       </div>
       <div className="ranking-area">
         <section className="ranking-lista" ref={listaRef}>
-          {!jugadores.length && <p className="ranking-vacio">¡El desafío está por comenzar!</p>}\n          {!activo && jugadores.length > 0 && jugadores.length <= 5 && <p className="ranking-vacio">Los próximos participantes aparecerán aquí.</p>}
+          {!jugadores.length && <p className="ranking-vacio">¡El desafío está por comenzar!</p>}
+          {!activo && jugadores.length > 0 && jugadores.length <= 5 && <p className="ranking-vacio">Los próximos participantes aparecerán aquí.</p>}
           {ordenVisible.map((p, i) => <div key={p.id} data-player={p.id}
             className={"ranking-fila " + (activo === p.id ? "ranking-destacado " + (fase === "pausa" ? "ranking-llegada" : "") : "")}>
             <b>{activo ? i + 1 : i + 6}°</b><span>{p.nombre}</span><strong>{formatoResultado(p)}</strong>
