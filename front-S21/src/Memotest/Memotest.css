@@ -927,3 +927,27 @@
  .memo-premio-mini-info p { font-size:.66rem; }
  .memo-premios-accion { padding:15px 13px; }
 }
+
+/* Premio principal sin marco, alineado con las otras cuatro opciones. */
+.memo-premio-destacado {
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  padding:0;
+  justify-content:center;
+  gap:12px;
+}
+.memo-premio-primer-puesto {
+  color:#53e5c1;
+  font-size:.85rem;
+  font-weight:900;
+  letter-spacing:.1em;
+  text-align:center;
+  width:100%;
+}
+.memo-premio-destacado .memo-premio-imagen { height:255px; }
+.memo-premio-destacado .memo-premio-info { padding:0; }
+@media(max-width:480px) {
+  .memo-premio-destacado .memo-premio-imagen { height:215px; }
+}
