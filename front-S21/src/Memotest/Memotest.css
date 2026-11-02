@@ -951,3 +951,95 @@
 @media(max-width:480px) {
   .memo-premio-destacado .memo-premio-imagen { height:215px; }
 }
+
+/* =========================================================
+   Campaña Siglo 21 · Potenciando nuevos liderazgos
+   Superficies de vidrio, tipografía editorial y verde turquesa.
+   No se agregan marcos a las imágenes de los premios.
+========================================================= */
+.memo-page {
+  --camp-teal:#1dcdb7;
+  --camp-ice:#bdf8ed;
+  background:
+    radial-gradient(ellipse at 4% 8%, rgba(88,239,221,.32),transparent 29%),
+    radial-gradient(ellipse at 95% 33%, rgba(19,202,178,.31),transparent 38%),
+    radial-gradient(ellipse at 39% 85%, rgba(1,147,127,.38),transparent 49%),
+    linear-gradient(142deg,#087b74 0%,#086f67 30%,#045c54 68%,#03473f 100%);
+  background-attachment:fixed;
+  isolation:isolate;
+}
+.memo-page .memo-logo { filter:drop-shadow(0 4px 12px rgba(0,50,44,.15)); }
+.memo-page .memo-kicker { color:var(--camp-ice); letter-spacing:.13em; }
+.memo-page .memo-premios-title,
+.memo-page .memo-main-title,
+.memo-page .memo-challenge h1,
+.memo-page .memo-result h1 {
+  font-family:Montserrat,Arial,sans-serif;
+  font-weight:900;
+  letter-spacing:-.045em;
+  text-transform:uppercase;
+}
+.memo-page .memo-premios-title span,
+.memo-page .memo-title-green,
+.memo-page .memo-challenge h1 span,
+.memo-page .memo-result h1 span { color:#72f2d8; -webkit-text-stroke:0; }
+.memo-premios-header .memo-premios-lead,
+.memo-page .memo-intro,
+.memo-page .memo-challenge-lead { color:#f0fffb; }
+.memo-page .memo-card,
+.memo-page .memo-rules,
+.memo-page .memo-draw-message,
+.memo-page .memo-code {
+  background:linear-gradient(145deg,rgba(194,255,243,.12),rgba(2,75,68,.22));
+  border:1px solid rgba(227,255,249,.58);
+  border-radius:25px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 14px 45px rgba(0,50,46,.10);
+  backdrop-filter:blur(9px);
+}
+.memo-page .memo-form input,
+.memo-page .memo-options button {
+  background:rgba(0,67,62,.27);
+  border:1px solid rgba(228,255,250,.45);
+}
+.memo-page .memo-form input:focus,
+.memo-page .memo-options button.selected {
+  border-color:#d1fff5;
+  box-shadow:0 0 0 3px rgba(143,255,228,.16);
+}
+.memo-page .memo-primary {
+  background:linear-gradient(135deg,rgba(242,255,252,.24),rgba(182,246,234,.13));
+  border:1.5px solid rgba(246,255,253,.88);
+  border-radius:999px;
+  color:#fff;
+  box-shadow:0 5px 25px rgba(0,54,47,.17),inset 0 1px 0 rgba(255,255,255,.14);
+  backdrop-filter:blur(10px);
+}
+.memo-page .memo-primary:hover { background:rgba(207,255,244,.27); box-shadow:0 10px 30px rgba(0,54,47,.23); }
+.memo-page .memo-prize-banner { background:rgba(136,246,220,.15); border:1px solid rgba(213,255,244,.53); }
+.memo-page .memo-prize-banner span { color:#d2fff5; }
+.memo-page .memo-countdown { background:rgba(208,255,244,.13); border:1px solid rgba(235,255,250,.65); }
+.memo-page .memo-countdown small,.memo-page .memo-progress strong { color:#bdf8ed; }
+.memo-page .memo-tile-back {
+  background:linear-gradient(140deg,rgba(203,255,244,.26),rgba(2,100,91,.75));
+  border:1.5px solid rgba(229,255,250,.72);
+}
+.memo-page .memo-tile-front { background:rgba(12,93,83,.34); border:1.5px solid rgba(226,255,250,.72); }
+.memo-page .memo-result .memo-draw-message strong { color:#bdf8ed; }
+.memo-page .memo-premios-accion {
+  background:rgba(2,74,66,.24);
+  border:1px solid rgba(224,255,248,.52);
+  backdrop-filter:blur(10px);
+}
+.memo-page .memo-premios-accion > div strong { color:#c5fff0; }
+.memo-page .memo-premio-primer-puesto,.memo-page .memo-premio-mini-info > span { color:#bdf8ed; }
+.memo-page .memo-premios-condiciones { color:#effffb; }
+.memo-premios-page .memo-premio-destacado,
+.memo-premios-page .memo-premio-destacado .memo-premio-imagen,
+.memo-premios-page .memo-premio-mini .memo-premio-imagen {
+  background:none; border:0; box-shadow:none; backdrop-filter:none;
+}
+@media(max-width:600px) {
+  .memo-page { background-attachment:scroll; }
+  .memo-page .memo-main-title { font-size:clamp(2.5rem,10vw,4.1rem); }
+  .memo-page .memo-card { border-radius:21px; }
+}
