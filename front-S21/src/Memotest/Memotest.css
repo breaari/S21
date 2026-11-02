@@ -827,9 +827,9 @@
 .memo-premio { grid-column:span 2; display:flex; flex-direction:column; min-width:0; padding:14px; background:rgba(16,63,64,.88); border:1px solid rgba(40,185,166,.46); border-radius:19px; }
 .memo-premio-1,.memo-premio-2 { grid-column:span 3; }
 .memo-premio-1 { border-color:#07bd8a; background:linear-gradient(145deg,rgba(7,189,138,.24),rgba(16,63,64,.95)); }
-.memo-premio-imagen { display:flex; align-items:center; justify-content:center; min-height:155px; height:165px; border-radius:12px; background:rgba(255,255,255,.96); overflow:hidden; }
+.memo-premio-imagen { display:flex; align-items:center; justify-content:center; min-height:155px; height:165px; border-radius:12px; background:radial-gradient(ellipse at center,rgba(40,185,166,.22) 0%,rgba(7,189,138,.08) 38%,transparent 75%); overflow:hidden; }
 .memo-premio-1 .memo-premio-imagen,.memo-premio-2 .memo-premio-imagen { height:190px; }
-.memo-premio-imagen img { display:block; width:100%; height:100%; object-fit:contain; padding:8px; }
+.memo-premio-imagen img { display:block; width:100%; height:100%; object-fit:contain; padding:8px; filter:drop-shadow(0 12px 18px rgba(0,0,0,.28)); }
 .memo-premio-imagen > span { font-size:.7rem; color:#58736d; text-align:center; font-weight:700; letter-spacing:.08em; }
 .memo-premio-info { padding:13px 3px 4px; }
 .memo-premio-posicion { color:#42e0b8; font-weight:900; font-size:.83rem; letter-spacing:.09em; }
@@ -848,3 +848,12 @@
   .memo-premio-info p { font-size:.73rem; }
   .memo-premio-posicion { font-size:.73rem; }
 }
+
+/* Jerarquía y profundidad para la galería de premios */
+.memo-premios-title { max-width:1000px; font-size:clamp(1.9rem,4.5vw,3.2rem); letter-spacing:-.025em; line-height:1.17; text-wrap:balance; }
+.memo-premios-title span { display:inline-block; margin-top:.12em; }
+.memo-premio { position:relative; overflow:hidden; }
+.memo-premio-1 { box-shadow:0 12px 40px rgba(0,0,0,.13),inset 0 0 0 1px rgba(7,189,138,.16); }
+.memo-premio-1 .memo-premio-imagen { background:radial-gradient(ellipse at center,rgba(40,185,166,.31),rgba(7,189,138,.10) 42%,transparent 76%); }
+.memo-premio-principal { align-self:flex-start; margin:0 0 10px; padding:6px 11px; border-radius:99px; font-size:.7rem; font-weight:900; letter-spacing:.1em; color:#093f36; background:#55ebc4; }
+@media(max-width:650px) { .memo-premios-title { font-size:clamp(1.75rem,7vw,2.7rem); } .memo-premio-principal { font-size:.62rem; } }
