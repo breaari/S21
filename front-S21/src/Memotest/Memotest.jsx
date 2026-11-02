@@ -389,7 +389,7 @@ export function Memotest() {
 
           <div className="memo-premios-layout">
             <div className="memo-premio-destacado">
-              <div className="memo-premio-topline"><span>01 / PREMIO PRINCIPAL</span><strong>1° PUESTO</strong></div>
+              <span className="memo-premio-primer-puesto">1° PREMIO</span>
               <div className="memo-premio-imagen memo-premio-imagen-principal">
                 {principal.imagen ? <img src={principal.imagen} alt={principal.nombre} /> : <span>IMAGEN DEL PREMIO</span>}
               </div>
