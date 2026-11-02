@@ -1043,3 +1043,71 @@
   .memo-page .memo-main-title { font-size:clamp(2.5rem,10vw,4.1rem); }
   .memo-page .memo-card { border-radius:21px; }
 }
+
+/* Portada de premios: trazos luminosos de campaña sin afectar las demás pantallas. */
+.memo-page.memo-premios-page {
+  position:relative;
+  background:
+    radial-gradient(ellipse at 5% 13%,rgba(51,255,220,.42),transparent 31%),
+    radial-gradient(ellipse at 101% 31%,rgba(26,248,205,.35),transparent 30%),
+    radial-gradient(ellipse at 90% 91%,rgba(2,210,171,.22),transparent 39%),
+    linear-gradient(117deg,#04aa94 0%,#047b6c 43%,#025c52 100%);
+  overflow:hidden;
+}
+.memo-premios-page::before,
+.memo-premios-page::after {
+  content:"";
+  position:absolute;
+  z-index:0;
+  pointer-events:none;
+  opacity:.64;
+  filter:blur(13px);
+}
+.memo-premios-page::before {
+  width:65vw; height:72vh; top:-16vh; left:-25vw;
+  transform:rotate(-31deg);
+  background:repeating-linear-gradient(100deg,
+    transparent 0 24px,rgba(92,255,229,.19) 28px 34px,
+    rgba(150,255,235,.38) 38px 42px,transparent 48px 78px);
+  -webkit-mask-image:radial-gradient(ellipse at 40% 40%,#000 12%,transparent 72%);
+  mask-image:radial-gradient(ellipse at 40% 40%,#000 12%,transparent 72%);
+}
+.memo-premios-page::after {
+  width:58vw; height:86vh; right:-31vw; top:6vh;
+  transform:rotate(26deg);
+  background:repeating-linear-gradient(86deg,
+    transparent 0 20px,rgba(95,255,229,.29) 26px 31px,
+    rgba(172,255,239,.48) 36px 39px,transparent 44px 73px);
+  -webkit-mask-image:radial-gradient(ellipse at 45% 44%,#000 10%,transparent 72%);
+  mask-image:radial-gradient(ellipse at 45% 44%,#000 10%,transparent 72%);
+}
+.memo-premios-page .memo-premios-shell { position:relative; z-index:1; }
+.memo-premios-page .memo-premios-accion {
+  display:flex;
+  justify-content:center;
+  padding:10px 0 0;
+  margin-top:15px;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  backdrop-filter:none;
+}
+.memo-premios-page .memo-premios-cta {
+  background:linear-gradient(110deg,#00b997,#00a88c);
+  border:0;
+  color:#fff;
+  width:min(100%,360px);
+  min-height:56px;
+  font-weight:900;
+  box-shadow:0 9px 25px rgba(0,67,55,.28);
+  backdrop-filter:none;
+}
+.memo-premios-page .memo-premios-cta:hover {
+  background:linear-gradient(110deg,#04c7a3,#05b89a);
+  box-shadow:0 11px 28px rgba(0,67,55,.35);
+}
+@media(max-width:650px) {
+ .memo-premios-page::before { width:125vw; left:-77vw; }
+ .memo-premios-page::after { width:125vw; right:-88vw; }
+ .memo-premios-page .memo-premios-accion { padding:8px 0 0; }
+}
