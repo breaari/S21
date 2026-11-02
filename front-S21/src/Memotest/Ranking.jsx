@@ -209,7 +209,7 @@ export function RankingMemotest() {
         })}
       </section>
       <div className="ranking-list-title">
-        <strong>{activo ? "NUEVO PARTICIPANTE EN EL RANKING" : "CLASIFICACIÓN GENERAL · DESDE EL 6°"}</strong><span>{jugadores.length} PARTICIPANTES</span>
+        <strong>{activo ? "NUEVO PARTICIPANTE EN EL RANKING" : "CLASIFICACIÓN GENERAL"}</strong><span>{jugadores.length} PARTICIPANTES</span>
       </div>
       <div className="ranking-area">
         <section className="ranking-lista" ref={listaRef}>
