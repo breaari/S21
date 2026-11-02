@@ -179,8 +179,8 @@ export function RankingMemotest() {
     return () => clearTimeout(timer);
   }, [activo, fase]);
 
-  const podio = jugadores.slice(0, 3);
-  const ordenVisible = [...jugadores];
+  const podio = jugadores.slice(0, 5);
+  // Durante la llegada se muestra la lista completa para que el nuevo jugador\n  // pueda incorporarse desde el final, incluso si alcanza el top cinco.\n  // En reposo, el listado comienza en el puesto seis.\n  const ordenVisible = activo ? [...jugadores] : jugadores.slice(5);
   if (activo && (fase === "inicio" || fase === "subiendo")) {
     const indice = ordenVisible.findIndex((p) => p.id === activo);
     if (indice !== -1) ordenVisible.push(...ordenVisible.splice(indice, 1));
@@ -194,26 +194,26 @@ export function RankingMemotest() {
       </header>
       <h1>MEMORIA <span>CONTRARRELOJ</span></h1>
       <p className="ranking-subtitle">UNA CARRERA DE AGILIDAD MENTAL HACIA EL PODIO</p>
-      <section className="ranking-podio">
-        {[1, 0, 2].map((indice) => {
+      <section className="ranking-podio ranking-top-cinco" aria-label="Cinco puestos premiados">
+        {[3, 1, 0, 2, 4].map((indice) => {
           const jugador = podio[indice];
-          return <div className={`ranking-podio-slot puesto-${indice + 1}`} key={indice}>
+          return <div className={`ranking-podio-slot puesto-${indice + 1} ${activo === jugador?.id ? "ranking-podio-activo" : ""}`} key={indice}>
             <div className="ranking-medalla">{indice + 1}°</div>
             <strong>{jugador?.nombre || "Tu nombre acá"}</strong>
-            <small>{jugador ? formatoResultado(jugador) : "Esperando participantes"}</small>
-            <div className="ranking-escalon">{indice === 0 ? "PRIMER PUESTO" : indice === 1 ? "SEGUNDO PUESTO" : "TERCER PUESTO"}</div>
+            <small>{jugador ? formatoResultado(jugador) : "Esperando participante"}</small>
+            <div className="ranking-escalon">{indice + 1}° PREMIO</div>
           </div>;
         })}
       </section>
       <div className="ranking-list-title">
-        <strong>CLASIFICACIÓN GENERAL</strong><span>{jugadores.length} PARTICIPANTES</span>
+        <strong>{activo ? "NUEVO PARTICIPANTE EN EL RANKING" : "CLASIFICACIÓN GENERAL · DESDE EL 6°"}</strong><span>{jugadores.length} PARTICIPANTES</span>
       </div>
       <div className="ranking-area">
         <section className="ranking-lista" ref={listaRef}>
-          {!jugadores.length && <p className="ranking-vacio">¡El desafío está por comenzar!</p>}
+          {!jugadores.length && <p className="ranking-vacio">¡El desafío está por comenzar!</p>}\n          {!activo && jugadores.length > 0 && jugadores.length <= 5 && <p className="ranking-vacio">Los próximos participantes aparecerán aquí.</p>}
           {ordenVisible.map((p, i) => <div key={p.id} data-player={p.id}
             className={"ranking-fila " + (activo === p.id ? "ranking-destacado " + (fase === "pausa" ? "ranking-llegada" : "") : "")}>
-            <b>{i+1}°</b><span>{p.nombre}</span><strong>{formatoResultado(p)}</strong>
+            <b>{activo ? i + 1 : i + 6}°</b><span>{p.nombre}</span><strong>{formatoResultado(p)}</strong>
           </div>)}
         </section>
 
