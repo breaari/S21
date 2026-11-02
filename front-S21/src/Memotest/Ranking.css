@@ -138,3 +138,18 @@
 .ranking-lista .ranking-destacado b { color:#fff; }
 .ranking-lista .ranking-llegada { background:#07bd8a; color:#053e35; box-shadow:0 0 32px rgba(7,189,138,.58); }
 .ranking-lista .ranking-llegada b { color:#053e35; }
+
+/* Identidad visual campaña 2026: conservar layout, podio y animaciones. */
+.ranking-page {
+  background:
+    radial-gradient(ellipse at 4% 7%,rgba(88,239,221,.29),transparent 28%),
+    radial-gradient(ellipse at 96% 38%,rgba(23,207,184,.26),transparent 41%),
+    radial-gradient(ellipse at 42% 100%,rgba(2,156,139,.34),transparent 48%),
+    linear-gradient(142deg,#087b74 0%,#086f67 30%,#045c54 68%,#03473f 100%);
+}
+.ranking-page h1 { letter-spacing:-.04em; text-transform:uppercase; }
+.ranking-page h1 span { color:#bdf8ed; }
+.ranking-page .ranking-subtitle { color:#f1fffb; }
+.ranking-page .ranking-podio-slot { backdrop-filter:blur(7px); }
+.ranking-page .ranking-lista .ranking-fila { border-color:rgba(233,255,249,.24); }
+.ranking-page .ranking-lista .ranking-destacado { border-color:#c6fff0; }
