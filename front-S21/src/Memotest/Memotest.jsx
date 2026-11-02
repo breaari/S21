@@ -416,15 +416,10 @@ export function Memotest() {
           </div>
 
           <div className="memo-premios-accion">
-            <div>
-              <strong>5 PUESTOS. 5 PREMIOS.</strong>
-              <span>Jugá, registrá tu tiempo y entrá al ranking en vivo.</span>
-            </div>
             <button type="button" className="memo-primary memo-premios-cta" onClick={() => { setPantalla("formulario"); window.scrollTo(0, 0); }}>
               QUIERO PARTICIPAR
             </button>
           </div>
-          <p className="memo-premios-condiciones">Ganan los 5 mejores puestos del ranking. En caso de empate en segundos, se define por menor cantidad de movimientos.</p>
         </section>
       </main>
     );
