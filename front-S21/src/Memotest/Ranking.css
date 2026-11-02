@@ -153,3 +153,116 @@
 .ranking-page .ranking-podio-slot { backdrop-filter:blur(7px); }
 .ranking-page .ranking-lista .ranking-fila { border-color:rgba(233,255,249,.24); }
 .ranking-page .ranking-lista .ranking-destacado { border-color:#c6fff0; }
+
+/* Campaña nueva: fondo con trazos turquesa, profundidad sin obstruir el texto. */
+.ranking-page {
+ isolation:isolate;
+ background:
+ radial-gradient(ellipse at 4% 11%,rgba(51,255,220,.42),transparent 30%),
+ radial-gradient(ellipse at 100% 36%,rgba(26,248,205,.32),transparent 33%),
+ linear-gradient(117deg,#04aa94 0%,#047b6c 43%,#025c52 100%);
+}
+.ranking-page::before,.ranking-page::after {
+ content:"";position:absolute;z-index:-1;pointer-events:none;
+ opacity:.52;filter:blur(14px);
+}
+.ranking-page::before {
+ width:65vw;height:72vh;top:-18vh;left:-26vw;transform:rotate(-31deg);
+ background:repeating-linear-gradient(100deg,transparent 0 24px,rgba(92,255,229,.20) 28px 34px,rgba(150,255,235,.38) 38px 42px,transparent 48px 78px);
+ -webkit-mask-image:radial-gradient(ellipse at 40% 40%,#000 12%,transparent 72%);
+ mask-image:radial-gradient(ellipse at 40% 40%,#000 12%,transparent 72%);
+}
+.ranking-page::after {
+ width:55vw;height:80vh;right:-30vw;top:8vh;transform:rotate(26deg);
+ background:repeating-linear-gradient(86deg,transparent 0 20px,rgba(95,255,229,.26) 26px 31px,rgba(172,255,239,.44) 36px 39px,transparent 44px 73px);
+ -webkit-mask-image:radial-gradient(ellipse at 45% 44%,#000 10%,transparent 72%);
+ mask-image:radial-gradient(ellipse at 45% 44%,#000 10%,transparent 72%);
+}
+.ranking-page .ranking-header b,.ranking-page .ranking-list-title span {color:#bdf8ed;}
+/* Cinco personas premiadas. Podio visual compacto: 4, 2, 1, 3, 5. */
+.ranking-page .ranking-top-cinco {
+ display:grid;
+ grid-template-columns:repeat(5,minmax(0,1fr));
+ gap:clamp(5px,1vw,16px);
+ align-items:end;
+ flex-shrink:0;
+ height:clamp(150px,28vh,280px);
+ padding:0;
+}
+.ranking-page .ranking-top-cinco .ranking-podio-slot {
+ width:100%;height:auto;min-height:0;
+ gap:clamp(3px,.5vh,8px);
+ justify-content:end;
+ text-align:center;
+}
+.ranking-page .ranking-top-cinco .ranking-medalla {
+ color:#d0fff3;
+ font-size:clamp(19px,2.3vw,38px);
+ line-height:1;
+}
+.ranking-page .ranking-top-cinco .puesto-1 .ranking-medalla {
+ color:white;font-size:clamp(24px,3vw,50px);
+}
+.ranking-page .ranking-top-cinco .ranking-podio-slot strong {
+ width:100%;
+ font-size:clamp(10px,1.15vw,19px);
+ line-height:1.13;
+ min-height:2.3em;
+ display:flex;justify-content:center;align-items:end;
+ overflow-wrap:anywhere;
+ padding:0 3px;
+}
+.ranking-page .ranking-top-cinco .ranking-podio-slot small {
+ font-size:clamp(9px,.82vw,14px);
+ line-height:1.15;
+ min-height:2.3em;
+}
+.ranking-page .ranking-top-cinco .ranking-escalon {
+ width:100%;
+ border:1px solid rgba(232,255,249,.64);
+ background:linear-gradient(150deg,rgba(180,255,235,.3),rgba(0,107,94,.48));
+ border-radius:14px 14px 4px 4px;
+ padding:9px 3px;
+ font-size:clamp(9px,.88vw,15px);
+ letter-spacing:.025em;
+ align-items:flex-start;justify-content:center;
+}
+.ranking-page .ranking-top-cinco .puesto-1 .ranking-escalon {height:clamp(65px,10vh,110px);}
+.ranking-page .ranking-top-cinco .puesto-2 .ranking-escalon {height:clamp(52px,8vh,88px);}
+.ranking-page .ranking-top-cinco .puesto-3 .ranking-escalon {height:clamp(43px,6.5vh,70px);}
+.ranking-page .ranking-top-cinco .puesto-4 .ranking-escalon {height:clamp(35px,5.3vh,56px);}
+.ranking-page .ranking-top-cinco .puesto-5 .ranking-escalon {height:clamp(29px,4.5vh,48px);}
+.ranking-page .ranking-top-cinco .ranking-podio-activo .ranking-escalon {
+ background:rgba(167,255,229,.48);
+ border-color:#e6fff7;
+ box-shadow:0 0 24px rgba(138,255,221,.35);
+}
+.ranking-page .ranking-lista .ranking-fila {
+ background:rgba(195,255,242,.12);
+ border:1px solid rgba(230,255,248,.32);
+}
+.ranking-page .ranking-lista .ranking-destacado {background:#008d76;}
+.ranking-page .ranking-lista .ranking-llegada {background:#07bd8a;}
+@media(max-width:700px) {
+ .ranking-page .ranking-top-cinco {height:clamp(120px,24vh,205px);gap:4px;}
+ .ranking-page .ranking-top-cinco .ranking-medalla {font-size:19px;}
+ .ranking-page .ranking-top-cinco .puesto-1 .ranking-medalla {font-size:24px;}
+ .ranking-page .ranking-top-cinco .ranking-podio-slot strong {font-size:9px;min-height:2.3em;}
+ .ranking-page .ranking-top-cinco .ranking-podio-slot small {font-size:8px;min-height:2.3em;}
+ .ranking-page .ranking-top-cinco .ranking-escalon {font-size:8px;border-radius:8px 8px 3px 3px;padding:7px 2px;}
+ .ranking-page .ranking-top-cinco .puesto-1 .ranking-escalon {height:72px;}
+ .ranking-page .ranking-top-cinco .puesto-2 .ranking-escalon {height:57px;}
+ .ranking-page .ranking-top-cinco .puesto-3 .ranking-escalon {height:46px;}
+ .ranking-page .ranking-top-cinco .puesto-4 .ranking-escalon {height:36px;}
+ .ranking-page .ranking-top-cinco .puesto-5 .ranking-escalon {height:30px;}
+ .ranking-page::before {width:125vw;left:-77vw;}
+ .ranking-page::after {width:125vw;right:-88vw;}
+}
+@media(max-height:620px) and (min-width:701px) {
+ .ranking-page .ranking-top-cinco {height:clamp(118px,25vh,160px);}
+ .ranking-page .ranking-top-cinco .puesto-1 .ranking-escalon {height:60px;}
+ .ranking-page .ranking-top-cinco .puesto-2 .ranking-escalon {height:48px;}
+ .ranking-page .ranking-top-cinco .puesto-3 .ranking-escalon {height:39px;}
+ .ranking-page .ranking-top-cinco .puesto-4 .ranking-escalon {height:32px;}
+ .ranking-page .ranking-top-cinco .puesto-5 .ranking-escalon {height:26px;}
+}
