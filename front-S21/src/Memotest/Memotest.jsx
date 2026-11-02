@@ -746,7 +746,7 @@ export function Memotest() {
 
   if (pantalla === "resultado" && resultado) {
     return (
-      <main className="memo-page memo-center">
+      <main className="memo-page memo-center memo-resultado-page">
         {resultado.ganador && <Confetti recycle={false} numberOfPieces={350} />}
 
         <section className="memo-result">
