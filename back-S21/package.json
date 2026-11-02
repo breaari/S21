@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "test:memotest": "node --test tests/memotestPgController.test.js",
+    "check:memotest-db": "node -r dotenv/config scripts/checkMemotestDatabase.js",
+    "import:memotest:dry-run": "node -r dotenv/config scripts/importMemotestFromSheets.js --dry-run",
+    "audit:memotest:sheets": "node -r dotenv/config scripts/auditMemotestSheets.js"
   },
   "keywords": [],
   "author": "",

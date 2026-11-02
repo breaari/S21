@@ -1,0 +1,51 @@
+name: Memotest checks
+
+on:
+  push:
+    branches:
+      - fix/memotest-guardrails-ranking-cache-20261030
+  pull_request:
+    paths:
+      - 'back-S21/**'
+      - 'front-S21/src/Memotest/**'
+      - '.github/workflows/memotest-checks.yml'
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: back-S21
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: npm install --ignore-scripts --no-audit --no-fund
+      - name: Validate JavaScript syntax
+        run: |
+          node --check src/services/memotestDb.js
+          node --check src/services/memotestRepository.js
+          node --check src/controllers/memotestPgController.js
+          node --check scripts/importMemotestFromSheets.js
+          node --check scripts/syncMemotestSheets.js
+          node --check scripts/checkMemotestDatabase.js
+          node --check scripts/auditMemotestSheets.js
+      - name: Unit tests without external services
+        run: npm run test:memotest
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: front-S21
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: npm install --ignore-scripts --no-audit --no-fund
+      - name: Build production frontend
+        run: npm run build
