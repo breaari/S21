@@ -381,16 +381,16 @@ export function Memotest() {
         <section className="memo-premios-shell">
           <img className="memo-logo" src={logo} alt="Universidad Siglo 21" />
           <span className="memo-kicker">NB 21K MAR DEL PLATA · DESAFÍO DE MEMORIA</span>
-          <h1 className="memo-premios-title">ENTRENÁ TU MEMORIA.<br /><span>COMPETÍ POR ESTOS PREMIOS.</span></h1>
-          <p className="memo-premios-lead">Encontrá los 6 pares en el menor tiempo posible y subí en el ranking en vivo.</p>
+          <h1 className="memo-premios-title">¿TENÉS LA MENTE MÁS RÁPIDA?<br /><span>ESTOS PREMIOS PUEDEN SER TUYOS.</span></h1>
+          <p className="memo-premios-lead">Encontrá los 6 pares en el menor tiempo posible y competí por uno de los 5 premios.</p>
           <div className="memo-premios-grid">
             {PREMIOS.map((premio) => (
-              <article key={premio.puesto} className={"memo-premio memo-premio-" + premio.puesto}>
+              <article key={premio.puesto} className={"memo-premio memo-premio-" + premio.puesto}>\n                {premio.puesto === 1 && <span className="memo-premio-principal">PREMIO PRINCIPAL</span>}
                 <div className="memo-premio-imagen">
                   {premio.imagen ? <img src={premio.imagen} alt={premio.nombre} /> : <span>IMAGEN DEL PREMIO</span>}
                 </div>
                 <div className="memo-premio-info">
-                  <span className="memo-premio-posicion">{premio.puesto}° PUESTO</span>
+                  <span className="memo-premio-posicion">{premio.puesto}° PREMIO</span>
                   <h2>{premio.nombre}</h2>
                   <p>{premio.detalle}</p>
                 </div>
