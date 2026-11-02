@@ -857,3 +857,20 @@
 .memo-premio-1 .memo-premio-imagen { background:radial-gradient(ellipse at center,rgba(40,185,166,.31),rgba(7,189,138,.10) 42%,transparent 76%); }
 .memo-premio-principal { align-self:flex-start; margin:0 0 10px; padding:6px 11px; border-radius:99px; font-size:.7rem; font-weight:900; letter-spacing:.1em; color:#093f36; background:#55ebc4; }
 @media(max-width:650px) { .memo-premios-title { font-size:clamp(1.75rem,7vw,2.7rem); } .memo-premio-principal { font-size:.62rem; } }
+
+/* Premios sin tarjetas: las propias imágenes ya contienen el marco visual. */
+.memo-premios-grid { column-gap:25px; row-gap:30px; }
+.memo-premio, .memo-premio-1, .memo-premio-2 {
+  background:transparent; border:0; border-radius:0;
+  box-shadow:none; padding:0; overflow:visible;
+}
+.memo-premio-imagen, .memo-premio-1 .memo-premio-imagen {
+  background:none; border:0; border-radius:0; overflow:visible;
+}
+.memo-premio-imagen img { padding:0; filter:none; }
+.memo-premio-principal { margin:0 0 8px; }
+.memo-premio-info { padding:12px 0 0; }
+@media (max-width:650px) {
+  .memo-premios-grid { column-gap:12px; row-gap:22px; }
+  .memo-premio,.memo-premio-1,.memo-premio-2 { padding:0; }
+}
