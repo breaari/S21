@@ -624,7 +624,7 @@ export function Memotest() {
 
   if (pantalla === "instrucciones") {
     return (
-      <main className="memo-page memo-center">
+      <main className="memo-page memo-center memo-instrucciones-page">
         <section className="memo-challenge">
           <img className="memo-logo" src={logo} alt="Universidad Siglo 21" />
 
@@ -646,8 +646,7 @@ export function Memotest() {
           </div>
 
           <div className="memo-prize-banner">
-            <span>PREMIAMOS A LOS MEJORES</span>
-            <strong>LOS 5 MEJORES PUESTOS DEL RANKING GANAN PREMIO</strong>
+            <strong>LOS 5 PRIMEROS PUESTOS DEL RANKING SE LLEVAN UN PREMIO</strong>
           </div>
 
           {error && <p className="memo-error">{error}</p>}
