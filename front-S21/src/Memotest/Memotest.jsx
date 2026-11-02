@@ -431,7 +431,7 @@ export function Memotest() {
 
   if (pantalla === "formulario") {
     return (
-      <main className="memo-page">
+      <main className="memo-page memo-formulario-page">
         <section className="memo-shell">
           <div className="memo-card">
             <img className="memo-logo" src={logo} alt="Universidad Siglo 21" />
