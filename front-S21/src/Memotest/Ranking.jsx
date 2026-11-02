@@ -222,7 +222,6 @@ export function RankingMemotest() {
         </section>
 
       </div>
-      <footer>LOS 5 MEJORES PUESTOS DEL RANKING GANAN PREMIO · UNIVERSIDAD SIGLO 21</footer>
     </main>
   );
 }
