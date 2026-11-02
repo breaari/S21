@@ -1256,3 +1256,58 @@
  .memo-instrucciones-page::before {width:125vw;left:-77vw;}
  .memo-instrucciones-page::after {width:125vw;right:-88vw;}
 }
+
+/* Resultado final — identidad visual de campaña */
+.memo-page.memo-resultado-page {
+ position:relative; overflow:hidden; isolation:isolate;
+ background:
+  radial-gradient(ellipse at 5% 13%,rgba(51,255,220,.42),transparent 31%),
+  radial-gradient(ellipse at 101% 31%,rgba(26,248,205,.35),transparent 30%),
+  radial-gradient(ellipse at 90% 91%,rgba(2,210,171,.22),transparent 39%),
+  linear-gradient(117deg,#04aa94 0%,#047b6c 43%,#025c52 100%);
+}
+.memo-resultado-page::before,.memo-resultado-page::after {
+ content:"";position:absolute;z-index:0;pointer-events:none;opacity:.64;filter:blur(13px);
+}
+.memo-resultado-page::before {
+ width:65vw;height:72vh;top:-16vh;left:-25vw;transform:rotate(-31deg);
+ background:repeating-linear-gradient(100deg,transparent 0 24px,rgba(92,255,229,.19) 28px 34px,rgba(150,255,235,.38) 38px 42px,transparent 48px 78px);
+ -webkit-mask-image:radial-gradient(ellipse at 40% 40%,#000 12%,transparent 72%);
+ mask-image:radial-gradient(ellipse at 40% 40%,#000 12%,transparent 72%);
+}
+.memo-resultado-page::after {
+ width:58vw;height:86vh;right:-31vw;top:6vh;transform:rotate(26deg);
+ background:repeating-linear-gradient(86deg,transparent 0 20px,rgba(95,255,229,.29) 26px 31px,rgba(172,255,239,.48) 36px 39px,transparent 44px 73px);
+ -webkit-mask-image:radial-gradient(ellipse at 45% 44%,#000 10%,transparent 72%);
+ mask-image:radial-gradient(ellipse at 45% 44%,#000 10%,transparent 72%);
+}
+.memo-resultado-page .memo-result {position:relative;z-index:1;}
+.memo-resultado-page .memo-kicker {color:#d8fff6;letter-spacing:.14em;}
+.memo-resultado-page .memo-result h1 {
+ font-family:Montserrat,sans-serif;font-weight:900;text-transform:uppercase;
+ letter-spacing:-.045em;line-height:1.03;color:#fff;
+}
+.memo-resultado-page .memo-result h1 span {color:#9cf8e6;}
+.memo-resultado-page .memo-result > p {color:#f0fffb;}
+.memo-resultado-page .memo-draw-message {
+ background:linear-gradient(135deg,rgba(190,255,241,.26),rgba(118,238,215,.15));
+ border:1px solid rgba(238,255,251,.66);border-radius:24px;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 10px 30px rgba(0,64,54,.10);
+ backdrop-filter:blur(12px);padding:24px 20px;
+}
+.memo-resultado-page .memo-draw-message small {color:#c6fff0;font-weight:900;letter-spacing:.08em;}
+.memo-resultado-page .memo-draw-message strong {
+ color:#e0fff6;font-size:clamp(1.8rem,6vw,3rem);line-height:1.08;
+}
+.memo-resultado-page .memo-draw-message p {color:#fff;margin:12px 0 0;}
+.memo-resultado-page .memo-primary {
+ background:linear-gradient(110deg,#00b997,#00a88c);border:0;border-radius:999px;
+ color:#fff;box-shadow:0 9px 25px rgba(0,67,55,.24);backdrop-filter:none;
+}
+.memo-resultado-page .memo-primary:hover {background:linear-gradient(110deg,#04c7a3,#05b89a);}
+.memo-resultado-page canvas {pointer-events:none;}
+@media(max-width:650px) {
+ .memo-resultado-page::before {width:125vw;left:-77vw;}
+ .memo-resultado-page::after {width:125vw;right:-88vw;}
+ .memo-resultado-page .memo-draw-message {padding:22px 16px;border-radius:22px;}
+}
