@@ -266,3 +266,113 @@
  .ranking-page .ranking-top-cinco .puesto-4 .ranking-escalon {height:32px;}
  .ranking-page .ranking-top-cinco .puesto-5 .ranking-escalon {height:26px;}
 }
+
+/* Ranking de TV: más luminoso y con exactamente cinco filas visibles. */
+.ranking-page {
+  background:
+    radial-gradient(ellipse at -4% 4%, rgba(79,255,226,.63), transparent 37%),
+    radial-gradient(ellipse at 103% 26%, rgba(47,238,207,.47), transparent 36%),
+    radial-gradient(ellipse at 50% 102%,rgba(0,188,159,.35),transparent 47%),
+    linear-gradient(112deg,#0bbba5 0%,#078f82 39%,#006e64 100%);
+  gap:clamp(6px,.85vh,11px);
+  padding-bottom:clamp(12px,2vh,24px);
+}
+.ranking-page::before,.ranking-page::after { opacity:.73; }
+.ranking-page .ranking-header b { color:#e4fff8; }
+.ranking-page h1 { text-shadow:0 5px 24px rgba(0,62,55,.15); }
+.ranking-page h1 span { color:#a4ffeb; }
+.ranking-page .ranking-subtitle { color:#e7fff8; }
+.ranking-page .ranking-top-cinco .ranking-podio-slot {
+  border:0; background:transparent; backdrop-filter:none;
+}
+.ranking-page .ranking-top-cinco .ranking-escalon {
+  border:1px solid rgba(233,255,250,.72);
+  background:linear-gradient(155deg,rgba(121,252,223,.55),rgba(12,173,151,.58));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.19),0 8px 20px rgba(0,80,70,.12);
+  color:#fff;
+}
+.ranking-page .ranking-top-cinco .puesto-1 .ranking-escalon {
+  background:linear-gradient(150deg,#aaffea,#37dcbc 65%,#0da88f);
+  color:#004f43;
+  border-color:#c8fff4;
+  box-shadow:0 0 25px rgba(126,255,223,.27);
+}
+.ranking-page .ranking-top-cinco .puesto-2 .ranking-escalon,
+.ranking-page .ranking-top-cinco .puesto-3 .ranking-escalon {
+  background:linear-gradient(150deg,rgba(158,255,234,.72),rgba(27,191,164,.64));
+}
+.ranking-page .ranking-top-cinco .ranking-medalla {
+  text-shadow:0 4px 18px rgba(0,78,69,.22);
+}
+.ranking-page .ranking-top-cinco .ranking-podio-slot strong {
+  text-shadow:0 2px 8px rgba(0,69,59,.15);
+}
+.ranking-page .ranking-list-title {
+  flex:none;
+  color:#fff;
+  border-bottom:1px solid rgba(223,255,246,.44);
+  padding-bottom:clamp(5px,.7vh,9px);
+}
+.ranking-page .ranking-list-title span { color:#d6fff4; }
+.ranking-page .ranking-area {
+  flex:1 1 0;
+  min-height:0;
+  overflow:hidden;
+  border-radius:12px;
+}
+.ranking-page .ranking-lista {
+  --ranking-gap:6px;
+  display:flex;
+  flex-direction:column;
+  gap:var(--ranking-gap);
+  height:100%;
+  min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:none;
+}
+.ranking-page .ranking-lista .ranking-fila {
+  box-sizing:border-box;
+  flex:0 0 calc((100% - 4 * var(--ranking-gap))/5);
+  height:calc((100% - 4 * var(--ranking-gap))/5);
+  min-height:0;
+  margin:0;
+  background:linear-gradient(100deg,rgba(203,255,244,.34),rgba(144,249,222,.19));
+  border:1px solid rgba(237,255,250,.67);
+  border-radius:11px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10);
+  padding:0 clamp(12px,1.5vw,23px);
+  font-size:clamp(14px,1.55vw,28px);
+  grid-template-columns:clamp(45px,7vw,100px) minmax(0,1fr) auto;
+}
+.ranking-page .ranking-lista .ranking-fila b {
+  color:#c4ffed;
+  font-size:1.16em;
+  font-weight:900;
+}
+.ranking-page .ranking-lista .ranking-fila span { color:#fff; font-weight:700; }
+.ranking-page .ranking-lista .ranking-fila strong { color:#f1fff9; font-size:.86em; }
+.ranking-page .ranking-lista .ranking-destacado {
+  background:linear-gradient(100deg,#35dcb8,#08ac90);
+  border-color:#f3fff9;
+  box-shadow:0 0 24px rgba(156,255,224,.4);
+}
+.ranking-page .ranking-lista .ranking-destacado b,
+.ranking-page .ranking-lista .ranking-destacado span,
+.ranking-page .ranking-lista .ranking-destacado strong { color:#004d41; }
+.ranking-page .ranking-lista .ranking-llegada { background:#b4ffea; }
+.ranking-page .ranking-vacio {font-size:clamp(16px,2vw,26px);color:#f0fffa;}
+@media(max-width:700px) {
+  .ranking-page .ranking-lista .ranking-fila {
+    grid-template-columns:32px minmax(0,1fr) auto;
+    padding:0 9px;
+    font-size:clamp(11px,2.8vw,15px);
+    gap:5px;
+  }
+  .ranking-page .ranking-lista .ranking-fila strong {font-size:.78em;max-width:115px;}
+  .ranking-page .ranking-top-cinco {height:clamp(115px,23vh,190px);}
+}
+@media(max-height:620px) and (min-width:701px) {
+  .ranking-page {gap:5px;padding-top:1.6vh;padding-bottom:1.6vh;}
+  .ranking-page .ranking-top-cinco {height:clamp(105px,23vh,155px);}
+}
