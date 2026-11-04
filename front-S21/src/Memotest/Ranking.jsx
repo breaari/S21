@@ -15,11 +15,14 @@ const formatoResultado = (p) =>
 
 export function RankingMemotest() {
   const [jugadores, setJugadores] = useState([]);
+  const ultimoRankingRef = useRef([]);
+  const colaRef = useRef([]);
   const [pendientes, setPendientes] = useState([]);
   const [activo, setActivo] = useState(null);
   const [fase, setFase] = useState("reposo");
   const posicionesRef = useRef(null);
   const [estado, setEstado] = useState("Conectando...");
+  const [estadoAudio, setEstadoAudio] = useState(rechargeSound ? "cargando" : "faltante");
   const listaRef = useRef(null);
   const vistos = useRef(new Set());
   const inicializado = useRef(false);
@@ -28,60 +31,80 @@ export function RankingMemotest() {
   const activoRef = useRef(false);
 
 
-  const reproducir = (tipo) => {
+  // Preparar el archivo una sola vez y solicitar permiso de reproducción
+  // cuando el navegador lo necesite (especialmente en pantallas de TV).
+  const habilitarAudioRef = useRef(null);
+  const reproducir = () => {
     const ctx = audioCtx.current;
-    const buffer = buffers.current[tipo];
-    if (!ctx || ctx.state !== "running" || !buffer) return;
+    const buffer = buffers.current.recharge;
+    if (!ctx || ctx.state !== "running" || !buffer) {
+      if (rechargeSound && ctx?.state !== "running") setEstadoAudio("bloqueado");
+      return;
+    }
     const fuente = ctx.createBufferSource();
     const volumen = ctx.createGain();
     fuente.buffer = buffer;
-    volumen.gain.value = 0.65;
+    volumen.gain.value = 0.75;
     fuente.connect(volumen);
     volumen.connect(ctx.destination);
-    fuente.start();
+    fuente.start(0);
   };
 
-  // Intentamos preparar los sonidos; si autoplay está bloqueado, la primera
-  // interacción sobre la página habilita el audio sin controles visibles.
   useEffect(() => {
+    if (!rechargeSound) {
+      setEstadoAudio("faltante");
+      return;
+    }
     let cancelado = false;
     const preparar = async () => {
       try {
-        const Contexto = window.AudioContext || window.webkitAudioContext;
-        if (!Contexto) return;
-        if (!audioCtx.current) audioCtx.current = new Contexto();
-        const ctx = audioCtx.current;
-        if (ctx.state === "suspended") await ctx.resume();
-        if (buffers.current.recharge || cancelado || !rechargeSound) return;
-        const cargar = async (url) => {
-          const response = await fetch(url);
-          if (!response.ok) throw new Error("Audio no disponible");
-          return ctx.decodeAudioData(await response.arrayBuffer());
-        };
-        const recharge = await cargar(rechargeSound);
-        if (!cancelado) buffers.current = { recharge };
-      } catch (error) { console.warn("Audio del ranking:", error); }
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) { setEstadoAudio("error"); return; }
+        const ctx = audioCtx.current || new AudioContextClass();
+        audioCtx.current = ctx;
+        const response = await fetch(rechargeSound);
+        if (!response.ok) throw new Error("No se pudo cargar recharge");
+        const buffer = await ctx.decodeAudioData(await response.arrayBuffer());
+        if (cancelado) return;
+        buffers.current.recharge = buffer;
+        setEstadoAudio(ctx.state === "running" ? "listo" : "bloqueado");
+      } catch (error) {
+        console.warn("Audio del ranking:", error);
+        if (!cancelado) setEstadoAudio("error");
+      }
+    };
+    habilitarAudioRef.current = async () => {
+      try {
+        if (audioCtx.current?.state === "suspended") await audioCtx.current.resume();
+        setEstadoAudio(audioCtx.current?.state === "running" && buffers.current.recharge ? "listo" : "cargando");
+      } catch (error) { console.warn("Activación de audio:", error); setEstadoAudio("bloqueado"); }
     };
     preparar();
-    window.addEventListener("pointerdown", preparar);
-    window.addEventListener("keydown", preparar);
-    return () => {
-      cancelado = true;
-      window.removeEventListener("pointerdown", preparar);
-      window.removeEventListener("keydown", preparar);
-    };
+    return () => { cancelado = true; habilitarAudioRef.current = null; };
   }, []);
 
   const cargar = useCallback(async (anunciar = false) => {
     const { data } = await axios.get(`${API_URL}/memotest/ranking`, { timeout: 15000 });
-    const nuevos = data.ranking.filter((p) => !vistos.current.has(p.id));
-    data.ranking.forEach((p) => vistos.current.add(p.id));
-    setJugadores(data.ranking);
+    const ranking = Array.isArray(data.ranking) ? data.ranking : [];
+    const nuevos = ranking.filter((p) => !vistos.current.has(p.id));
+    ranking.forEach((p) => vistos.current.add(p.id));
+    ultimoRankingRef.current = ranking;
     setEstado("EN VIVO");
-    if (inicializado.current && anunciar && nuevos.length) {
-      setPendientes((anteriores) => [...anteriores, ...nuevos.map((p) => p.id)]);
+
+    if (!inicializado.current) {
+      inicializado.current = true;
+      setJugadores(ranking);
+      return;
     }
-    inicializado.current = true;
+    if (anunciar && nuevos.length) {
+      const ids = nuevos.map((p) => p.id);
+      colaRef.current.push(...ids);
+      setPendientes([...colaRef.current]);
+    } else if (!activoRef.current && colaRef.current.length === 0) {
+      setJugadores(ranking);
+    }
+    // Durante una presentación, se conserva el listado en pantalla.
+    // Las siguientes llegadas quedan en cola, sin alterar el podio.
   }, []);
 
   useEffect(() => {
@@ -100,16 +123,21 @@ export function RankingMemotest() {
     return () => { cerrada = true; eventos?.close(); clearInterval(revision); };
   }, [cargar]);
 
-  // Una incorporación: comienza al final, se mueve a su posición y se detiene.
+  // Las incorporaciones se procesan en orden de llegada, una por vez.
   useEffect(() => {
-    if (activoRef.current || !pendientes.length || !jugadores.length) return;
-    const id = pendientes[0];
-    setPendientes((prev) => prev.slice(1));
-    if (!jugadores.some((p) => p.id === id)) return;
+    if (activoRef.current || !pendientes.length) return;
+    const id = colaRef.current.shift();
+    if (!id) return;
+    setPendientes([...colaRef.current]);
+    const ranking = ultimoRankingRef.current.filter(
+      (p) => !colaRef.current.includes(p.id)
+    );
+    if (!ranking.some((p) => p.id === id)) return;
     activoRef.current = true;
+    setJugadores(ranking);
     setActivo(id);
     setFase("inicio");
-  }, [pendientes, jugadores]);
+  }, [pendientes, activo]);
 
   useEffect(() => {
     if (!activo || fase !== "inicio") return;
@@ -118,7 +146,7 @@ export function RankingMemotest() {
     // Mostrar la llegada al último lugar ANTES del cambio de posición.
     lista.scrollTop = lista.scrollHeight;
     // El sonido comienza un segundo antes del desplazamiento.
-    reproducir("recharge");
+    reproducir();
     const timer = setTimeout(() => setFase("subiendo"), 1000);
     return () => clearTimeout(timer);
   }, [activo, fase]);
@@ -164,7 +192,7 @@ export function RankingMemotest() {
 
   useEffect(() => {
     if (!activo || fase !== "pausa") return;
-    const timer = setTimeout(() => setFase("regreso"), 2800);
+    const timer = setTimeout(() => setFase("regreso"), 2000);
     return () => clearTimeout(timer);
   }, [activo, fase]);
 
@@ -175,11 +203,13 @@ export function RankingMemotest() {
       setActivo(null);
       setFase("reposo");
       activoRef.current = false;
+      if (colaRef.current.length === 0) setJugadores(ultimoRankingRef.current);
     }, 1000);
     return () => clearTimeout(timer);
   }, [activo, fase]);
 
   const podio = jugadores.slice(0, 5);
+  const participanteActivo = jugadores.find((p) => p.id === activo);
   // Durante la llegada se muestra la lista completa para que el nuevo jugador
   // pueda incorporarse desde el final, incluso si alcanza el top cinco.
   // En reposo, el listado comienza en el puesto seis.
@@ -193,7 +223,7 @@ export function RankingMemotest() {
     <main className="ranking-page">
       <header className="ranking-header">
         <img src={logo} alt="Universidad Siglo 21" />
-        <span>NB 21K MAR DEL PLATA · <b>{estado}</b></span>
+        <div className="ranking-estado-grupo"><span>NB 21K MAR DEL PLATA · <b>{estado}</b></span>{estadoAudio !== "listo" && <button type="button" className="ranking-audio-accion" onClick={() => habilitarAudioRef.current?.()} disabled={estadoAudio === "faltante" || estadoAudio === "error"}>{estadoAudio === "faltante" ? "FALTA RECHARGE" : estadoAudio === "error" ? "AUDIO NO DISPONIBLE" : estadoAudio === "cargando" ? "PREPARANDO AUDIO" : "ACTIVAR SONIDO"}</button>}</div>
       </header>
       <h1>MEMORIA <span>CONTRARRELOJ</span></h1>
       <p className="ranking-subtitle">UNA CARRERA DE AGILIDAD MENTAL HACIA EL PODIO</p>
@@ -209,7 +239,7 @@ export function RankingMemotest() {
         })}
       </section>
       <div className="ranking-list-title">
-        <strong>{activo ? "NUEVO PARTICIPANTE EN EL RANKING" : "CLASIFICACIÓN GENERAL"}</strong><span>{jugadores.length} PARTICIPANTES</span>
+        <strong>{activo ? "NUEVO RESULTADO · " + (participanteActivo?.nombre || "PARTICIPANTE") : "CLASIFICACIÓN GENERAL"}</strong><span>{jugadores.length} PARTICIPANTES</span>
       </div>
       <div className="ranking-area">
         <section className="ranking-lista" ref={listaRef}>
