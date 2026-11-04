@@ -1311,3 +1311,106 @@
  .memo-resultado-page::after {width:125vw;right:-88vw;}
  .memo-resultado-page .memo-draw-message {padding:22px 16px;border-radius:22px;}
 }
+
+/* JUEGO RESPONSIVE: las 12 cartas permanecen visibles en 4 filas x 3 columnas.
+   El tablero usa el alto sobrante y nunca depende de la proporción fija
+   de cada carta. dvh sigue el área visible real, incluida la barra móvil. */
+.memo-page.memo-game-page {
+  height:100vh;
+  height:100dvh;
+  min-height:0;
+  overflow:hidden;
+  display:flex;
+  align-items:stretch;
+  justify-content:center;
+  padding:clamp(8px,1.4dvh,18px) clamp(8px,3vw,20px);
+}
+.memo-game-page .memo-game {
+  width:100%;
+  max-width:520px;
+  height:100%;
+  min-height:0;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:clamp(6px,1.2dvh,14px);
+}
+.memo-game-page .memo-game-top {
+  flex:0 0 auto;
+  width:100%;
+  margin:0;
+}
+.memo-game-page .memo-game-logo {
+  width:clamp(65px,10dvh,105px);
+  max-height:12dvh;
+  object-fit:contain;
+  margin:0 auto clamp(3px,.7dvh,9px);
+}
+.memo-game-page .memo-game-top > p {
+  margin:0 0 clamp(4px,.75dvh,9px);
+  font-size:clamp(.72rem,1.6dvh,.92rem);
+}
+.memo-game-page .memo-countdown {
+  padding:clamp(4px,.7dvh,8px) clamp(12px,2.5vw,18px);
+  min-width:120px;
+}
+.memo-game-page .memo-countdown strong {
+  font-size:clamp(1.5rem,3.5dvh,2.1rem);
+}
+.memo-game-page .memo-countdown small {
+  font-size:clamp(.55rem,1.15dvh,.7rem);
+}
+.memo-game-page .memo-progress {
+  margin-top:clamp(3px,.7dvh,8px);
+  font-size:clamp(.69rem,1.5dvh,.85rem);
+  line-height:1.3;
+}
+.memo-game-page .memo-board {
+  flex:1 1 0;
+  min-height:0;
+  min-width:0;
+  height:100%;
+  /* Conservar cartas más altas que anchas sin exceder el ancho del celular. */
+  width:min(100%,calc((100dvh - 165px) * .585));
+  max-width:100%;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-rows:repeat(4,minmax(0,1fr));
+  gap:clamp(4px,.9dvh,10px);
+  margin:0 auto;
+  align-content:stretch;
+}
+.memo-game-page .memo-tile {
+  width:100%;
+  height:100%;
+  min-width:0;
+  min-height:0;
+  aspect-ratio:auto;
+  touch-action:manipulation;
+}
+.memo-game-page .memo-tile-front,
+.memo-game-page .memo-tile-back {
+  border-radius:clamp(8px,1.5vw,15px);
+}
+/* En equipos muy bajos, la cabecera cede espacio al tablero. */
+@media(max-height:680px) {
+  .memo-game-page .memo-game-logo {width:clamp(55px,8dvh,78px);margin-bottom:3px;}
+  .memo-game-page .memo-game-top > p {margin-bottom:3px;}
+  .memo-game-page .memo-progress {margin-top:3px;}
+  .memo-game-page .memo-countdown {padding:3px 12px;}
+  .memo-game-page .memo-board {width:min(100%,calc((100dvh - 138px) * .585));}
+}
+@media(max-height:510px) and (orientation:landscape) {
+  .memo-game-page .memo-game-top {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .memo-game-page .memo-game-logo {width:58px;margin:0;}
+  .memo-game-page .memo-game-top > p {margin:0;}
+  .memo-game-page .memo-progress {margin:0;}
+  .memo-game-page .memo-board {width:min(100%,calc((100dvh - 95px) * .585));}
+}
