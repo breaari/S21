@@ -23,6 +23,7 @@ export function RankingMemotest() {
   const posicionesRef = useRef(null);
   const [estado, setEstado] = useState("Conectando...");
   const [estadoAudio, setEstadoAudio] = useState(rechargeSound ? "cargando" : "faltante");
+  const [filasVisibles, setFilasVisibles] = useState(5);
   const listaRef = useRef(null);
   const vistos = useRef(new Set());
   const inicializado = useRef(false);
@@ -67,7 +68,8 @@ export function RankingMemotest() {
         const buffer = await ctx.decodeAudioData(await response.arrayBuffer());
         if (cancelado) return;
         buffers.current.recharge = buffer;
-        setEstadoAudio(ctx.state === "running" ? "listo" : "bloqueado");
+        // El asesor debe habilitarlo con un clic aunque Chrome permita audio.
+        setEstadoAudio("pendiente");
       } catch (error) {
         console.warn("Audio del ranking:", error);
         if (!cancelado) setEstadoAudio("error");
@@ -81,7 +83,14 @@ export function RankingMemotest() {
         if (!ctx || !buffers.current.recharge) return;
         if (ctx.state !== "running") await ctx.resume();
         if (ctx.state === "running") {
-          reproducir(); // Una prueba real de los parlantes, no solo cambiar el estado.
+          // Breve confirmación audible sin reproducir los 5 s completos.
+          const fuente = ctx.createBufferSource();
+          const volumen = ctx.createGain();
+          fuente.buffer = buffers.current.recharge;
+          volumen.gain.value = 0.55;
+          fuente.connect(volumen);
+          volumen.connect(ctx.destination);
+          fuente.start(0, 0, Math.min(.4, fuente.buffer.duration));
           setEstadoAudio("listo");
         } else {
           setEstadoAudio("bloqueado");
@@ -93,6 +102,22 @@ export function RankingMemotest() {
     };
     preparar();
     return () => { cancelado = true; habilitarAudioRef.current = null; };
+  }, []);
+
+  // Mostrar tantas filas COMPLETAS como entren, con una altura cercana a 58px.
+  // No estirar cinco filas a toda la altura de una TV grande.
+  useEffect(() => {
+    const lista = listaRef.current;
+    if (!lista) return;
+    const calcular = () => {
+      const alto = lista.clientHeight;
+      const gap = 6;
+      setFilasVisibles(Math.max(1, Math.floor((alto + gap) / (58 + gap))));
+    };
+    calcular();
+    const observer = new ResizeObserver(calcular);
+    observer.observe(lista);
+    return () => observer.disconnect();
   }, []);
 
   const cargar = useCallback(async (anunciar = false) => {
@@ -234,7 +259,7 @@ export function RankingMemotest() {
     <main className="ranking-page">
       <header className="ranking-header">
         <img src={logo} alt="Universidad Siglo 21" />
-        <div className="ranking-estado-grupo"><span>NB 21K MAR DEL PLATA · <b>{estado}</b></span><button type="button" className="ranking-audio-accion" onClick={() => habilitarAudioRef.current?.()} disabled={estadoAudio === "faltante" || estadoAudio === "error"}>{estadoAudio === "faltante" ? "FALTA RECHARGE" : estadoAudio === "error" ? "AUDIO NO DISPONIBLE" : estadoAudio === "cargando" ? "PREPARANDO AUDIO" : estadoAudio === "listo" ? "PROBAR SONIDO" : "ACTIVAR Y PROBAR SONIDO"}</button></div>
+        <div className="ranking-estado-grupo"><span>NB 21K MAR DEL PLATA · <b>{estado}</b></span>{estadoAudio !== "listo" && <button type="button" className="ranking-audio-accion" onClick={() => habilitarAudioRef.current?.()} disabled={estadoAudio === "faltante" || estadoAudio === "error" || estadoAudio === "cargando"}>{estadoAudio === "faltante" ? "FALTA RECHARGE" : estadoAudio === "error" ? "AUDIO NO DISPONIBLE" : estadoAudio === "cargando" ? "CARGANDO AUDIO" : "ACTIVAR SONIDO"}</button>}</div>
       </header>
       <h1>MEMORIA <span>CONTRARRELOJ</span></h1>
       <p className="ranking-subtitle">UNA CARRERA DE AGILIDAD MENTAL HACIA EL PODIO</p>
@@ -253,7 +278,7 @@ export function RankingMemotest() {
         <strong>CLASIFICACIÓN GENERAL</strong><span>{jugadores.length} PARTICIPANTES</span>
       </div>
       <div className="ranking-area">
-        <section className="ranking-lista" ref={listaRef}>
+        <section className="ranking-lista" ref={listaRef} style={{ "--filas-visibles": filasVisibles }}>
           {!jugadores.length && <p className="ranking-vacio">¡El desafío está por comenzar!</p>}
           {!activo && jugadores.length > 0 && jugadores.length <= 5 && <p className="ranking-vacio">Los próximos participantes aparecerán aquí.</p>}
           {ordenVisible.map((p, i) => <div key={p.id} data-player={p.id}
