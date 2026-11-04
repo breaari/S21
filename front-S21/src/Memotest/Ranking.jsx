@@ -238,7 +238,7 @@ export function RankingMemotest() {
           </div>;
         })}
       </section>
-      <div className="ranking-list-title">
+      <div className={"ranking-list-title" + (activo ? " ranking-list-title-activo" : "")}>
         <strong>{activo ? "NUEVO RESULTADO · " + (participanteActivo?.nombre || "PARTICIPANTE") : "CLASIFICACIÓN GENERAL"}</strong><span>{jugadores.length} PARTICIPANTES</span>
       </div>
       <div className="ranking-area">
