@@ -110,7 +110,9 @@ export function RankingMemotest() {
     const calcular = () => {
       const alto = lista.clientHeight;
       const gap = 6;
-      setFilasVisibles(Math.max(1, Math.floor((alto + gap) / (58 + gap))));
+      // En celular, filas más compactas y legibles, sin estirarse a 5 grandes.
+      const altoObjetivo = lista.clientWidth <= 700 ? 48 : 58;
+      setFilasVisibles(Math.max(1, Math.floor((alto + gap) / (altoObjetivo + gap))));
     };
     calcular();
     const observer = new ResizeObserver(calcular);
