@@ -105,18 +105,18 @@ export function RankingMemotest() {
   // Mostrar tantas filas COMPLETAS como entren, con una altura cercana a 58px.
   // No estirar cinco filas a toda la altura de una TV grande.
   useEffect(() => {
-    const lista = listaRef.current;
-    if (!lista) return;
+    const area = listaRef.current?.parentElement;
+    if (!area) return;
     const calcular = () => {
-      const alto = lista.clientHeight;
+      const alto = area.clientHeight;
       const gap = 6;
       // En celular, filas más compactas y legibles, sin estirarse a 5 grandes.
-      const altoObjetivo = lista.clientWidth <= 700 ? 48 : 58;
+      const altoObjetivo = area.clientWidth <= 700 ? 48 : 58;
       setFilasVisibles(Math.max(1, Math.floor((alto + gap) / (altoObjetivo + gap))));
     };
     calcular();
     const observer = new ResizeObserver(calcular);
-    observer.observe(lista);
+    observer.observe(area);
     return () => observer.disconnect();
   }, []);
 
