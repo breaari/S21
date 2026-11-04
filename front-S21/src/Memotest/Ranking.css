@@ -453,3 +453,10 @@
   color:#fff;
   text-shadow:0 0 15px rgba(240,255,245,.78);
 }
+
+/* Filas dinámicas de altura legible: nunca se agrandan a 1/5 de la pantalla.
+   ResizeObserver determina cuántas filas completas entran en el espacio real. */
+.ranking-page .ranking-lista .ranking-fila {
+  flex: 0 0 calc((100% - (var(--filas-visibles, 5) - 1) * var(--ranking-gap, 6px)) / var(--filas-visibles, 5));
+  height: calc((100% - (var(--filas-visibles, 5) - 1) * var(--ranking-gap, 6px)) / var(--filas-visibles, 5));
+}
