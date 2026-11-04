@@ -75,9 +75,21 @@ export function RankingMemotest() {
     };
     habilitarAudioRef.current = async () => {
       try {
-        if (audioCtx.current?.state === "suspended") await audioCtx.current.resume();
-        setEstadoAudio(audioCtx.current?.state === "running" && buffers.current.recharge ? "listo" : "cargando");
-      } catch (error) { console.warn("Activación de audio:", error); setEstadoAudio("bloqueado"); }
+        // resume() se ejecuta directamente desde el clic: los navegadores
+        // suelen bloquear audio iniciado por SSE o por un temporizador.
+        const ctx = audioCtx.current;
+        if (!ctx || !buffers.current.recharge) return;
+        if (ctx.state !== "running") await ctx.resume();
+        if (ctx.state === "running") {
+          reproducir(); // Una prueba real de los parlantes, no solo cambiar el estado.
+          setEstadoAudio("listo");
+        } else {
+          setEstadoAudio("bloqueado");
+        }
+      } catch (error) {
+        console.warn("Activación de audio:", error);
+        setEstadoAudio("bloqueado");
+      }
     };
     preparar();
     return () => { cancelado = true; habilitarAudioRef.current = null; };
@@ -209,7 +221,6 @@ export function RankingMemotest() {
   }, [activo, fase]);
 
   const podio = jugadores.slice(0, 5);
-  const participanteActivo = jugadores.find((p) => p.id === activo);
   // Durante la llegada se muestra la lista completa para que el nuevo jugador
   // pueda incorporarse desde el final, incluso si alcanza el top cinco.
   // En reposo, el listado comienza en el puesto seis.
@@ -223,7 +234,7 @@ export function RankingMemotest() {
     <main className="ranking-page">
       <header className="ranking-header">
         <img src={logo} alt="Universidad Siglo 21" />
-        <div className="ranking-estado-grupo"><span>NB 21K MAR DEL PLATA · <b>{estado}</b></span>{estadoAudio !== "listo" && <button type="button" className="ranking-audio-accion" onClick={() => habilitarAudioRef.current?.()} disabled={estadoAudio === "faltante" || estadoAudio === "error"}>{estadoAudio === "faltante" ? "FALTA RECHARGE" : estadoAudio === "error" ? "AUDIO NO DISPONIBLE" : estadoAudio === "cargando" ? "PREPARANDO AUDIO" : "ACTIVAR SONIDO"}</button>}</div>
+        <div className="ranking-estado-grupo"><span>NB 21K MAR DEL PLATA · <b>{estado}</b></span>{estadoAudio !== "listo" && <button type="button" className="ranking-audio-accion" onClick={() => habilitarAudioRef.current?.()} disabled={estadoAudio === "faltante" || estadoAudio === "error"}>{estadoAudio === "faltante" ? "FALTA RECHARGE" : estadoAudio === "error" ? "AUDIO NO DISPONIBLE" : estadoAudio === "cargando" ? "PREPARANDO AUDIO" : "ACTIVAR Y PROBAR SONIDO"}</button>}</div>
       </header>
       <h1>MEMORIA <span>CONTRARRELOJ</span></h1>
       <p className="ranking-subtitle">UNA CARRERA DE AGILIDAD MENTAL HACIA EL PODIO</p>
@@ -238,8 +249,8 @@ export function RankingMemotest() {
           </div>;
         })}
       </section>
-      <div className={"ranking-list-title" + (activo ? " ranking-list-title-activo" : "")}>
-        <strong>{activo ? "NUEVO RESULTADO · " + (participanteActivo?.nombre || "PARTICIPANTE") : "CLASIFICACIÓN GENERAL"}</strong><span>{jugadores.length} PARTICIPANTES</span>
+      <div className="ranking-list-title">
+        <strong>CLASIFICACIÓN GENERAL</strong><span>{jugadores.length} PARTICIPANTES</span>
       </div>
       <div className="ranking-area">
         <section className="ranking-lista" ref={listaRef}>
