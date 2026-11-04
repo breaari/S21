@@ -109,9 +109,10 @@ export function RankingMemotest() {
     if (!area) return;
     const calcular = () => {
       const alto = area.clientHeight;
-      const gap = 6;
-      // En celular, filas más compactas y legibles, sin estirarse a 5 grandes.
-      const altoObjetivo = area.clientWidth <= 700 ? 48 : 58;
+      const esMobile = area.clientWidth <= 700;
+      const gap = esMobile ? 5 : 6;
+      // Filas del listado mucho más compactas en celular; podio intacto.
+      const altoObjetivo = esMobile ? 34 : 58;
       setFilasVisibles(Math.max(1, Math.floor((alto + gap) / (altoObjetivo + gap))));
     };
     calcular();
