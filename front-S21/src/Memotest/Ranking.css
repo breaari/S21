@@ -460,3 +460,22 @@
   flex: 0 0 calc((100% - (var(--filas-visibles, 5) - 1) * var(--ranking-gap, 6px)) / var(--filas-visibles, 5));
   height: calc((100% - (var(--filas-visibles, 5) - 1) * var(--ranking-gap, 6px)) / var(--filas-visibles, 5));
 }
+
+/* Llegadas rápidas incluso con cientos de participantes.
+   El bloque visible se limita a los puestos vecinos del nuevo jugador. */
+.ranking-page .ranking-area-regreso {
+  opacity:0;
+  transition:opacity .65s ease;
+}
+.ranking-page .ranking-area {
+  transition:opacity .3s ease;
+}
+.ranking-page .ranking-lista .ranking-destacado {
+  position:relative;
+  z-index:2;
+  will-change:transform;
+}
+@media (prefers-reduced-motion:reduce) {
+  .ranking-page .ranking-area,
+  .ranking-page .ranking-area-regreso { transition:none; }
+}
