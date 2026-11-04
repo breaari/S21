@@ -234,7 +234,7 @@ export function RankingMemotest() {
     <main className="ranking-page">
       <header className="ranking-header">
         <img src={logo} alt="Universidad Siglo 21" />
-        <div className="ranking-estado-grupo"><span>NB 21K MAR DEL PLATA · <b>{estado}</b></span>{estadoAudio !== "listo" && <button type="button" className="ranking-audio-accion" onClick={() => habilitarAudioRef.current?.()} disabled={estadoAudio === "faltante" || estadoAudio === "error"}>{estadoAudio === "faltante" ? "FALTA RECHARGE" : estadoAudio === "error" ? "AUDIO NO DISPONIBLE" : estadoAudio === "cargando" ? "PREPARANDO AUDIO" : "ACTIVAR Y PROBAR SONIDO"}</button>}</div>
+        <div className="ranking-estado-grupo"><span>NB 21K MAR DEL PLATA · <b>{estado}</b></span>{<button type="button" className="ranking-audio-accion" onClick={() => habilitarAudioRef.current?.()} disabled={estadoAudio === "faltante" || estadoAudio === "error"}>{estadoAudio === "faltante" ? "FALTA RECHARGE" : estadoAudio === "error" ? "AUDIO NO DISPONIBLE" : estadoAudio === "cargando" ? "PREPARANDO AUDIO" : estadoAudio === "listo" ? "PROBAR SONIDO" : "ACTIVAR Y PROBAR SONIDO"}</button>}</div>
       </header>
       <h1>MEMORIA <span>CONTRARRELOJ</span></h1>
       <p className="ranking-subtitle">UNA CARRERA DE AGILIDAD MENTAL HACIA EL PODIO</p>
