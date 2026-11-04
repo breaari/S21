@@ -800,3 +800,617 @@
     font-size: 4.2rem;
   }
 }
+
+.memo-rules { width:min(100%,520px); margin:25px auto 12px; padding:22px 25px; border:1px solid rgba(40,185,166,.5); border-radius:17px; background:rgba(0,101,83,.24); text-align:left; }
+.memo-rules > strong { display:block; color:#28b9a6; text-align:center; font-size:.95rem; letter-spacing:.07em; margin-bottom:14px; }
+.memo-rules p { margin:9px 0; line-height:1.55; font-size:.95rem; }
+.memo-prize-highlight { margin:18px auto !important; max-width:520px; color:#fff; font-weight:900; font-size:1rem; letter-spacing:.03em; text-align:center; }
+.memo-ranking-link { display:block; max-width:420px; margin:24px auto 0; text-decoration:none; text-align:center; }
+
+.memo-challenge-lead { max-width:440px; margin:16px auto 8px !important; font-size:1.05rem; line-height:1.5; }
+.memo-rules-simple { padding:17px 22px; margin:22px auto 14px; }
+.memo-rules-simple > div { display:flex; align-items:center; gap:16px; padding:11px 0; }
+.memo-rules-simple > div + div { border-top:1px solid rgba(40,185,166,.28); }
+.memo-rules-simple span { color:#07bd8a; font-size:1.5rem; font-weight:900; flex:none; }
+.memo-rules-simple p { margin:0; }
+.memo-rules-simple p strong { color:#fff; }
+.memo-prize-banner { width:min(100%,520px); margin:14px auto 20px; padding:18px 20px; border-radius:14px; text-align:center; background:linear-gradient(110deg,#00876d,#05b987); box-shadow:0 10px 28px rgba(0,0,0,.14); }
+.memo-prize-banner span { display:block; font-size:.72rem; font-weight:700; letter-spacing:.16em; margin-bottom:7px; }
+.memo-prize-banner strong { display:block; font-size:clamp(1rem,3.7vw,1.22rem); line-height:1.4; }
+
+/* Vidriera de premios previa al formulario */
+.memo-premios-shell { width:min(100%,970px); margin:0 auto; text-align:center; }
+.memo-premios-title { margin:4px auto 14px; font-size:clamp(1.85rem,5vw,3.35rem); line-height:1.13; font-weight:900; }
+.memo-premios-title span { color:#07bd8a; }
+.memo-premios-lead { max-width:630px; margin:0 auto 26px; line-height:1.55; color:#e2f4f0; }
+.memo-premios-grid { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:14px; text-align:left; }
+.memo-premio { grid-column:span 2; display:flex; flex-direction:column; min-width:0; padding:14px; background:rgba(16,63,64,.88); border:1px solid rgba(40,185,166,.46); border-radius:19px; }
+.memo-premio-1,.memo-premio-2 { grid-column:span 3; }
+.memo-premio-1 { border-color:#07bd8a; background:linear-gradient(145deg,rgba(7,189,138,.24),rgba(16,63,64,.95)); }
+.memo-premio-imagen { display:flex; align-items:center; justify-content:center; min-height:155px; height:165px; border-radius:12px; background:radial-gradient(ellipse at center,rgba(40,185,166,.22) 0%,rgba(7,189,138,.08) 38%,transparent 75%); overflow:hidden; }
+.memo-premio-1 .memo-premio-imagen,.memo-premio-2 .memo-premio-imagen { height:190px; }
+.memo-premio-imagen img { display:block; width:100%; height:100%; object-fit:contain; padding:8px; filter:drop-shadow(0 12px 18px rgba(0,0,0,.28)); }
+.memo-premio-imagen > span { font-size:.7rem; color:#58736d; text-align:center; font-weight:700; letter-spacing:.08em; }
+.memo-premio-info { padding:13px 3px 4px; }
+.memo-premio-posicion { color:#42e0b8; font-weight:900; font-size:.83rem; letter-spacing:.09em; }
+.memo-premio-info h2 { font-size:clamp(.92rem,1.5vw,1.2rem); line-height:1.28; margin:8px 0; }
+.memo-premio-info p { margin:0; font-size:.83rem; line-height:1.45; color:#d7ebe6; }
+.memo-premios-condiciones { max-width:680px; margin:25px auto 12px; color:#d6e9e4; font-size:.83rem; line-height:1.5; }
+.memo-premios-cta { max-width:460px; margin:12px auto 15px; }
+@media(max-width:650px) {
+  .memo-premios-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+  .memo-premio,.memo-premio-1,.memo-premio-2 { grid-column:span 1; padding:9px; border-radius:14px; }
+  .memo-premio-1 { grid-column:span 2; }
+  .memo-premio-imagen,.memo-premio-1 .memo-premio-imagen,.memo-premio-2 .memo-premio-imagen { height:140px; min-height:140px; }
+  .memo-premio-1 .memo-premio-imagen { height:185px; }
+  .memo-premio-info { padding:10px 2px 4px; }
+  .memo-premio-info h2 { font-size:.86rem; }
+  .memo-premio-info p { font-size:.73rem; }
+  .memo-premio-posicion { font-size:.73rem; }
+}
+
+/* Jerarquía y profundidad para la galería de premios */
+.memo-premios-title { max-width:1000px; font-size:clamp(1.9rem,4.5vw,3.2rem); letter-spacing:-.025em; line-height:1.17; text-wrap:balance; }
+.memo-premios-title span { display:inline-block; margin-top:.12em; }
+.memo-premio { position:relative; overflow:hidden; }
+.memo-premio-1 { box-shadow:0 12px 40px rgba(0,0,0,.13),inset 0 0 0 1px rgba(7,189,138,.16); }
+.memo-premio-1 .memo-premio-imagen { background:radial-gradient(ellipse at center,rgba(40,185,166,.31),rgba(7,189,138,.10) 42%,transparent 76%); }
+.memo-premio-principal { align-self:flex-start; margin:0 0 10px; padding:6px 11px; border-radius:99px; font-size:.7rem; font-weight:900; letter-spacing:.1em; color:#093f36; background:#55ebc4; }
+@media(max-width:650px) { .memo-premios-title { font-size:clamp(1.75rem,7vw,2.7rem); } .memo-premio-principal { font-size:.62rem; } }
+
+/* Premios sin tarjetas: las propias imágenes ya contienen el marco visual. */
+.memo-premios-grid { column-gap:25px; row-gap:30px; }
+.memo-premio, .memo-premio-1, .memo-premio-2 {
+  background:transparent; border:0; border-radius:0;
+  box-shadow:none; padding:0; overflow:visible;
+}
+.memo-premio-imagen, .memo-premio-1 .memo-premio-imagen {
+  background:none; border:0; border-radius:0; overflow:visible;
+}
+.memo-premio-imagen img { padding:0; filter:none; }
+.memo-premio-principal { margin:0 0 8px; }
+.memo-premio-info { padding:12px 0 0; }
+@media (max-width:650px) {
+  .memo-premios-grid { column-gap:12px; row-gap:22px; }
+  .memo-premio,.memo-premio-1,.memo-premio-2 { padding:0; }
+}
+
+/* Portada de premios: diseño editorial, sin recuadros extra sobre las fotos. */
+.memo-premios-page { padding:20px 20px 34px; min-height:100vh; }
+.memo-premios-shell { width:min(100%,1120px); }
+.memo-premios-header { text-align:center; }
+.memo-premios-header .memo-logo { width:116px; margin:0 auto 12px; }
+.memo-premios-header .memo-kicker { margin-bottom:14px; font-size:.78rem; letter-spacing:.14em; }
+.memo-premios-title { max-width:none; margin:0 auto 10px; font-size:clamp(1.9rem,3.4vw,3.05rem); line-height:1.06; letter-spacing:-.035em; }
+.memo-premios-title span { display:block; margin:7px 0 0; font-size:.79em; color:#07bd8a; }
+.memo-premios-lead { max-width:760px; margin:0 auto 22px; font-size:.94rem; }
+.memo-premios-layout { display:grid; grid-template-columns:minmax(0,.92fr) minmax(0,1.35fr); gap:34px; align-items:stretch; text-align:left; }
+.memo-premio-destacado { display:flex; flex-direction:column; align-items:center; justify-content:space-between; padding:18px 14px 16px; border:1px solid rgba(51,223,180,.55); border-radius:18px; background:rgba(6,67,59,.28); }
+.memo-premio-topline { align-self:stretch; display:flex; align-items:center; justify-content:space-between; gap:10px; color:#53e5c1; font-size:.72rem; letter-spacing:.1em; font-weight:900; }
+.memo-premio-topline strong { white-space:nowrap; color:white; }
+.memo-premio-destacado .memo-premio-imagen { width:100%; height:235px; min-height:0; background:none; overflow:visible; border:0; }
+.memo-premio-destacado .memo-premio-imagen img { width:100%; height:100%; object-fit:contain; padding:0; filter:none; }
+.memo-premio-destacado .memo-premio-info { align-self:stretch; text-align:center; padding:4px 0 0; }
+.memo-premio-destacado .memo-premio-info h2 { margin:0 0 6px; font-size:1.15rem; }
+.memo-premios-secundarios { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px 23px; align-content:center; }
+.memo-premio-mini { min-width:0; display:grid; grid-template-columns:minmax(0,1fr); align-content:start; text-align:center; }
+.memo-premio-mini .memo-premio-imagen { width:100%; height:125px; min-height:0; border:0; overflow:visible; background:none; }
+.memo-premio-mini .memo-premio-imagen img { width:100%; height:100%; object-fit:contain; padding:0; filter:none; }
+.memo-premio-mini-info { padding:6px 0 0; }
+.memo-premio-mini-info > span { color:#53e5c1; font-weight:900; font-size:.7rem; letter-spacing:.09em; }
+.memo-premio-mini-info h2 { margin:5px auto 3px; max-width:240px; font-size:.83rem; line-height:1.3; font-weight:700; }
+.memo-premio-mini-info p { margin:0; color:#cce7dd; font-size:.7rem; line-height:1.4; }
+.memo-premios-accion { display:flex; justify-content:space-between; align-items:center; gap:22px; padding:18px 22px; margin:20px 0 0; background:rgba(9,51,48,.57); border:1px solid rgba(40,185,166,.36); border-radius:16px; text-align:left; }
+.memo-premios-accion > div { display:flex; flex-direction:column; gap:4px; }
+.memo-premios-accion > div strong { color:#53e5c1; font-weight:900; font-size:1rem; letter-spacing:.04em; }
+.memo-premios-accion > div span { color:#e1f0eb; font-size:.85rem; }
+.memo-premios-cta { width:260px; max-width:100%; flex:none; margin:0; }
+.memo-premios-condiciones { margin:10px auto 0; font-size:.72rem; opacity:.9; }
+@media(max-width:800px) {
+ .memo-premios-layout { grid-template-columns:1fr; gap:22px; }
+ .memo-premio-destacado { max-width:550px; width:100%; margin:auto; }
+ .memo-premio-destacado .memo-premio-imagen { height:215px; }
+ .memo-premios-secundarios { max-width:680px; width:100%; margin:auto; }
+ .memo-premios-accion { flex-direction:column; text-align:center; }
+ .memo-premios-accion > div { text-align:center; }
+ .memo-premios-cta { width:100%; max-width:420px; }
+}
+@media(max-width:480px) {
+ .memo-premios-page { padding:18px 13px 25px; }
+ .memo-premios-header .memo-logo { width:103px; }
+ .memo-premios-header .memo-kicker { font-size:.65rem; }
+ .memo-premios-title { font-size:clamp(1.65rem,7.4vw,2.3rem); }
+ .memo-premios-lead { font-size:.83rem; margin-bottom:19px; }
+ .memo-premios-secundarios { gap:23px 12px; }
+ .memo-premio-mini .memo-premio-imagen { height:112px; }
+ .memo-premio-mini-info h2 { font-size:.77rem; }
+ .memo-premio-mini-info p { font-size:.66rem; }
+ .memo-premios-accion { padding:15px 13px; }
+}
+
+/* Premio principal sin marco, alineado con las otras cuatro opciones. */
+.memo-premio-destacado {
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  padding:0;
+  justify-content:center;
+  gap:12px;
+}
+.memo-premio-primer-puesto {
+  color:#53e5c1;
+  font-size:.85rem;
+  font-weight:900;
+  letter-spacing:.1em;
+  text-align:center;
+  width:100%;
+}
+.memo-premio-destacado .memo-premio-imagen { height:255px; }
+.memo-premio-destacado .memo-premio-info { padding:0; }
+@media(max-width:480px) {
+  .memo-premio-destacado .memo-premio-imagen { height:215px; }
+}
+
+/* =========================================================
+   Campaña Siglo 21 · Potenciando nuevos liderazgos
+   Superficies de vidrio, tipografía editorial y verde turquesa.
+   No se agregan marcos a las imágenes de los premios.
+========================================================= */
+.memo-page {
+  --camp-teal:#1dcdb7;
+  --camp-ice:#bdf8ed;
+  background:
+    radial-gradient(ellipse at 4% 8%, rgba(88,239,221,.32),transparent 29%),
+    radial-gradient(ellipse at 95% 33%, rgba(19,202,178,.31),transparent 38%),
+    radial-gradient(ellipse at 39% 85%, rgba(1,147,127,.38),transparent 49%),
+    linear-gradient(142deg,#087b74 0%,#086f67 30%,#045c54 68%,#03473f 100%);
+  background-attachment:fixed;
+  isolation:isolate;
+}
+.memo-page .memo-logo { filter:drop-shadow(0 4px 12px rgba(0,50,44,.15)); }
+.memo-page .memo-kicker { color:var(--camp-ice); letter-spacing:.13em; }
+.memo-page .memo-premios-title,
+.memo-page .memo-main-title,
+.memo-page .memo-challenge h1,
+.memo-page .memo-result h1 {
+  font-family:Montserrat,Arial,sans-serif;
+  font-weight:900;
+  letter-spacing:-.045em;
+  text-transform:uppercase;
+}
+.memo-page .memo-premios-title span,
+.memo-page .memo-title-green,
+.memo-page .memo-challenge h1 span,
+.memo-page .memo-result h1 span { color:#72f2d8; -webkit-text-stroke:0; }
+.memo-premios-header .memo-premios-lead,
+.memo-page .memo-intro,
+.memo-page .memo-challenge-lead { color:#f0fffb; }
+.memo-page .memo-card,
+.memo-page .memo-rules,
+.memo-page .memo-draw-message,
+.memo-page .memo-code {
+  background:linear-gradient(145deg,rgba(194,255,243,.12),rgba(2,75,68,.22));
+  border:1px solid rgba(227,255,249,.58);
+  border-radius:25px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 14px 45px rgba(0,50,46,.10);
+  backdrop-filter:blur(9px);
+}
+.memo-page .memo-form input,
+.memo-page .memo-options button {
+  background:rgba(0,67,62,.27);
+  border:1px solid rgba(228,255,250,.45);
+}
+.memo-page .memo-form input:focus,
+.memo-page .memo-options button.selected {
+  border-color:#d1fff5;
+  box-shadow:0 0 0 3px rgba(143,255,228,.16);
+}
+.memo-page .memo-primary {
+  background:linear-gradient(135deg,rgba(242,255,252,.24),rgba(182,246,234,.13));
+  border:1.5px solid rgba(246,255,253,.88);
+  border-radius:999px;
+  color:#fff;
+  box-shadow:0 5px 25px rgba(0,54,47,.17),inset 0 1px 0 rgba(255,255,255,.14);
+  backdrop-filter:blur(10px);
+}
+.memo-page .memo-primary:hover { background:rgba(207,255,244,.27); box-shadow:0 10px 30px rgba(0,54,47,.23); }
+.memo-page .memo-prize-banner { background:rgba(136,246,220,.15); border:1px solid rgba(213,255,244,.53); }
+.memo-page .memo-prize-banner span { color:#d2fff5; }
+.memo-page .memo-countdown { background:rgba(208,255,244,.13); border:1px solid rgba(235,255,250,.65); }
+.memo-page .memo-countdown small,.memo-page .memo-progress strong { color:#bdf8ed; }
+.memo-page .memo-tile-back {
+  background:linear-gradient(140deg,rgba(203,255,244,.26),rgba(2,100,91,.75));
+  border:1.5px solid rgba(229,255,250,.72);
+}
+.memo-page .memo-tile-front { background:rgba(12,93,83,.34); border:1.5px solid rgba(226,255,250,.72); }
+.memo-page .memo-result .memo-draw-message strong { color:#bdf8ed; }
+.memo-page .memo-premios-accion {
+  background:rgba(2,74,66,.24);
+  border:1px solid rgba(224,255,248,.52);
+  backdrop-filter:blur(10px);
+}
+.memo-page .memo-premios-accion > div strong { color:#c5fff0; }
+.memo-page .memo-premio-primer-puesto,.memo-page .memo-premio-mini-info > span { color:#bdf8ed; }
+.memo-page .memo-premios-condiciones { color:#effffb; }
+.memo-premios-page .memo-premio-destacado,
+.memo-premios-page .memo-premio-destacado .memo-premio-imagen,
+.memo-premios-page .memo-premio-mini .memo-premio-imagen {
+  background:none; border:0; box-shadow:none; backdrop-filter:none;
+}
+@media(max-width:600px) {
+  .memo-page { background-attachment:scroll; }
+  .memo-page .memo-main-title { font-size:clamp(2.5rem,10vw,4.1rem); }
+  .memo-page .memo-card { border-radius:21px; }
+}
+
+/* Portada de premios: trazos luminosos de campaña sin afectar las demás pantallas. */
+.memo-page.memo-premios-page {
+  position:relative;
+  background:
+    radial-gradient(ellipse at 5% 13%,rgba(51,255,220,.42),transparent 31%),
+    radial-gradient(ellipse at 101% 31%,rgba(26,248,205,.35),transparent 30%),
+    radial-gradient(ellipse at 90% 91%,rgba(2,210,171,.22),transparent 39%),
+    linear-gradient(117deg,#04aa94 0%,#047b6c 43%,#025c52 100%);
+  overflow:hidden;
+}
+.memo-premios-page::before,
+.memo-premios-page::after {
+  content:"";
+  position:absolute;
+  z-index:0;
+  pointer-events:none;
+  opacity:.64;
+  filter:blur(13px);
+}
+.memo-premios-page::before {
+  width:65vw; height:72vh; top:-16vh; left:-25vw;
+  transform:rotate(-31deg);
+  background:repeating-linear-gradient(100deg,
+    transparent 0 24px,rgba(92,255,229,.19) 28px 34px,
+    rgba(150,255,235,.38) 38px 42px,transparent 48px 78px);
+  -webkit-mask-image:radial-gradient(ellipse at 40% 40%,#000 12%,transparent 72%);
+  mask-image:radial-gradient(ellipse at 40% 40%,#000 12%,transparent 72%);
+}
+.memo-premios-page::after {
+  width:58vw; height:86vh; right:-31vw; top:6vh;
+  transform:rotate(26deg);
+  background:repeating-linear-gradient(86deg,
+    transparent 0 20px,rgba(95,255,229,.29) 26px 31px,
+    rgba(172,255,239,.48) 36px 39px,transparent 44px 73px);
+  -webkit-mask-image:radial-gradient(ellipse at 45% 44%,#000 10%,transparent 72%);
+  mask-image:radial-gradient(ellipse at 45% 44%,#000 10%,transparent 72%);
+}
+.memo-premios-page .memo-premios-shell { position:relative; z-index:1; }
+.memo-premios-page .memo-premios-accion {
+  display:flex;
+  justify-content:center;
+  padding:10px 0 0;
+  margin-top:15px;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  backdrop-filter:none;
+}
+.memo-premios-page .memo-premios-cta {
+  background:linear-gradient(110deg,#00b997,#00a88c);
+  border:0;
+  color:#fff;
+  width:min(100%,360px);
+  min-height:56px;
+  font-weight:900;
+  box-shadow:0 9px 25px rgba(0,67,55,.28);
+  backdrop-filter:none;
+}
+.memo-premios-page .memo-premios-cta:hover {
+  background:linear-gradient(110deg,#04c7a3,#05b89a);
+  box-shadow:0 11px 28px rgba(0,67,55,.35);
+}
+@media(max-width:650px) {
+ .memo-premios-page::before { width:125vw; left:-77vw; }
+ .memo-premios-page::after { width:125vw; right:-88vw; }
+ .memo-premios-page .memo-premios-accion { padding:8px 0 0; }
+}
+
+/* Formulario: interpretación de la nueva campaña con vidrio claro. */
+.memo-page.memo-formulario-page {
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 5% 13%,rgba(51,255,220,.42),transparent 31%),
+    radial-gradient(ellipse at 101% 31%,rgba(26,248,205,.35),transparent 30%),
+    radial-gradient(ellipse at 90% 91%,rgba(2,210,171,.22),transparent 39%),
+    linear-gradient(117deg,#04aa94 0%,#047b6c 43%,#025c52 100%);
+  background-attachment:scroll;
+}
+.memo-formulario-page::before,.memo-formulario-page::after {
+  content:""; position:absolute; z-index:0; pointer-events:none;
+  opacity:.64; filter:blur(13px);
+}
+.memo-formulario-page::before {
+  width:65vw; height:72vh; top:-16vh; left:-25vw;
+  transform:rotate(-31deg);
+  background:repeating-linear-gradient(100deg,
+    transparent 0 24px,rgba(92,255,229,.19) 28px 34px,
+    rgba(150,255,235,.38) 38px 42px,transparent 48px 78px);
+  -webkit-mask-image:radial-gradient(ellipse at 40% 40%,#000 12%,transparent 72%);
+  mask-image:radial-gradient(ellipse at 40% 40%,#000 12%,transparent 72%);
+}
+.memo-formulario-page::after {
+  width:58vw; height:86vh; right:-31vw; top:6vh;
+  transform:rotate(26deg);
+  background:repeating-linear-gradient(86deg,
+    transparent 0 20px,rgba(95,255,229,.29) 26px 31px,
+    rgba(172,255,239,.48) 36px 39px,transparent 44px 73px);
+  -webkit-mask-image:radial-gradient(ellipse at 45% 44%,#000 10%,transparent 72%);
+  mask-image:radial-gradient(ellipse at 45% 44%,#000 10%,transparent 72%);
+}
+.memo-formulario-page .memo-shell { position:relative;z-index:1; }
+.memo-formulario-page .memo-card {
+  background:linear-gradient(145deg,rgba(179,255,238,.24),rgba(112,233,210,.16));
+  border:1px solid rgba(239,255,250,.64);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 18px 42px rgba(0,56,48,.14);
+  backdrop-filter:blur(15px);
+}
+.memo-formulario-page .memo-main-title { margin:14px 0 0; }
+.memo-formulario-page .memo-title-green { color:#a9ffeb; }
+.memo-formulario-page .memo-form input {
+  background:rgba(0,96,84,.23);
+  border:1px solid rgba(227,255,249,.58);
+  color:#fff;
+}
+.memo-formulario-page .memo-form input::placeholder {color:rgba(235,255,249,.67);}
+.memo-formulario-page .memo-form input:focus {
+  background:rgba(0,92,82,.34);
+  border-color:#e2fff8;
+  box-shadow:0 0 0 3px rgba(228,255,248,.15);
+}
+.memo-formulario-page .memo-options button {
+  background:rgba(4,108,94,.22);
+  border:1px solid rgba(236,255,250,.44);
+}
+.memo-formulario-page .memo-options button.selected {
+  background:rgba(13,87,76,.63);
+  border-color:#e2fff8;
+  box-shadow:0 0 0 2px rgba(218,255,245,.17);
+}
+.memo-formulario-page .memo-primary {
+  background:linear-gradient(110deg,#00b997,#00a88c);
+  border:0;
+  border-radius:999px;
+  box-shadow:0 9px 25px rgba(0,67,55,.24);
+  backdrop-filter:none;
+}
+.memo-formulario-page .memo-primary:hover { background:linear-gradient(110deg,#04c7a3,#05b89a); }
+@media(max-width:650px) {
+  .memo-formulario-page::before {width:125vw;left:-77vw;}
+  .memo-formulario-page::after {width:125vw;right:-88vw;}
+}
+
+/* Título del formulario: misma tipografía y jerarquía que la portada. */
+.memo-formulario-page .memo-main-title,
+.memo-formulario-page .memo-main-title span {
+  font-family:"Montserrat",sans-serif;
+  font-weight:900;
+  font-stretch:normal;
+  letter-spacing:-.045em;
+  line-height:1.08;
+  -webkit-text-stroke:0;
+  paint-order:normal;
+}
+.memo-formulario-page .memo-main-title {
+  font-size:clamp(1.8rem,5vw,2.65rem);
+  gap:0;
+  margin:18px auto 0;
+}
+.memo-formulario-page .memo-main-title span { white-space:normal; }
+.memo-formulario-page .memo-title-green { color:#bdf8ed; }
+@media(max-width:480px) {
+  .memo-formulario-page .memo-main-title {font-size:clamp(1.65rem,7.4vw,2.2rem);}
+}
+
+/* Instrucciones: misma identidad que la portada y el formulario. */
+.memo-page.memo-instrucciones-page {
+ position:relative; overflow:hidden; isolation:isolate;
+ background:
+  radial-gradient(ellipse at 5% 13%,rgba(51,255,220,.42),transparent 31%),
+  radial-gradient(ellipse at 101% 31%,rgba(26,248,205,.35),transparent 30%),
+  radial-gradient(ellipse at 90% 91%,rgba(2,210,171,.22),transparent 39%),
+  linear-gradient(117deg,#04aa94 0%,#047b6c 43%,#025c52 100%);
+}
+.memo-instrucciones-page::before,.memo-instrucciones-page::after {
+ content:"";position:absolute;z-index:0;pointer-events:none;opacity:.64;filter:blur(13px);
+}
+.memo-instrucciones-page::before {
+ width:65vw;height:72vh;top:-16vh;left:-25vw;transform:rotate(-31deg);
+ background:repeating-linear-gradient(100deg,transparent 0 24px,rgba(92,255,229,.19) 28px 34px,rgba(150,255,235,.38) 38px 42px,transparent 48px 78px);
+ -webkit-mask-image:radial-gradient(ellipse at 40% 40%,#000 12%,transparent 72%);
+ mask-image:radial-gradient(ellipse at 40% 40%,#000 12%,transparent 72%);
+}
+.memo-instrucciones-page::after {
+ width:58vw;height:86vh;right:-31vw;top:6vh;transform:rotate(26deg);
+ background:repeating-linear-gradient(86deg,transparent 0 20px,rgba(95,255,229,.29) 26px 31px,rgba(172,255,239,.48) 36px 39px,transparent 44px 73px);
+ -webkit-mask-image:radial-gradient(ellipse at 45% 44%,#000 10%,transparent 72%);
+ mask-image:radial-gradient(ellipse at 45% 44%,#000 10%,transparent 72%);
+}
+.memo-instrucciones-page .memo-challenge {position:relative;z-index:1;}
+.memo-instrucciones-page .memo-rules,
+.memo-instrucciones-page .memo-prize-banner {
+ background:linear-gradient(135deg,rgba(190,255,241,.26),rgba(118,238,215,.15));
+ border:1px solid rgba(238,255,251,.66);
+ border-radius:24px;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 10px 30px rgba(0,64,54,.1);
+ backdrop-filter:blur(12px);
+}
+.memo-instrucciones-page .memo-rules-simple span {color:#baffeb;}
+.memo-instrucciones-page .memo-prize-banner {padding:17px 20px;}
+.memo-instrucciones-page .memo-prize-banner strong {font-size:clamp(.98rem,3.5vw,1.15rem);line-height:1.4;}
+.memo-instrucciones-page .memo-primary {
+ background:linear-gradient(110deg,#00b997,#00a88c);
+ border:0;border-radius:999px;
+ box-shadow:0 9px 25px rgba(0,67,55,.24);
+ backdrop-filter:none;
+}
+.memo-instrucciones-page .memo-primary:hover {background:linear-gradient(110deg,#04c7a3,#05b89a);}
+@media(max-width:650px) {
+ .memo-instrucciones-page::before {width:125vw;left:-77vw;}
+ .memo-instrucciones-page::after {width:125vw;right:-88vw;}
+}
+
+/* Resultado final — identidad visual de campaña */
+.memo-page.memo-resultado-page {
+ position:relative; overflow:hidden; isolation:isolate;
+ background:
+  radial-gradient(ellipse at 5% 13%,rgba(51,255,220,.42),transparent 31%),
+  radial-gradient(ellipse at 101% 31%,rgba(26,248,205,.35),transparent 30%),
+  radial-gradient(ellipse at 90% 91%,rgba(2,210,171,.22),transparent 39%),
+  linear-gradient(117deg,#04aa94 0%,#047b6c 43%,#025c52 100%);
+}
+.memo-resultado-page::before,.memo-resultado-page::after {
+ content:"";position:absolute;z-index:0;pointer-events:none;opacity:.64;filter:blur(13px);
+}
+.memo-resultado-page::before {
+ width:65vw;height:72vh;top:-16vh;left:-25vw;transform:rotate(-31deg);
+ background:repeating-linear-gradient(100deg,transparent 0 24px,rgba(92,255,229,.19) 28px 34px,rgba(150,255,235,.38) 38px 42px,transparent 48px 78px);
+ -webkit-mask-image:radial-gradient(ellipse at 40% 40%,#000 12%,transparent 72%);
+ mask-image:radial-gradient(ellipse at 40% 40%,#000 12%,transparent 72%);
+}
+.memo-resultado-page::after {
+ width:58vw;height:86vh;right:-31vw;top:6vh;transform:rotate(26deg);
+ background:repeating-linear-gradient(86deg,transparent 0 20px,rgba(95,255,229,.29) 26px 31px,rgba(172,255,239,.48) 36px 39px,transparent 44px 73px);
+ -webkit-mask-image:radial-gradient(ellipse at 45% 44%,#000 10%,transparent 72%);
+ mask-image:radial-gradient(ellipse at 45% 44%,#000 10%,transparent 72%);
+}
+.memo-resultado-page .memo-result {position:relative;z-index:1;}
+.memo-resultado-page .memo-kicker {color:#d8fff6;letter-spacing:.14em;}
+.memo-resultado-page .memo-result h1 {
+ font-family:Montserrat,sans-serif;font-weight:900;text-transform:uppercase;
+ letter-spacing:-.045em;line-height:1.03;color:#fff;
+}
+.memo-resultado-page .memo-result h1 span {color:#9cf8e6;}
+.memo-resultado-page .memo-result > p {color:#f0fffb;}
+.memo-resultado-page .memo-draw-message {
+ background:linear-gradient(135deg,rgba(190,255,241,.26),rgba(118,238,215,.15));
+ border:1px solid rgba(238,255,251,.66);border-radius:24px;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 10px 30px rgba(0,64,54,.10);
+ backdrop-filter:blur(12px);padding:24px 20px;
+}
+.memo-resultado-page .memo-draw-message small {color:#c6fff0;font-weight:900;letter-spacing:.08em;}
+.memo-resultado-page .memo-draw-message strong {
+ color:#e0fff6;font-size:clamp(1.8rem,6vw,3rem);line-height:1.08;
+}
+.memo-resultado-page .memo-draw-message p {color:#fff;margin:12px 0 0;}
+.memo-resultado-page .memo-primary {
+ background:linear-gradient(110deg,#00b997,#00a88c);border:0;border-radius:999px;
+ color:#fff;box-shadow:0 9px 25px rgba(0,67,55,.24);backdrop-filter:none;
+}
+.memo-resultado-page .memo-primary:hover {background:linear-gradient(110deg,#04c7a3,#05b89a);}
+.memo-resultado-page canvas {pointer-events:none;}
+@media(max-width:650px) {
+ .memo-resultado-page::before {width:125vw;left:-77vw;}
+ .memo-resultado-page::after {width:125vw;right:-88vw;}
+ .memo-resultado-page .memo-draw-message {padding:22px 16px;border-radius:22px;}
+}
+
+/* JUEGO RESPONSIVE: las 12 cartas permanecen visibles en 4 filas x 3 columnas.
+   El tablero usa el alto sobrante y nunca depende de la proporción fija
+   de cada carta. dvh sigue el área visible real, incluida la barra móvil. */
+.memo-page.memo-game-page {
+  height:100vh;
+  height:100dvh;
+  min-height:0;
+  overflow:hidden;
+  display:flex;
+  align-items:stretch;
+  justify-content:center;
+  padding:clamp(8px,1.4dvh,18px) clamp(8px,3vw,20px);
+}
+.memo-game-page .memo-game {
+  width:100%;
+  max-width:520px;
+  height:100%;
+  min-height:0;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:clamp(6px,1.2dvh,14px);
+}
+.memo-game-page .memo-game-top {
+  flex:0 0 auto;
+  width:100%;
+  margin:0;
+}
+.memo-game-page .memo-game-logo {
+  width:clamp(65px,10dvh,105px);
+  max-height:12dvh;
+  object-fit:contain;
+  margin:0 auto clamp(3px,.7dvh,9px);
+}
+.memo-game-page .memo-game-top > p {
+  margin:0 0 clamp(4px,.75dvh,9px);
+  font-size:clamp(.72rem,1.6dvh,.92rem);
+}
+.memo-game-page .memo-countdown {
+  padding:clamp(4px,.7dvh,8px) clamp(12px,2.5vw,18px);
+  min-width:120px;
+}
+.memo-game-page .memo-countdown strong {
+  font-size:clamp(1.5rem,3.5dvh,2.1rem);
+}
+.memo-game-page .memo-countdown small {
+  font-size:clamp(.55rem,1.15dvh,.7rem);
+}
+.memo-game-page .memo-progress {
+  margin-top:clamp(3px,.7dvh,8px);
+  font-size:clamp(.69rem,1.5dvh,.85rem);
+  line-height:1.3;
+}
+.memo-game-page .memo-board {
+  flex:1 1 0;
+  min-height:0;
+  min-width:0;
+  height:100%;
+  /* Conservar cartas más altas que anchas sin exceder el ancho del celular. */
+  width:min(100%,calc((100dvh - 165px) * .585));
+  max-width:100%;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-rows:repeat(4,minmax(0,1fr));
+  gap:clamp(4px,.9dvh,10px);
+  margin:0 auto;
+  align-content:stretch;
+}
+.memo-game-page .memo-tile {
+  width:100%;
+  height:100%;
+  min-width:0;
+  min-height:0;
+  aspect-ratio:auto;
+  touch-action:manipulation;
+}
+.memo-game-page .memo-tile-front,
+.memo-game-page .memo-tile-back {
+  border-radius:clamp(8px,1.5vw,15px);
+}
+/* En equipos muy bajos, la cabecera cede espacio al tablero. */
+@media(max-height:680px) {
+  .memo-game-page .memo-game-logo {width:clamp(55px,8dvh,78px);margin-bottom:3px;}
+  .memo-game-page .memo-game-top > p {margin-bottom:3px;}
+  .memo-game-page .memo-progress {margin-top:3px;}
+  .memo-game-page .memo-countdown {padding:3px 12px;}
+  .memo-game-page .memo-board {width:min(100%,calc((100dvh - 138px) * .585));}
+}
+@media(max-height:510px) and (orientation:landscape) {
+  .memo-game-page .memo-game-top {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .memo-game-page .memo-game-logo {width:58px;margin:0;}
+  .memo-game-page .memo-game-top > p {margin:0;}
+  .memo-game-page .memo-progress {margin:0;}
+  .memo-game-page .memo-board {width:min(100%,calc((100dvh - 95px) * .585));}
+}

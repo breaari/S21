@@ -15,6 +15,8 @@ const {
 } = require("../handlers/ruletaQRHandler");
 
 const {
+  rankingMemotestHandler,
+  conectarRanking,
   registrarMemotestHandler,
   iniciarMemotestHandler,
   finalizarMemotestHandler,
@@ -47,6 +49,9 @@ router.post(
   "/ruleta-qr/:id/finalizar",
   finalizarRuletaQRHandler,
 );
+
+router.get("/memotest/ranking", rankingMemotestHandler);
+router.get("/memotest/ranking/eventos", conectarRanking);
 
 router.post(
   "/memotest/participar",

@@ -1,19 +1,18 @@
 const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 const transport = nodemailer.createTransport({
-  host: "c1942171.ferozo.com",
-  port: 465,
-  secure: true,
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT),
+  secure: Number(process.env.SMTP_PORT) === 465,
   auth: {
-    user: "infocarreras@universidadsiglo21online.com",
-    pass: "Pulsion21*"
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
   },
-  debug: true,
-  logger: true,
+  debug: false,
+  logger: false,
 });
 
 module.exports = transport;
-
-
 
 
