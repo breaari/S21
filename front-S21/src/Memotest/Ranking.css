@@ -480,23 +480,29 @@
   .ranking-page .ranking-area-regreso { transition:none; }
 }
 
-/* Celular: mantener el podio original de cinco columnas.
-   Solo las filas desde el 6.º son compactas, sin estirarse. */
+/* Celular: solo clasificación general compacta. El podio no se modifica.
+   El área de scroll mide un número entero de filas y no corta la siguiente. */
 @media (max-width:700px) {
   .ranking-page .ranking-lista {
-    height:min(100%,calc(var(--filas-visibles,5) * 54px - 6px));
+    --ranking-gap:5px;
+    height:min(100%,calc(var(--filas-visibles,5) * 34px + (var(--filas-visibles,5) - 1) * 5px));
+    gap:5px;
   }
   .ranking-page .ranking-lista .ranking-fila {
-    flex:0 0 48px;
-    height:48px;
-    min-height:0;
-    grid-template-columns:32px minmax(0,1fr) auto;
-    padding:0 9px;
-    gap:6px;
-    font-size:clamp(11px,2.95vw,14px);
+    flex:0 0 34px;
+    height:34px;
+    min-height:34px;
+    grid-template-columns:24px minmax(0,1fr) auto;
+    padding:0 7px;
+    gap:5px;
+    border-radius:7px;
+    font-size:clamp(10px,2.65vw,12px);
+    line-height:1.1;
   }
+  .ranking-page .ranking-lista .ranking-fila b {font-size:1.05em;}
   .ranking-page .ranking-lista .ranking-fila strong {
-    max-width:120px;
-    font-size:.79em;
+    max-width:112px;
+    font-size:.77em;
+    white-space:nowrap;
   }
 }
