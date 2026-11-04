@@ -437,3 +437,19 @@
   .ranking-estado-grupo {max-width:58%;font-size:10px;}
   .ranking-audio-accion {font-size:9px;padding:5px 9px;}
 }
+
+/* Indicación integrada en el ranking: sin carteles que tapen participantes. */
+.ranking-page .ranking-list-title-activo {
+  border-bottom:2px solid #bcfff0;
+  background:linear-gradient(90deg,rgba(197,255,238,.22),rgba(4,144,124,.07));
+  padding:8px 12px;
+  border-radius:10px 10px 0 0;
+}
+.ranking-page .ranking-list-title-activo strong {
+  color:#fff;
+  text-shadow:0 2px 12px rgba(0,62,53,.2);
+}
+.ranking-page .ranking-top-cinco .ranking-podio-activo .ranking-medalla {
+  color:#fff;
+  text-shadow:0 0 15px rgba(240,255,245,.78);
+}
