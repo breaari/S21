@@ -35,7 +35,8 @@ export const Portada = () => {
                     className="mx-auto mt-3 max-w-5xl uppercase"
                     style={{
                         fontFamily: '"Barlow", sans-serif',
-                        fontSize: 'clamp(1.25rem, 3vw, 2rem)',
+                        fontSize: 'clamp(2rem, 4vw, 3rem)',
+                        color: '#006C5B',
                         fontWeight: 700,
                         lineHeight: 1.25
                     }}
