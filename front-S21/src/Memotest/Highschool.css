@@ -94,3 +94,18 @@
 }
 .hs-page .hs-ranking-cta span { font-size: 1.3em; line-height: 1; }
 .hs-identidad-curso { font-weight: 600; overflow-wrap: anywhere; }
+
+/* El ranking intercolegial conserva los colores y escalones originales,
+   pero solo muestra 1.º, 2.º y 3.º, con el primer lugar en el centro. */
+.ranking-page.hs-ranking .hs-podio-tres {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(100%, 980px);
+  margin-inline: auto;
+  gap: clamp(8px, 1.5vw, 22px);
+}
+@media (max-width: 700px) {
+  .ranking-page.hs-ranking .hs-podio-tres {
+    width: 100%;
+    gap: 7px;
+  }
+}
