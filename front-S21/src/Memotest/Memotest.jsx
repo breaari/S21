@@ -17,11 +17,7 @@ import carta06 from "../assets/carta-06.png";
 
 import reverso from "../assets/reverso.png";
 
-const API_URL = import.meta.env.PROD
-  ? ""
-  : `http://${window.location.hostname}:3003`;
-
-const TIEMPO_LIMITE = 30;
+const API_URL = import.meta.env.VITE_MEMOTEST_API_URL || "https://back.universidadsiglo21online.com";
 
 const AREAS = [
   "Tecnología",
@@ -37,6 +33,17 @@ const AREAS = [
 ];
 
 const IMAGENES = [carta01, carta02, carta03, carta04, carta05, carta06];
+
+// Imágenes opcionales: subir premio-1.png ... premio-5.png a src/assets.
+// Hasta entonces las tarjetas mantienen el espacio sin romper la página.
+const archivosPremios = import.meta.glob("../assets/premio-*.{png,jpg,jpeg,webp}", { eager: true, query: "?url", import: "default" });
+const PREMIOS = [
+  { puesto: 1, nombre: "Smartwatch Xiaomi Smart Band 10 Pro", detalle: "AMOLED 1,74 · GPS · 5ATM · Negro" },
+  { puesto: 2, nombre: "Auriculares Bluetooth de conducción ósea", detalle: "Para natación · MP3 32 GB" },
+  { puesto: 3, nombre: "Chaleco mochila Aonijie", detalle: "Bolsa de hidratación de 1,5 L para running" },
+  { puesto: 4, nombre: "Combo Runner Airplus", detalle: "Chaleco running, medias y tiras nasales" },
+  { puesto: 5, nombre: "Pack de botellas flexibles Natway", detalle: "Soft Flask Runner para hidratación" },
+].map((premio) => ({ ...premio, imagen: Object.entries(archivosPremios).find(([ruta]) => new RegExp("/premio-" + premio.puesto + "\\.(png|jpg|jpeg|webp)$", "i").test(ruta))?.[1] }));
 
 const mezclarCartas = () => {
   const cartas = IMAGENES.flatMap((imagen, index) => [
@@ -66,7 +73,7 @@ export function Memotest() {
 
   const origen = params.get("source") || "directo";
 
-  const [pantalla, setPantalla] = useState("formulario");
+  const [pantalla, setPantalla] = useState("premios");
 
   const [form, setForm] = useState({
     nombre: "",
@@ -92,7 +99,8 @@ export function Memotest() {
 
   const [movimientos, setMovimientos] = useState(0);
 
-  const [tiempoRestante, setTiempoRestante] = useState(TIEMPO_LIMITE);
+  const [tiempoTranscurrido, setTiempoTranscurrido] = useState(0);
+  const inicioRef = useRef(null);
 
   const [jugando, setJugando] = useState(false);
 
@@ -224,7 +232,8 @@ export function Memotest() {
       setParejasEncontradas([]);
       setMovimientos(0);
 
-      setTiempoRestante(data.tiempoLimite || TIEMPO_LIMITE);
+      inicioRef.current = new Date(data.inicioJuego).getTime();
+      setTiempoTranscurrido(0);
 
       bloqueoRef.current = false;
 
@@ -239,28 +248,16 @@ export function Memotest() {
   };
 
   /* =====================================================
-     CRONÓMETRO
+     CRONÓMETRO ASCENDENTE (SIN LÍMITE)
   ===================================================== */
 
   useEffect(() => {
-    if (pantalla !== "juego" || !jugando) {
-      return;
-    }
-
-    if (tiempoRestante <= 0) {
-      setJugando(false);
-
-      finalizarJuego(false);
-
-      return;
-    }
-
-    const timer = setTimeout(() => {
-      setTiempoRestante((prev) => prev - 1);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, [pantalla, jugando, tiempoRestante]);
+    if (pantalla !== "juego" || !jugando) return;
+    const actualizar = () => setTiempoTranscurrido(Math.max(0, Math.floor((Date.now() - inicioRef.current) / 1000)));
+    actualizar();
+    const intervalo = setInterval(actualizar, 1000);
+    return () => clearInterval(intervalo);
+  }, [pantalla, jugando]);
 
   /* =====================================================
      CARTAS
@@ -373,12 +370,66 @@ export function Memotest() {
     parejasEncontradas.includes(carta.pareja);
 
   /* =====================================================
+     PREMIOS: ANTES DEL REGISTRO
+  ===================================================== */
+
+  if (pantalla === "premios") {
+    const principal = PREMIOS[0];
+    return (
+      <main className="memo-page memo-premios-page">
+        <section className="memo-premios-shell">
+          <header className="memo-premios-header">
+            <img className="memo-logo" src={logo} alt="Universidad Siglo 21" />
+            <span className="memo-kicker">NB 21K MAR DEL PLATA · DESAFÍO DE MEMORIA</span>
+            <h1 className="memo-premios-title">¿TENÉS LA MENTE MÁS RÁPIDA?<span>ESTOS PREMIOS PUEDEN SER TUYOS.</span></h1>
+            <p className="memo-premios-lead">Encontrá los 6 pares, marcá tu mejor tiempo y competí por uno de los 5 premios.</p>
+          </header>
+
+          <div className="memo-premios-layout">
+            <div className="memo-premio-destacado">
+              <span className="memo-premio-primer-puesto">1° PREMIO</span>
+              <div className="memo-premio-imagen memo-premio-imagen-principal">
+                {principal.imagen ? <img src={principal.imagen} alt={principal.nombre} /> : <span>IMAGEN DEL PREMIO</span>}
+              </div>
+              <div className="memo-premio-info">
+                <h2>{principal.nombre}</h2>
+                <p>{principal.detalle}</p>
+              </div>
+            </div>
+
+            <div className="memo-premios-secundarios">
+              {PREMIOS.slice(1).map((premio) => (
+                <article key={premio.puesto} className="memo-premio-mini">
+                  <div className="memo-premio-imagen">
+                    {premio.imagen ? <img src={premio.imagen} alt={premio.nombre} /> : <span>IMAGEN DEL PREMIO</span>}
+                  </div>
+                  <div className="memo-premio-mini-info">
+                    <span>{premio.puesto}° PREMIO</span>
+                    <h2>{premio.nombre}</h2>
+                    <p>{premio.detalle}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="memo-premios-accion">
+            <button type="button" className="memo-primary memo-premios-cta" onClick={() => { setPantalla("formulario"); window.scrollTo(0, 0); }}>
+              QUIERO PARTICIPAR
+            </button>
+          </div>
+        </section>
+      </main>
+    );
+  }
+
+  /* =====================================================
      FORMULARIO
   ===================================================== */
 
   if (pantalla === "formulario") {
     return (
-      <main className="memo-page">
+      <main className="memo-page memo-formulario-page">
         <section className="memo-shell">
           <div className="memo-card">
             <img className="memo-logo" src={logo} alt="Universidad Siglo 21" />
@@ -571,7 +622,7 @@ export function Memotest() {
 
   if (pantalla === "instrucciones") {
     return (
-      <main className="memo-page memo-center">
+      <main className="memo-page memo-center memo-instrucciones-page">
         <section className="memo-challenge">
           <img className="memo-logo" src={logo} alt="Universidad Siglo 21" />
 
@@ -585,18 +636,16 @@ export function Memotest() {
             <span>6 PARES</span>
           </h1>
 
-          <p>Completá el desafío antes de que termine el tiempo.</p>
+          <p className="memo-challenge-lead">Tu desafío: hacerlo en el menor tiempo posible.</p>
 
-          <div className="memo-time-intro">
-            <small>TENÉS</small>
-            <strong>30</strong>
-            <span>SEGUNDOS</span>
+          <div className="memo-rules memo-rules-simple">
+            <div><span>01</span><p><strong>Sin límite de tiempo.</strong> Jugá hasta encontrar los 6 pares.</p></div>
+            <div><span>02</span><p>Si hay empate en segundos, gana quien hizo <strong>menos movimientos.</strong></p></div>
           </div>
 
-          <p className="memo-prize-copy">
-            Si completás el desafío a tiempo, obtenés un código para retirar un
-            premio en nuestro stand.
-          </p>
+          <div className="memo-prize-banner">
+            <strong>LOS 5 PRIMEROS PUESTOS DEL RANKING SE LLEVAN UN PREMIO</strong>
+          </div>
 
           {error && <p className="memo-error">{error}</p>}
 
@@ -629,18 +678,12 @@ export function Memotest() {
 
             <p>ENCONTRÁ LOS 6 PARES</p>
 
-            <div
-              className={`memo-countdown ${
-                tiempoRestante <= 10 ? "warning" : ""
-              } ${tiempoRestante <= 5 ? "critical" : ""}`}
-            >
-              <small>TIEMPO</small>
-
-              <strong>
-                00:
-                {String(tiempoRestante).padStart(2, "0")}
-              </strong>
+            <div className="memo-countdown">
+              <small>TIEMPO TRANSCURRIDO</small>
+              <strong>{String(Math.floor(tiempoTranscurrido / 60)).padStart(2, "0")}:{String(tiempoTranscurrido % 60).padStart(2, "0")}</strong>
             </div>
+
+            <div className="memo-progress">Movimientos <strong>{movimientos}</strong></div>
 
             <div className="memo-progress">
               Pares encontrados <strong>{parejasEncontradas.length} / 6</strong>
@@ -701,63 +744,24 @@ export function Memotest() {
 
   if (pantalla === "resultado" && resultado) {
     return (
-      <main className="memo-page memo-center">
+      <main className="memo-page memo-center memo-resultado-page">
         {resultado.ganador && <Confetti recycle={false} numberOfPieces={350} />}
 
         <section className="memo-result">
           <img className="memo-logo" src={logo} alt="Universidad Siglo 21" />
 
-          {resultado.ganador ? (
-            <>
-              <span className="memo-kicker">¡DESAFÍO SUPERADO!</span>
-
-              <h1>
-                TENÉS UNA
-                <br />
-                <span>SORPRESA</span>
-              </h1>
-
-              <p>Hay un premio esperándote en nuestro stand.</p>
-
-              <div className="memo-code">
-                <small>TU CÓDIGO</small>
-
-                <strong>{resultado.codigoPremio}</strong>
-              </div>
-
-              <p className="memo-result-copy">
-                Presentá este código en el stand de Universidad Siglo 21 durante
-                la acreditación o el día de la Maratón.
-              </p>
-
-              <div className="memo-secondary-message">
-                Además, ya estás participando del sorteo especial.
-              </div>
-            </>
-          ) : (
-            <>
-              <span className="memo-kicker">¡DESAFÍO COMPLETADO!</span>
-
-              <h1>
-                TODAVÍA TENÉS
-                <br />
-                <span>UNA OPORTUNIDAD</span>
-              </h1>
-
-              <p>El tiempo terminó, pero tu participación tiene premio.</p>
-
-              <div className="memo-draw-message">
-                <small>YA ESTÁS PARTICIPANDO DEL</small>
-
-                <strong>SORTEO ESPECIAL</strong>
-              </div>
-
-              <p className="memo-result-copy">
-                No necesitás hacer nada más. Tu participación ya quedó
-                registrada.
-              </p>
-            </>
-          )}
+          <>
+            <span className="memo-kicker">¡DESAFÍO COMPLETADO!</span>
+            <h1>YA ESTÁS EN EL <span>RANKING</span></h1>
+            <p>Encontraste los seis pares.</p>
+            <div className="memo-draw-message">
+              <small>TU RESULTADO</small>
+              <strong>{resultado.movimientos} MOVIMIENTOS</strong>
+              <p>{Number(resultado.tiempoSegundos || 0).toFixed(1).replace(".", ",")} SEGUNDOS</p>
+            </div>
+            <p className="memo-result-copy">Buscá tu nombre en la pantalla del ranking en vivo.</p>
+            <a className="memo-primary memo-ranking-link" href="/memotest/ranking" target="_blank" rel="noopener noreferrer">VER RANKING</a>
+          </>
         </section>
       </main>
     );
@@ -783,21 +787,8 @@ export function Memotest() {
 
           <p>Esta experiencia permite una participación por persona.</p>
 
-          {resultado?.ganador && resultado?.codigoPremio && (
-            <div className="memo-code">
-              <small>TU CÓDIGO DE PREMIO</small>
-
-              <strong>{resultado.codigoPremio}</strong>
-
-              <p>Recordá presentarlo en el stand de Universidad Siglo 21.</p>
-            </div>
-          )}
-
-          {!resultado?.ganador && (
-            <div className="memo-secondary-message">
-              Ya estás participando del sorteo especial.
-            </div>
-          )}
+          <div className="memo-secondary-message">Tu resultado ya está registrado en el ranking.</div>
+          <a className="memo-primary memo-ranking-link" href="/memotest/ranking" target="_blank" rel="noopener noreferrer">VER RANKING</a>
         </section>
       </main>
     );

@@ -1,0 +1,202 @@
+/* El diseño base se comparte con el memotest NB 21K:
+   tipografías, paleta, fondo, formularios, botones y tableros.
+   No sobrescribir .memo-main-title, .memo-card ni .memo-primary. */
+
+.hs-course-label {
+  margin: -4px 0 8px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.45;
+  text-align: center;
+}
+.hs-course-label strong { color: #28b9a6; }
+
+.hs-link {
+  display: block;
+  margin: 18px auto 0;
+  color: #28b9a6;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.hs-link:hover { color: #07bd8a; }
+
+.hs-premio {
+  margin: 18px auto;
+  padding: 16px 18px;
+  border: 1px solid rgba(40, 185, 166, 0.35);
+  border-radius: 18px;
+  background: rgba(16, 63, 64, 0.72);
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.hs-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 20px auto;
+  padding: 18px 16px;
+  border: 1px solid rgba(40, 185, 166, 0.35);
+  border-radius: 22px;
+  background: rgba(16, 63, 64, 0.72);
+}
+.hs-score strong { color: #07bd8a; font-size: 2.5rem; line-height: 1; }
+.hs-score span { color: rgba(255,255,255,0.88); font-weight: 600; }
+
+/* Solo adaptaciones para colegio y curso en el ranking original. */
+.hs-ranking .ranking-podio-slot { min-width: 0; }
+.hs-ranking .ranking-podio-slot > strong { overflow-wrap: anywhere; }
+.hs-ranking .hs-colegio {
+  color: rgba(255,255,255,0.82);
+  font-size: clamp(0.6rem, 1.1vw, 0.85rem);
+  overflow-wrap: anywhere;
+}
+.hs-ranking-fila > span { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.hs-ranking-fila > span small {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.74);
+  overflow-wrap: anywhere;
+}
+.hs-ranking-footer {
+  padding: 8px 12px 18px;
+  color: #28b9a6;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+}
+.hs-ranking-footer a { color: #28b9a6; }
+.hs-ranking-footer a:hover { color: #07bd8a; }
+
+@media (max-width: 700px) {
+  .hs-ranking .ranking-podio-slot small { font-size: 0.62rem; }
+  .hs-ranking-fila > span small { font-size: 0.62rem; }
+}
+
+/* CTA de resultado: misma superficie y tipografía del botón original. */
+.hs-page .hs-ranking-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  max-width: 620px;
+  margin: 20px auto 0;
+  text-align: center;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+}
+.hs-page .hs-ranking-cta span { font-size: 1.3em; line-height: 1; }
+.hs-identidad-curso { font-weight: 600; overflow-wrap: anywhere; }
+
+/* El ranking intercolegial conserva los colores y escalones originales,
+   pero solo muestra 1.º, 2.º y 3.º, con el primer lugar en el centro. */
+.ranking-page.hs-ranking .hs-podio-tres {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(100%, 980px);
+  margin-inline: auto;
+  gap: clamp(8px, 1.5vw, 22px);
+}
+@media (max-width: 700px) {
+  .ranking-page.hs-ranking .hs-podio-tres {
+    width: 100%;
+    gap: 7px;
+  }
+}
+
+/* Top 3 intercolegial: sin medallas arriba, puesto centrado en escalón. */
+.ranking-page.hs-ranking .hs-podio-tres .ranking-medalla { display: none; }
+.ranking-page.hs-ranking .hs-podio-tres .ranking-podio-slot {
+  justify-content: flex-end;
+  gap: clamp(3px, .55vh, 8px);
+}
+.ranking-page.hs-ranking .hs-podio-tres .ranking-podio-slot > strong {
+  font-size: clamp(12px, 1.4vw, 22px);
+  line-height: 1.15;
+  min-height: 2.3em;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-inline: 3px;
+}
+.ranking-page.hs-ranking .hs-podio-tres .ranking-podio-slot small {
+  min-height: 0;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+.ranking-page.hs-ranking .hs-podio-tres .ranking-escalon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 0.01em;
+  padding: 8px 4px;
+}
+.ranking-page.hs-ranking .ranking-vacio { font-size: clamp(12px, 1.65vw, 22px); }
+.ranking-page.hs-ranking .ranking-lista .hs-ranking-fila > span {
+  display: flex;
+  flex-direction: column;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  gap: 3px;
+}
+.ranking-page.hs-ranking .ranking-lista .hs-ranking-fila > span small {
+  font-size: .72em;
+  font-weight: 500;
+  color: rgba(255,255,255,.85);
+}
+@media (max-width: 700px) {
+  .ranking-page.hs-ranking { padding: 12px 10px; gap: 8px; }
+  .ranking-page.hs-ranking .hs-podio-tres {
+    width: 100%;
+    gap: 6px;
+    height: auto;
+    align-items: end;
+  }
+  .ranking-page.hs-ranking .hs-podio-tres .ranking-podio-slot {
+    gap: 4px;
+  }
+  .ranking-page.hs-ranking .hs-podio-tres .ranking-podio-slot > strong {
+    font-size: clamp(10px, 2.6vw, 12px);
+    line-height: 1.17;
+    min-height: 2.4em;
+  }
+  .ranking-page.hs-ranking .hs-podio-tres .ranking-podio-slot small {
+    font-size: clamp(8px, 2vw, 10px);
+    line-height: 1.2;
+  }
+  .ranking-page.hs-ranking .hs-podio-tres .hs-colegio {
+    font-size: clamp(8px, 1.85vw, 10px);
+  }
+  .ranking-page.hs-ranking .hs-podio-tres .ranking-escalon {
+    font-size: clamp(9px, 2.1vw, 12px);
+    border-radius: 8px 8px 3px 3px;
+  }
+  .ranking-page.hs-ranking .hs-podio-tres .puesto-1 .ranking-escalon { height: 72px; }
+  .ranking-page.hs-ranking .hs-podio-tres .puesto-2 .ranking-escalon { height: 58px; }
+  .ranking-page.hs-ranking .hs-podio-tres .puesto-3 .ranking-escalon { height: 50px; }
+  .ranking-page.hs-ranking .ranking-list-title {
+    margin-top: 8px;
+    gap: 8px;
+  }
+  .ranking-page.hs-ranking .ranking-list-title strong,
+  .ranking-page.hs-ranking .ranking-list-title span { font-size: clamp(9px, 2.4vw, 12px); }
+  .ranking-page.hs-ranking .ranking-lista .hs-ranking-fila {
+    min-height: 48px;
+  }
+  .ranking-page.hs-ranking .ranking-lista .hs-ranking-fila > span small {
+    font-size: 9px;
+  }
+  .ranking-page.hs-ranking .hs-ranking-footer {
+    font-size: 10px;
+    line-height: 1.25;
+    padding: 6px 0 10px;
+  }
+}

@@ -20,6 +20,9 @@ import { preguntasHighSchool } from "./Ruleta/preguntasHighschool";
 import { ParticiparQR } from "./RuletaQR/ParticiparQR";
 import { GirarQR } from "./RuletaQR/GirarQR";
 import { Memotest } from "./Memotest/Memotest";
+import { RankingMemotest } from "./Memotest/Ranking";
+import { MemotestHighschool } from "./Memotest/Highschool";
+import { HighschoolRanking } from "./Memotest/HighschoolRanking";
 import { CaminoAccenture } from "./CaminoAccenture/CaminoAccenture";
 
 function App() {
@@ -58,6 +61,9 @@ function App() {
         <Route path="/ruleta/qr/girar" element={<GirarQR />} />
 
         <Route path="/memotest" element={<Memotest />} />
+                <Route path="/memotest/ranking" element={<RankingMemotest />} />
+        <Route path="/memotest/higschool" element={<MemotestHighschool />} />
+        <Route path="/memotest/higschool/ranking" element={<HighschoolRanking />} />
         <Route path="/accenture/camino" element={<CaminoAccenture />} />
       </Routes>
     </>

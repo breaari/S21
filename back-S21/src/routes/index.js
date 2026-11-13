@@ -15,10 +15,14 @@ const {
 } = require("../handlers/ruletaQRHandler");
 
 const {
+  rankingMemotestHandler,
+  conectarRanking,
   registrarMemotestHandler,
   iniciarMemotestHandler,
   finalizarMemotestHandler,
 } = require("../handlers/memotestHandler");
+
+const highschool = require("../controllers/memotestHighschoolController");
 
 const { registrarCaminoAccenture } = require("../handlers/accentureCaminoHandler");
 
@@ -50,6 +54,9 @@ router.post(
   finalizarRuletaQRHandler,
 );
 
+router.get("/memotest/ranking", rankingMemotestHandler);
+router.get("/memotest/ranking/eventos", conectarRanking);
+
 router.post(
   "/memotest/participar",
   registrarMemotestHandler,
@@ -64,6 +71,11 @@ router.post(
   "/memotest/:id/finalizar",
   finalizarMemotestHandler,
 );
+
+router.post("/memotest/highschool/participar", highschool.registrar);
+router.post("/memotest/highschool/:id/iniciar", highschool.iniciar);
+router.post("/memotest/highschool/:id/finalizar", highschool.finalizar);
+router.get("/memotest/highschool/ranking", highschool.ranking);
 
 router.post("/accenture-camino/participar", registrarCaminoAccenture);
 
