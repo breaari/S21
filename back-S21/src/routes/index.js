@@ -22,6 +22,8 @@ const {
   finalizarMemotestHandler,
 } = require("../handlers/memotestHandler");
 
+const highschool = require("../controllers/memotestHighschoolController");
+
 const router = Router();
 
 router.post("/", sendEmailHandler);
@@ -67,5 +69,11 @@ router.post(
   "/memotest/:id/finalizar",
   finalizarMemotestHandler,
 );
+
+// Mantener antes de /memotest/:id/* para evitar rutas ambiguas.
+router.post("/memotest/highschool/participar", highschool.registrar);
+router.post("/memotest/highschool/:id/iniciar", highschool.iniciar);
+router.post("/memotest/highschool/:id/finalizar", highschool.finalizar);
+router.get("/memotest/highschool/ranking", highschool.ranking);
 
 module.exports = router;
