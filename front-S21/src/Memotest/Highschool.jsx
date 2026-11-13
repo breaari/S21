@@ -26,7 +26,7 @@ export function MemotestHighschool() {
  const origen = useMemo(() => new URLSearchParams(window.location.search).get("source") || "directo",[]);
  const [paso,setPaso]=useState("registro");
  const [form,setForm]=useState({nombre:"",apellido:"",email:"",telefono:"",colegio:"",curso:"6°",division:"",
-   anio:"",proximoPaso:"",decisionCarrera:"",areasInteres:[]});
+   anio:"Último año",proximoPaso:"",decisionCarrera:"",areasInteres:[]});
  const [id,setId]=useState(null);
  const [cartas,setCartas]=useState([]);
  const [volteadas,setVolteadas]=useState([]);
@@ -53,9 +53,8 @@ export function MemotestHighschool() {
  const registrar=async(e)=>{
    e.preventDefault(); setError("");
    if(!form.nombre.trim() || !form.apellido.trim() || !form.email.trim() || !form.telefono.trim() ||
-     !form.colegio.trim() || !form.curso.trim() || !form.anio || !form.proximoPaso || !form.decisionCarrera || !form.areasInteres.length)
+     !form.colegio.trim() || !form.curso.trim() || !form.proximoPaso || !form.decisionCarrera || !form.areasInteres.length)
      return setError("Completá todos los datos y las preguntas antes de continuar.");
-   if(form.anio!=="Último año") return setError("Este desafío está destinado a estudiantes de último año.");
    setEnviando(true);
    try {
      const {data}=await axios.post(`${API}/memotest/highschool/participar`,{...form,origen});
@@ -110,15 +109,12 @@ export function MemotestHighschool() {
     <div className="memo-grid-2"><label>Nombre<input required name="nombre" value={form.nombre} onChange={cambiar} placeholder="Tu nombre"/></label>
     <label>Apellido<input required name="apellido" value={form.apellido} onChange={cambiar} placeholder="Tu apellido"/></label></div>
     <label>Nombre del colegio<input required name="colegio" value={form.colegio} onChange={cambiar} placeholder="Ej.: Escuela Secundaria N.º ..."/></label>
-    <div className="memo-grid-2"><label>Curso<input required name="curso" value={form.curso} onChange={cambiar} placeholder="6° / 7°"/></label>
-    <label>División (si corresponde)<input name="division" value={form.division} onChange={cambiar} placeholder="A / B / ..."/></label></div>
+    <p className="hs-course-label">Participás por <strong>6.º año</strong> de tu colegio.</p>
+    <label>División (si corresponde)<input name="division" value={form.division} onChange={cambiar} placeholder="A / B / ..."/></label>
     <label>WhatsApp<input required type="tel" name="telefono" value={form.telefono} onChange={cambiar} placeholder="Código de área + número"/></label>
     <label>Email<input required type="email" name="email" value={form.email} onChange={cambiar} placeholder="tu@email.com"/></label>
-    <div className="memo-question"><p>¿En qué etapa del secundario estás?</p><div className="memo-options">
-     {["Último año","Penúltimo año","Otro"].map(x=><button type="button" key={x} className={form.anio===x?"selected":""} onClick={()=>seleccionarOpcion("anio",x)}>{x}</button>)}
-    </div></div>
     <div className="memo-question"><p>¿Qué te imaginás haciendo cuando termines el secundario?</p><div className="memo-options">
-     {["Seguir estudiando","Estudiar y trabajar","Empezar a trabajar","Todavía no lo sé"].map(x=><button type="button" key={x} className={form.proximoPaso===x?"selected":""} onClick={()=>seleccionarOpcion("proximoPaso",x)}>{x}</button>)}
+     {["Seguir estudiando","Estudiar y trabajar","Empezar a trabajar","Emprender","Todavía no lo sé"].map(x=><button type="button" key={x} className={form.proximoPaso===x?"selected":""} onClick={()=>seleccionarOpcion("proximoPaso",x)}>{x}</button>)}
     </div></div>
     <div className="memo-question"><p>¿Qué tan definido tenés lo que te gustaría estudiar?</p><div className="memo-options">
      {["Ya sé qué quiero estudiar","Tengo algunas ideas","Todavía estoy explorando"].map(x=><button type="button" key={x} className={form.decisionCarrera===x?"selected":""} onClick={()=>seleccionarOpcion("decisionCarrera",x)}>{x}</button>)}
