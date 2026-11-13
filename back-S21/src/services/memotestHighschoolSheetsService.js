@@ -55,6 +55,7 @@ async function sincronizarHighschool() {
  const id=process.env.RULETA_SHEET_ID;
  if(!id) {console.error("Sync highschool: falta RULETA_SHEET_ID");return;}
  running=true;
+ pending=false;
  try {
    await ensureSheet(id);
    const { rows } = await getPool().query("SELECT * FROM memotest_highschool ORDER BY creado_en ASC, id ASC");
@@ -65,7 +66,6 @@ async function sincronizarHighschool() {
      spreadsheetId:id,range:`'${SHEET_NAME.replace(/'/g,"''")}'!A1:V${values.length}`,
      valueInputOption:"RAW",requestBody:{values}
    });
-   pending=false;
    console.log(`Sync highschool: ${rows.length} participantes actualizados en Google Sheets`);
  } catch(e) {
    console.error("Sync highschool: error (se reintentará):",e.message);
