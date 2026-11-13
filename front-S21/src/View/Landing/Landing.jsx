@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./LandingTheme.css";
 import { Portada } from "../../Components/Inicio/Portada";
 import { Cualidades } from "../../Components/Cualidades/Cualidades";
 import { Oferta } from "../../Components/Oferta/Oferta";
@@ -13,7 +14,7 @@ export const Landing = () => {
     //quiero hace run commit
 
     return (
-        <div className=" max-w-full container mx-0">
+        <div className="s21-landing max-w-full container mx-0">
             <Portada></Portada>
             <Cualidades></Cualidades>
             <Oferta></Oferta>

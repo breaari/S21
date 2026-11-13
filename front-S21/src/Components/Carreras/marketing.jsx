@@ -28,7 +28,7 @@ export const Marketing = () => {
       onClick={toggleDropdown}
       className={`cursor-pointer transition-all duration-300 overflow-hidden w-full bg-grisclaro rounded-md m-1 mb-4 px-3 py-5`}
     >
-      <div className="font-bold flex justify-start mq980:text-center items-center text-[28px] text-grisoscuro mq980:flex-col">
+      <div className="font-bold flex justify-start mq980:text-center items-center text-[28px] leading-[1.05] text-grisoscuro mq980:flex-col">
         <div className="mr-[8px] flex items-center">
           <img
             src={marketingimage}
