@@ -1,14 +1,7 @@
 const crypto = require("crypto");
-const { Pool } = require("pg");
-
-// Preferir la misma conexión de PostgreSQL que ya usa el servidor.
-// No registrar datos sensibles en logs ni publicar esta tabla en el ranking.
-const pool = new Pool(process.env.DATABASE_URL
-  ? { connectionString: process.env.DATABASE_URL }
-  : { host: process.env.PGHOST || "localhost", port: Number(process.env.PGPORT) || 5432,
-      database: process.env.PGDATABASE || "s21_memotest",
-      user: process.env.PGUSER || "s21_memotest_app",
-      password: process.env.PGPASSWORD });
+const { getPool } = require("../services/memotestDb");
+const { solicitarSyncHighschool } = require("../services/memotestHighschoolSheetsService");
+const pool = getPool();
 
 const limpio = (valor, max = 180) => typeof valor === "string" ? valor.trim().slice(0, max) : "";
 const normalizarTel = (valor) => limpio(valor, 30).replace(/[^0-9]/g, "");
@@ -37,6 +30,7 @@ async function registrar(req, res) {
    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12::jsonb,$13) RETURNING *`,
    [id,nombre,apellido,email,telefono,colegio,curso,division,anio,proximo,decision,
     JSON.stringify(areas),limpio(d.origen,100)||"directo"]);
+  solicitarSyncHighschool();
   return res.status(201).json({participante:publicParticipant(q.rows[0])});
  } catch(e) {
   if (e.code==="23505") return res.status(409).json({yaParticipo:true,error:"Este email o teléfono ya participa del desafío intercolegial."});
@@ -70,7 +64,7 @@ async function finalizar(req,res) {
     movimientos=$2, completado=$3
     WHERE id=$1 AND estado='JUGANDO' AND inicio_juego IS NOT NULL RETURNING *`,
     [req.params.id,movimientos,completado]);
-  if(q.rowCount) return res.json({participante:publicParticipant(q.rows[0])});
+  if(q.rowCount) { solicitarSyncHighschool(); return res.json({participante:publicParticipant(q.rows[0])}); }
   const p=await pool.query("SELECT * FROM memotest_highschool WHERE id=$1",[req.params.id]);
   if (!p.rowCount) return res.status(404).json({error:"Participante no encontrado."});
   if(p.rows[0].estado==="FINALIZADO") return res.json({participante:publicParticipant(p.rows[0])});
