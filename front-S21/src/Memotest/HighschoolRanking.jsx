@@ -22,14 +22,14 @@ export function HighschoolRanking() {
    cargar();const timer=setInterval(cargar,10000);
    return ()=>{activo=false;clearInterval(timer);};
  },[]);
- const podio=ranking.slice(0,5);
+ const podio=ranking.slice(0,3);
  return <main className="ranking-page hs-ranking">
   <header className="ranking-header"><img src={logo} alt="Universidad Siglo 21"/>
    <div className="ranking-estado-grupo"><span>RANKING INTERCOLEGIAL · <b>{estado}</b></span></div></header>
   <h1>MEMORIA <span>CONTRARRELOJ</span></h1>
-  <p className="ranking-subtitle">UN DESAFÍO ENTRE PROMOS. UN PREMIO PARA TODO EL CURSO GANADOR.</p>
-  <section className="ranking-podio ranking-top-cinco" aria-label="Primeros cinco puestos">
-   {[3,1,0,2,4].map(i=>{
+  <p className="ranking-subtitle">¿QUÉ CURSO LLEGARÁ A LO MÁS ALTO DEL PODIO?</p>
+  <section className="ranking-podio ranking-top-cinco hs-podio-tres" aria-label="Primeros tres puestos">
+   {[1,0,2].map(i=>{
     const p=podio[i];
     return <div className={`ranking-podio-slot puesto-${i+1}`} key={i}>
      <div className="ranking-medalla">{i+1}°</div>
@@ -43,7 +43,7 @@ export function HighschoolRanking() {
   <div className="ranking-list-title"><strong>CLASIFICACIÓN GENERAL</strong><span>{ranking.length} PARTICIPANTES</span></div>
   <div className="ranking-area"><section className="ranking-lista">
    {!ranking.length&&<p className="ranking-vacio">¡El desafío intercolegial está por comenzar!</p>}
-   {ranking.slice(5).map(p=><div className="ranking-fila hs-ranking-fila" key={p.id}>
+   {ranking.slice(3).map(p=><div className="ranking-fila hs-ranking-fila" key={p.id}>
     <b>{p.puesto}°</b><span><strong>{p.nombre}</strong><small>{identificacion(p)}</small></span>
     <strong>{formato(p)}</strong>
    </div>)}
