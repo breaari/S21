@@ -1,17 +1,81 @@
-.hs-page .memo-main-title {font-size:clamp(2.5rem,8.6vw,4.15rem)}
-.hs-page .memo-main-title span {white-space:normal}
-.hs-page .memo-card {max-width:700px;margin:auto}
-.hs-page .memo-form .memo-question p {margin-bottom:12px}
-.hs-page .memo-form .memo-options button {cursor:pointer}
-.hs-link {display:block;color:#72f6c4;text-align:center;margin:20px auto;font-weight:800;text-decoration:underline;text-underline-offset:5px}
-.hs-premio {border:1px solid #28b9a6;border-radius:16px;padding:18px;background:rgba(40,185,166,.13);font-weight:700}
-.hs-score {display:flex;flex-direction:column;align-items:center;gap:7px;border:1px solid #28b9a6;padding:20px;margin:18px 0;border-radius:20px}
-.hs-score strong{font-size:3rem;color:#72f6c4}
-.hs-ranking .hs-colegio{overflow-wrap:anywhere;color:#d3f8eb;font-size:clamp(.6rem,1.1vw,.85rem)}
-.hs-ranking .ranking-podio-slot{min-width:0}
-.hs-ranking .ranking-podio-slot>strong{overflow-wrap:anywhere}
-.hs-ranking-fila>span{display:flex;flex-direction:column;gap:3px;min-width:0}
-.hs-ranking-fila>span small{font-size:.72rem;opacity:.76;overflow-wrap:anywhere}
-.hs-ranking-footer{text-align:center;padding:8px 12px 18px;font-size:.8rem;font-weight:700;color:white}
-.hs-ranking-footer a{color:#72f6c4}
-@media(max-width:700px){.hs-page .memo-grid-2{grid-template-columns:1fr}.hs-ranking .ranking-podio-slot small{font-size:.62rem}.hs-ranking-fila>span small{font-size:.62rem}}
+/* El diseño base se comparte con el memotest NB 21K:
+   tipografías, paleta, fondo, formularios, botones y tableros.
+   No sobrescribir .memo-main-title, .memo-card ni .memo-primary. */
+
+.hs-course-label {
+  margin: -4px 0 8px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.45;
+  text-align: center;
+}
+.hs-course-label strong { color: #28b9a6; }
+
+.hs-link {
+  display: block;
+  margin: 18px auto 0;
+  color: #28b9a6;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.hs-link:hover { color: #07bd8a; }
+
+.hs-premio {
+  margin: 18px auto;
+  padding: 16px 18px;
+  border: 1px solid rgba(40, 185, 166, 0.35);
+  border-radius: 18px;
+  background: rgba(16, 63, 64, 0.72);
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.hs-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 20px auto;
+  padding: 18px 16px;
+  border: 1px solid rgba(40, 185, 166, 0.35);
+  border-radius: 22px;
+  background: rgba(16, 63, 64, 0.72);
+}
+.hs-score strong { color: #07bd8a; font-size: 2.5rem; line-height: 1; }
+.hs-score span { color: rgba(255,255,255,0.88); font-weight: 600; }
+
+/* Solo adaptaciones para colegio y curso en el ranking original. */
+.hs-ranking .ranking-podio-slot { min-width: 0; }
+.hs-ranking .ranking-podio-slot > strong { overflow-wrap: anywhere; }
+.hs-ranking .hs-colegio {
+  color: rgba(255,255,255,0.82);
+  font-size: clamp(0.6rem, 1.1vw, 0.85rem);
+  overflow-wrap: anywhere;
+}
+.hs-ranking-fila > span { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.hs-ranking-fila > span small {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.74);
+  overflow-wrap: anywhere;
+}
+.hs-ranking-footer {
+  padding: 8px 12px 18px;
+  color: #28b9a6;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+}
+.hs-ranking-footer a { color: #28b9a6; }
+.hs-ranking-footer a:hover { color: #07bd8a; }
+
+@media (max-width: 700px) {
+  .hs-ranking .ranking-podio-slot small { font-size: 0.62rem; }
+  .hs-ranking-fila > span small { font-size: 0.62rem; }
+}
