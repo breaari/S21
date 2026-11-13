@@ -32,22 +32,22 @@ export function HighschoolRanking() {
    {[1,0,2].map(i=>{
     const p=podio[i];
     return <div className={`ranking-podio-slot puesto-${i+1}`} key={i}>
-     <div className="ranking-medalla">{i+1}°</div>
      <strong>{p?.nombre||"Tu nombre acá"}</strong>
      <small>{p?formato(p):"Esperando participante"}</small>
      <small className="hs-colegio">{p?identificacion(p):"Representá a tu promo"}</small>
-     <div className="ranking-escalon">{i===0?"PREMIO PARA SU CURSO":`${i+1}° PUESTO`}</div>
+     <div className="ranking-escalon">{i+1}° PUESTO</div>
     </div>;
    })}
   </section>
   <div className="ranking-list-title"><strong>CLASIFICACIÓN GENERAL</strong><span>{ranking.length} PARTICIPANTES</span></div>
   <div className="ranking-area"><section className="ranking-lista">
    {!ranking.length&&<p className="ranking-vacio">¡El desafío intercolegial está por comenzar!</p>}
+   {ranking.length>0 && ranking.length<=3 && <p className="ranking-vacio">Los próximos participantes aparecerán acá.</p>}
    {ranking.slice(3).map(p=><div className="ranking-fila hs-ranking-fila" key={p.id}>
     <b>{p.puesto}°</b><span><strong>{p.nombre}</strong><small>{identificacion(p)}</small></span>
     <strong>{formato(p)}</strong>
    </div>)}
   </section></div>
-  <footer className="hs-ranking-footer">PREMIO GRUPAL A CONFIRMAR · <a href="/memotest/higschool">PARTICIPAR</a></footer>
+  <footer className="hs-ranking-footer"><a href="/memotest/higschool">PARTICIPAR DEL DESAFÍO</a></footer>
  </main>;
 }
