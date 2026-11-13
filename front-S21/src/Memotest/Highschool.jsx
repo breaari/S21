@@ -103,8 +103,8 @@ export function MemotestHighschool() {
  return <main className={`memo-page hs-page ${paso === "registro" ? "memo-formulario-page" : paso === "instrucciones" ? "memo-instrucciones-page" : paso === "juego" ? "memo-game-page" : "memo-resultado-page"}`}>
   {paso==="registro" && <section className="memo-shell"><div className="memo-card">
    {logoHeader}<span className="memo-kicker">DESAFÍO INTERCOLEGIAL · PROMO 2026</span>
-   <h1 className="memo-main-title"><span className="memo-title-white">TU MEMORIA</span><span className="memo-title-white">JUEGA POR</span><span className="memo-title-green">TU CURSO</span></h1>
-   <p className="memo-intro">Encontrá los 6 pares, superá a otras promos y llevá a tu curso a lo más alto del ranking. El premio grupal se anunciará próximamente.</p>
+   <h1 className="memo-main-title"><span className="memo-title-white">TU MEMORIA</span><span className="memo-title-white">PUEDE LLEVAR</span><span className="memo-title-white">A TU CURSO</span><span className="memo-title-green">AL PODIO</span></h1>
+   <p className="memo-intro">Encontrá los 6 pares en el menor tiempo posible, alcanzá el primer puesto del ranking intercolegial y ¡ganá un premio para todo tu curso!</p>
    <form className="memo-form" onSubmit={registrar}>
     <div className="memo-grid-2"><label>Nombre<input required name="nombre" value={form.nombre} onChange={cambiar} placeholder="Tu nombre"/></label>
     <label>Apellido<input required name="apellido" value={form.apellido} onChange={cambiar} placeholder="Tu apellido"/></label></div>
@@ -128,13 +128,13 @@ export function MemotestHighschool() {
    </form>
   </div></section>}
   {paso==="instrucciones" && <section className="memo-challenge">{logoHeader}
-   <span className="memo-kicker">POR TU COLEGIO. POR TU PROMO.</span>
+   <span className="memo-kicker">¡TU CURSO CUENTA CON VOS!</span>
    <h1>ENCONTRÁ LOS <span>6 PARES</span></h1>
-   <p>Jugá hasta encontrar todos los pares. Gana el menor tiempo y, si hay empate, la menor cantidad de movimientos.</p>
-   <p className="hs-premio">¡El primer puesto del ranking se lleva un premio para todo su curso! Premio a confirmar.</p>
-   <p>Una participación por persona. Cuando empieces, no podrás reiniciar la partida.</p>
+   <p>Completá el memotest lo más rápido posible. Si hay empate en tiempo, gana quien haya realizado menos movimientos.</p>
+   <p className="hs-premio">¡El primer puesto gana un premio para todo su curso!</p>
+   <p>Tenés una sola oportunidad. Una vez que empieces, no podrás reiniciar la partida.</p>
    {error&&<p className="memo-error" role="alert">{error}</p>}
-   <button className="memo-primary" onClick={iniciar} disabled={enviando}>{enviando?"PREPARANDO...":"EMPEZAR DESAFÍO"}</button>{linkRanking}
+   <button className="memo-primary" onClick={iniciar} disabled={enviando}>{enviando?"PREPARANDO...":"EMPEZAR DESAFÍO"}</button>
   </section>}
   {paso==="juego" && <section className="memo-game"><div className="memo-game-top">{logoHeader}
    <p>MEMORIA CONTRARRELOJ · INTERCOLEGIAL</p>
@@ -149,10 +149,11 @@ export function MemotestHighschool() {
    })}</div></section>}
   {paso==="guardando" && <section className="memo-result">{logoHeader}<h2>Guardando tu resultado...</h2></section>}
   {paso==="resultado" && <section className="memo-result">{logoHeader}
-   <span className="memo-kicker">¡DESAFÍO COMPLETADO!</span><h1>¡YA REPRESENTÁS <span>A TU CURSO!</span></h1>
-   <p>Tu resultado quedó registrado para {form.curso}{form.division?` ${form.division}`:""} de {form.colegio}.</p>
+   <span className="memo-kicker">¡DESAFÍO COMPLETADO!</span><h1>¡TU MARCA YA ESTÁ <span>EN EL RANKING!</span></h1>
+   <p className="hs-identidad-curso">{form.curso}{form.division?` ${form.division}`:""} · {form.colegio}</p>
    <div className="hs-score"><strong>{resultado?.tiempoSegundos?.toFixed(1)} s</strong><span>{resultado?.movimientos} movimientos</span></div>
-   <p>¿Llegarás al primer puesto? Si ganás el ranking, el premio es para todo tu curso.</p>{linkRanking}
+   <p>Tu tiempo ya está registrado. ¿Será suficiente para llevar a tu curso al primer puesto?</p>
+   <a className="memo-primary hs-ranking-cta" href="/memotest/higschool/ranking">DESCUBRÍ TU PUESTO <span aria-hidden="true">→</span></a>
   </section>}
   {paso==="error" && <section className="memo-result">{logoHeader}<h2>No pudimos guardar el resultado</h2>
    <p className="memo-error">{error}</p><p>Conservá esta pantalla y contactá a la organización. No vuelvas a jugar.</p>{linkRanking}
