@@ -100,7 +100,7 @@ export function MemotestHighschool() {
  };
  const logoHeader=<img className="memo-logo" src={logo} alt="Universidad Siglo 21"/>;
  const linkRanking=<a className="hs-link" href="/memotest/higschool/ranking">VER RANKING INTERCOLEGIAL</a>;
- return <main className="memo-page hs-page">
+ return <main className={`memo-page hs-page ${paso === "registro" ? "memo-formulario-page" : paso === "instrucciones" ? "memo-instrucciones-page" : paso === "juego" ? "memo-game-page" : "memo-resultado-page"}`}>
   {paso==="registro" && <section className="memo-shell"><div className="memo-card">
    {logoHeader}<span className="memo-kicker">DESAFÍO INTERCOLEGIAL · PROMO 2026</span>
    <h1 className="memo-main-title"><span className="memo-title-white">TU MEMORIA</span><span className="memo-title-white">JUEGA POR</span><span className="memo-title-green">TU CURSO</span></h1>
