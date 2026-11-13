@@ -109,3 +109,94 @@
     gap: 7px;
   }
 }
+
+/* Top 3 intercolegial: sin medallas arriba, puesto centrado en escalón. */
+.ranking-page.hs-ranking .hs-podio-tres .ranking-medalla { display: none; }
+.ranking-page.hs-ranking .hs-podio-tres .ranking-podio-slot {
+  justify-content: flex-end;
+  gap: clamp(3px, .55vh, 8px);
+}
+.ranking-page.hs-ranking .hs-podio-tres .ranking-podio-slot > strong {
+  font-size: clamp(12px, 1.4vw, 22px);
+  line-height: 1.15;
+  min-height: 2.3em;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-inline: 3px;
+}
+.ranking-page.hs-ranking .hs-podio-tres .ranking-podio-slot small {
+  min-height: 0;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+.ranking-page.hs-ranking .hs-podio-tres .ranking-escalon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 0.01em;
+  padding: 8px 4px;
+}
+.ranking-page.hs-ranking .ranking-vacio { font-size: clamp(12px, 1.65vw, 22px); }
+.ranking-page.hs-ranking .ranking-lista .hs-ranking-fila > span {
+  display: flex;
+  flex-direction: column;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  gap: 3px;
+}
+.ranking-page.hs-ranking .ranking-lista .hs-ranking-fila > span small {
+  font-size: .72em;
+  font-weight: 500;
+  color: rgba(255,255,255,.85);
+}
+@media (max-width: 700px) {
+  .ranking-page.hs-ranking { padding: 12px 10px; gap: 8px; }
+  .ranking-page.hs-ranking .hs-podio-tres {
+    width: 100%;
+    gap: 6px;
+    height: auto;
+    align-items: end;
+  }
+  .ranking-page.hs-ranking .hs-podio-tres .ranking-podio-slot {
+    gap: 4px;
+  }
+  .ranking-page.hs-ranking .hs-podio-tres .ranking-podio-slot > strong {
+    font-size: clamp(10px, 2.6vw, 12px);
+    line-height: 1.17;
+    min-height: 2.4em;
+  }
+  .ranking-page.hs-ranking .hs-podio-tres .ranking-podio-slot small {
+    font-size: clamp(8px, 2vw, 10px);
+    line-height: 1.2;
+  }
+  .ranking-page.hs-ranking .hs-podio-tres .hs-colegio {
+    font-size: clamp(8px, 1.85vw, 10px);
+  }
+  .ranking-page.hs-ranking .hs-podio-tres .ranking-escalon {
+    font-size: clamp(9px, 2.1vw, 12px);
+    border-radius: 8px 8px 3px 3px;
+  }
+  .ranking-page.hs-ranking .hs-podio-tres .puesto-1 .ranking-escalon { height: 72px; }
+  .ranking-page.hs-ranking .hs-podio-tres .puesto-2 .ranking-escalon { height: 58px; }
+  .ranking-page.hs-ranking .hs-podio-tres .puesto-3 .ranking-escalon { height: 50px; }
+  .ranking-page.hs-ranking .ranking-list-title {
+    margin-top: 8px;
+    gap: 8px;
+  }
+  .ranking-page.hs-ranking .ranking-list-title strong,
+  .ranking-page.hs-ranking .ranking-list-title span { font-size: clamp(9px, 2.4vw, 12px); }
+  .ranking-page.hs-ranking .ranking-lista .hs-ranking-fila {
+    min-height: 48px;
+  }
+  .ranking-page.hs-ranking .ranking-lista .hs-ranking-fila > span small {
+    font-size: 9px;
+  }
+  .ranking-page.hs-ranking .hs-ranking-footer {
+    font-size: 10px;
+    line-height: 1.25;
+    padding: 6px 0 10px;
+  }
+}
