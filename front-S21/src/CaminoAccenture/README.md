@@ -2,18 +2,17 @@
 
 ## Rutas
 - Frontend: `/accenture/camino` (React/Vite)
-- Backend: `POST /accenture-camino/participar` (Express)
-- No reemplaza `/memotest` ni altera sus tablas.
+- Endpoint: `POST /accenture-camino/participar` (Express)
+- Se utiliza el **mismo Google Spreadsheet** que la ruleta/memotest mediante `RULETA_SHEET_ID`.
+- Se crea automáticamente una **pestaña nueva**: `Accenture 2026`. No modifica el memotest ni sus registros.
+- Se puede configurar otro documento con `ACCENTURE_SHEET_ID` o cambiar el nombre de pestaña con `ACCENTURE_SHEET_NAME`.
 
 ## Experiencia
 1. Portada «Construí tu futuro».
-2. Cuatro decisiones: aspiración, área laboral, punto de partida académico, área de interés.
-3. Selección de baldosas y colocación en camino, con feedback de encastre y avance.
-4. Registro voluntario con autorización específica de marketing (desmarcada por defecto).
-5. Ruta personalizada orientativa, código único de retiro de merchandising, consulta presencial para inscripción.
-
-Las baldosas se pueden **tocar y colocar** o **arrastrar hasta el espacio iluminado**.
-La mecánica se adapta a pantallas móviles y respeta `prefers-reduced-motion`.
+2. Cuatro decisiones: aspiración, área laboral, formación previa e intereses.
+3. Baldosas seleccionables y arrastrables con feedback de encastre.
+4. Registro con autorización de marketing separada y opcional.
+5. Ruta orientativa, código de retiro y posibilidad de asesoramiento presencial.
 
 ## Preparación local
 ```bash
@@ -27,30 +26,25 @@ Backend desde otra terminal:
 ```bash
 cd back-S21
 npm install
-# Configurá PGHOST, PGPORT, PGUSER, PGPASSWORD y PGDATABASE
-# o DATABASE_URL en el entorno del proceso.
 npm start
 ```
 
-## Base de datos
-Ejecutar una sola vez el archivo `back-S21/sql/accenture_camino.sql` en la base elegida, por ejemplo:
-```bash
-psql -d s21_memotest -f back-S21/sql/accenture_camino.sql
-```
-El backend debe tener permisos para INSERT. No reutilizar las tablas de memotest.
+## Google Sheets
+El backend usa el servicio de Google Sheets ya configurado:
+- Credenciales en `back-S21/google-sheets-credentials.json` (no versionarlas).
+- ID del documento en `RULETA_SHEET_ID` o, si se prefiere, `ACCENTURE_SHEET_ID`.
+- La cuenta de servicio debe tener permiso de edición sobre el documento.
+- En el **primer registro** crea la pestaña `Accenture 2026` y sus 18 columnas.
+- Los datos personales se guardan con `valueInputOption: RAW` para no interpretar fórmulas.
+- Se controla correo repetido leyendo la pestaña, aunque no hay bloqueo transaccional ante envíos simultáneos.
+- El frontend **no escribe directamente** en Google Sheets: utiliza el endpoint Express existente, que protege las credenciales.
 
-## Antes de publicar (obligatorio)
-- Añadir URL real de política de privacidad y contacto para ejercer derechos. Definir conservación y eliminación de datos.
-- Validar con Accenture uso de logos/nombre y autorizaciones para la activación.
-- Sustituir `PROGRAMAS_POR_AREA` por el catálogo **aprobado de oferta 2027**, con elegibilidad, requisitos, modalidades, enlaces oficiales y aranceles vigentes.
-- Confirmar promoción adicional y si acumula con el 10% del convenio. **No hay promoción adicional implementada**.
-- Probar el endpoint con PostgreSQL, conexión móvil y concurrencia; ensayar en el dispositivo real.
-- Definir circuito de canje de merchandising, verificación de código y mecanismo comercial de inscripción.
-- Implementar, si se aprueba, seguimiento CRM/reportes y comunicación a leads con consentimiento.
-- No hay generación de recomendaciones mediante API de IA: versión inicial utiliza reglas deterministas por área.
+Columnas: Fecha, Hora, ID, Nombre, Apellido, Email, Telefono, Aspiracion, Area de trabajo, Nivel de estudios, Area de interes, Consentimiento datos, Autoriza contacto comercial, Origen, Codigo retiro, Merch entregado, Interes en inscripcion, Estado comercial.
 
-## Seguridad
-- Los datos personales se guardan únicamente al completar registro en PostgreSQL.
-- Consentimiento comercial separado y desmarcado por defecto.
-- `email` es único para limitar duplicados; el código no se revela si el correo ya fue registrado.
-- No publicar listados de participantes ni exponer endpoints de administración sin autenticación.
+## Antes de publicar
+- Añadir política de privacidad efectiva y contacto para ejercer derechos, además de definir conservación y eliminación de datos.
+- Validar con Accenture el uso de nombres/logos y las condiciones de la feria.
+- Validar el catálogo 2027, requisitos de admisión, modalidad, costos, y la promoción adicional (sin asumir acumulación con 10%).
+- Probar el endpoint y permisos en Google Sheets, concurrencia, celulares y WiFi.
+- Establecer mecanismo de canje (la columna «Merch entregado» comienza en NO; no existe aún un panel de canje).
+- No hay integración a CRM ni IA externa; las recomendaciones actuales son reglas orientativas por área.
