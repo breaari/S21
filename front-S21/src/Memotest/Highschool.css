@@ -79,3 +79,18 @@
   .hs-ranking .ranking-podio-slot small { font-size: 0.62rem; }
   .hs-ranking-fila > span small { font-size: 0.62rem; }
 }
+
+/* CTA de resultado: misma superficie y tipografía del botón original. */
+.hs-page .hs-ranking-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  max-width: 620px;
+  margin: 20px auto 0;
+  text-align: center;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+}
+.hs-page .hs-ranking-cta span { font-size: 1.3em; line-height: 1; }
+.hs-identidad-curso { font-weight: 600; overflow-wrap: anywhere; }
