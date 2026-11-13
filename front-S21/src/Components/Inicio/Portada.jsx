@@ -1,6 +1,6 @@
 import React from "react";
-import portadaMovil from '../../../public/CAMPAÑA2026_HEADER_MOBILE2.png';
-import portadaPc from '../../../public/CAMPAÑA2026_HEADER_DESKTOP.webp';
+import portadaMovil from '../../../public/CAMPAÑA2026_HEADER_MOBILE.jpg';
+import portadaPc from '../../../public/CAMPAÑA2026_HEADER_DESKTOP.jpg';
 
 export const Portada = () => {
     return (
