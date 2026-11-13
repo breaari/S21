@@ -1,15 +1,8 @@
 const crypto = require("crypto");
 const { Pool } = require("pg");
 
-// El endpoint necesita PostgreSQL y la migración documentada en sql/accenture_camino.sql.
-// Configurable mediante DATABASE_URL o variables PGHOST, PGPORT, PGUSER, PGPASSWORD, PGDATABASE.
-const pool = new Pool(process.env.DATABASE_URL ? { connectionString: process.env.DATABASE_URL } : {
-  host: process.env.PGHOST || "localhost",
-  port: Number(process.env.PGPORT || 5432),
-  user: process.env.PGUSER,
-  password: process.env.PGPASSWORD,
-  database: process.env.PGDATABASE || "s21_memotest",
-});
+const { guardarParticipante, buscarPorCorreo } = require("../services/accentureCaminoSheetsService");
+
 const LABELS = {
   aspiracion:["liderar","innovar","crecer","emprender","especialista"],
   trabajo:["software","datos","consultoria","operaciones","corporativo","otra"],
@@ -34,20 +27,22 @@ async function registrarCaminoAccenture(req,res) {
       return res.status(400).json({error:"Completá las cuatro decisiones del camino."});
     }
     const code="S21-ACC-"+crypto.randomBytes(4).toString("hex").toUpperCase();
-    const result=await pool.query(`
-      INSERT INTO accenture_camino_participantes
-       (id,nombre,apellido,email,telefono,respuestas,permiso_contacto,acepta_privacidad,codigo_retiro,origen)
-      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
-      RETURNING id,codigo_retiro`,[
-        crypto.randomUUID(),nombre.trim(),apellido.trim(),
-        email.trim().toLowerCase(),tel,JSON.stringify({
-          aspiracion:respuestas.aspiracion,trabajo:respuestas.trabajo,
-          estudios:respuestas.estudios,interes:respuestas.interes
-        }),permisoContacto,true,code,"feria-accenture-2026"
-      ]);
-    return res.status(201).json({ok:true,participanteId:result.rows[0].id,codigoRetiro:result.rows[0].codigo_retiro});
+    const emailNormalizado=email.trim().toLowerCase();
+    if(await buscarPorCorreo(emailNormalizado)){
+      return res.status(409).json({error:"Este email ya tiene una participación registrada. Consultá en el stand para recuperar tu código."});
+    }
+    const participanteId=crypto.randomUUID();
+    await guardarParticipante({
+      id:participanteId,nombre:nombre.trim(),apellido:apellido.trim(),
+      email:emailNormalizado,telefono:tel,
+      respuestas:{
+        aspiracion:respuestas.aspiracion,trabajo:respuestas.trabajo,
+        estudios:respuestas.estudios,interes:respuestas.interes
+      },
+      aceptaPrivacidad:true,permisoContacto,codigoRetiro:code,origen:"feria-accenture-2026"
+    });
+    return res.status(201).json({ok:true,participanteId,codigoRetiro:code});
   }catch(err){
-    if(err.code==="23505")return res.status(409).json({error:"Este email ya tiene una participación registrada. Consultá en el stand para recuperar tu código."});
     console.error("Error registro Accenture Camino:",err);
     return res.status(503).json({error:"No pudimos guardar tu participación. Intentá de nuevo o consultá en el stand."});
   }
