@@ -68,6 +68,7 @@ async function sincronizarHighschool() {
    });
    console.log(`Sync highschool: ${rows.length} participantes actualizados en Google Sheets`);
  } catch(e) {
+   pending=true;
    console.error("Sync highschool: error (se reintentará):",e.message);
  } finally {
    running=false;
