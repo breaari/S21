@@ -16,7 +16,7 @@ export const Landing = () => {
     return (
         <div className="s21-landing max-w-full container mx-0">
             <Portada></Portada>
-            <Cualidades></Cualidades>
+            {/* <Cualidades></Cualidades> */}
             <Oferta></Oferta>
             <Formulario></Formulario>
             {/* <Beneficios></Beneficios> */}
