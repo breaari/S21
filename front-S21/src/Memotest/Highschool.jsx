@@ -103,7 +103,7 @@ export function MemotestHighschool() {
  return <main className="memo-page hs-page">
   {paso==="registro" && <section className="memo-shell"><div className="memo-card">
    {logoHeader}<span className="memo-kicker">DESAFÍO INTERCOLEGIAL · PROMO 2026</span>
-   <h1 className="memo-main-title"><span className="memo-title-white">TU MEMORIA</span><span className="memo-title-green">PUEDE HACER GANAR</span><span className="memo-title-white">A TODO TU CURSO</span></h1>
+   <h1 className="memo-main-title"><span className="memo-title-white">TU MEMORIA</span><span className="memo-title-white">JUEGA POR</span><span className="memo-title-green">TU CURSO</span></h1>
    <p className="memo-intro">Encontrá los 6 pares, superá a otras promos y llevá a tu curso a lo más alto del ranking. El premio grupal se anunciará próximamente.</p>
    <form className="memo-form" onSubmit={registrar}>
     <div className="memo-grid-2"><label>Nombre<input required name="nombre" value={form.nombre} onChange={cambiar} placeholder="Tu nombre"/></label>
