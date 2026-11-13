@@ -30,7 +30,7 @@ async function registrar(req, res) {
       !areas.length || areas.length > 10 || !areas.every(a=>typeof a==="string" && a.length <= 90)) {
     return res.status(400).json({error:"Completá los datos y las preguntas obligatorias."});
   }
-  if (anio !== "Último año") return res.status(400).json({error:"Este desafío es para estudiantes de último año."});
+  if (anio !== "Último año" || curso !== "6°") return res.status(400).json({error:"Este desafío es exclusivo para estudiantes de 6.º año."});
   const id=crypto.randomUUID();
   const q=await pool.query(`INSERT INTO memotest_highschool
    (id,nombre,apellido,email,telefono,colegio,curso,division,anio,proximo_paso,decision_carrera,areas_interes,origen)
