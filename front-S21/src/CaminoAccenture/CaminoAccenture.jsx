@@ -54,17 +54,33 @@ function CaminoTileIcon({stage}) {
 }
 
 
-function CaminoFootprint({children}) {
-  return <span className="camino-footprint-art" aria-hidden="true">
-    <svg viewBox="0 0 60 82" focusable="false">
-      <ellipse cx="29" cy="50" rx="17" ry="25" transform="rotate(-13 29 50)" fill="currentColor"/>
-      <ellipse cx="15" cy="19" rx="5.8" ry="6.8" fill="currentColor"/>
-      <ellipse cx="27" cy="11" rx="6.5" ry="7.8" fill="currentColor"/>
-      <ellipse cx="40" cy="13" rx="5.6" ry="6.7" fill="currentColor"/>
-      <ellipse cx="50" cy="23" rx="4.5" ry="5.7" fill="currentColor"/>
-    </svg>
-    {children&&<span className="camino-footprint-symbol">{children}</span>}
-  </span>;
+// Pisadas humanas (suela y talón) inspiradas en la referencia del sendero.
+function CaminoFootprint() {
+  return <svg className="camino-shoeprints" viewBox="0 0 94 72" role="presentation" focusable="false" aria-hidden="true">
+    <g transform="rotate(-12 29 35)">
+      <ellipse cx="28" cy="22" rx="13" ry="21" fill="currentColor"/>
+      <path d="M20 45 Q27 39 36 45 L36 58 Q28 66 20 58Z" fill="currentColor"/>
+    </g>
+    <g transform="rotate(12 67 37)">
+      <ellipse cx="67" cy="28" rx="13" ry="21" fill="currentColor"/>
+      <path d="M59 51 Q66 45 75 51 L75 64 Q67 72 59 64Z" fill="currentColor"/>
+    </g>
+  </svg>;
+}
+
+function CaminoForestPath() {
+  return <svg className="camino-forest-art" viewBox="0 0 500 190" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path className="camino-forest-road-edge" d="M -24 145 C 45 148 60 116 90 118 S 153 68 195 74 S 265 141 305 116 S 377 51 410 70 S 460 95 524 68"/>
+    <path className="camino-forest-road" d="M -24 145 C 45 148 60 116 90 118 S 153 68 195 74 S 265 141 305 116 S 377 51 410 70 S 460 95 524 68"/>
+    <g className="camino-forest-trees">
+      <path d="M45 18v47" className="camino-tree-trunk"/>
+      <path d="M45 2 25 33h8L24 50h42L57 33h8Z"/>
+      <path d="M476 111v57" className="camino-tree-trunk"/>
+      <path d="m476 97-23 33h10l-11 22h49l-11-22h10Z"/>
+      <path d="M12 5v37" className="camino-tree-trunk"/>
+      <path d="M12 -5 1 18h5L1 31h24l-5-13h6Z"/>
+    </g>
+  </svg>;
 }
 
 export function CaminoAccenture(){
@@ -178,10 +194,8 @@ export function CaminoAccenture(){
         <h1>CONSTRUÍ <span>TU FUTURO.</span></h1>
         <p>Cuatro decisiones para descubrir qué te mueve. Elegí tus próximos pasos y avanzá hacia tu futuro profesional.</p>
         <div className="camino-preview-path" aria-label="Cuatro pasos hacia tu futuro">
-          <svg className="camino-path-curve" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M4 72 C 12 72,12 64,18 64 S 33 29,39 39 S 53 70,61 61 S 75 23,82 37 S 91 49,96 40"/>
-          </svg>
-          {FOOT_POSITIONS.map((pos,i)=><span key={i} className="camino-preview-foot" style={{left:`${pos.x}%`,top:`${pos.y}%`,"--foot-color":COLORS[i]}}><CaminoFootprint><CaminoTileIcon stage={i}/></CaminoFootprint></span>)}
+          <CaminoForestPath/>
+          {FOOT_POSITIONS.map((pos,i)=><span key={i} className="camino-preview-foot" style={{left:`${pos.x}%`,top:`${pos.y}%`,"--foot-color":answer?colorDeOpcion(s,answer):active&&selected?colorDeOpcion(s,selected):"#b6c5be"}}><CaminoFootprint/></span>)}
           <span className="camino-preview-destination" style={{"--foot-color":COLORS[4]}}>TU FUTURO</span>
         </div>
         <button className="camino-primary" onClick={()=>setScreen("registro")}>COMENZAR →</button>
@@ -212,17 +226,15 @@ export function CaminoAccenture(){
         <div className="camino-board" style={{"--track-color":COLORS[stepIndex]}}>
           <div className="camino-board-label">TU CAMINO PROFESIONAL</div>
           <div className="camino-nature-track">
-            <svg className="camino-path-curve" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M4 72 C 12 72,12 64,18 64 S 33 29,39 39 S 53 70,61 61 S 75 23,82 37 S 91 49,96 40"/>
-            </svg>
+            <CaminoForestPath/>
             {CAMINO_STEPS.map((s,i)=>{
               const answer=answers[s.id],active=i===stepIndex;
               const pos=FOOT_POSITIONS[i];
               return <div key={s.id} ref={active?targetRef:null}
-                className={`camino-foot-step ${answer?"built":""} ${active?"current":""} ${active&&animating?"arriving":""}`}
+                className={`camino-foot-step ${answer?"built":""} ${active?"current":""} ${active&&animating?"arriving":""} ${active&&selected?"selected":""}`}
                 style={{left:`${pos.x}%`,top:`${pos.y}%`,"--foot-color":COLORS[i]}}
                 aria-label={active?"Soltá aquí tu próximo paso":answer?"Paso completado":"Paso pendiente"}>
-                <CaminoFootprint>{answer?<OpcionIcono id={answer}/>:active?"↓":null}</CaminoFootprint>
+                <CaminoFootprint/>
               </div>;
             })}
             <div className="camino-path-destination">META <FiFlag aria-hidden="true"/></div>
