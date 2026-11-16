@@ -200,7 +200,6 @@ export function CaminoAccenture(){
           <label>WhatsApp<input required type="tel" maxLength="24" value={form.telefono} autoComplete="tel" onChange={e=>setForm(f=>({...f,telefono:e.target.value}))}/></label>
           <label className="camino-check"><input type="checkbox" required checked={form.aceptaPrivacidad} onChange={e=>setForm(f=>({...f,aceptaPrivacidad:e.target.checked}))}/><span>Acepto que Universidad Siglo 21 registre mis datos y respuestas para gestionar esta experiencia y su obsequio.</span></label>
           <label className="camino-check"><input type="checkbox" checked={form.permisoContacto} onChange={e=>setForm(f=>({...f,permisoContacto:e.target.checked}))}/><span>Quiero recibir asesoramiento y novedades académicas por WhatsApp o email. Esta opción es voluntaria y no afecta mi participación.</span></label>
-          <p className="camino-small">Antes de publicar, agregar el enlace a la política de privacidad vigente y el canal para ejercer derechos sobre los datos.</p>
           {error&&<p className="camino-error" role="alert">{error}</p>}
           <button type="submit" className="camino-primary" disabled={savingRef.current}>CONSTRUIR MI CAMINO →</button>
         </form>
