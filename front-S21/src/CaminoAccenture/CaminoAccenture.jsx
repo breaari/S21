@@ -225,36 +225,25 @@ export function CaminoAccenture(){
         </div>)}
         <p className="camino-note">{recommendation.nota}</p>
         <div className="camino-perk">
-          <span className="camino-perk-eyebrow">¡TU FUTURO TIENE BENEFICIOS!</span>
+          <span className="camino-perk-eyebrow">BENEFICIO EXCLUSIVO ACCENTURE</span>
           <strong className="camino-perk-total">40% OFF EN ARANCELES</strong>
-          <div className="camino-perk-breakdown">
-            <p><b>20% DE BENEFICIO EXCLUSIVO ACCENTURE</b></p>
-            <p>10% por nuestro convenio vigente.</p>
-            <p><strong>+ 10% EXTRA exclusivo por haber construido tu camino con Universidad Siglo 21.</strong></p>
-            <p><b>+ 20% DE DESCUENTO POR INSCRIPCIÓN TEMPRANA.</b></p>
-          </div>
-          <div className="camino-perk-steps">
-            <h3>¿CÓMO ACTIVAR TU BENEFICIO?</h3>
-            <p>¡Estás a un paso de empezar!</p>
-            <ol>
-              <li>Guardá una captura de esta pantalla.</li>
-              <li>Contactá a nuestros asesores dentro de los próximos <b>7 días</b>.</li>
-              <li>Realizá tu inscripción con nuestro equipo para acceder al beneficio exclusivo.</li>
-            </ol>
-          </div>
+          <p className="camino-perk-summary">
+            <b>20% Accenture</b> (10% por convenio + 10% EXTRA por haber construido tu camino)
+            <span className="camino-perk-plus"> + </span>
+            <b>20% por inscripción temprana.</b>
+          </p>
+          <p className="camino-perk-action">Guardá una captura de esta pantalla y contactanos dentro de los próximos <b>7 días</b> para gestionar tu inscripción con nuestros asesores.</p>
           <p className="camino-perk-terms">Beneficio exclusivo para inscripciones gestionadas a través de nuestros asesores de Universidad Siglo 21. Sujeto a vigencia, programas alcanzados y condiciones comerciales aplicables.</p>
         </div>
-        <div className="camino-ticket"><span>RETIRO DE MERCHANDISING</span><strong>{saved?.codigoRetiro}</strong><small>Mostrá tu código en el stand. Sujeto a disponibilidad.</small></div>
-        <div className="camino-next"><h2>¿Querés explorar alguna de estas formaciones?</h2>
-          <p>Acercate a nuestras asesoras con tu resultado para consultar requisitos, modalidad e inscripciones 2027.</p>
+        <div className="camino-merch">
+          Para retirar tu merchandising, acercate al stand e indicá tu <b>nombre y apellido</b>.
         </div>
         <div className="camino-contacto">
-          <h2>¡AGENDANOS Y ACTIVÁ TU BENEFICIO!</h2>
+          <h2>¿Querés aprovechar tu beneficio?</h2>
           <p>Universidad Siglo 21 · Mar del Plata</p>
           <a className="camino-contacto-link" href="https://wa.me/5492235501021?text=Hola%2C%20particip%C3%A9%20de%20Constru%C3%AD%20tu%20futuro%20en%20Accenture%20y%20quiero%20activar%20el%20beneficio%20especial%20de%20inscripci%C3%B3n." target="_blank" rel="noopener noreferrer" aria-label="Enviar consulta por WhatsApp al 223 550 1021">
             QUIERO ACTIVAR MI BENEFICIO · 223 550 1021
           </a>
-          <p className="camino-contacto-note">Guardá una captura de esta pantalla y presentala a nuestro equipo al inscribirte.</p>
         </div>
       </section>}
     </div>
