@@ -79,7 +79,8 @@ export function CaminoAccenture(){
         body:JSON.stringify({respuestas:finalAnswers})
       });
       await leerRespuestaAPI(response);
-      setScreen("resultado");
+      setScreen("recompensa");
+      window.scrollTo({top:0,behavior:"smooth"});
     }catch(err){setError(err.message||"No pudimos guardar tus respuestas.");setScreen("error");}
     finally{savingRef.current=false;}
   }
@@ -207,6 +208,15 @@ export function CaminoAccenture(){
         <button className="camino-link" onClick={()=>setScreen("registro")}>Revisar mis datos</button>
       </section>}
 
+      {screen==="recompensa"&&<section className="camino-panel camino-reward-screen">
+        <div className="camino-reward-icon" aria-hidden="true">★</div>
+        <div className="camino-eyebrow">¡DESAFÍO COMPLETADO!</div>
+        <h1>¡TU CAMINO TIENE <span>RECOMPENSA!</span></h1>
+        <p>Acercate a nuestro stand, decinos tu <b>nombre y apellido</b> y retirá tu regalo por participar.</p>
+        <p className="camino-reward-note">Sujeto a disponibilidad.</p>
+        <button type="button" className="camino-primary" onClick={()=>{setScreen("resultado");window.scrollTo({top:0,behavior:"smooth"});}}>VER MI RESULTADO →</button>
+      </section>}
+
       {screen==="resultado"&&<section className="camino-panel camino-results" style={{"--profile-color":profile.color}}>
         <div className="camino-eyebrow">TU CAMINO PROFESIONAL</div>
         <div className="camino-profile"><span>EL CAMINO QUE ELEGISTE</span><h1>{profile.titulo}</h1><strong>{profile.lema}</strong><p>{profile.descripcion}</p></div>
@@ -234,10 +244,6 @@ export function CaminoAccenture(){
           </p>
           <p className="camino-perk-action">Guardá una captura de esta pantalla y contactanos dentro de los próximos <b>7 días</b> para gestionar tu inscripción con nuestros asesores.</p>
           <p className="camino-perk-terms">Beneficio exclusivo para inscripciones gestionadas a través de nuestros asesores de Universidad Siglo 21. Sujeto a vigencia, programas alcanzados y condiciones comerciales aplicables.</p>
-        </div>
-        <div className="camino-merch">
-          <strong>¡TU CAMINO TIENE RECOMPENSA!</strong>
-          <p>Acercate a nuestro stand, decinos tu <b>nombre y apellido</b> y retirá tu regalo por participar. Sujeto a disponibilidad.</p>
         </div>
         <div className="camino-contacto">
           <h2>¿Querés aprovechar tu beneficio?</h2>
