@@ -42,18 +42,6 @@ async function leerRespuestaAPI(response) {
 }
 
 
-// Íconos vectoriales por etapa: aspiración, trabajo, estudios y destino.
-function CaminoTileIcon({stage}) {
-  const paths=[
-    <><path d="M9 18h6M10 21h4M9 14a6 6 0 1 1 6 0l-1 2h-4l-1-2Z"/></>,
-    <><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18M10 12v2h4v-2"/></>,
-    <><path d="m2 9 10-5 10 5-10 5L2 9ZM6 11v5c4 3 8 3 12 0v-5M22 9v7"/></>,
-    <><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></>
-  ];
-  return <svg className="camino-stage-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">{paths[stage]}</svg>;
-}
-
-
 // Pisadas humanas (suela y talón) inspiradas en la referencia del sendero.
 function CaminoFootprint() {
   return <svg className="camino-shoeprints" viewBox="0 0 94 72" role="presentation" focusable="false" aria-hidden="true">
@@ -195,7 +183,7 @@ export function CaminoAccenture(){
         <p>Cuatro decisiones para descubrir qué te mueve. Elegí tus próximos pasos y avanzá hacia tu futuro profesional.</p>
         <div className="camino-preview-path" aria-label="Cuatro pasos hacia tu futuro">
           <CaminoForestPath/>
-          {FOOT_POSITIONS.map((pos,i)=><span key={i} className="camino-preview-foot" style={{left:`${pos.x}%`,top:`${pos.y}%`,"--foot-color":answer?colorDeOpcion(s,answer):active&&selected?colorDeOpcion(s,selected):"#b6c5be"}}><CaminoFootprint/></span>)}
+          {FOOT_POSITIONS.map((pos,i)=><span key={i} className="camino-preview-foot" style={{left:`${pos.x}%`,top:`${pos.y}%`,"--foot-color":COLORS[i]}}><CaminoFootprint/></span>)}
           <span className="camino-preview-destination" style={{"--foot-color":COLORS[4]}}>TU FUTURO</span>
         </div>
         <button className="camino-primary" onClick={()=>setScreen("registro")}>COMENZAR →</button>
@@ -232,7 +220,7 @@ export function CaminoAccenture(){
               const pos=FOOT_POSITIONS[i];
               return <div key={s.id} ref={active?targetRef:null}
                 className={`camino-foot-step ${answer?"built":""} ${active?"current":""} ${active&&animating?"arriving":""} ${active&&selected?"selected":""}`}
-                style={{left:`${pos.x}%`,top:`${pos.y}%`,"--foot-color":COLORS[i]}}
+                style={{left:`${pos.x}%`,top:`${pos.y}%`,"--foot-color":answer?colorDeOpcion(s,answer):active&&selected?colorDeOpcion(s,selected):"#b6c5be"}}
                 aria-label={active?"Soltá aquí tu próximo paso":answer?"Paso completado":"Paso pendiente"}>
                 <CaminoFootprint/>
               </div>;
