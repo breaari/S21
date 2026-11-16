@@ -8,7 +8,6 @@ export const PERFILES={
  emprender:{titulo:"EMPRENDER",lema:"Tu camino convierte ideas en proyectos.",descripcion:"Te entusiasma impulsar iniciativas, detectar oportunidades y construir algo propio.",color:"#f0c281"},
  especialista:{titulo:"ESPECIALIZARME",lema:"Tu camino profundiza tu talento.",descripcion:"Te interesa dominar conocimientos y sumar herramientas de alto nivel en tu área.",color:"#88a9ed"}
 };
-const BASE="https://21.edu.ar/carreras-y-programas/";
 const lista=[
  ["Ingeniería en Software","Grado","tecnologia",["innovar","especialista","crecer"],"ingenieria-en-software"],
  ["Licenciatura en Informática","Grado","tecnologia",["innovar","especialista","crecer"],"licenciatura-en-informatica"],
@@ -36,10 +35,30 @@ const lista=[
  ["Procurador","Pregrado","derecho",["crecer","especialista"],"procurador"],
  ["Especialización en Derecho de Familia, Niñez y Adolescencia","Especialización","derecho",["especialista","liderar"],"especializacion-en-derecho-de-familia-ninez-y-adolescencia"],
  ["Maestría en Derecho Internacional","Maestría","derecho",["especialista","liderar"],"maestria-en-derecho-internacional"],
- ["Diplomatura en Derecho Corporativo","Diplomatura","derecho",["especialista","emprender"],"diplomatura-en-derecho-corporativo"]
+ ["Diplomatura en Derecho Corporativo","Diplomatura","derecho",["especialista","emprender"],"diplomatura-en-derecho-corporativo"],
+ ["Diplomatura en Comunicaciones, Marketing Digital y Social Media","Diplomatura","marketing",["emprender","innovar","crecer"],"diplomatura-en-comunicaciones-marketing-digital-y-social-media"],
+ ["Diplomatura en Desarrollo de Habilidades Duraderas para el Trabajo Humano","Diplomatura","personas",["liderar","crecer","innovar"],"diplomatura-en-trabajo-humano-y-habilidades-duraderas"]
 ];
-export const CATALOGO=lista.map(([nombre,tipo,area,perfiles,slug])=>({
- nombre,tipo,area,perfiles,url:BASE+slug,modalidad:"A distancia",
+// Usamos enlaces directos solo cuando se verificó la URL oficial.
+// El resto apunta al catálogo oficial de carreras a distancia, para no inventar rutas.
+const URLS_VERIFICADAS={
+ "Licenciatura en Informática":"https://21.edu.ar/carreras-y-programas/licenciatura-en-informatica",
+ "Maestría en Administración de Empresas":"https://21.edu.ar/carreras-y-programas/maestria-en-administracion-de-empresas",
+ "Especialización en Marketing y Dirección Comercial":"https://21.edu.ar/carreras-y-programas/especializacion-en-marketing-y-direccion-comercial",
+ "Certificado en Agile Management":"https://21.edu.ar/carreras-y-programas/certificado-en-agile-management",
+ "Certificado en Business Analytics":"https://21.edu.ar/carreras-y-programas/certificado-en-business-analytics",
+ "Curso Liderar en el Siglo XXI":"https://21.edu.ar/carreras-y-programas/curso-liderar-en-el-siglo-xxi",
+ "Diplomatura en Derecho Corporativo":"https://21.edu.ar/carreras-y-programas/diplomatura-en-derecho-corporativo",
+ "Diplomatura en Comunicaciones, Marketing Digital y Social Media":"https://21.edu.ar/carreras-y-programas/diplomatura-en-comunicaciones-marketing-digital-y-social-media",
+ "Diplomatura en Desarrollo de Habilidades Duraderas para el Trabajo Humano":"https://21.edu.ar/carreras-y-programas/diplomatura-en-trabajo-humano-y-habilidades-duraderas"
+};
+export const CATALOGO=lista.map(([nombre,tipo,area,perfiles])=>({
+ nombre,tipo,area,perfiles,
+ url:URLS_VERIFICADAS[nombre] || (["Curso","Certificado","Diplomatura"].includes(tipo)
+  ? "https://21.edu.ar/cursos-y-certificaciones"
+  : "https://21.edu.ar/carreras-y-programas/distancia"),
+ enlaceDirecto:Boolean(URLS_VERIFICADAS[nombre]),
+ modalidad:"A distancia",
  requiereTitulo:["Especialización","Maestría"].includes(tipo),
  // Se informa el requisito con prudencia; cada caso requiere validación académica.
 }));
