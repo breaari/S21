@@ -224,3 +224,39 @@
   margin:0 0 30px;
 }
 .camino-reward-screen .camino-primary{margin-top:4px}
+
+/* Personaje animado que avanza cada vez que se encastra una baldosa */
+.camino-track{position:relative;--walker-edge:38px}
+.camino-walker{
+  position:absolute;
+  z-index:4;
+  left:calc(var(--walker-edge) + (100% - 2 * var(--walker-edge)) * var(--walker-progress) / 4);
+  top:-44px;
+  width:44px;
+  height:70px;
+  transform:translateX(-50%);
+  transition:left 760ms cubic-bezier(.4,0,.2,1);
+  pointer-events:none;
+  filter:drop-shadow(0 3px 3px #002f2e66);
+}
+.camino-walker-figure{display:block;width:44px;height:70px}
+.camino-walker-leg,.camino-walker-arm{
+  transform-box:fill-box;
+  transform-origin:top center;
+}
+.camino-walker.is-walking .camino-walker-leg.left,
+.camino-walker.is-walking .camino-walker-arm.right{
+  animation:camino-step-forward 300ms ease-in-out infinite alternate;
+}
+.camino-walker.is-walking .camino-walker-leg.right,
+.camino-walker.is-walking .camino-walker-arm.left{
+  animation:camino-step-back 300ms ease-in-out infinite alternate;
+}
+.camino-walker.is-walking .camino-walker-figure{
+  animation:camino-walk-bounce 300ms ease-in-out infinite alternate;
+}
+@keyframes camino-step-forward{from{transform:rotate(-24deg)}to{transform:rotate(24deg)}}
+@keyframes camino-step-back{from{transform:rotate(24deg)}to{transform:rotate(-24deg)}}
+@keyframes camino-walk-bounce{from{transform:translateY(0)}to{transform:translateY(-3px)}}
+@media(max-width:370px){.camino-track{--walker-edge:30px}.camino-walker{width:36px;height:58px;top:-37px}.camino-walker-figure{width:36px;height:58px}}
+@media(prefers-reduced-motion:reduce){.camino-walker{transition:none}.camino-walker *{animation:none!important}}
