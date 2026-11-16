@@ -168,3 +168,13 @@
  .camino-profile{padding:14px}
  .camino-profile h1{font-size:clamp(23px,7vw,34px)}
 }
+
+/* Detalle del beneficio y pasos para activarlo */
+.camino-perk-breakdown{margin:14px 0 18px;padding:12px 14px;border:1px solid #8cddbb66;border-radius:12px;background:#093f3880}
+.camino-perk-breakdown p{margin:8px 0;line-height:1.55}
+.camino-perk-breakdown strong{color:#d6fbe2}
+.camino-perk-steps{margin:16px 0;padding:14px;border-radius:12px;background:#ffffff12}
+.camino-perk-steps h3{font-size:14px;font-weight:900;line-height:1.3;margin:0 0 8px}
+.camino-perk-steps p{margin:0 0 10px}
+.camino-perk-steps ol{padding-left:20px;margin:0;display:grid;gap:9px}
+.camino-perk-steps li{font-size:12px;line-height:1.5;padding-left:2px;color:#e5f8ed}
