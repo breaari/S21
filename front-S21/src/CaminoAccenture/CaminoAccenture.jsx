@@ -185,7 +185,7 @@ export function CaminoAccenture(){
         {recommendation.opciones.map((item,i)=><div key={item.nombre} className="camino-reco">
           <div className="camino-reco-meta"><span>{item.tipo}</span><span>{item.modalidad}</span></div>
           <b>{item.nombre}</b>
-          <a href={item.url} target="_blank" rel="noopener noreferrer">Conocer programa ↗</a>
+          <a href={item.url} target="_blank" rel="noopener noreferrer">{item.enlaceDirecto?"Ver programa ↗":"Explorar oferta oficial ↗"}</a>
         </div>)}
         <p className="camino-note">{recommendation.nota}</p>
         <div className="camino-perk"><strong>Beneficio por convenio Accenture: 10%</strong><p>Consultá con nuestro equipo el alcance, condiciones y beneficios adicionales disponibles.</p></div>
