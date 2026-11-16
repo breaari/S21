@@ -469,3 +469,87 @@
 @media(prefers-reduced-motion:reduce){
   .camino-foot-step,.camino-nature-track .camino-walker{animation:none!important;transition:none!important}
 }
+
+/* Sendero ilustrado horizontal con pares de pisadas humanas */
+.camino-preview-path,.camino-nature-track{
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 12% 20%,#30744f37,transparent 32%),
+    radial-gradient(ellipse at 91% 83%,#244f3d52,transparent 32%),
+    #10392f;
+  border-radius:16px;
+}
+.camino-preview-path{height:184px;margin:14px 0 24px}
+.camino-nature-track{height:203px;margin:14px 0 12px}
+.camino-forest-art{
+  position:absolute;
+  z-index:0;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+}
+.camino-forest-road-edge,
+.camino-forest-road{
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  vector-effect:non-scaling-stroke;
+}
+.camino-forest-road-edge{stroke:#5c514b;stroke-width:64px}
+.camino-forest-road{stroke:#90766b;stroke-width:57px}
+.camino-forest-trees{fill:#416b31;opacity:.86}
+.camino-forest-trees .camino-tree-trunk{
+  fill:none;
+  stroke:#7d6d60;
+  stroke-width:8px;
+}
+.camino-foot-step,.camino-preview-foot{
+  z-index:2;
+  color:var(--foot-color);
+  width:62px;
+  height:52px;
+  transform:translate(-50%,-50%);
+}
+.camino-preview-foot{width:54px;height:45px}
+.camino-foot-step{
+  opacity:.72;
+  filter:drop-shadow(0 2px 1px #1d1b1c99);
+  transition:opacity .2s ease,filter .2s ease,color .2s ease;
+}
+.camino-foot-step.built,.camino-foot-step.selected{opacity:1}
+.camino-foot-step.current{
+  opacity:1;
+  filter:drop-shadow(0 0 6px #f0fff4) drop-shadow(0 2px 2px #231d1f);
+}
+.camino-foot-step.current .camino-footprint-art{animation:none}
+.camino-shoeprints{display:block;width:100%;height:100%}
+.camino-preview-destination{
+  z-index:3;
+  right:2%;
+  top:17%;
+  padding:6px 9px;
+  background:#425db2;
+  box-shadow:0 2px 6px #0005;
+}
+.camino-path-destination{
+  z-index:3;
+  top:17%;
+  right:2%;
+  padding:5px 7px;
+  border-radius:6px;
+  background:#17493bdc;
+}
+.camino-path-destination svg{color:#a9c0ff}
+.camino-nature-track .camino-walker{
+  z-index:4;
+  transform:translate(-50%,-92%) scale(.79);
+}
+@media(max-width:410px){
+  .camino-preview-path{height:151px}
+  .camino-nature-track{height:176px}
+  .camino-foot-step{width:47px;height:41px}
+  .camino-preview-foot{width:43px;height:36px}
+  .camino-nature-track .camino-walker{transform:translate(-50%,-90%) scale(.7)}
+  .camino-preview-destination{font-size:9px}
+}
