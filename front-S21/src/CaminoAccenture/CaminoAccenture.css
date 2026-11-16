@@ -278,3 +278,72 @@
   }
   .camino-stage-icon{width:19px;height:19px}
 }
+
+/* Paleta vibrante compartida entre portada, recorrido y opciones */
+.camino-mini-road .camino-mini-tile{
+  background:var(--tile-color)!important;
+  border:2px solid #f8fff9!important;
+  min-width:0;
+  min-height:43px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  box-shadow:0 4px 0 #072c2c88;
+}
+.camino-mini-tile:nth-child(3){color:#123835}
+.camino-mini-tile .camino-stage-icon{width:21px;height:21px;color:inherit}
+.camino-mini-road .camino-destination{
+  background:var(--destination-color);
+  border-radius:6px;
+  padding:10px 5px;
+  color:#fff;
+  font-size:10px;
+  text-align:center;
+  line-height:1.2;
+  flex:0 0 auto;
+}
+.camino-choice{
+  background:var(--choice-color);
+  color:var(--choice-ink);
+  border:2px solid #ffffff70;
+  font-size:13px;
+  box-shadow:0 4px 0 #051f2373;
+}
+.camino-choice:hover{filter:brightness(1.06)}
+.camino-choice.picked{
+  background:var(--choice-color);
+  color:var(--choice-ink);
+  border:2px solid #fff;
+  box-shadow:0 0 0 3px #ffffff50,0 5px 0 #051f2373;
+}
+.camino-piece-mark{
+  background:#ffffff2b;
+  border:1px solid currentColor;
+  color:inherit;
+  width:36px;
+  height:36px;
+  font-size:22px;
+  box-shadow:none;
+}
+.camino-piece-mark svg{width:21px;height:21px;stroke-width:2.2}
+.camino-track-tile.built{
+  background:var(--tile-color);
+  border-color:#fff;
+}
+.camino-track-tile.arriving{
+  background:var(--tile-color);
+  border-color:#fff;
+}
+.camino-track-tile.built .camino-tile-symbol{
+  color:white;
+}
+.camino-track-tile.built:nth-child(3) .camino-tile-symbol{color:#fff}
+.camino-tile-symbol svg{width:24px;height:24px;stroke-width:2.2}
+.camino-drag-ghost{color:#fff}
+.camino-drag-ghost svg{width:28px;height:28px;stroke-width:2.2}
+@media(max-width:370px){
+  .camino-piece-mark{width:30px;height:30px}
+  .camino-choice{font-size:11px}
+  .camino-mini-road .camino-destination{font-size:9px;padding:9px 3px}
+}
