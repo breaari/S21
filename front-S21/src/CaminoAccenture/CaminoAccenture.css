@@ -195,3 +195,32 @@
 .camino-compartir .camino-compartir-aclaracion{font-size:10px;color:#b9d8cc}
 .camino-compartir-link{display:block;margin-top:14px;text-align:center;text-decoration:none;background:#ffffff12;border:1px solid #8ecfba;color:#dcfae9;border-radius:10px;padding:12px 8px;font-size:12px;font-weight:900}
 .camino-compartir-link:hover,.camino-compartir-link:focus-visible{background:#ffffff26}
+
+/* Pantalla de recompensa separada del resultado */
+.camino-reward-screen{
+  text-align:center;
+  padding:clamp(28px,7vw,43px) clamp(19px,5vw,30px);
+}
+.camino-reward-icon{
+  width:78px;height:78px;border-radius:50%;
+  display:grid;place-items:center;
+  margin:0 auto 22px;
+  background:#8be4b7;color:#064539;
+  font-size:41px;
+  box-shadow:0 0 0 9px #8be4b724;
+}
+.camino-reward-screen h1{
+  font-family:Montserrat,"DM Sans",sans-serif;
+  font-size:clamp(29px,8vw,43px);
+  line-height:1.08;
+  letter-spacing:-.045em;
+  overflow-wrap:anywhere;
+  margin:16px 0 18px;
+}
+.camino-reward-screen h1 span{color:#8be4b7}
+.camino-reward-screen>p{font-size:16px;line-height:1.55;color:#f0fff7;margin:0 0 14px}
+.camino-reward-screen .camino-reward-note{
+  color:#b4d9cb;font-size:12px;
+  margin:0 0 30px;
+}
+.camino-reward-screen .camino-primary{margin-top:4px}
