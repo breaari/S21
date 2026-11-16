@@ -14,7 +14,7 @@
 3. Cuatro decisiones: aspiración, área laboral, formación previa e intereses. Cada respuesta puede arrastrarse a la baldosa iluminada o tocarse y colocarse con el botón.
 4. Tras la cuarta baldosa se **actualizan las columnas H:K de la misma fila** de Google Sheets usando el ID recibido al registrarse. Si abandona, la fila inicial queda guardada sin respuestas.
 5. Resultado de identificación aspiracional: Liderar, Innovar, Crecer, Emprender o Especializarme. No es una evaluación psicométrica.
-6. Recomendaciones filtradas por aspiración, interés, trabajo y estudios, código de retiro y posibilidad de asesoramiento presencial.
+6. Recomendaciones filtradas por aspiración, interés, trabajo y estudios, retiro por nombre y apellido y posibilidad de asesoramiento presencial.
 
 ## Preparación local
 ```bash
@@ -59,3 +59,9 @@ El archivo `catalogoDistancia.js` contiene propuestas tomadas de páginas oficia
 - Probar el endpoint y permisos en Google Sheets, concurrencia, celulares y WiFi.
 - Establecer mecanismo de canje (la columna «Merch entregado» comienza en NO; no existe aún un panel de canje).
 - No hay integración a CRM ni IA externa; las recomendaciones actuales son reglas orientativas por área.
+
+## Entrega de merchandising (actualización)
+El resultado **no muestra códigos**. El participante se identifica en el stand con **nombre y apellido**. El endpoint ya no genera códigos nuevos; para mantener compatibilidad con la pestaña existente, la columna «Codigo retiro» permanece en blanco en los registros nuevos. Puede marcarse manualmente «Merch entregado» al efectuar la entrega. Los registros históricos conservan sus datos.
+
+## Pantalla de resultado
+El beneficio, la instrucción de captura dentro de siete días y la condición de gestión con nuestros asesores se presentan una sola vez. Se eliminó la tarjeta con código, los pasos duplicados y la llamada redundante a explorar formaciones. El botón único de contacto abre WhatsApp al 223 550 1021.
