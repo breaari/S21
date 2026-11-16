@@ -9,10 +9,11 @@
 
 ## Experiencia
 1. Portada «Construí tu futuro».
-2. Cuatro decisiones: aspiración, área laboral, formación previa e intereses.
-3. Baldosas seleccionables y arrastrables con feedback de encastre.
-4. Registro con autorización de marketing separada y opcional.
-5. Ruta orientativa, código de retiro y posibilidad de asesoramiento presencial.
+2. **Formulario al inicio**: nombre, apellido, email, WhatsApp y consentimiento comercial separado y opcional.
+3. Cuatro decisiones: aspiración, área laboral, formación previa e intereses. Cada respuesta puede arrastrarse a la baldosa iluminada o tocarse y colocarse con el botón.
+4. Tras la cuarta baldosa se guarda la participación en Google Sheets (no antes: si abandona, no hay registro).
+5. Resultado de identificación aspiracional: Liderar, Innovar, Crecer, Emprender o Especializarme. No es una evaluación psicométrica.
+6. Recomendaciones filtradas por aspiración, interés, trabajo y estudios, código de retiro y posibilidad de asesoramiento presencial.
 
 ## Preparación local
 ```bash
@@ -40,6 +41,9 @@ El backend usa el servicio de Google Sheets ya configurado:
 - El frontend **no escribe directamente** en Google Sheets: utiliza el endpoint Express existente, que protege las credenciales.
 
 Columnas: Fecha, Hora, ID, Nombre, Apellido, Email, Telefono, Aspiracion, Area de trabajo, Nivel de estudios, Area de interes, Consentimiento datos, Autoriza contacto comercial, Origen, Codigo retiro, Merch entregado, Interes en inscripcion, Estado comercial.
+
+## Catálogo académico
+El archivo `catalogoDistancia.js` contiene propuestas tomadas de páginas oficiales de Siglo 21 (noviembre 2026): pregrado, grado, cursos, certificados, diplomaturas, especializaciones y maestrías **a distancia**. Los enlaces directos se utilizan solo cuando se verificó la URL, y en otros casos se vincula al catálogo oficial. Para posgrados se requiere, como mínimo, indicar título universitario y validar el requisito de admisión específico con un asesor. La selección ofrece hasta cuatro opciones variadas; no presenta todas las categorías a cada usuario.
 
 ## Antes de publicar
 - Añadir política de privacidad efectiva y contacto para ejercer derechos, además de definir conservación y eliminación de datos.
