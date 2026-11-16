@@ -9,6 +9,8 @@ const API_URL = "https://back.universidadsiglo21online.com";
 const INITIAL_FORM = { nombre:"", apellido:"", email:"", telefono:"", permisoContacto:false, aceptaPrivacidad:false };
 const getOption=(step,id)=>step.choices.find(x=>x.id===id);
 const COLORS=["#28b9ac","#b644c5","#f3a800","#d4004c","#425db2"];
+const FOOT_POSITIONS=[{x:18,y:64},{x:39,y:39},{x:61,y:61},{x:82,y:37}];
+const START_POSITION={x:5,y:72};
 const OPTION_ICONS={
   liderar:FiFlag, innovar:FiZap, crecer:FiTrendingUp, emprender:FiCompass, especialista:FiAward,
   software:FiCode, datos:FiCpu, consultoria:FiBriefcase, operaciones:FiSettings, corporativo:FiUsers, otra:FiGrid,
@@ -49,6 +51,20 @@ function CaminoTileIcon({stage}) {
     <><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></>
   ];
   return <svg className="camino-stage-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">{paths[stage]}</svg>;
+}
+
+
+function CaminoFootprint({children}) {
+  return <span className="camino-footprint-art" aria-hidden="true">
+    <svg viewBox="0 0 60 82" focusable="false">
+      <ellipse cx="29" cy="50" rx="17" ry="25" transform="rotate(-13 29 50)" fill="currentColor"/>
+      <ellipse cx="15" cy="19" rx="5.8" ry="6.8" fill="currentColor"/>
+      <ellipse cx="27" cy="11" rx="6.5" ry="7.8" fill="currentColor"/>
+      <ellipse cx="40" cy="13" rx="5.6" ry="6.7" fill="currentColor"/>
+      <ellipse cx="50" cy="23" rx="4.5" ry="5.7" fill="currentColor"/>
+    </svg>
+    {children&&<span className="camino-footprint-symbol">{children}</span>}
+  </span>;
 }
 
 export function CaminoAccenture(){
@@ -152,7 +168,7 @@ export function CaminoAccenture(){
     setScreen("inicio");setStepIndex(0);setForm(INITIAL_FORM);setAnswers({});setSelected(null);
     setAnimating(false);setSaved(null);setError("");setDrag(null);window.scrollTo({top:0});
   }
-  const tileColor=selected?colorDeOpcion(step,selected):COLORS[stepIndex%COLORS.length];
+  const walkerPosition=animating?FOOT_POSITIONS[stepIndex]:stepIndex===0?START_POSITION:FOOT_POSITIONS[stepIndex-1];
   return <main className="camino-page">
     <div className="camino-container">
       <header className="camino-head"><img src={logo} alt="Universidad Siglo 21" className="camino-logo"/><div className="camino-event">EXPERIENCIA ACCENTURE · 2026</div></header>
@@ -160,10 +176,13 @@ export function CaminoAccenture(){
       {screen==="inicio"&&<section className="camino-panel camino-intro">
         <div className="camino-eyebrow">POTENCIANDO NUEVOS LIDERAZGOS</div>
         <h1>CONSTRUÍ <span>TU FUTURO.</span></h1>
-        <p>Cuatro decisiones para descubrir qué te mueve. Elegí tus baldosas y construí tu propio camino profesional.</p>
-        <div className="camino-mini-road" aria-hidden="true">
-          {COLORS.slice(0,4).map((color,i)=><span key={color} className="camino-mini-tile" style={{"--tile-color":color}}><CaminoTileIcon stage={i}/></span>)}
-          <span className="camino-destination" style={{"--destination-color":COLORS[4]}}>TU FUTURO</span>
+        <p>Cuatro decisiones para descubrir qué te mueve. Elegí tus próximos pasos y avanzá hacia tu futuro profesional.</p>
+        <div className="camino-preview-path" aria-label="Cuatro pasos hacia tu futuro">
+          <svg className="camino-path-curve" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M4 72 C 12 72,12 64,18 64 S 33 29,39 39 S 53 70,61 61 S 75 23,82 37 S 91 49,96 40"/>
+          </svg>
+          {FOOT_POSITIONS.map((pos,i)=><span key={i} className="camino-preview-foot" style={{left:`${pos.x}%`,top:`${pos.y}%`,"--foot-color":COLORS[i]}}><CaminoFootprint><CaminoTileIcon stage={i}/></CaminoFootprint></span>)}
+          <span className="camino-preview-destination" style={{"--foot-color":COLORS[4]}}>TU FUTURO</span>
         </div>
         <button className="camino-primary" onClick={()=>setScreen("registro")}>COMENZAR →</button>
       </section>}
@@ -186,28 +205,30 @@ export function CaminoAccenture(){
       </section>}
 
       {screen==="juego"&&<section className="camino-panel">
-        <div className="camino-step-head"><span>{step.eyebrow}</span><span>PIEZA {stepIndex+1} DE 4</span></div>
+        <div className="camino-step-head"><span>{step.eyebrow}</span><span>PASO {stepIndex+1} DE 4</span></div>
         <div className="camino-progress" aria-label={`Etapa ${stepIndex+1} de 4`}>{CAMINO_STEPS.map((s,i)=><span key={s.id} className={i<=stepIndex?"active":""}/>)}</div>
         <h1 className="camino-question">{step.question}</h1>
         <p className="camino-help">{step.help||"Elegí la respuesta que mejor te representa."}</p>
-        <div className="camino-board" style={{"--track-color":tileColor}}>
+        <div className="camino-board" style={{"--track-color":COLORS[stepIndex]}}>
           <div className="camino-board-label">TU CAMINO PROFESIONAL</div>
-          <div className="camino-track">
+          <div className="camino-nature-track">
+            <svg className="camino-path-curve" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M4 72 C 12 72,12 64,18 64 S 33 29,39 39 S 53 70,61 61 S 75 23,82 37 S 91 49,96 40"/>
+            </svg>
             {CAMINO_STEPS.map((s,i)=>{
               const answer=answers[s.id],active=i===stepIndex;
+              const pos=FOOT_POSITIONS[i];
               return <div key={s.id} ref={active?targetRef:null}
-                className={`camino-track-tile ${answer?"built":""} ${active?"current":""} ${active&&animating?"arriving":""}`}
-                style={{"--tile-color":answer?colorDeOpcion(s,answer):active&&selected?colorDeOpcion(s,selected):COLORS[i%COLORS.length]}}
-                aria-label={active?"Soltá aquí tu baldosa":answer?"Baldosa colocada":"Baldosa pendiente"}>
-                <span className="camino-tile-symbol">{answer ? <OpcionIcono id={answer}/> : active ? "↓" : "·"}</span>
+                className={`camino-foot-step ${answer?"built":""} ${active?"current":""} ${active&&animating?"arriving":""}`}
+                style={{left:`${pos.x}%`,top:`${pos.y}%`,"--foot-color":COLORS[i]}}
+                aria-label={active?"Soltá aquí tu próximo paso":answer?"Paso completado":"Paso pendiente"}>
+                <CaminoFootprint>{answer?<OpcionIcono id={answer}/>:active?"↓":null}</CaminoFootprint>
               </div>;
             })}
-            <div className="camino-finish">META</div>
-            <div
-              className={`camino-walker ${animating ? "is-walking" : ""}`}
-              style={{"--walker-fraction": (stepIndex + (animating ? 1 : 0) + 0.5) / CAMINO_STEPS.length}}
-              aria-hidden="true"
-            >
+            <div className="camino-path-destination">META <FiFlag aria-hidden="true"/></div>
+            <div className={`camino-walker ${animating?"is-walking":""}`}
+              style={{left:`${walkerPosition.x}%`,top:`${walkerPosition.y}%`}}
+              aria-hidden="true">
               <svg className="camino-walker-figure" viewBox="0 0 44 70" width="44" height="70" focusable="false">
                 <circle cx="22" cy="11" r="8" fill="#F4FAF7"/>
                 <rect x="15" y="21" width="14" height="24" rx="7" fill="#F4FAF7"/>
@@ -218,7 +239,7 @@ export function CaminoAccenture(){
               </svg>
             </div>
           </div>
-          <p className="camino-road-caption">{animating?"¡Baldosa colocada!":drag?.moved?"Soltá tu baldosa sobre la casilla iluminada.":"Arrastrá la baldosa al casillero iluminado, o tocá una opción y luego «Colocar»."}</p>
+          <p className="camino-road-caption">{animating?"¡Un paso más en tu camino!":drag?.moved?"Soltá tu elección sobre la huella iluminada.":"Arrastrá tu elección hasta la huella iluminada, o seleccioná una opción y tocá «Dar mi paso»."}</p>
         </div>
         <div className="camino-choices">
           {step.choices.map((option,i)=><button key={option.id} type="button"
@@ -233,7 +254,7 @@ export function CaminoAccenture(){
           </button>)}
         </div>
         {drag?.moved&&<div className="camino-drag-ghost" style={{left:drag.x,top:drag.y,background:colorDeOpcion(step,drag.id)}} aria-hidden="true"><OpcionIcono id={drag.id}/></div>}
-        <button className="camino-primary" disabled={!selected||animating} onClick={()=>place()}>{animating?"CONSTRUYENDO...":"COLOCAR MI BALDOSA →"}</button>
+        <button className="camino-primary" disabled={!selected||animating} onClick={()=>place()}>{animating?"AVANZANDO...":"DAR MI PASO →"}</button>
         {stepIndex>0&&!animating&&<button className="camino-link" onClick={()=>{const prev=CAMINO_STEPS[stepIndex-1].id;setAnswers(a=>{const b={...a};delete b[prev];return b});setStepIndex(i=>i-1);setSelected(null)}}>← Volver a la decisión anterior</button>}
       </section>}
 
