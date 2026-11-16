@@ -260,3 +260,21 @@
 @keyframes camino-walk-bounce{from{transform:translateY(0)}to{transform:translateY(-3px)}}
 @media(max-width:370px){.camino-track{--walker-edge:30px}.camino-walker{width:36px;height:58px;top:-37px}.camino-walker-figure{width:36px;height:58px}}
 @media(prefers-reduced-motion:reduce){.camino-walker{transition:none}.camino-walker *{animation:none!important}}
+
+/* Camino: un único personaje alineado con el centro de las cuatro baldosas */
+.camino-track{--walker-edge:0px}
+.camino-start,.camino-person-head,.camino-person-body{display:none}
+.camino-walker{
+  left:calc((100% - 38px) * var(--walker-fraction));
+  top:-40px;
+}
+.camino-stage-icon{display:block;width:24px;height:24px;color:#0a4843}
+.camino-tile-symbol{display:grid;place-items:center}
+.camino-track-tile.built .camino-tile-symbol{color:#073e3a}
+@media(max-width:370px){
+  .camino-walker{
+    left:calc((100% - 30px) * var(--walker-fraction));
+    top:-30px;
+  }
+  .camino-stage-icon{width:19px;height:19px}
+}
