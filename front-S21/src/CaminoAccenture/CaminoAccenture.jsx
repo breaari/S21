@@ -24,6 +24,18 @@ async function leerRespuestaAPI(response) {
   return data;
 }
 
+
+// Íconos vectoriales por etapa: aspiración, trabajo, estudios y destino.
+function CaminoTileIcon({stage}) {
+  const paths=[
+    <><path d="M9 18h6M10 21h4M9 14a6 6 0 1 1 6 0l-1 2h-4l-1-2Z"/></>,
+    <><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18M10 12v2h4v-2"/></>,
+    <><path d="m2 9 10-5 10 5-10 5L2 9ZM6 11v5c4 3 8 3 12 0v-5M22 9v7"/></>,
+    <><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></>
+  ];
+  return <svg className="camino-stage-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">{paths[stage]}</svg>;
+}
+
 export function CaminoAccenture(){
   const [screen,setScreen]=useState("inicio");
   const [form,setForm]=useState(INITIAL_FORM);
@@ -163,30 +175,28 @@ export function CaminoAccenture(){
         <div className="camino-board" style={{"--track-color":tileColor}}>
           <div className="camino-board-label">TU CAMINO PROFESIONAL</div>
           <div className="camino-track">
-            <div className="camino-start"><span className="camino-person-head"/><span className="camino-person-body"/></div>
             {CAMINO_STEPS.map((s,i)=>{
               const answer=answers[s.id],active=i===stepIndex;
               return <div key={s.id} ref={active?targetRef:null}
                 className={`camino-track-tile ${answer?"built":""} ${active?"current":""} ${active&&animating?"arriving":""}`}
                 style={{"--tile-color":i===0?(PERFILES[answer||selected]?.color||"#8bd4c5"):"#83d4b2"}}
                 aria-label={active?"Soltá aquí tu baldosa":answer?"Baldosa colocada":"Baldosa pendiente"}>
-                <span className="camino-tile-symbol">{answer||active&&animating?"✓":active?"↓":"·"}</span>
+                <span className="camino-tile-symbol">{answer ? <CaminoTileIcon stage={i}/> : active ? "↓" : "·"}</span>
               </div>;
             })}
             <div className="camino-finish">META</div>
             <div
               className={`camino-walker ${animating ? "is-walking" : ""}`}
-              style={{"--walker-progress": stepIndex + (animating ? 1 : 0)}}
+              style={{"--walker-fraction": (stepIndex + (animating ? 1 : 0) + 0.5) / CAMINO_STEPS.length}}
               aria-hidden="true"
             >
               <svg className="camino-walker-figure" viewBox="0 0 44 70" width="44" height="70" focusable="false">
-                <circle cx="22" cy="10" r="8" fill="#F5D5B7"/>
-                <path d="M14 8 Q15 -1 24 2 Q32 4 30 11 Q25 7 14 8" fill="#103D3B"/>
-                <rect x="14" y="20" width="16" height="25" rx="7" fill="#F4FAF7"/>
-                <path className="camino-walker-arm left" d="M16 25 L9 41" stroke="#F5D5B7" strokeWidth="5" strokeLinecap="round"/>
-                <path className="camino-walker-arm right" d="M28 25 L35 41" stroke="#F5D5B7" strokeWidth="5" strokeLinecap="round"/>
-                <path className="camino-walker-leg left" d="M18 43 L14 62" stroke="#D3E8DE" strokeWidth="6" strokeLinecap="round"/>
-                <path className="camino-walker-leg right" d="M26 43 L30 62" stroke="#D3E8DE" strokeWidth="6" strokeLinecap="round"/>
+                <circle cx="22" cy="11" r="8" fill="#F4FAF7"/>
+                <rect x="15" y="21" width="14" height="24" rx="7" fill="#F4FAF7"/>
+                <path className="camino-walker-arm left" d="M16 26 L10 41" stroke="#F4FAF7" strokeWidth="5" strokeLinecap="round"/>
+                <path className="camino-walker-arm right" d="M28 26 L34 41" stroke="#F4FAF7" strokeWidth="5" strokeLinecap="round"/>
+                <path className="camino-walker-leg left" d="M19 44 L15 62" stroke="#F4FAF7" strokeWidth="6" strokeLinecap="round"/>
+                <path className="camino-walker-leg right" d="M25 44 L29 62" stroke="#F4FAF7" strokeWidth="6" strokeLinecap="round"/>
               </svg>
             </div>
           </div>
@@ -226,7 +236,6 @@ export function CaminoAccenture(){
         <div className="camino-eyebrow">¡DESAFÍO COMPLETADO!</div>
         <h1>¡TU CAMINO TIENE <span>RECOMPENSA!</span></h1>
         <p>Acercate a nuestro stand, decinos tu <b>nombre y apellido</b> y retirá tu regalo por participar.</p>
-        <p className="camino-reward-note">Sujeto a disponibilidad.</p>
         <button type="button" className="camino-primary" onClick={()=>{setScreen("resultado");window.scrollTo({top:0,behavior:"smooth"});}}>VER MI RESULTADO →</button>
       </section>}
 
