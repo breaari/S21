@@ -9,6 +9,21 @@ const INITIAL_FORM = { nombre:"", apellido:"", email:"", telefono:"", permisoCon
 const getOption=(step,id)=>step.choices.find(x=>x.id===id);
 const COLORS=["#7dd3c4","#a9cced","#b9b0ee","#e6c59e","#97d7b1","#c4d8cb"];
 
+async function leerRespuestaAPI(response) {
+  const tipo = response.headers.get("content-type") || "";
+  if (!tipo.includes("application/json")) {
+    if (response.status === 404) {
+      throw new Error("El registro no está disponible en el servidor. Es necesario publicar el backend actualizado.");
+    }
+    throw new Error(`El servidor respondió con un error (HTTP ${response.status}). Intentá nuevamente.`);
+  }
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.error || `No se pudo completar la solicitud (HTTP ${response.status}).`);
+  }
+  return data;
+}
+
 export function CaminoAccenture(){
   const [screen,setScreen]=useState("inicio");
   const [form,setForm]=useState(INITIAL_FORM);
@@ -43,8 +58,7 @@ export function CaminoAccenture(){
         method:"POST",headers:{"Content-Type":"application/json"},
         body:JSON.stringify({...form,origen:"feria-accenture-2026"})
       });
-      const data=await response.json();
-      if(!response.ok)throw new Error(data.error||"No pudimos registrar tus datos.");
+      const data=await leerRespuestaAPI(response);
       setSaved(data);
       setScreen("juego");
       window.scrollTo({top:0,behavior:"smooth"});
@@ -64,8 +78,7 @@ export function CaminoAccenture(){
         method:"POST",headers:{"Content-Type":"application/json"},
         body:JSON.stringify({respuestas:finalAnswers})
       });
-      const data=await response.json();
-      if(!response.ok)throw new Error(data.error||"No pudimos guardar las respuestas.");
+      await leerRespuestaAPI(response);
       setScreen("resultado");
     }catch(err){setError(err.message||"No pudimos guardar tus respuestas.");setScreen("error");}
     finally{savingRef.current=false;}
@@ -128,7 +141,7 @@ export function CaminoAccenture(){
       {screen==="registro"&&<section className="camino-panel">
         <div className="camino-eyebrow">ANTES DE EMPEZAR</div>
         <h1 className="camino-question">¿Quién construye este camino?</h1>
-        <p className="camino-help">Completá tus datos para registrarte en la actividad. Los guardaremos ahora y, cuando termines el juego, sumaremos tus respuestas al mismo registro.</p>
+        <p className="camino-help">Completá tus datos para registrarte en la actividad.</p>
         <form onSubmit={begin} className="camino-form">
           <label>Nombre<input required maxLength="80" value={form.nombre} autoComplete="given-name" onChange={e=>setForm(f=>({...f,nombre:e.target.value}))}/></label>
           <label>Apellido<input required maxLength="80" value={form.apellido} autoComplete="family-name" onChange={e=>setForm(f=>({...f,apellido:e.target.value}))}/></label>
