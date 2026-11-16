@@ -242,7 +242,7 @@ export function CaminoAccenture(){
               <li>Realizá tu inscripción con nuestro equipo para acceder al beneficio exclusivo.</li>
             </ol>
           </div>
-          <p className="camino-perk-terms">Beneficio exclusivo para inscripciones gestionadas a través de nuestros asesores de Universidad Siglo 21. Sujeto a vigencia, programas alcanzados, condiciones comerciales y confirmación de acumulación de descuentos.</p>
+          <p className="camino-perk-terms">Beneficio exclusivo para inscripciones gestionadas a través de nuestros asesores de Universidad Siglo 21. Sujeto a vigencia, programas alcanzados y condiciones comerciales aplicables.</p>
         </div>
         <div className="camino-ticket"><span>RETIRO DE MERCHANDISING</span><strong>{saved?.codigoRetiro}</strong><small>Mostrá tu código en el stand. Sujeto a disponibilidad.</small></div>
         <div className="camino-next"><h2>¿Querés explorar alguna de estas formaciones?</h2>
@@ -250,7 +250,7 @@ export function CaminoAccenture(){
         </div>
         <div className="camino-contacto">
           <h2>¡AGENDANOS Y ACTIVÁ TU BENEFICIO!</h2>
-          <p>Universidad Siglo 21 · Región Mar del Plata</p>
+          <p>Universidad Siglo 21 · Mar del Plata</p>
           <a className="camino-contacto-link" href="https://wa.me/5492235501021?text=Hola%2C%20particip%C3%A9%20de%20Constru%C3%AD%20tu%20futuro%20en%20Accenture%20y%20quiero%20activar%20el%20beneficio%20especial%20de%20inscripci%C3%B3n." target="_blank" rel="noopener noreferrer" aria-label="Enviar consulta por WhatsApp al 223 550 1021">
             QUIERO ACTIVAR MI BENEFICIO · 223 550 1021
           </a>
