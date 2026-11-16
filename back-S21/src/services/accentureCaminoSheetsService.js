@@ -53,7 +53,7 @@ async function guardarParticipante(participante){
   const ahora=new Date();
   const fecha=ahora.toLocaleDateString("es-AR",{timeZone:"America/Argentina/Buenos_Aires"});
   const hora=ahora.toLocaleTimeString("es-AR",{timeZone:"America/Argentina/Buenos_Aires",hour:"2-digit",minute:"2-digit",second:"2-digit"});
-  const r=participante.respuestas;
+  const r=participante.respuestas || {};
   // RAW: nunca interpretar datos del usuario como fórmulas en Sheets.
   await sheets.spreadsheets.values.append({
     spreadsheetId:SPREADSHEET_ID,
@@ -68,3 +68,27 @@ async function guardarParticipante(participante){
   });
 }
 module.exports={guardarParticipante,buscarPorCorreo};
+
+/**
+ * Actualiza únicamente las columnas H:K de la fila creada al registrarse.
+ * La búsqueda es por ID de participación, no por índice supuesto, para evitar
+ * pisar datos cuando entran varios participantes a la vez.
+ */
+async function actualizarRespuestas(participanteId, respuestas) {
+  await asegurarPestana();
+  const titulo=quoteSheet(SHEET_NAME);
+  const ids=await sheets.spreadsheets.values.get({
+    spreadsheetId:SPREADSHEET_ID,range:`${titulo}!C2:C`
+  });
+  const indice=(ids.data.values||[]).findIndex(fila=>fila[0]===participanteId);
+  if(indice===-1)return false;
+  const numeroFila=indice+2;
+  await sheets.spreadsheets.values.update({
+    spreadsheetId:SPREADSHEET_ID,
+    range:`${titulo}!H${numeroFila}:K${numeroFila}`,
+    valueInputOption:"RAW",
+    requestBody:{values:[[respuestas.aspiracion,respuestas.trabajo,respuestas.estudios,respuestas.interes]]}
+  });
+  return true;
+}
+module.exports.actualizarRespuestas=actualizarRespuestas;
