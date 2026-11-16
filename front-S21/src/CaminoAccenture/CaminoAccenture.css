@@ -347,3 +347,125 @@
   .camino-choice{font-size:11px}
   .camino-mini-road .camino-destination{font-size:9px;padding:9px 3px}
 }
+
+/* Opción A: sendero orgánico con huellas coloridas en lugar de baldosas */
+.camino-preview-path,.camino-nature-track{
+  position:relative;
+  isolation:isolate;
+  width:100%;
+  overflow:visible;
+}
+.camino-preview-path{
+  height:165px;
+  margin:14px 0 25px;
+  border-radius:18px;
+  background:radial-gradient(ellipse at 22% 67%,#1a6d5650,transparent 40%),
+             radial-gradient(ellipse at 85% 30%,#64a9781c,transparent 46%);
+}
+.camino-nature-track{
+  height:196px;
+  margin:14px 0 2px;
+  background:radial-gradient(ellipse at 30% 65%,#307b543b,transparent 44%),
+             radial-gradient(ellipse at 80% 32%,#326e4d40,transparent 42%);
+}
+.camino-path-curve{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  width:100%;
+  height:100%;
+  overflow:visible;
+  pointer-events:none;
+}
+.camino-path-curve path{
+  fill:none;
+  stroke:#a6d9bb;
+  stroke-width:3.8;
+  stroke-dasharray:2 1.5;
+  stroke-linecap:round;
+  opacity:.8;
+}
+.camino-foot-step,.camino-preview-foot{
+  position:absolute;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transform:translate(-50%,-50%);
+  color:var(--foot-color);
+}
+.camino-foot-step{
+  z-index:2;
+  width:59px;
+  height:80px;
+  opacity:.42;
+  filter:drop-shadow(0 3px 2px #001f2080);
+  transition:opacity .25s,filter .25s;
+}
+.camino-foot-step.current{
+  opacity:1;
+  filter:drop-shadow(0 0 7px var(--foot-color)) drop-shadow(0 2px 2px #002b2b);
+}
+.camino-foot-step.current .camino-footprint-art{
+  animation:camino-foot-glow 1.25s ease-in-out infinite alternate;
+}
+.camino-foot-step.built{opacity:1}
+.camino-foot-step.arriving{animation:camino-foot-arrive .6s ease-out both}
+.camino-preview-foot{z-index:2;width:47px;height:63px;filter:drop-shadow(0 3px 3px #00312f80)}
+.camino-footprint-art{position:relative;display:block;width:100%;height:100%}
+.camino-footprint-art>svg{display:block;width:100%;height:100%;overflow:visible}
+.camino-footprint-symbol{
+  position:absolute;
+  z-index:1;
+  left:50%;
+  top:61%;
+  transform:translate(-50%,-50%);
+  color:white;
+  font-size:22px;
+  font-weight:900;
+  line-height:1;
+}
+.camino-footprint-symbol>svg{width:21px;height:21px;stroke-width:2.5}
+.camino-preview-foot .camino-footprint-symbol>svg{width:16px;height:16px}
+.camino-foot-step:nth-of-type(3) .camino-footprint-symbol,.camino-preview-foot:nth-of-type(3) .camino-footprint-symbol{color:#1d302e}
+.camino-path-destination,.camino-preview-destination{
+  position:absolute;
+  z-index:2;
+  right:0;
+  top:36%;
+  transform:translateY(-50%);
+  display:flex;
+  align-items:center;
+  gap:4px;
+  font:900 11px "DM Sans",sans-serif;
+  color:#d8edff;
+}
+.camino-path-destination svg{width:15px;height:15px;color:#6e91fa}
+.camino-preview-destination{
+  right:0;
+  top:22%;
+  background:var(--foot-color,#425db2);
+  padding:6px 8px;
+  border-radius:8px;
+  font-size:10px;
+  color:white;
+}
+.camino-nature-track .camino-walker{
+  z-index:5;
+  top:0;
+  transform:translate(-50%,-88%);
+  transition:left 760ms cubic-bezier(.4,0,.2,1),top 760ms cubic-bezier(.4,0,.2,1);
+}
+@keyframes camino-foot-glow{from{transform:scale(1)}to{transform:scale(1.1)}}
+@keyframes camino-foot-arrive{from{opacity:.6;transform:translate(-50%,-65%) scale(.83)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@media(max-width:410px){
+  .camino-preview-path{height:144px}
+  .camino-nature-track{height:177px}
+  .camino-preview-foot{width:37px;height:54px}
+  .camino-foot-step{width:47px;height:68px}
+  .camino-footprint-symbol{font-size:18px}
+  .camino-footprint-symbol>svg{width:18px;height:18px}
+  .camino-nature-track .camino-walker{width:36px;height:58px;transform:translate(-50%,-91%)}
+}
+@media(prefers-reduced-motion:reduce){
+  .camino-foot-step,.camino-nature-track .camino-walker{animation:none!important;transition:none!important}
+}
