@@ -180,11 +180,11 @@ export function CaminoAccenture(){
       {screen==="inicio"&&<section className="camino-panel camino-intro">
         <div className="camino-eyebrow">POTENCIANDO NUEVOS LIDERAZGOS</div>
         <h1>CONSTRUÍ <span>TU FUTURO.</span></h1>
-        <p>Cuatro decisiones para descubrir qué te mueve. Elegí tus próximos pasos y avanzá hacia tu futuro profesional.</p>
+        <p>Cuatro decisiones para descubrir qué te mueve y avanzar hacia tu futuro profesional.</p>
         <div className="camino-preview-path" aria-label="Cuatro pasos hacia tu futuro">
           <CaminoForestPath/>
           {FOOT_POSITIONS.map((pos,i)=><span key={i} className="camino-preview-foot" style={{left:`${pos.x}%`,top:`${pos.y}%`,"--foot-color":COLORS[i]}}><CaminoFootprint/></span>)}
-          <span className="camino-preview-destination" style={{"--foot-color":COLORS[4]}}>TU FUTURO</span>
+          <span className="camino-preview-destination">TU META <FiFlag aria-hidden="true"/></span>
         </div>
         <button className="camino-primary" onClick={()=>setScreen("registro")}>COMENZAR →</button>
       </section>}
@@ -212,7 +212,7 @@ export function CaminoAccenture(){
         <h1 className="camino-question">{step.question}</h1>
         <p className="camino-help">{step.help||"Elegí la respuesta que mejor te representa."}</p>
         <div className="camino-board" style={{"--track-color":COLORS[stepIndex]}}>
-          <div className="camino-board-label">TU CAMINO PROFESIONAL</div>
+          <div className="camino-board-label">TU RECORRIDO</div>
           <div className="camino-nature-track">
             <CaminoForestPath/>
             {CAMINO_STEPS.map((s,i)=>{
@@ -225,7 +225,7 @@ export function CaminoAccenture(){
                 <CaminoFootprint/>
               </div>;
             })}
-            <div className="camino-path-destination">META <FiFlag aria-hidden="true"/></div>
+            <div className="camino-path-destination">TU META <FiFlag aria-hidden="true"/></div>
             <div className={`camino-walker ${animating?"is-walking":""}`}
               style={{left:`${walkerPosition.x}%`,top:`${walkerPosition.y}%`}}
               aria-hidden="true">
@@ -239,7 +239,7 @@ export function CaminoAccenture(){
               </svg>
             </div>
           </div>
-          <p className="camino-road-caption">{animating?"¡Un paso más en tu camino!":drag?.moved?"Soltá tu elección sobre la huella iluminada.":"Arrastrá tu elección hasta la huella iluminada, o seleccioná una opción y tocá «Dar mi paso»."}</p>
+          <p className="camino-road-caption">{animating?"¡Un paso más en tu camino!":drag?.moved?"Soltá tu elección sobre la huella iluminada.":"Elegí una respuesta y tocá «Dar mi paso», o arrastrala hasta la huella."}</p>
         </div>
         <div className="camino-choices">
           {step.choices.map((option,i)=><button key={option.id} type="button"
@@ -281,7 +281,7 @@ export function CaminoAccenture(){
       {screen==="resultado"&&<section className="camino-panel camino-results" style={{"--profile-color":profile.color}}>
         <div className="camino-eyebrow">TU CAMINO PROFESIONAL</div>
         <div className="camino-profile"><span>EL CAMINO QUE ELEGISTE</span><h1>{profile.titulo}</h1><strong>{profile.lema}</strong><p>{profile.descripcion}</p></div>
-        <p className="camino-help">{form.nombre}, este perfil refleja la aspiración que elegiste, no es un diagnóstico de personalidad. Estas recomendaciones se basan también en tu trabajo, tus estudios y tus intereses.</p>
+        <p className="camino-help">{form.nombre}, este resultado se basa en tus decisiones y te propone opciones para explorar, no es un diagnóstico de personalidad.</p>
         <div className="camino-result-path">
           {CAMINO_STEPS.map(s=><div className="camino-result-chip" key={s.id}>
             <small>{s.eyebrow}</small>
