@@ -211,22 +211,39 @@ export function CaminoAccenture(){
         <div className="camino-eyebrow">TU CAMINO PROFESIONAL</div>
         <div className="camino-profile"><span>EL CAMINO QUE ELEGISTE</span><h1>{profile.titulo}</h1><strong>{profile.lema}</strong><p>{profile.descripcion}</p></div>
         <p className="camino-help">{form.nombre}, este perfil refleja la aspiración que elegiste, no es un diagnóstico de personalidad. Estas recomendaciones se basan también en tu trabajo, tus estudios y tus intereses.</p>
-        <div className="camino-result-path">{CAMINO_STEPS.map(s=><span key={s.id}>{chosen(s)?.short}</span>)}</div>
+        <div className="camino-result-path">
+          {CAMINO_STEPS.map(s=><div className="camino-result-chip" key={s.id}>
+            <small>{s.eyebrow}</small>
+            <span>{chosen(s)?.label}</span>
+          </div>)}
+        </div>
         <h2>Tu próximo paso puede empezar acá</h2>
         <p className="camino-help">{recommendation.orientacion}</p>
-        {recommendation.opciones.map((item,i)=><div key={item.nombre} className="camino-reco">
+        {recommendation.opciones.map(item=><div key={item.nombre} className="camino-reco">
           <div className="camino-reco-meta"><span>{item.tipo}</span><span>{item.modalidad}</span></div>
           <b>{item.nombre}</b>
-          <a href={item.url} target="_blank" rel="noopener noreferrer">{item.enlaceDirecto?"Ver programa ↗":"Explorar oferta oficial ↗"}</a>
         </div>)}
         <p className="camino-note">{recommendation.nota}</p>
-        <div className="camino-perk"><strong>Beneficio por convenio Accenture: 10%</strong><p>Consultá con nuestro equipo el alcance, condiciones y beneficios adicionales disponibles.</p></div>
+        <div className="camino-perk">
+          <span className="camino-perk-eyebrow">BENEFICIO EXCLUSIVO · ACCENTURE</span>
+          <strong className="camino-perk-total">40% OFF EN ARANCELES</strong>
+          <p><b>20% de beneficio Accenture:</b> 10% por convenio + 10% adicional por participar en esta activación.</p>
+          <p><b>20% de descuento comercial</b> por inscripción temprana.</p>
+          <p>Para solicitar el beneficio especial, guardá una captura de esta pantalla y presentala al inscribirte <b>dentro de los próximos 7 días</b>.</p>
+          <p className="camino-perk-terms">Sujeto a condiciones de la promoción, vigencia, programas alcanzados y confirmación de acumulación de descuentos por parte de Universidad Siglo 21.</p>
+        </div>
         <div className="camino-ticket"><span>RETIRO DE MERCHANDISING</span><strong>{saved?.codigoRetiro}</strong><small>Mostrá tu código en el stand. Sujeto a disponibilidad.</small></div>
         <div className="camino-next"><h2>¿Querés explorar alguna de estas formaciones?</h2>
           <p>Acercate a nuestras asesoras con tu resultado para consultar requisitos, modalidad e inscripciones 2027.</p>
-          <p className="camino-small">{form.permisoContacto?"Autorizaste recibir comunicaciones académicas.":"No autorizaste comunicaciones comerciales; igualmente podés consultar presencialmente."}</p>
         </div>
-        <button className="camino-link" onClick={reset}>Iniciar una nueva participación</button>
+        <div className="camino-contacto">
+          <h2>¿Tenés consultas? Agendanos</h2>
+          <p>Universidad Siglo 21 · Región Mar del Plata</p>
+          <a className="camino-contacto-link" href="https://wa.me/5492235501021?text=Hola%2C%20particip%C3%A9%20de%20Constru%C3%AD%20tu%20futuro%20en%20Accenture%20y%20quiero%20consultar%20por%20el%20beneficio%20de%20inscripci%C3%B3n." target="_blank" rel="noopener noreferrer" aria-label="Enviar consulta por WhatsApp al 223 550 1021">
+            Consultanos por WhatsApp · 223 550 1021
+          </a>
+          <p className="camino-contacto-note">Conservá una captura de tu resultado para consultar por el beneficio.</p>
+        </div>
       </section>}
     </div>
   </main>;
