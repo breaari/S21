@@ -9,7 +9,7 @@ const API_URL = "https://back.universidadsiglo21online.com";
 const INITIAL_FORM = { nombre:"", apellido:"", email:"", telefono:"", permisoContacto:false, aceptaPrivacidad:false };
 const getOption=(step,id)=>step.choices.find(x=>x.id===id);
 const COLORS=["#28b9ac","#b644c5","#f3a800","#d4004c","#425db2"];
-const FOOT_POSITIONS=[{x:18,y:64},{x:39,y:39},{x:61,y:61},{x:82,y:37}];
+const FOOT_POSITIONS=[{x:18,y:64,angle:65},{x:39,y:39,angle:110},{x:61,y:61,angle:65},{x:82,y:37,angle:105}];
 const START_POSITION={x:5,y:72};
 const OPTION_ICONS={
   liderar:FiFlag, innovar:FiZap, crecer:FiTrendingUp, emprender:FiCompass, especialista:FiAward,
@@ -84,6 +84,7 @@ export function CaminoAccenture(){
   const stageTimer=useRef(null);
   const targetRef=useRef(null);
   const dragRef=useRef(null);
+  const suppressChoiceClickRef=useRef(false);
   const savingRef=useRef(false);
   useEffect(()=>()=>clearTimeout(stageTimer.current),[]);
   const step=CAMINO_STEPS[stepIndex];
@@ -132,7 +133,7 @@ export function CaminoAccenture(){
     finally{savingRef.current=false;}
   }
   function place(id=selected){
-    if(!id||animating)return;
+    if(!id||animating||savingRef.current)return;
     if(!getOption(step,id))return;
     const finalAnswers={...answers,[step.id]:id};
     setAnswers(finalAnswers);setSelected(id);setAnimating(true);
@@ -147,6 +148,7 @@ export function CaminoAccenture(){
     if(animating)return;
     if(event.pointerType==="touch"||event.pointerType==="pen"||event.pointerType==="mouse"){
       event.currentTarget.setPointerCapture(event.pointerId);
+      suppressChoiceClickRef.current=false;
       dragRef.current={id,startX:event.clientX,startY:event.clientY};
       setDrag({id,x:event.clientX,y:event.clientY,moved:false});
       setSelected(id);
@@ -162,10 +164,19 @@ export function CaminoAccenture(){
     if(!current)return;
     dragRef.current=null;setDrag(null);
     const moved=Math.hypot(event.clientX-current.startX,event.clientY-current.startY)>8;
-    if(!moved)return;
+    if(!moved)return; // Un toque normal activa la opción con onClick.
+    suppressChoiceClickRef.current=true; // Evita colocar dos veces al soltar un arrastre.
     const rect=targetRef.current?.getBoundingClientRect();
-    const inside=rect&&event.clientX>=rect.left-22&&event.clientX<=rect.right+22&&event.clientY>=rect.top-22&&event.clientY<=rect.bottom+22;
+    const inside=rect&&event.clientX>=rect.left-28&&event.clientX<=rect.right+28&&event.clientY>=rect.top-28&&event.clientY<=rect.bottom+28;
     if(inside)place(current.id);
+    else setSelected(null);
+  }
+  function chooseByTap(id){
+    if(suppressChoiceClickRef.current){
+      suppressChoiceClickRef.current=false;
+      return;
+    }
+    place(id);
   }
   function reset(){
     clearTimeout(stageTimer.current);dragRef.current=null;savingRef.current=false;
@@ -180,10 +191,11 @@ export function CaminoAccenture(){
       {screen==="inicio"&&<section className="camino-panel camino-intro">
         <div className="camino-eyebrow">POTENCIANDO NUEVOS LIDERAZGOS</div>
         <h1>CONSTRUÍ <span>TU FUTURO.</span></h1>
-        <p>Cuatro decisiones para descubrir qué te mueve y avanzar hacia tu futuro profesional.</p>
+        <p>Respondé 4 preguntas y descubrí qué podés estudiar.</p>
+        <p className="camino-intro-reward"><strong>¡Al terminar, te llevás un regalo!</strong> Retiralo en nuestro stand diciendo tu nombre y apellido. También vas a descubrir un beneficio especial para estudiar.</p>
         <div className="camino-preview-path" aria-label="Cuatro pasos hacia tu futuro">
           <CaminoForestPath/>
-          {FOOT_POSITIONS.map((pos,i)=><span key={i} className="camino-preview-foot" style={{left:`${pos.x}%`,top:`${pos.y}%`,"--foot-color":COLORS[i]}}><CaminoFootprint/></span>)}
+          {FOOT_POSITIONS.map((pos,i)=><span key={i} className="camino-preview-foot" style={{left:`${pos.x}%`,top:`${pos.y}%`,"--foot-color":COLORS[i],"--foot-rotate":`${pos.angle}deg`}}><CaminoFootprint/></span>)}
           <span className="camino-preview-destination">TU META <FiFlag aria-hidden="true"/></span>
         </div>
         <button className="camino-primary" onClick={()=>setScreen("registro")}>COMENZAR →</button>
@@ -209,7 +221,7 @@ export function CaminoAccenture(){
         <div className="camino-step-head"><span>{step.eyebrow}</span><span>PASO {stepIndex+1} DE 4</span></div>
         <div className="camino-progress" aria-label={`Etapa ${stepIndex+1} de 4`}>{CAMINO_STEPS.map((s,i)=><span key={s.id} className={i<=stepIndex?"active":""}/>)}</div>
         <h1 className="camino-question">{step.question}</h1>
-        <p className="camino-help">{step.help||"Elegí la respuesta que mejor te representa."}</p>
+        <p className="camino-help">{step.help||"Elegí la respuesta que más te guste."}</p>
         <div className="camino-board" style={{"--track-color":COLORS[stepIndex]}}>
           <div className="camino-board-label">TU RECORRIDO</div>
           <div className="camino-nature-track">
@@ -219,7 +231,7 @@ export function CaminoAccenture(){
               const pos=FOOT_POSITIONS[i];
               return <div key={s.id} ref={active?targetRef:null}
                 className={`camino-foot-step ${answer?"built":""} ${active?"current":""} ${active&&animating?"arriving":""} ${active&&selected?"selected":""}`}
-                style={{left:`${pos.x}%`,top:`${pos.y}%`,"--foot-color":answer?colorDeOpcion(s,answer):active&&selected?colorDeOpcion(s,selected):"#b6c5be"}}
+                style={{left:`${pos.x}%`,top:`${pos.y}%`,"--foot-color":answer?colorDeOpcion(s,answer):active&&selected?colorDeOpcion(s,selected):"#b6c5be","--foot-rotate":`${pos.angle}deg`}}
                 aria-label={active?"Soltá aquí tu próximo paso":answer?"Paso completado":"Paso pendiente"}>
                 <CaminoFootprint/>
               </div>;
@@ -238,22 +250,22 @@ export function CaminoAccenture(){
               </svg>
             </div>
           </div>
-          <p className="camino-road-caption">{animating?"¡Un paso más en tu camino!":drag?.moved?"Soltá tu elección sobre la huella iluminada.":"Elegí una respuesta y tocá «Dar mi paso», o arrastrala hasta la huella."}</p>
+          <p className="camino-road-caption" aria-live="polite">{animating?"¡Muy bien! Tu paso ya está marcado.":drag?.moved?"¡Soltala sobre la huella que brilla!":"La huella que brilla indica dónde dejar tu respuesta."}</p>
         </div>
+        <div className="camino-choice-help"><strong>ARRASTRÁ UNA OPCIÓN HASTA LA HUELLA</strong><span>O tocá la opción para avanzar.</span></div>
         <div className="camino-choices">
           {step.choices.map((option,i)=><button key={option.id} type="button"
             className={`camino-choice ${selected===option.id?"picked":""}`}
             style={{"--choice-color":COLORS[i%COLORS.length],"--choice-ink":i%COLORS.length===2?"#123835":"#ffffff"}}
-            onClick={()=>!animating&&setSelected(option.id)}
+            onClick={()=>chooseByTap(option.id)}
             onPointerDown={e=>pointerDown(e,option.id)}
             onPointerMove={pointerMove} onPointerUp={pointerUp}
-            onPointerCancel={()=>{dragRef.current=null;setDrag(null)}}
+            onPointerCancel={()=>{dragRef.current=null;suppressChoiceClickRef.current=true;setDrag(null);setSelected(null)}}
             disabled={animating}>
             <span className="camino-piece-mark" aria-hidden="true"><OpcionIcono id={option.id}/></span><span>{option.label}</span>
           </button>)}
         </div>
         {drag?.moved&&<div className="camino-drag-ghost" style={{left:drag.x,top:drag.y,background:colorDeOpcion(step,drag.id)}} aria-hidden="true"><OpcionIcono id={drag.id}/></div>}
-        <button className="camino-primary" disabled={!selected||animating} onClick={()=>place()}>{animating?"AVANZANDO...":"DAR MI PASO →"}</button>
         {stepIndex>0&&!animating&&<button className="camino-link" onClick={()=>{const prev=CAMINO_STEPS[stepIndex-1].id;setAnswers(a=>{const b={...a};delete b[prev];return b});setStepIndex(i=>i-1);setSelected(null)}}>← Volver a la decisión anterior</button>}
       </section>}
 
