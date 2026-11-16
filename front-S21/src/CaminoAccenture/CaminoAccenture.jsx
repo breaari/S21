@@ -223,7 +223,7 @@ export function CaminoAccenture(){
         <div className="camino-choices">
           {step.choices.map((option,i)=><button key={option.id} type="button"
             className={`camino-choice ${selected===option.id?"picked":""}`}
-            style={{"--choice-color":COLORS[i%COLORS.length]}}
+            style={{"--choice-color":COLORS[i%COLORS.length],"--choice-ink":i%COLORS.length===2?"#123835":"#ffffff"}}
             onClick={()=>!animating&&setSelected(option.id)}
             onPointerDown={e=>pointerDown(e,option.id)}
             onPointerMove={pointerMove} onPointerUp={pointerUp}
