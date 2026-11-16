@@ -20,7 +20,7 @@ const {
   finalizarMemotestHandler,
 } = require("../handlers/memotestHandler");
 
-const { registrarCaminoAccenture } = require("../handlers/accentureCaminoHandler");
+const { registrarCaminoAccenture, finalizarCaminoAccenture } = require("../handlers/accentureCaminoHandler");
 
 const router = Router();
 
@@ -66,5 +66,6 @@ router.post(
 );
 
 router.post("/accenture-camino/participar", registrarCaminoAccenture);
+router.post("/accenture-camino/:id/finalizar", finalizarCaminoAccenture);
 
 module.exports = router;
