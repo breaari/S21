@@ -31,7 +31,7 @@
 .camino-avatar{position:absolute;bottom:11px;color:#baf3d6;font-size:17px;transition:left .75s ease}
 .camino-avatar.moving{transform:translateY(-8px)}
 .camino-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:15px 0}
-.camino-choice{position:relative;min-height:76px;background:#ffffff0e;border:1px solid #85b5aa;border-radius:12px;display:flex;align-items:center;gap:9px;color:#fff;text-align:left;font:700 12px/1.25 "DM Sans",sans-serif;padding:10px;cursor:grab;touch-action:pan-y;user-select:none;transition:transform .15s,background .15s}
+.camino-choice{position:relative;min-height:76px;background:#ffffff0e;border:1px solid #85b5aa;border-radius:12px;display:flex;align-items:center;gap:9px;color:#fff;text-align:left;font:700 12px/1.25 "DM Sans",sans-serif;padding:10px;cursor:grab;touch-action:none;user-select:none;transition:transform .15s,background .15s}
 .camino-choice:last-child:nth-child(odd){grid-column:span 2}
 .camino-choice.picked{background:#ffffff26;border:2px solid var(--choice-color);transform:translateY(-2px)}
 .camino-piece-mark{background:var(--choice-color);color:#0b3d3a;border-radius:6px;display:grid;place-items:center;width:30px;height:30px;flex-shrink:0;font-size:17px;box-shadow:0 4px 0 #091b1b55}
@@ -51,7 +51,7 @@
 .camino-check{display:flex;gap:10px;font-size:12px;line-height:1.5;color:#d6ebe3;align-items:flex-start}
 .camino-check input{margin-top:4px;flex:0 0 auto;accent-color:#68dbb4}
 .camino-error{color:#ffd2c6;font-size:12px}
-.camino-results h2{font-size:17px;font-weight:900;margin:20px 0 12px}
+.camino-profile{background:linear-gradient(125deg,#123d3d,#175650);border:2px solid var(--profile-color);padding:18px;border-radius:17px;margin:18px 0}.camino-profile>span{font-size:10px;letter-spacing:.1em;color:#c3e6d4;font-weight:800}.camino-profile h1{font-size:clamp(37px,9vw,57px);color:var(--profile-color);margin:10px 0}.camino-profile strong{display:block;font-size:18px}.camino-profile p{font-size:13px;line-height:1.5;color:#e5f1ea}.camino-reco-meta{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}.camino-reco-meta span{border:1px solid #6eb99f;background:#36776666;padding:3px 9px;border-radius:15px;font-size:10px;font-weight:800}.camino-reco a{display:inline-block;margin-top:10px;color:#abedd0;font-size:12px;font-weight:700}.camino-drag-ghost{position:fixed;z-index:2000;transform:translate(-50%,-50%);height:55px;width:55px;display:grid;place-items:center;border:3px solid white;border-radius:10px;pointer-events:none;box-shadow:0 10px 25px #001e1d80;color:#073c3a;font-size:25px}.camino-results h2{font-size:17px;font-weight:900;margin:20px 0 12px}
 .camino-reco{background:#ffffff14;border:1px solid #7fbba873;border-radius:12px;padding:14px;font-size:13px;margin-bottom:9px}
 .camino-perk{border-radius:14px;background:#15887351;border:1px solid #74cab0;padding:14px;margin:19px 0;font-size:14px}
 .camino-perk p,.camino-next p{font-size:12px;line-height:1.5;color:#d6e8e3;margin:6px 0 0}
