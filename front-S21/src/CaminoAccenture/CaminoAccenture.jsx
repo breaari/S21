@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import logo from "../assets/logo-blanco-sin-fondo.png";
+import { FiFlag, FiZap, FiTrendingUp, FiCompass, FiAward, FiCode, FiCpu, FiBriefcase, FiSettings, FiUsers, FiGrid, FiBookOpen, FiEdit3, FiRefreshCw, FiLayers, FiCheckCircle, FiMonitor, FiDollarSign, FiHeart, FiMessageCircle, FiFeather, FiHelpCircle } from "react-icons/fi";
 import { CAMINO_STEPS } from "./caminoData";
 import { PERFILES, recomendarFormaciones } from "./catalogoDistancia";
 import "./CaminoAccenture.css";
@@ -7,7 +8,21 @@ import "./CaminoAccenture.css";
 const API_URL = "https://back.universidadsiglo21online.com";
 const INITIAL_FORM = { nombre:"", apellido:"", email:"", telefono:"", permisoContacto:false, aceptaPrivacidad:false };
 const getOption=(step,id)=>step.choices.find(x=>x.id===id);
-const COLORS=["#7dd3c4","#a9cced","#b9b0ee","#e6c59e","#97d7b1","#c4d8cb"];
+const COLORS=["#28b9ac","#b644c5","#f3a800","#d4004c","#425db2"];
+const OPTION_ICONS={
+  liderar:FiFlag, innovar:FiZap, crecer:FiTrendingUp, emprender:FiCompass, especialista:FiAward,
+  software:FiCode, datos:FiCpu, consultoria:FiBriefcase, operaciones:FiSettings, corporativo:FiUsers, otra:FiGrid,
+  secundario:FiBookOpen, cursando:FiEdit3, incompleta:FiRefreshCw, terciario:FiLayers, universitario:FiCheckCircle,
+  tecnologia:FiMonitor, negocios:FiDollarSign, personas:FiHeart, marketing:FiMessageCircle, derecho:FiFeather, indefinido:FiHelpCircle
+};
+const colorDeOpcion=(step,id)=>{
+  const index=step.choices.findIndex(choice=>choice.id===id);
+  return COLORS[(index<0?0:index)%COLORS.length];
+};
+function OpcionIcono({id}) {
+  const Icon=OPTION_ICONS[id] || FiCompass;
+  return <Icon aria-hidden="true" focusable="false"/>;
+}
 
 async function leerRespuestaAPI(response) {
   const tipo = response.headers.get("content-type") || "";
@@ -137,7 +152,7 @@ export function CaminoAccenture(){
     setScreen("inicio");setStepIndex(0);setForm(INITIAL_FORM);setAnswers({});setSelected(null);
     setAnimating(false);setSaved(null);setError("");setDrag(null);window.scrollTo({top:0});
   }
-  const tileColor=stepIndex===0&&selected?PERFILES[selected]?.color:profile.color;
+  const tileColor=selected?colorDeOpcion(step,selected):COLORS[stepIndex%COLORS.length];
   return <main className="camino-page">
     <div className="camino-container">
       <header className="camino-head"><img src={logo} alt="Universidad Siglo 21" className="camino-logo"/><div className="camino-event">EXPERIENCIA ACCENTURE · 2026</div></header>
@@ -146,7 +161,10 @@ export function CaminoAccenture(){
         <div className="camino-eyebrow">POTENCIANDO NUEVOS LIDERAZGOS</div>
         <h1>CONSTRUÍ <span>TU FUTURO.</span></h1>
         <p>Cuatro decisiones para descubrir qué te mueve. Elegí tus baldosas y construí tu propio camino profesional.</p>
-        <div className="camino-mini-road" aria-hidden="true"><span className="camino-character">●</span><span/><span/><span/><span/><span className="camino-destination">TU FUTURO</span></div>
+        <div className="camino-mini-road" aria-hidden="true">
+          {COLORS.slice(0,4).map((color,i)=><span key={color} className="camino-mini-tile" style={{"--tile-color":color}}><CaminoTileIcon stage={i}/></span>)}
+          <span className="camino-destination" style={{"--destination-color":COLORS[4]}}>TU FUTURO</span>
+        </div>
         <button className="camino-primary" onClick={()=>setScreen("registro")}>COMENZAR →</button>
       </section>}
 
@@ -179,9 +197,9 @@ export function CaminoAccenture(){
               const answer=answers[s.id],active=i===stepIndex;
               return <div key={s.id} ref={active?targetRef:null}
                 className={`camino-track-tile ${answer?"built":""} ${active?"current":""} ${active&&animating?"arriving":""}`}
-                style={{"--tile-color":i===0?(PERFILES[answer||selected]?.color||"#8bd4c5"):"#83d4b2"}}
+                style={{"--tile-color":answer?colorDeOpcion(s,answer):active&&selected?colorDeOpcion(s,selected):COLORS[i%COLORS.length]}}
                 aria-label={active?"Soltá aquí tu baldosa":answer?"Baldosa colocada":"Baldosa pendiente"}>
-                <span className="camino-tile-symbol">{answer ? <CaminoTileIcon stage={i}/> : active ? "↓" : "·"}</span>
+                <span className="camino-tile-symbol">{answer ? <OpcionIcono id={answer}/> : active ? "↓" : "·"}</span>
               </div>;
             })}
             <div className="camino-finish">META</div>
@@ -205,16 +223,16 @@ export function CaminoAccenture(){
         <div className="camino-choices">
           {step.choices.map((option,i)=><button key={option.id} type="button"
             className={`camino-choice ${selected===option.id?"picked":""}`}
-            style={{"--choice-color":option.color||COLORS[i]}}
+            style={{"--choice-color":COLORS[i%COLORS.length]}}
             onClick={()=>!animating&&setSelected(option.id)}
             onPointerDown={e=>pointerDown(e,option.id)}
             onPointerMove={pointerMove} onPointerUp={pointerUp}
             onPointerCancel={()=>{dragRef.current=null;setDrag(null)}}
             disabled={animating}>
-            <span className="camino-piece-mark" aria-hidden="true">◆</span><span>{option.label}</span>
+            <span className="camino-piece-mark" aria-hidden="true"><OpcionIcono id={option.id}/></span><span>{option.label}</span>
           </button>)}
         </div>
-        {drag?.moved&&<div className="camino-drag-ghost" style={{left:drag.x,top:drag.y,background:step.choices.find(x=>x.id===drag.id)?.color||"#83d4b2"}} aria-hidden="true">◆</div>}
+        {drag?.moved&&<div className="camino-drag-ghost" style={{left:drag.x,top:drag.y,background:colorDeOpcion(step,drag.id)}} aria-hidden="true"><OpcionIcono id={drag.id}/></div>}
         <button className="camino-primary" disabled={!selected||animating} onClick={()=>place()}>{animating?"CONSTRUYENDO...":"COLOCAR MI BALDOSA →"}</button>
         {stepIndex>0&&!animating&&<button className="camino-link" onClick={()=>{const prev=CAMINO_STEPS[stepIndex-1].id;setAnswers(a=>{const b={...a};delete b[prev];return b});setStepIndex(i=>i-1);setSelected(null)}}>← Volver a la decisión anterior</button>}
       </section>}
