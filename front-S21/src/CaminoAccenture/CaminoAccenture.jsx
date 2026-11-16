@@ -136,7 +136,6 @@ export function CaminoAccenture(){
         <p>Cuatro decisiones para descubrir qué te mueve. Elegí tus baldosas y construí tu propio camino profesional.</p>
         <div className="camino-mini-road" aria-hidden="true"><span className="camino-character">●</span><span/><span/><span/><span/><span className="camino-destination">TU FUTURO</span></div>
         <button className="camino-primary" onClick={()=>setScreen("registro")}>COMENZAR →</button>
-        <p className="camino-small">Una experiencia breve desde tu celular.</p>
       </section>}
 
       {screen==="registro"&&<section className="camino-panel">
@@ -175,9 +174,23 @@ export function CaminoAccenture(){
               </div>;
             })}
             <div className="camino-finish">META</div>
+            <div
+              className={`camino-walker ${animating ? "is-walking" : ""}`}
+              style={{"--walker-progress": stepIndex + (animating ? 1 : 0)}}
+              aria-hidden="true"
+            >
+              <svg className="camino-walker-figure" viewBox="0 0 44 70" width="44" height="70" focusable="false">
+                <circle cx="22" cy="10" r="8" fill="#F5D5B7"/>
+                <path d="M14 8 Q15 -1 24 2 Q32 4 30 11 Q25 7 14 8" fill="#103D3B"/>
+                <rect x="14" y="20" width="16" height="25" rx="7" fill="#F4FAF7"/>
+                <path className="camino-walker-arm left" d="M16 25 L9 41" stroke="#F5D5B7" strokeWidth="5" strokeLinecap="round"/>
+                <path className="camino-walker-arm right" d="M28 25 L35 41" stroke="#F5D5B7" strokeWidth="5" strokeLinecap="round"/>
+                <path className="camino-walker-leg left" d="M18 43 L14 62" stroke="#D3E8DE" strokeWidth="6" strokeLinecap="round"/>
+                <path className="camino-walker-leg right" d="M26 43 L30 62" stroke="#D3E8DE" strokeWidth="6" strokeLinecap="round"/>
+              </svg>
+            </div>
           </div>
           <p className="camino-road-caption">{animating?"¡Baldosa colocada!":drag?.moved?"Soltá tu baldosa sobre la casilla iluminada.":"Arrastrá la baldosa al casillero iluminado, o tocá una opción y luego «Colocar»."}</p>
-          <span className={`camino-avatar ${animating?"moving":""}`} style={{left:`${8+stepIndex*21}%`}} aria-hidden="true">●</span>
         </div>
         <div className="camino-choices">
           {step.choices.map((option,i)=><button key={option.id} type="button"
