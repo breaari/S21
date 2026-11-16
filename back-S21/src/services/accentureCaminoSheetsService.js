@@ -63,7 +63,7 @@ async function guardarParticipante(participante){
       fecha,hora,participante.id,participante.nombre,participante.apellido,
       participante.email,participante.telefono,r.aspiracion,r.trabajo,r.estudios,r.interes,
       "SI",participante.permisoContacto?"SI":"NO",participante.origen,
-      participante.codigoRetiro,"NO","NO","SIN CONTACTAR"
+      "","NO","NO","SIN CONTACTAR"
     ]]}
   });
 }
