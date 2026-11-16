@@ -4,7 +4,7 @@ import { CAMINO_STEPS } from "./caminoData";
 import { PERFILES, recomendarFormaciones } from "./catalogoDistancia";
 import "./CaminoAccenture.css";
 
-const API_URL = import.meta.env.PROD ? "" : `http://${window.location.hostname}:3003`;
+const API_URL = "https://back.universidadsiglo21online.com";
 const INITIAL_FORM = { nombre:"", apellido:"", email:"", telefono:"", permisoContacto:false, aceptaPrivacidad:false };
 const getOption=(step,id)=>step.choices.find(x=>x.id===id);
 const COLORS=["#7dd3c4","#a9cced","#b9b0ee","#e6c59e","#97d7b1","#c4d8cb"];
@@ -29,26 +29,45 @@ export function CaminoAccenture(){
   const recommendation=recomendarFormaciones(answers);
   const chosen=s=>getOption(s,answers[s.id]);
 
-  function begin(event){
+  async function begin(event){
     event.preventDefault();
+    if(savingRef.current)return;
     if(!form.nombre.trim()||!form.apellido.trim()||!form.email.trim()||!form.telefono.trim()){
       setError("Completá todos tus datos antes de empezar.");return;
     }
     if(!form.aceptaPrivacidad){setError("Aceptá el aviso de privacidad para continuar.");return;}
-    setError("");setScreen("juego");window.scrollTo({top:0,behavior:"smooth"});
-  }
-  async function save(finalAnswers){
-    if(savingRef.current)return;
-    savingRef.current=true;setError("");setScreen("guardando");
+    savingRef.current=true;
+    setError("");
     try{
       const response=await fetch(`${API_URL}/accenture-camino/participar`,{
         method:"POST",headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({...form,respuestas:finalAnswers,origen:"feria-accenture-2026"})
+        body:JSON.stringify({...form,origen:"feria-accenture-2026"})
       });
       const data=await response.json();
-      if(!response.ok)throw new Error(data.error||"No pudimos guardar tu recorrido.");
-      setSaved(data);setScreen("resultado");
-    }catch(err){setError(err.message||"No pudimos guardar tu participación.");setScreen("error");}
+      if(!response.ok)throw new Error(data.error||"No pudimos registrar tus datos.");
+      setSaved(data);
+      setScreen("juego");
+      window.scrollTo({top:0,behavior:"smooth"});
+    }catch(err){setError(err.message||"No pudimos registrar tu participación.");}
+    finally{savingRef.current=false;}
+  }
+  async function save(finalAnswers){
+    if(savingRef.current)return;
+    if(!saved?.participanteId){
+      setError("No encontramos tu registro inicial.");
+      setScreen("error");
+      return;
+    }
+    savingRef.current=true;setError("");setScreen("guardando");
+    try{
+      const response=await fetch(`${API_URL}/accenture-camino/${encodeURIComponent(saved.participanteId)}/finalizar`,{
+        method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({respuestas:finalAnswers})
+      });
+      const data=await response.json();
+      if(!response.ok)throw new Error(data.error||"No pudimos guardar las respuestas.");
+      setScreen("resultado");
+    }catch(err){setError(err.message||"No pudimos guardar tus respuestas.");setScreen("error");}
     finally{savingRef.current=false;}
   }
   function place(id=selected){
@@ -109,7 +128,7 @@ export function CaminoAccenture(){
       {screen==="registro"&&<section className="camino-panel">
         <div className="camino-eyebrow">ANTES DE EMPEZAR</div>
         <h1 className="camino-question">¿Quién construye este camino?</h1>
-        <p className="camino-help">Completá tus datos una sola vez. Al terminar el juego guardaremos tu recorrido y te mostraremos tu resultado.</p>
+        <p className="camino-help">Completá tus datos para registrarte en la actividad. Los guardaremos ahora y, cuando termines el juego, sumaremos tus respuestas al mismo registro.</p>
         <form onSubmit={begin} className="camino-form">
           <label>Nombre<input required maxLength="80" value={form.nombre} autoComplete="given-name" onChange={e=>setForm(f=>({...f,nombre:e.target.value}))}/></label>
           <label>Apellido<input required maxLength="80" value={form.apellido} autoComplete="family-name" onChange={e=>setForm(f=>({...f,apellido:e.target.value}))}/></label>
@@ -119,7 +138,7 @@ export function CaminoAccenture(){
           <label className="camino-check"><input type="checkbox" checked={form.permisoContacto} onChange={e=>setForm(f=>({...f,permisoContacto:e.target.checked}))}/><span>Quiero recibir asesoramiento y novedades académicas por WhatsApp o email. Esta opción es voluntaria y no afecta mi participación.</span></label>
           <p className="camino-small">Antes de publicar, agregar el enlace a la política de privacidad vigente y el canal para ejercer derechos sobre los datos.</p>
           {error&&<p className="camino-error" role="alert">{error}</p>}
-          <button type="submit" className="camino-primary">CONSTRUIR MI CAMINO →</button>
+          <button type="submit" className="camino-primary" disabled={savingRef.current}>CONSTRUIR MI CAMINO →</button>
         </form>
       </section>}
 
@@ -165,11 +184,11 @@ export function CaminoAccenture(){
 
       {screen==="guardando"&&<section className="camino-panel camino-intro" aria-live="polite">
         <div className="camino-eyebrow">¡LLEGASTE A DESTINO!</div><h1>UN CAMINO <span>ÚNICO.</span></h1>
-        <p>Estamos guardando tu recorrido y preparando tus recomendaciones.</p>
+        <p>Estamos guardando tus respuestas en tu registro y preparando las recomendaciones.</p>
       </section>}
 
       {screen==="error"&&<section className="camino-panel" role="alert">
-        <h1 className="camino-question">No pudimos guardar tu recorrido.</h1>
+        <h1 className="camino-question">No pudimos guardar tus respuestas.</h1>
         <p className="camino-help">{error}</p>
         <button className="camino-primary" onClick={()=>save(answers)}>VOLVER A INTENTAR</button>
         <button className="camino-link" onClick={()=>setScreen("registro")}>Revisar mis datos</button>
