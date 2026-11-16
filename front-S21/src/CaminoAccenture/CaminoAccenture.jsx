@@ -236,7 +236,16 @@ export function CaminoAccenture(){
           <p className="camino-perk-terms">Beneficio exclusivo para inscripciones gestionadas a través de nuestros asesores de Universidad Siglo 21. Sujeto a vigencia, programas alcanzados y condiciones comerciales aplicables.</p>
         </div>
         <div className="camino-merch">
-          Para retirar tu merchandising, acercate al stand e indicá tu <b>nombre y apellido</b>.
+          <strong>¡TU CAMINO TIENE RECOMPENSA!</strong>
+          <p>Acercate a nuestro stand, decinos tu <b>nombre y apellido</b> y retirá tu regalo por participar. Sujeto a disponibilidad.</p>
+        </div>
+        <div className="camino-compartir">
+          <h2>¿HOY NO ES PARA VOS? ¡PUEDE SER PARA ALGUIEN QUE QUERÉS!</h2>
+          <p>El convenio de Accenture con Universidad Siglo 21 también contempla a familiares directos: <b>padres, hijos, hermanos y cónyuge</b>.</p>
+          <p>Compartiles esta oportunidad para que puedan consultar su beneficio y encontrar una formación para ellos.</p>
+          <p><b>¿Y si es un amigo?</b> También podés recomendarle que nos escriba: lo asesoramos sobre las opciones y promociones vigentes.</p>
+          <p className="camino-compartir-aclaracion">Los beneficios para familiares y referidos se evalúan según el convenio y las condiciones aplicables; el 40% especial de esta pantalla no se transfiere automáticamente.</p>
+          <a className="camino-compartir-link" href="https://wa.me/?text=Te%20comparto%20el%20contacto%20de%20Universidad%20Siglo%2021%20Mar%20del%20Plata%20para%20que%20consultes%20por%20beneficios%20y%20formaciones%20a%20distancia%3A%20%2B54%209%20223%20550%201021" target="_blank" rel="noopener noreferrer">COMPARTIR ESTA OPORTUNIDAD</a>
         </div>
         <div className="camino-contacto">
           <h2>¿Querés aprovechar tu beneficio?</h2>
