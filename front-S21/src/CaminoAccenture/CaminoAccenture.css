@@ -782,3 +782,54 @@
   .camino-page .camino-preview-destination,
   .camino-page .camino-path-destination{font-size:9px;gap:4px;padding:6px}
 }
+
+/* Pisadas orientadas hacia la derecha siguiendo cada curva del sendero */
+.camino-preview-foot .camino-shoeprints,
+.camino-foot-step .camino-shoeprints{
+  transform:rotate(var(--foot-rotate,90deg));
+  transform-origin:50% 50%;
+}
+/* Explicación simple del propósito del juego desde la portada */
+.camino-page .camino-intro .camino-intro-reward{
+  margin:-4px 0 18px;
+  padding:12px 14px;
+  background:#ffffff0b;
+  border-left:3px solid var(--camino-accent);
+  border-radius:0 10px 10px 0;
+  font-size:13px;
+  line-height:1.55;
+  color:#e3f4eb;
+}
+.camino-intro-reward strong{
+  color:#a6efc7;
+  font-weight:800;
+}
+/* Una sola instrucción, visible encima de las opciones */
+.camino-choice-help{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  margin:17px 0 10px;
+  padding:0 2px;
+}
+.camino-choice-help strong{
+  font:800 13px/1.3 "DM Sans",sans-serif;
+  color:#aff1d0;
+  letter-spacing:.01em;
+}
+.camino-choice-help span{
+  font:500 13px/1.4 "DM Sans",sans-serif;
+  color:#dcece5;
+}
+.camino-page .camino-choices{margin-top:8px}
+.camino-page .camino-choice{cursor:grab;touch-action:none}
+.camino-page .camino-choice:active{cursor:grabbing}
+.camino-page .camino-choice:focus-visible{
+  outline:3px solid #e3fcee;
+  outline-offset:3px;
+}
+@media(max-width:410px){
+ .camino-choice-help strong{font-size:12px}
+ .camino-choice-help span{font-size:12px}
+ .camino-page .camino-intro .camino-intro-reward{font-size:12px}
+}
