@@ -955,3 +955,37 @@
 .camino-page .camino-reward-screen>p{
   margin:0 0 24px;
 }
+
+/* Inicio de resultados: un solo encabezado y lectura de perfil clara */
+.camino-page .camino-results > .camino-eyebrow{
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:.025em;
+}
+.camino-page .camino-results .camino-profile{
+  margin:12px 0 14px;
+}
+.camino-page .camino-results .camino-profile h1{
+  margin:0 0 10px;
+}
+.camino-page .camino-results .camino-profile strong{
+  display:block;
+  color:#b9f0d5;
+  font-size:clamp(15px,3.5vw,18px);
+  margin-bottom:9px;
+}
+.camino-page .camino-results .camino-profile p{
+  margin:0;
+}
+.camino-page .camino-result-personal{
+  margin:12px 0 6px;
+  font-size:14px;
+  line-height:1.55;
+  color:#f0fff7;
+}
+.camino-page .camino-result-disclaimer{
+  margin:0 0 18px;
+  color:#bcd7cd;
+  font-size:12px;
+  line-height:1.45;
+}
