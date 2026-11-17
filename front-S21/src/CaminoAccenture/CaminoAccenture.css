@@ -833,3 +833,52 @@
  .camino-choice-help span{font-size:12px}
  .camino-page .camino-intro .camino-intro-reward{font-size:12px}
 }
+
+/* Portada: mensaje breve con tres motivos para recorrer el camino */
+.camino-page .camino-intro h1{
+  margin:18px 0 20px;
+  max-width:490px;
+  font-size:clamp(28px,7.3vw,43px);
+}
+.camino-intro-benefits{
+  display:grid;
+  gap:15px;
+  margin:4px 0 22px;
+  padding:16px 0 0;
+  border-top:1px solid #ffffff2c;
+}
+.camino-intro-benefit{
+  display:grid;
+  grid-template-columns:34px minmax(0,1fr);
+  align-items:center;
+  gap:13px;
+}
+.camino-page .camino-intro-benefit p{
+  margin:0;
+  font-size:14px;
+  line-height:1.5;
+  color:#f0fbf5;
+}
+.camino-intro-benefit .camino-shoeprints{
+  width:32px;
+  height:29px;
+  color:#85e4b9;
+  transform:rotate(90deg);
+}
+.camino-intro-benefit-icon{
+  width:28px;
+  height:28px;
+  color:#85e4b9;
+  justify-self:center;
+}
+.camino-intro-gift-icon{color:#f3a800}
+.camino-page .camino-intro .camino-preview-path{
+  margin:12px 0 21px;
+}
+@media(max-width:410px){
+  .camino-intro-benefits{gap:12px;margin-bottom:17px}
+  .camino-intro-benefit{grid-template-columns:29px minmax(0,1fr);gap:10px}
+  .camino-page .camino-intro-benefit p{font-size:13px}
+  .camino-intro-benefit-icon{width:24px;height:24px}
+  .camino-intro-benefit .camino-shoeprints{width:28px;height:25px}
+}
