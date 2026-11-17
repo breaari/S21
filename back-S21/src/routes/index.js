@@ -24,7 +24,7 @@ const {
 
 const highschool = require("../controllers/memotestHighschoolController");
 
-const { registrarCaminoAccenture } = require("../handlers/accentureCaminoHandler");
+const { registrarCaminoAccenture, finalizarCaminoAccenture } = require("../handlers/accentureCaminoHandler");
 
 const router = Router();
 
@@ -78,5 +78,6 @@ router.post("/memotest/highschool/:id/finalizar", highschool.finalizar);
 router.get("/memotest/highschool/ranking", highschool.ranking);
 
 router.post("/accenture-camino/participar", registrarCaminoAccenture);
+router.post("/accenture-camino/:id/finalizar", finalizarCaminoAccenture);
 
 module.exports = router;
