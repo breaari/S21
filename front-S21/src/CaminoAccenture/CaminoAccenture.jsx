@@ -216,7 +216,7 @@ export function CaminoAccenture(){
 
       {screen==="registro"&&<section className="camino-panel">
         <div className="camino-eyebrow">ANTES DE EMPEZAR</div>
-        <h1 className="camino-question">¿Quién construye este camino?</h1>
+        <h1 className="camino-question camino-registration-title">¿DE QUIÉN SON ESTAS <span>HUELLAS?</span></h1>
         <p className="camino-help">Completá tus datos para registrarte en la actividad.</p>
         <form onSubmit={begin} className="camino-form">
           <label>Nombre<input required maxLength="80" value={form.nombre} autoComplete="given-name" onChange={e=>setForm(f=>({...f,nombre:e.target.value}))}/></label>
@@ -226,7 +226,7 @@ export function CaminoAccenture(){
           <label className="camino-check"><input type="checkbox" required checked={form.aceptaPrivacidad} onChange={e=>setForm(f=>({...f,aceptaPrivacidad:e.target.checked}))}/><span>Acepto que Universidad Siglo 21 registre mis datos y respuestas para gestionar esta experiencia y su obsequio.</span></label>
           <label className="camino-check"><input type="checkbox" checked={form.permisoContacto} onChange={e=>setForm(f=>({...f,permisoContacto:e.target.checked}))}/><span>Quiero recibir asesoramiento y novedades académicas por WhatsApp o email. Esta opción es voluntaria y no afecta mi participación.</span></label>
           {error&&<p className="camino-error" role="alert">{error}</p>}
-          <button type="submit" className="camino-primary" disabled={savingRef.current}>CONSTRUIR MI CAMINO →</button>
+          <button type="submit" className="camino-primary" disabled={savingRef.current}>¡EMPEZAR MI RECORRIDO!</button>
         </form>
       </section>}
 
