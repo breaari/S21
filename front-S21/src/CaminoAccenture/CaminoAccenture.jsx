@@ -298,7 +298,7 @@ export function CaminoAccenture(){
         <div className="camino-reward-icon" aria-hidden="true"><FiGift/></div>
         <h1>RECORRIDO COMPLETADO</h1>
         <h2>TU REGALO TE ESPERA</h2>
-        <p>Acercate a nuestro stand, decinos tu nombre y apellido y retirá tu regalo por participar.</p>
+        <p>Acercate a nuestro stand y decinos tu nombre y apellido para retirarlo.</p>
         <button type="button" className="camino-primary" onClick={()=>{setScreen("resultado");window.scrollTo({top:0,behavior:"smooth"});}}>DESCUBRIR MI RESULTADO →</button>
       </section>}
 
