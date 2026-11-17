@@ -862,7 +862,7 @@
 .camino-intro-benefit .camino-shoeprints{
   width:32px;
   height:29px;
-  color:#85e4b9;
+  color:#28b9ac;
   transform:rotate(90deg);
 }
 .camino-intro-benefit-icon{
@@ -872,6 +872,7 @@
   justify-self:center;
 }
 .camino-intro-gift-icon{color:#f3a800}
+.camino-intro-graduation-icon{color:#b644c5}
 .camino-page .camino-intro .camino-preview-path{
   margin:12px 0 21px;
 }
@@ -881,4 +882,19 @@
   .camino-page .camino-intro-benefit p{font-size:13px}
   .camino-intro-benefit-icon{width:24px;height:24px}
   .camino-intro-benefit .camino-shoeprints{width:28px;height:25px}
+}
+
+/* Contexto de la experiencia: breve, legible y separado de los beneficios */
+.camino-page .camino-intro .camino-intro-context{
+  margin:-7px 0 19px;
+  color:#d4eadf;
+  font-size:15px;
+  line-height:1.55;
+  max-width:470px;
+}
+@media(max-width:410px){
+  .camino-page .camino-intro .camino-intro-context{
+    margin:-4px 0 16px;
+    font-size:14px;
+  }
 }
