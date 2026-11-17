@@ -1,35 +1,35 @@
-// Catálogo preliminar de áreas, no una lista confirmada de inscripciones 2027.
-// Reemplazar/validar títulos, modalidades, aranceles y requisitos antes del evento.
+// Cuatro preguntas: formación → trabajo actual → intereses → aspiración.
+// Mantenemos los identificadores de respuesta para respetar el contrato con el backend.
 export const CAMINO_STEPS = [
-  { id:"aspiracion", eyebrow:"TU FUTURO", question:"¿Qué te gustaría potenciar en tu futuro?", choices:[
-    {id:"liderar",label:"Liderar nuevos desafíos",short:"Liderar",color:"#bc9fea"},
-    {id:"innovar",label:"Innovar y crear soluciones",short:"Innovar",color:"#80cce5"},
-    {id:"crecer",label:"Crecer profesionalmente",short:"Crecer",color:"#91d3a2"},
-    {id:"emprender",label:"Emprender mis propios proyectos",short:"Emprender",color:"#f0c281"},
-    {id:"especialista",label:"Convertirme en especialista",short:"Especializarme",color:"#88a9ed"}
-  ]},
-  { id:"trabajo", eyebrow:"TU PRESENTE", question:"¿En qué área trabajás actualmente?", choices:[
-    {id:"software",label:"Tecnología y desarrollo de software",short:"Software"},
-    {id:"datos",label:"Datos, IA y automatización",short:"Datos e IA"},
-    {id:"consultoria",label:"Consultoría y negocios",short:"Consultoría"},
-    {id:"operaciones",label:"Operaciones y servicios",short:"Operaciones"},
-    {id:"corporativo",label:"Recursos Humanos y áreas corporativas",short:"Corporativo"},
-    {id:"otra",label:"Otra área",short:"Otra"}
-  ]},
-  { id:"estudios", eyebrow:"TU PUNTO DE PARTIDA", question:"¿Desde dónde partís?", help:"Pensá en tu recorrido académico hasta hoy.", choices:[
+  { id:"estudios", eyebrow:"TU PUNTO DE PARTIDA", question:"¿Desde dónde partís?", help:"Pensá en tus estudios hasta hoy.", choices:[
     {id:"secundario",label:"Terminé el secundario",short:"Secundario"},
     {id:"cursando",label:"Estoy cursando una carrera",short:"Cursando"},
     {id:"incompleta",label:"Empecé una carrera, pero no la terminé",short:"Incompleta"},
     {id:"terciario",label:"Tengo un título terciario",short:"Terciario"},
     {id:"universitario",label:"Tengo un título universitario",short:"Universitario"}
   ]},
-  { id:"interes", eyebrow:"TU DESTINO", question:"¿Qué área te gustaría explorar?", choices:[
+  { id:"trabajo", eyebrow:"TU PRESENTE", question:"¿En qué área trabajás actualmente?", help:"Seleccioná la opción más cercana a tu trabajo.", choices:[
+    {id:"software",label:"Desarrollo de software y tecnología",short:"Software"},
+    {id:"datos",label:"Datos, inteligencia artificial y automatización",short:"Datos e IA"},
+    {id:"consultoria",label:"Consultoría y estrategia de negocios",short:"Consultoría"},
+    {id:"operaciones",label:"Operaciones, soporte y servicios",short:"Operaciones"},
+    {id:"corporativo",label:"Gestión de proyectos y equipos",short:"Proyectos"},
+    {id:"otra",label:"Recursos humanos, administración u otra área",short:"Otras áreas"}
+  ]},
+  { id:"interes", eyebrow:"TUS INTERESES", question:"¿Qué área te gustaría explorar?", help:"Puede ser algo relacionado con tu trabajo o algo nuevo.", choices:[
     {id:"tecnologia",label:"Tecnología, datos e inteligencia artificial",short:"Tecnología"},
     {id:"negocios",label:"Negocios, administración y finanzas",short:"Negocios"},
-    {id:"personas",label:"Personas, liderazgo y Recursos Humanos",short:"Personas"},
+    {id:"personas",label:"Personas, liderazgo y recursos humanos",short:"Personas"},
     {id:"marketing",label:"Marketing, comunicación y creatividad",short:"Marketing"},
     {id:"derecho",label:"Derecho y ciencias sociales",short:"Derecho"},
-    {id:"indefinido",label:"Todavía no lo sé",short:"Por descubrir"}
+    {id:"indefinido",label:"Todavía estoy explorando mis intereses",short:"Por descubrir"}
+  ]},
+  { id:"aspiracion", eyebrow:"TU PRÓXIMA META", question:"¿Qué te gustaría potenciar en tu futuro?", choices:[
+    {id:"liderar",label:"Liderar nuevos desafíos",short:"Liderar",color:"#bc9fea"},
+    {id:"innovar",label:"Innovar y crear soluciones",short:"Innovar",color:"#80cce5"},
+    {id:"crecer",label:"Crecer profesionalmente",short:"Crecer",color:"#91d3a2"},
+    {id:"emprender",label:"Emprender mis propios proyectos",short:"Emprender",color:"#f0c281"},
+    {id:"especialista",label:"Convertirme en especialista",short:"Especializarme",color:"#88a9ed"}
   ]}
 ];
 
