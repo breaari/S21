@@ -898,3 +898,12 @@
     font-size:14px;
   }
 }
+
+/* El tramo resaltado del título conserva exactamente la misma tipografía y peso. */
+.camino-page .camino-intro h1 span{
+  font-family:inherit;
+  font-weight:inherit;
+  font-size:inherit;
+  line-height:inherit;
+  letter-spacing:inherit;
+}
