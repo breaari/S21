@@ -924,3 +924,34 @@
   font-weight:700;
   letter-spacing:.015em;
 }
+
+/* Recompensa: títulos uniformes, regalo protagonista y jerarquía clara */
+.camino-page .camino-reward-icon{
+  background:#f3a800;
+  color:#123f36;
+  box-shadow:none;
+}
+.camino-page .camino-reward-icon svg{
+  width:35px;
+  height:35px;
+}
+.camino-page .camino-reward-screen h1,
+.camino-page .camino-reward-screen h2{
+  font-family:Montserrat,"DM Sans",sans-serif;
+  font-weight:800;
+  letter-spacing:-.035em;
+  line-height:1.15;
+}
+.camino-page .camino-reward-screen h1{
+  color:#ffffff;
+  font-size:clamp(24px,5.8vw,32px);
+  margin:0 0 10px;
+}
+.camino-page .camino-reward-screen h2{
+  color:#86e4b7;
+  font-size:clamp(23px,5.5vw,30px);
+  margin:0 0 20px;
+}
+.camino-page .camino-reward-screen>p{
+  margin:0 0 24px;
+}
