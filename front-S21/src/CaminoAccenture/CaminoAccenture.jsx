@@ -303,9 +303,10 @@ export function CaminoAccenture(){
       </section>}
 
       {screen==="resultado"&&<section className="camino-panel camino-results" style={{"--profile-color":profile.color}}>
-        <div className="camino-eyebrow">TU CAMINO PROFESIONAL</div>
-        <div className="camino-profile"><span>EL CAMINO QUE ELEGISTE</span><h1>{profile.titulo}</h1><strong>{profile.lema}</strong><p>{profile.descripcion}</p></div>
-        <p className="camino-help">{form.nombre}, este resultado se basa en tus decisiones y te propone opciones para explorar, no es un diagnóstico de personalidad.</p>
+        <div className="camino-eyebrow">TU PERFIL</div>
+        <div className="camino-profile"><h1>{profile.titulo}</h1><strong>{profile.lema}</strong><p>{profile.descripcion}</p></div>
+        <p className="camino-result-personal">{form.nombre}, descubrí las oportunidades de formación que pueden acercarte a tu próxima meta.</p>
+        <p className="camino-result-disclaimer">Este perfil es orientativo y se basa en tus respuestas.</p>
         <div className="camino-result-path">
           {CAMINO_STEPS.map(s=><div className="camino-result-chip" key={s.id}>
             <small>{s.eyebrow}</small>
