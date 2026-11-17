@@ -190,7 +190,6 @@ export function CaminoAccenture(){
       <header className="camino-head"><img src={logo} alt="Universidad Siglo 21" className="camino-logo"/><div className="camino-event">EXPERIENCIA ACCENTURE · 2026</div></header>
 
       {screen==="inicio"&&<section className="camino-panel camino-intro">
-        <div className="camino-eyebrow">UNIVERSIDAD SIGLO 21 × ACCENTURE</div>
         <h1>TU PRÓXIMA META ESTÁ <span>A UN PASO.</span></h1>
         <div className="camino-intro-benefits">
           <div className="camino-intro-benefit">
