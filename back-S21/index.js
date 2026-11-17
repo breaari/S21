@@ -1,3 +1,4 @@
+require('dotenv').config();
 const server = require('./src/app.js');
 
 server.listen(3003, () => {
