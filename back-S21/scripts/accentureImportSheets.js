@@ -32,7 +32,7 @@ async function main(){
       VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9::jsonb,
         CASE WHEN $10::boolean THEN NOW() ELSE NULL END,1,1)
       ON CONFLICT DO NOTHING RETURNING id
-    `,[id,nombre.trim(),apellido.trim(),email.trim().toLowerCase(),String(telefono||"").replace(/\\D/g,""),
+    `,[id,nombre.trim(),apellido.trim(),email.trim().toLowerCase(),String(telefono||"").replace(/\D/g,""),
       acepta==="SI",permiso==="SI",origen||"feria-accenture-2026",JSON.stringify(respuestas),finished]);
     if(x.rowCount)added++;else skipped++;
   }
