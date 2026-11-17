@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import logo from "../assets/logo-blanco-sin-fondo.png";
-import { FiFlag, FiZap, FiTrendingUp, FiCompass, FiAward, FiCode, FiCpu, FiBriefcase, FiSettings, FiUsers, FiGrid, FiBookOpen, FiEdit3, FiRefreshCw, FiLayers, FiCheckCircle, FiMonitor, FiDollarSign, FiHeart, FiMessageCircle, FiFeather, FiHelpCircle } from "react-icons/fi";
+import { FiFlag, FiZap, FiTrendingUp, FiCompass, FiAward, FiCode, FiCpu, FiBriefcase, FiSettings, FiUsers, FiGrid, FiBookOpen, FiEdit3, FiRefreshCw, FiLayers, FiCheckCircle, FiMonitor, FiDollarSign, FiHeart, FiMessageCircle, FiFeather, FiHelpCircle, FiGift } from "react-icons/fi";
+import { FaGraduationCap } from "react-icons/fa";
 import { CAMINO_STEPS } from "./caminoData";
 import { PERFILES, recomendarFormaciones } from "./catalogoDistancia";
 import "./CaminoAccenture.css";
@@ -189,16 +190,28 @@ export function CaminoAccenture(){
       <header className="camino-head"><img src={logo} alt="Universidad Siglo 21" className="camino-logo"/><div className="camino-event">EXPERIENCIA ACCENTURE · 2026</div></header>
 
       {screen==="inicio"&&<section className="camino-panel camino-intro">
-        <div className="camino-eyebrow">POTENCIANDO NUEVOS LIDERAZGOS</div>
-        <h1>CONSTRUÍ <span>TU FUTURO.</span></h1>
-        <p>Respondé 4 preguntas y descubrí qué podés estudiar.</p>
-        <p className="camino-intro-reward"><strong>¡Al terminar, te llevás un regalo!</strong> Retiralo en nuestro stand diciendo tu nombre y apellido. También vas a descubrir un beneficio especial para estudiar.</p>
-        <div className="camino-preview-path" aria-label="Cuatro pasos hacia tu futuro">
+        <div className="camino-eyebrow">UNIVERSIDAD SIGLO 21 × ACCENTURE</div>
+        <h1>TU PRÓXIMA META ESTÁ <span>A UN PASO.</span></h1>
+        <div className="camino-intro-benefits">
+          <div className="camino-intro-benefit">
+            <CaminoFootprint/>
+            <p>Arrastrá la opción que más te represente y dejá tu huella en el camino.</p>
+          </div>
+          <div className="camino-intro-benefit">
+            <FiGift aria-hidden="true" className="camino-intro-benefit-icon camino-intro-gift-icon"/>
+            <p>Completá el recorrido y llevate un regalo.</p>
+          </div>
+          <div className="camino-intro-benefit">
+            <FaGraduationCap aria-hidden="true" className="camino-intro-benefit-icon camino-intro-graduation-icon"/>
+            <p>Descubrí oportunidades de formación para alcanzar tus metas.</p>
+          </div>
+        </div>
+        <div className="camino-preview-path" aria-label="Cuatro huellas a lo largo del camino hacia tu meta">
           <CaminoForestPath/>
           {FOOT_POSITIONS.map((pos,i)=><span key={i} className="camino-preview-foot" style={{left:`${pos.x}%`,top:`${pos.y}%`,"--foot-color":COLORS[i],"--foot-rotate":`${pos.angle}deg`}}><CaminoFootprint/></span>)}
           <span className="camino-preview-destination">TU META <FiFlag aria-hidden="true"/></span>
         </div>
-        <button className="camino-primary" onClick={()=>setScreen("registro")}>COMENZAR →</button>
+        <button className="camino-primary" onClick={()=>setScreen("registro")}>¡EMPEZAR!</button>
       </section>}
 
       {screen==="registro"&&<section className="camino-panel">
