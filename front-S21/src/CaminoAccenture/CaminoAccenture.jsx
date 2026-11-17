@@ -215,7 +215,7 @@ export function CaminoAccenture(){
       </section>}
 
       {screen==="registro"&&<section className="camino-panel">
-        <div className="camino-eyebrow">ANTES DE EMPEZAR</div>
+        <div className="camino-eyebrow">Antes de empezar</div>
         <h1 className="camino-question camino-registration-title">¿DE QUIÉN SON ESTAS <span>HUELLAS?</span></h1>
         <p className="camino-help">Completá tus datos para registrarte en la actividad.</p>
         <form onSubmit={begin} className="camino-form">
