@@ -917,3 +917,10 @@
   line-height:inherit;
   letter-spacing:inherit;
 }
+
+/* Subtítulo del registro: legible sin competir con el título principal. */
+.camino-page .camino-panel .camino-eyebrow:has(+ .camino-registration-title){
+  font-size:15px;
+  font-weight:700;
+  letter-spacing:.015em;
+}
