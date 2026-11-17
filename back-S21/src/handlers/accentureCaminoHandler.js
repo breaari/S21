@@ -1,6 +1,8 @@
 const crypto = require("crypto");
 
-const { guardarParticipante, buscarPorCorreo, actualizarRespuestas } = require("../services/accentureCaminoSheetsService");
+const sheetsService=require("../services/accentureCaminoSheetsService");
+const pgService=require("../services/accentureCaminoPgService");
+const usePostgres=()=>process.env.ACCENTURE_STORAGE_MODE==="postgres";
 
 const LABELS = {
   aspiracion:["liderar","innovar","crecer","emprender","especialista"],
@@ -23,16 +25,24 @@ async function registrarCaminoAccenture(req,res) {
     if(aceptaPrivacidad!==true)return res.status(400).json({error:"Necesitamos tu aceptación del aviso de privacidad para registrar la actividad."});
     if(typeof permisoContacto!=="boolean")return res.status(400).json({error:"Falta indicar tu preferencia de contacto."});
     const emailNormalizado=email.trim().toLowerCase();
-    if(await buscarPorCorreo(emailNormalizado)){
-      return res.status(409).json({error:"Este email ya tiene una participación registrada. Consultá en el stand con tu nombre y apellido."});
-    }
     const participanteId=crypto.randomUUID();
-    await guardarParticipante({
+    const participante={
       id:participanteId,nombre:nombre.trim(),apellido:apellido.trim(),
       email:emailNormalizado,telefono:tel,
       respuestas:{},
       aceptaPrivacidad:true,permisoContacto,origen:"feria-accenture-2026"
-    });
+    };
+    if(usePostgres()){
+      // La restricción UNIQUE(email) impide duplicados aun con registros simultáneos.
+      const inserted=await pgService.guardarParticipante(participante);
+      if(!inserted)return res.status(409).json({error:"Este email ya tiene una participación registrada. Consultá en el stand con tu nombre y apellido."});
+    }else{
+      // Modo anterior disponible hasta ejecutar migración y pruebas en el VPS.
+      if(await sheetsService.buscarPorCorreo(emailNormalizado)){
+        return res.status(409).json({error:"Este email ya tiene una participación registrada. Consultá en el stand con tu nombre y apellido."});
+      }
+      await sheetsService.guardarParticipante(participante);
+    }
     return res.status(201).json({ok:true,participanteId});
   }catch(err){
     console.error("Error registro Accenture Camino:",err);
@@ -47,9 +57,9 @@ async function finalizarCaminoAccenture(req,res) {
       return res.status(400).json({error:"Participación inválida."});
     }
     if(!respuestas||typeof respuestas!=="object"||Object.keys(LABELS).some(k=>!LABELS[k].includes(respuestas[k]))){
-      return res.status(400).json({error:"Completá las cuatro decisiones del camino."});
+      return res.status(400).json({error:"Completá las cuatro preguntas del recorrido."});
     }
-    const actualizada=await actualizarRespuestas(id,respuestas);
+    const actualizada=await (usePostgres()?pgService.actualizarRespuestas(id,respuestas):sheetsService.actualizarRespuestas(id,respuestas));
     if(!actualizada)return res.status(404).json({error:"No encontramos tu participación."});
     return res.status(200).json({ok:true});
   }catch(err){
