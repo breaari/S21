@@ -191,6 +191,7 @@ export function CaminoAccenture(){
 
       {screen==="inicio"&&<section className="camino-panel camino-intro">
         <h1>TU PRÓXIMA META ESTÁ <span>A UN PASO.</span></h1>
+        <p className="camino-intro-context">Una experiencia breve para descubrir nuevas oportunidades de formación según tus intereses.</p>
         <div className="camino-intro-benefits">
           <div className="camino-intro-benefit">
             <CaminoFootprint/>
