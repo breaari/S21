@@ -62,14 +62,16 @@ export const CATALOGO=lista.map(([nombre,tipo,area,perfiles])=>({
  requiereTitulo:["Especialización","Maestría"].includes(tipo),
  // Se informa el requisito con prudencia; cada caso requiere validación académica.
 }));
-const interesPorTrabajo={software:"tecnologia",datos:"tecnologia",consultoria:"negocios",operaciones:"negocios",corporativo:"personas"};
+// El trabajo contextualiza la recomendación, pero no restringe los intereses nuevos.
+// "otra" es una categoría heterogénea: no inferimos un área académica de ella.
+const interesPorTrabajo={software:"tecnologia",datos:"tecnologia",consultoria:"negocios",operaciones:"negocios",corporativo:"negocios"};
 export function recomendarFormaciones(respuestas){
  const area=respuestas.interes,asp=respuestas.aspiracion;
  const tieneTitulo=respuestas.estudios==="universitario";
  const orientacion=tieneTitulo?"Podés explorar también posgrados, sujetos a requisitos de admisión.":respuestas.estudios==="terciario"?"Consultá qué ciclos de complementación o equivalencias aplican a tu título.":respuestas.estudios==="cursando"||respuestas.estudios==="incompleta"?"Consultá reconocimiento de equivalencias para continuar o retomar tus estudios.":"Podés comenzar por propuestas cortas o por carreras de pregrado y grado.";
  const ranking=CATALOGO.filter(p=>tieneTitulo||!p.requiereTitulo).map((p,i)=>{
-  let score=(area!=="indefinido"&&p.area===area?12:0)+(p.perfiles.includes(asp)?5:0)+(p.area===interesPorTrabajo[respuestas.trabajo]?2:0);
-  if(area==="indefinido"&&p.area===interesPorTrabajo[respuestas.trabajo])score+=8;
+  let score=(area!=="indefinido"&&p.area===area?14:0)+(p.perfiles.includes(asp)?5:0)+(p.area===interesPorTrabajo[respuestas.trabajo]?1:0);
+  if(area==="indefinido"&&p.area===interesPorTrabajo[respuestas.trabajo])score+=4;
   if(asp==="especialista"&&["Certificado","Especialización","Maestría"].includes(p.tipo))score+=3;
   if(asp==="emprender"&&p.area==="negocios")score+=3;
   if(asp==="liderar"&&p.area==="personas")score+=3;
