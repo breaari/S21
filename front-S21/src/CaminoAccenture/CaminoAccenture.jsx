@@ -334,7 +334,7 @@ export function CaminoAccenture(){
         <div className="camino-contacto">
           <h2>¿Querés aprovechar tu beneficio?</h2>
           <p>Universidad Siglo 21 · Mar del Plata</p>
-          <a className="camino-contacto-link" href="https://wa.me/5492235501021?text=Hola%2C%20particip%C3%A9%20de%20Constru%C3%AD%20tu%20futuro%20en%20Accenture%20y%20quiero%20activar%20el%20beneficio%20especial%20de%20inscripci%C3%B3n." target="_blank" rel="noopener noreferrer" aria-label="Enviar consulta por WhatsApp al 223 550 1021">
+          <a className="camino-contacto-link" href="https://wa.me/5492235501021?text=Hola%2C%20particip%C3%A9%20de%20la%20experiencia%20%C2%ABTu%20pr%C3%B3xima%20meta%20est%C3%A1%20a%20un%20paso%C2%BB%20en%20Accenture%20y%20quiero%20acceder%20a%20mi%20beneficio%20especial%20de%20inscripci%C3%B3n." target="_blank" rel="noopener noreferrer" aria-label="Enviar consulta por WhatsApp al 223 550 1021">
             QUIERO ACTIVAR MI BENEFICIO · 223 550 1021
           </a>
         </div>
