@@ -1,0 +1,991 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Montserrat:wght@500;700;800;900&display=swap");
+.camino-page,.camino-page *{box-sizing:border-box}
+.camino-page{min-height:100dvh;padding:22px 12px 54px;color:white;background:radial-gradient(circle at 85% 12%,#1b85674d,transparent 37%),linear-gradient(150deg,#073d3e,#005b4b 60%,#073b3b);font-family:"DM Sans",sans-serif}
+.camino-container{max-width:560px;margin:auto}
+.camino-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 4px 20px}
+.camino-logo{display:block;width:116px;max-height:75px;object-fit:contain}
+.camino-event{font-size:10px;letter-spacing:.09em;font-weight:800;text-align:right;color:#b9e6d4}
+.camino-panel{background:#103f3edb;border:1px solid #60b69b66;border-radius:23px;padding:23px 19px 25px;box-shadow:0 15px 48px #001b1739}
+.camino-eyebrow,.camino-step-head{font-size:11px;letter-spacing:.09em;color:#8be2bf;font-weight:900}
+.camino-intro h1,.camino-results h1{font-family:Montserrat,sans-serif;line-height:1.04;letter-spacing:-.035em;font-size:clamp(32px,8vw,51px);font-weight:900;margin:20px 0}
+.camino-intro h1 span,.camino-results h1 span{color:#7bdcad}
+.camino-intro p,.camino-help{font-size:14px;line-height:1.5;color:#d2e6df;margin:12px 0 19px}
+.camino-step-head{display:flex;justify-content:space-between;gap:8px}
+.camino-progress{display:flex;gap:5px;margin:17px 0 21px}
+.camino-progress span{background:#2c756c;height:6px;border-radius:8px;flex:1}
+.camino-progress span.active{background:#78e0b4}
+.camino-question{font-size:clamp(22px,5.9vw,30px);line-height:1.14;font-weight:900;margin:0;letter-spacing:-.025em}
+.camino-board{position:relative;padding:17px 11px 24px;overflow:hidden;background:radial-gradient(circle at 50% 85%,#268b7950,transparent 66%),#0c3437;border:1px solid #2e8074;border-radius:18px;margin-bottom:17px}
+.camino-board-label{letter-spacing:.14em;font-size:10px;font-weight:900;color:#88d3c3;text-align:center}
+.camino-track{display:flex;align-items:center;justify-content:center;margin:35px 5px 30px;gap:0;min-height:82px}
+.camino-start,.camino-finish{flex:0 0 38px;text-align:center;font-size:10px;font-weight:900;color:#c7eddb}
+.camino-start{position:relative;height:34px}
+.camino-person-head{position:absolute;left:14px;top:4px;background:white;width:9px;height:9px;border-radius:50%}
+.camino-person-body{position:absolute;left:9px;top:15px;background:white;border-radius:70% 70% 20% 20%;height:15px;width:19px}
+.camino-track-tile{flex:1;min-width:0;height:43px;background:#315753;border:2px dashed #68978a;border-radius:6px;position:relative;transform:skewY(-4deg);margin-right:2px;display:grid;place-items:center}
+.camino-track-tile.built{background:var(--tile-color);border:2px solid #e0f6e9;box-shadow:0 4px 0 #083a3c}
+.camino-track-tile.current{outline:2px solid var(--track-color);outline-offset:3px;animation:camino-pulse 1.4s ease-in-out infinite}
+.camino-track-tile.arriving{background:var(--tile-color);border-style:solid;animation:camino-place .6s cubic-bezier(.18,1.3,.42,1)}
+.camino-tile-symbol{font-weight:900;font-size:22px;color:#123e3c}
+.camino-road-caption{font-size:11px;line-height:1.45;color:#c5e6db;text-align:center;min-height:30px}
+.camino-avatar{position:absolute;bottom:11px;color:#baf3d6;font-size:17px;transition:left .75s ease}
+.camino-avatar.moving{transform:translateY(-8px)}
+.camino-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:15px 0}
+.camino-choice{position:relative;min-height:76px;background:#ffffff0e;border:1px solid #85b5aa;border-radius:12px;display:flex;align-items:center;gap:9px;color:#fff;text-align:left;font:700 12px/1.25 "DM Sans",sans-serif;padding:10px;cursor:grab;touch-action:none;user-select:none;transition:transform .15s,background .15s}
+.camino-choice:last-child:nth-child(odd){grid-column:span 2}
+.camino-choice.picked{background:#ffffff26;border:2px solid var(--choice-color);transform:translateY(-2px)}
+.camino-piece-mark{background:var(--choice-color);color:#0b3d3a;border-radius:6px;display:grid;place-items:center;width:30px;height:30px;flex-shrink:0;font-size:17px;box-shadow:0 4px 0 #091b1b55}
+.camino-primary{width:100%;min-height:49px;border:0;border-radius:11px;background:linear-gradient(90deg,#40b99a,#91e4bc);color:#073b39;font-size:13px;font-weight:900;letter-spacing:.015em;padding:13px 12px;cursor:pointer}
+.camino-primary:disabled{opacity:.48;cursor:default}
+.camino-link{display:block;margin:15px auto 0;color:#c3eedf;background:none;border:0;font-size:13px;text-decoration:underline;cursor:pointer}
+.camino-mini-road{display:flex;align-items:center;justify-content:space-between;margin:24px 0 33px;gap:4px}
+.camino-mini-road span:not(.camino-character):not(.camino-destination){flex:1;height:37px;background:#69cda5;border:3px solid #d5f4e3;border-radius:5px;transform:skewY(-5deg)}
+.camino-character{font-size:27px;color:#e6fff3}.camino-destination{font-size:14px;font-weight:900;color:#b8efcf}
+.camino-small,.camino-note{font-size:11px!important;line-height:1.5;color:#bcded4!important}
+.camino-summary,.camino-result-path{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0}
+.camino-summary span,.camino-result-path span{padding:7px 10px;border:1px solid #74c7b0;border-radius:20px;background:#ffffff15;font-size:11px;font-weight:800}
+.camino-form{display:grid;gap:13px}
+.camino-form label:not(.camino-check){display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700}
+.camino-form input:not([type="checkbox"]){width:100%;background:#ffffff0f;border:1px solid #72aca0;border-radius:9px;color:#fff;font:500 16px "DM Sans",sans-serif;min-height:45px;padding:10px 12px}
+.camino-form input:focus-visible,.camino-choice:focus-visible,.camino-primary:focus-visible{outline:3px solid #c7f3d4;outline-offset:2px}
+.camino-check{display:flex;gap:10px;font-size:12px;line-height:1.5;color:#d6ebe3;align-items:flex-start}
+.camino-check input{margin-top:4px;flex:0 0 auto;accent-color:#68dbb4}
+.camino-error{color:#ffd2c6;font-size:12px}
+.camino-profile{background:linear-gradient(125deg,#123d3d,#175650);border:2px solid var(--profile-color);padding:18px;border-radius:17px;margin:18px 0}.camino-profile>span{font-size:10px;letter-spacing:.1em;color:#c3e6d4;font-weight:800}.camino-profile h1{font-size:clamp(37px,9vw,57px);color:var(--profile-color);margin:10px 0}.camino-profile strong{display:block;font-size:18px}.camino-profile p{font-size:13px;line-height:1.5;color:#e5f1ea}.camino-reco-meta{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}.camino-reco-meta span{border:1px solid #6eb99f;background:#36776666;padding:3px 9px;border-radius:15px;font-size:10px;font-weight:800}.camino-reco a{display:inline-block;margin-top:10px;color:#abedd0;font-size:12px;font-weight:700}.camino-drag-ghost{position:fixed;z-index:2000;transform:translate(-50%,-50%);height:55px;width:55px;display:grid;place-items:center;border:3px solid white;border-radius:10px;pointer-events:none;box-shadow:0 10px 25px #001e1d80;color:#073c3a;font-size:25px}.camino-results h2{font-size:17px;font-weight:900;margin:20px 0 12px}
+.camino-reco{background:#ffffff14;border:1px solid #7fbba873;border-radius:12px;padding:14px;font-size:13px;margin-bottom:9px}
+.camino-perk{border-radius:14px;background:#15887351;border:1px solid #74cab0;padding:14px;margin:19px 0;font-size:14px}
+.camino-perk p,.camino-next p{font-size:12px;line-height:1.5;color:#d6e8e3;margin:6px 0 0}
+.camino-ticket{border:2px dashed #a5e7c6;border-radius:13px;text-align:center;padding:17px 10px;display:grid;gap:9px;margin:18px 0}
+.camino-ticket span{font-size:10px;font-weight:900;letter-spacing:.11em}
+.camino-ticket strong{font-size:24px;letter-spacing:.06em;overflow-wrap:anywhere}
+.camino-ticket small{font-size:11px}
+.camino-next{margin-top:15px;padding:16px;border-radius:14px;background:#ffffff10}
+@keyframes camino-pulse{50%{outline-color:#c4efc4;outline-offset:6px}}
+@keyframes camino-place{0%{transform:translateY(-35px) scale(.88) skewY(-4deg);opacity:.4}70%{transform:translateY(3px) scale(1.08) skewY(-4deg)}100%{transform:translateY(0) scale(1) skewY(-4deg)}}
+@media(max-width:370px){.camino-panel{padding:18px 13px}.camino-choice{font-size:11px;min-height:75px;padding:8px 6px}.camino-piece-mark{width:25px;height:25px}.camino-track{margin-left:0;margin-right:0}.camino-start,.camino-finish{flex-basis:30px}}
+@media(prefers-reduced-motion:reduce){.camino-page *{animation:none!important;transition:none!important}}
+
+/* Resultado personalizado: títulos largos y respuestas completas */
+.camino-profile{min-width:0;overflow:hidden}
+.camino-profile h1{
+  max-width:100%;
+  font-size:clamp(26px,7vw,43px);
+  line-height:1.05;
+  letter-spacing:-.045em;
+  overflow-wrap:anywhere;
+  word-break:normal;
+  hyphens:auto;
+}
+.camino-result-path{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px;
+  margin:18px 0;
+}
+.camino-result-chip{
+  min-width:0;
+  padding:12px;
+  border:1px solid #74c7b0;
+  border-radius:13px;
+  background:#ffffff12;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.camino-result-chip small{
+  font-size:10px;
+  letter-spacing:.06em;
+  font-weight:800;
+  color:#9de2c9;
+}
+.camino-result-path .camino-result-chip span{
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:none;
+  font-size:12px;
+  line-height:1.4;
+  font-weight:700;
+  color:white;
+}
+/* Tarjetas recomendadas sin enlaces */
+.camino-reco{padding:15px;min-width:0}
+.camino-reco b{
+  display:block;
+  font-size:15px;
+  line-height:1.4;
+  overflow-wrap:break-word;
+  margin-top:8px;
+}
+.camino-reco-meta{margin-bottom:8px}
+/* Beneficio y contacto */
+.camino-perk{padding:19px}
+.camino-perk-eyebrow{
+  display:block;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.1em;
+  color:#bdf1d7;
+  margin-bottom:9px;
+}
+.camino-perk .camino-perk-total{
+  display:block;
+  font-family:Montserrat,"DM Sans",sans-serif;
+  font-weight:900;
+  line-height:1.05;
+  font-size:clamp(22px,6vw,32px);
+  color:#e4ffe9;
+  margin-bottom:14px;
+}
+.camino-perk p{font-size:13px;line-height:1.55;margin-top:9px}
+.camino-perk .camino-perk-terms{font-size:11px;color:#c3e3d7;margin-top:15px}
+.camino-contacto{
+  padding:18px;
+  margin-top:18px;
+  border-radius:14px;
+  border:1px solid #74c7b0;
+  background:#ffffff10;
+}
+.camino-contacto h2{margin:0 0 7px}
+.camino-contacto p{font-size:12px;line-height:1.5;color:#daeee7;margin:6px 0 12px}
+.camino-contacto-link{
+  display:block;
+  border-radius:10px;
+  padding:14px 12px;
+  background:#79d8aa;
+  color:#073c36;
+  text-decoration:none;
+  text-align:center;
+  font-size:13px;
+  font-weight:900;
+  line-height:1.3;
+  overflow-wrap:anywhere;
+}
+.camino-contacto-link:hover,.camino-contacto-link:focus-visible{background:#a2efc6}
+.camino-contacto .camino-contacto-note{font-size:11px;margin-top:10px;color:#c6e5dc}
+@media(max-width:410px){
+ .camino-result-path{grid-template-columns:1fr}
+ .camino-profile{padding:14px}
+ .camino-profile h1{font-size:clamp(23px,7vw,34px)}
+}
+
+/* Detalle del beneficio y pasos para activarlo */
+.camino-perk-breakdown{margin:14px 0 18px;padding:12px 14px;border:1px solid #8cddbb66;border-radius:12px;background:#093f3880}
+.camino-perk-breakdown p{margin:8px 0;line-height:1.55}
+.camino-perk-breakdown strong{color:#d6fbe2}
+.camino-perk-steps{margin:16px 0;padding:14px;border-radius:12px;background:#ffffff12}
+.camino-perk-steps h3{font-size:14px;font-weight:900;line-height:1.3;margin:0 0 8px}
+.camino-perk-steps p{margin:0 0 10px}
+.camino-perk-steps ol{padding-left:20px;margin:0;display:grid;gap:9px}
+.camino-perk-steps li{font-size:12px;line-height:1.5;padding-left:2px;color:#e5f8ed}
+
+/* Resultado simplificado: una sola explicación y una acción */
+.camino-perk-summary{font-size:14px!important;line-height:1.6!important;margin:14px 0!important}
+.camino-perk-plus{color:#bef6d5;font-size:18px;font-weight:900}
+.camino-perk-action{font-size:13px!important;line-height:1.6!important;margin:15px 0!important}
+.camino-merch{padding:12px 16px;border:1px dashed #83d4b2;border-radius:13px;margin:16px 0;font-size:13px;line-height:1.5;color:#e4f7ed}
+.camino-contacto{margin-top:15px}
+
+/* Recompensa y recomendación a personas cercanas */
+.camino-merch strong{display:block;font-size:13px;font-weight:900;color:#b8f4d1;margin-bottom:6px;letter-spacing:.03em}
+.camino-merch p{margin:0;font-size:12px;line-height:1.5}
+.camino-compartir{margin:16px 0;padding:18px;border-radius:14px;background:#ffffff0d;border:1px solid #6db59f7f}
+.camino-compartir h2{font-size:16px;line-height:1.3;margin:0 0 12px;font-weight:900}
+.camino-compartir p{color:#e0f1e9;font-size:12px;line-height:1.55;margin:9px 0}
+.camino-compartir .camino-compartir-aclaracion{font-size:10px;color:#b9d8cc}
+.camino-compartir-link{display:block;margin-top:14px;text-align:center;text-decoration:none;background:#ffffff12;border:1px solid #8ecfba;color:#dcfae9;border-radius:10px;padding:12px 8px;font-size:12px;font-weight:900}
+.camino-compartir-link:hover,.camino-compartir-link:focus-visible{background:#ffffff26}
+
+/* Pantalla de recompensa separada del resultado */
+.camino-reward-screen{
+  text-align:center;
+  padding:clamp(28px,7vw,43px) clamp(19px,5vw,30px);
+}
+.camino-reward-icon{
+  width:78px;height:78px;border-radius:50%;
+  display:grid;place-items:center;
+  margin:0 auto 22px;
+  background:#8be4b7;color:#064539;
+  font-size:41px;
+  box-shadow:0 0 0 9px #8be4b724;
+}
+.camino-reward-screen h1{
+  font-family:Montserrat,"DM Sans",sans-serif;
+  font-size:clamp(29px,8vw,43px);
+  line-height:1.08;
+  letter-spacing:-.045em;
+  overflow-wrap:anywhere;
+  margin:16px 0 18px;
+}
+.camino-reward-screen h1 span{color:#8be4b7}
+.camino-reward-screen>p{font-size:16px;line-height:1.55;color:#f0fff7;margin:0 0 14px}
+.camino-reward-screen .camino-reward-note{
+  color:#b4d9cb;font-size:12px;
+  margin:0 0 30px;
+}
+.camino-reward-screen .camino-primary{margin-top:4px}
+
+/* Personaje animado que avanza cada vez que se encastra una baldosa */
+.camino-track{position:relative;--walker-edge:38px}
+.camino-walker{
+  position:absolute;
+  z-index:4;
+  left:calc(var(--walker-edge) + (100% - 2 * var(--walker-edge)) * var(--walker-progress) / 4);
+  top:-44px;
+  width:44px;
+  height:70px;
+  transform:translateX(-50%);
+  transition:left 760ms cubic-bezier(.4,0,.2,1);
+  pointer-events:none;
+  filter:drop-shadow(0 3px 3px #002f2e66);
+}
+.camino-walker-figure{display:block;width:44px;height:70px}
+.camino-walker-leg,.camino-walker-arm{
+  transform-box:fill-box;
+  transform-origin:top center;
+}
+.camino-walker.is-walking .camino-walker-leg.left,
+.camino-walker.is-walking .camino-walker-arm.right{
+  animation:camino-step-forward 300ms ease-in-out infinite alternate;
+}
+.camino-walker.is-walking .camino-walker-leg.right,
+.camino-walker.is-walking .camino-walker-arm.left{
+  animation:camino-step-back 300ms ease-in-out infinite alternate;
+}
+.camino-walker.is-walking .camino-walker-figure{
+  animation:camino-walk-bounce 300ms ease-in-out infinite alternate;
+}
+@keyframes camino-step-forward{from{transform:rotate(-24deg)}to{transform:rotate(24deg)}}
+@keyframes camino-step-back{from{transform:rotate(24deg)}to{transform:rotate(-24deg)}}
+@keyframes camino-walk-bounce{from{transform:translateY(0)}to{transform:translateY(-3px)}}
+@media(max-width:370px){.camino-track{--walker-edge:30px}.camino-walker{width:36px;height:58px;top:-37px}.camino-walker-figure{width:36px;height:58px}}
+@media(prefers-reduced-motion:reduce){.camino-walker{transition:none}.camino-walker *{animation:none!important}}
+
+/* Camino: un único personaje alineado con el centro de las cuatro baldosas */
+.camino-track{--walker-edge:0px}
+.camino-start,.camino-person-head,.camino-person-body{display:none}
+.camino-walker{
+  left:calc((100% - 38px) * var(--walker-fraction));
+  top:-40px;
+}
+.camino-stage-icon{display:block;width:24px;height:24px;color:#0a4843}
+.camino-tile-symbol{display:grid;place-items:center}
+.camino-track-tile.built .camino-tile-symbol{color:#073e3a}
+@media(max-width:370px){
+  .camino-walker{
+    left:calc((100% - 30px) * var(--walker-fraction));
+    top:-30px;
+  }
+  .camino-stage-icon{width:19px;height:19px}
+}
+
+/* Paleta vibrante compartida entre portada, recorrido y opciones */
+.camino-mini-road .camino-mini-tile{
+  background:var(--tile-color)!important;
+  border:2px solid #f8fff9!important;
+  min-width:0;
+  min-height:43px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  box-shadow:0 4px 0 #072c2c88;
+}
+.camino-mini-tile:nth-child(3){color:#123835}
+.camino-mini-tile .camino-stage-icon{width:21px;height:21px;color:inherit}
+.camino-mini-road .camino-destination{
+  background:var(--destination-color);
+  border-radius:6px;
+  padding:10px 5px;
+  color:#fff;
+  font-size:10px;
+  text-align:center;
+  line-height:1.2;
+  flex:0 0 auto;
+}
+.camino-choice{
+  background:var(--choice-color);
+  color:var(--choice-ink);
+  border:2px solid #ffffff70;
+  font-size:13px;
+  box-shadow:0 4px 0 #051f2373;
+}
+.camino-choice:hover{filter:brightness(1.06)}
+.camino-choice.picked{
+  background:var(--choice-color);
+  color:var(--choice-ink);
+  border:2px solid #fff;
+  box-shadow:0 0 0 3px #ffffff50,0 5px 0 #051f2373;
+}
+.camino-piece-mark{
+  background:#ffffff2b;
+  border:1px solid currentColor;
+  color:inherit;
+  width:36px;
+  height:36px;
+  font-size:22px;
+  box-shadow:none;
+}
+.camino-piece-mark svg{width:21px;height:21px;stroke-width:2.2}
+.camino-track-tile.built{
+  background:var(--tile-color);
+  border-color:#fff;
+}
+.camino-track-tile.arriving{
+  background:var(--tile-color);
+  border-color:#fff;
+}
+.camino-track-tile.built .camino-tile-symbol{
+  color:white;
+}
+.camino-track-tile.built:nth-child(3) .camino-tile-symbol{color:#fff}
+.camino-tile-symbol svg{width:24px;height:24px;stroke-width:2.2}
+.camino-drag-ghost{color:#fff}
+.camino-drag-ghost svg{width:28px;height:28px;stroke-width:2.2}
+@media(max-width:370px){
+  .camino-piece-mark{width:30px;height:30px}
+  .camino-choice{font-size:11px}
+  .camino-mini-road .camino-destination{font-size:9px;padding:9px 3px}
+}
+
+/* Opción A: sendero orgánico con huellas coloridas en lugar de baldosas */
+.camino-preview-path,.camino-nature-track{
+  position:relative;
+  isolation:isolate;
+  width:100%;
+  overflow:visible;
+}
+.camino-preview-path{
+  height:165px;
+  margin:14px 0 25px;
+  border-radius:18px;
+  background:radial-gradient(ellipse at 22% 67%,#1a6d5650,transparent 40%),
+             radial-gradient(ellipse at 85% 30%,#64a9781c,transparent 46%);
+}
+.camino-nature-track{
+  height:196px;
+  margin:14px 0 2px;
+  background:radial-gradient(ellipse at 30% 65%,#307b543b,transparent 44%),
+             radial-gradient(ellipse at 80% 32%,#326e4d40,transparent 42%);
+}
+.camino-path-curve{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  width:100%;
+  height:100%;
+  overflow:visible;
+  pointer-events:none;
+}
+.camino-path-curve path{
+  fill:none;
+  stroke:#a6d9bb;
+  stroke-width:3.8;
+  stroke-dasharray:2 1.5;
+  stroke-linecap:round;
+  opacity:.8;
+}
+.camino-foot-step,.camino-preview-foot{
+  position:absolute;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transform:translate(-50%,-50%);
+  color:var(--foot-color);
+}
+.camino-foot-step{
+  z-index:2;
+  width:59px;
+  height:80px;
+  opacity:.42;
+  filter:drop-shadow(0 3px 2px #001f2080);
+  transition:opacity .25s,filter .25s;
+}
+.camino-foot-step.current{
+  opacity:1;
+  filter:drop-shadow(0 0 7px var(--foot-color)) drop-shadow(0 2px 2px #002b2b);
+}
+.camino-foot-step.current .camino-footprint-art{
+  animation:camino-foot-glow 1.25s ease-in-out infinite alternate;
+}
+.camino-foot-step.built{opacity:1}
+.camino-foot-step.arriving{animation:camino-foot-arrive .6s ease-out both}
+.camino-preview-foot{z-index:2;width:47px;height:63px;filter:drop-shadow(0 3px 3px #00312f80)}
+.camino-footprint-art{position:relative;display:block;width:100%;height:100%}
+.camino-footprint-art>svg{display:block;width:100%;height:100%;overflow:visible}
+.camino-footprint-symbol{
+  position:absolute;
+  z-index:1;
+  left:50%;
+  top:61%;
+  transform:translate(-50%,-50%);
+  color:white;
+  font-size:22px;
+  font-weight:900;
+  line-height:1;
+}
+.camino-footprint-symbol>svg{width:21px;height:21px;stroke-width:2.5}
+.camino-preview-foot .camino-footprint-symbol>svg{width:16px;height:16px}
+.camino-foot-step:nth-of-type(3) .camino-footprint-symbol,.camino-preview-foot:nth-of-type(3) .camino-footprint-symbol{color:#1d302e}
+.camino-path-destination,.camino-preview-destination{
+  position:absolute;
+  z-index:2;
+  right:0;
+  top:36%;
+  transform:translateY(-50%);
+  display:flex;
+  align-items:center;
+  gap:4px;
+  font:900 11px "DM Sans",sans-serif;
+  color:#d8edff;
+}
+.camino-path-destination svg{width:15px;height:15px;color:#6e91fa}
+.camino-preview-destination{
+  right:0;
+  top:22%;
+  background:var(--foot-color,#425db2);
+  padding:6px 8px;
+  border-radius:8px;
+  font-size:10px;
+  color:white;
+}
+.camino-nature-track .camino-walker{
+  z-index:5;
+  top:0;
+  transform:translate(-50%,-88%);
+  transition:left 760ms cubic-bezier(.4,0,.2,1),top 760ms cubic-bezier(.4,0,.2,1);
+}
+@keyframes camino-foot-glow{from{transform:scale(1)}to{transform:scale(1.1)}}
+@keyframes camino-foot-arrive{from{opacity:.6;transform:translate(-50%,-65%) scale(.83)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@media(max-width:410px){
+  .camino-preview-path{height:144px}
+  .camino-nature-track{height:177px}
+  .camino-preview-foot{width:37px;height:54px}
+  .camino-foot-step{width:47px;height:68px}
+  .camino-footprint-symbol{font-size:18px}
+  .camino-footprint-symbol>svg{width:18px;height:18px}
+  .camino-nature-track .camino-walker{width:36px;height:58px;transform:translate(-50%,-91%)}
+}
+@media(prefers-reduced-motion:reduce){
+  .camino-foot-step,.camino-nature-track .camino-walker{animation:none!important;transition:none!important}
+}
+
+/* Sendero ilustrado horizontal con pares de pisadas humanas */
+.camino-preview-path,.camino-nature-track{
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 12% 20%,#30744f37,transparent 32%),
+    radial-gradient(ellipse at 91% 83%,#244f3d52,transparent 32%),
+    #10392f;
+  border-radius:16px;
+}
+.camino-preview-path{height:184px;margin:14px 0 24px}
+.camino-nature-track{height:203px;margin:14px 0 12px}
+.camino-forest-art{
+  position:absolute;
+  z-index:0;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+}
+.camino-forest-road-edge,
+.camino-forest-road{
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  vector-effect:non-scaling-stroke;
+}
+.camino-forest-road-edge{stroke:#5c514b;stroke-width:64px}
+.camino-forest-road{stroke:#90766b;stroke-width:57px}
+.camino-forest-trees{fill:#416b31;opacity:.86}
+.camino-forest-trees .camino-tree-trunk{
+  fill:none;
+  stroke:#7d6d60;
+  stroke-width:8px;
+}
+.camino-foot-step,.camino-preview-foot{
+  z-index:2;
+  color:var(--foot-color);
+  width:62px;
+  height:52px;
+  transform:translate(-50%,-50%);
+}
+.camino-preview-foot{width:54px;height:45px}
+.camino-foot-step{
+  opacity:.72;
+  filter:drop-shadow(0 2px 1px #1d1b1c99);
+  transition:opacity .2s ease,filter .2s ease,color .2s ease;
+}
+.camino-foot-step.built,.camino-foot-step.selected{opacity:1}
+.camino-foot-step.current{
+  opacity:1;
+  filter:drop-shadow(0 0 6px #f0fff4) drop-shadow(0 2px 2px #231d1f);
+}
+.camino-foot-step.current .camino-footprint-art{animation:none}
+.camino-shoeprints{display:block;width:100%;height:100%}
+.camino-preview-destination{
+  z-index:3;
+  right:2%;
+  top:17%;
+  padding:6px 9px;
+  background:#425db2;
+  box-shadow:0 2px 6px #0005;
+}
+.camino-path-destination{
+  z-index:3;
+  top:17%;
+  right:2%;
+  padding:5px 7px;
+  border-radius:6px;
+  background:#17493bdc;
+}
+.camino-path-destination svg{color:#a9c0ff}
+.camino-nature-track .camino-walker{
+  z-index:4;
+  transform:translate(-50%,-92%) scale(.79);
+}
+@media(max-width:410px){
+  .camino-preview-path{height:151px}
+  .camino-nature-track{height:176px}
+  .camino-foot-step{width:47px;height:41px}
+  .camino-preview-foot{width:43px;height:36px}
+  .camino-nature-track .camino-walker{transform:translate(-50%,-90%) scale(.7)}
+  .camino-preview-destination{font-size:9px}
+}
+
+/* Sistema visual unificado · Montserrat + DM Sans · todas las pantallas */
+.camino-page{
+  --camino-bg:#073e39;
+  --camino-surface:#10443e;
+  --camino-surface-soft:#184e47;
+  --camino-text:#f6fff9;
+  --camino-muted:#c9e2d8;
+  --camino-accent:#7ee0b5;
+  background:linear-gradient(160deg,#073d39,#005c4d 72%,#063d39);
+  color:var(--camino-text);
+  font-family:"DM Sans",sans-serif;
+  font-size:14px;
+  line-height:1.5;
+}
+.camino-page :is(p,label,span,a,button,input,small,li){
+  font-family:"DM Sans",sans-serif;
+}
+.camino-page :is(h1,h2,h3),
+.camino-page .camino-perk-total,
+.camino-page .camino-profile strong{
+  font-family:Montserrat,"DM Sans",sans-serif;
+  font-weight:800;
+  letter-spacing:-.025em;
+  line-height:1.15;
+}
+.camino-page .camino-eyebrow,
+.camino-page .camino-step-head,
+.camino-page .camino-event,
+.camino-page .camino-board-label,
+.camino-page .camino-perk-eyebrow{
+  color:var(--camino-accent);
+  font-family:"DM Sans",sans-serif;
+  font-weight:800;
+  letter-spacing:.055em;
+  font-size:11px;
+}
+.camino-page .camino-panel{
+  background:var(--camino-surface);
+  border:1px solid #87cbb03d;
+  border-radius:20px;
+  box-shadow:0 12px 34px #00292225;
+  padding:clamp(18px,4.5vw,26px);
+}
+.camino-page .camino-intro h1{
+  font-size:clamp(32px,8vw,48px);
+  line-height:1.06;
+  letter-spacing:-.04em;
+  margin:20px 0;
+}
+.camino-page .camino-question{
+  font-family:Montserrat,"DM Sans",sans-serif;
+  font-size:clamp(22px,5.5vw,29px);
+  font-weight:800;
+}
+.camino-page .camino-help,
+.camino-page .camino-intro p{
+  font-size:14px;
+  line-height:1.55;
+  color:var(--camino-muted);
+}
+.camino-page .camino-primary{
+  font:800 13px/1.3 "DM Sans",sans-serif;
+  background:linear-gradient(95deg,#3cbaa0,#90e3b9);
+  border-radius:10px;
+  box-shadow:none;
+}
+.camino-page .camino-progress span{
+  background:#4d8479;
+}
+.camino-page .camino-progress span.active{
+  background:var(--camino-accent);
+}
+.camino-page .camino-form input:not([type="checkbox"]){
+  background:#ffffff09;
+  border:1px solid #8ebfb272;
+  font-family:"DM Sans",sans-serif;
+}
+.camino-page .camino-board{
+  background:#103c37;
+  border:1px solid #81bfa74b;
+  border-radius:15px;
+  box-shadow:none;
+  padding:12px 10px 16px;
+}
+.camino-page .camino-board-label{
+  text-align:left;
+  margin:2px 4px 0;
+}
+.camino-page .camino-preview-path,
+.camino-page .camino-nature-track{
+  border-radius:12px;
+  box-shadow:none;
+}
+.camino-page .camino-forest-road-edge{stroke:#66534d;stroke-width:62px}
+.camino-page .camino-forest-road{stroke:#8d766b;stroke-width:56px}
+.camino-page .camino-forest-trees{opacity:.67}
+.camino-page .camino-preview-destination,
+.camino-page .camino-path-destination{
+  z-index:3;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  background:#425db2;
+  color:#fff;
+  border-radius:8px;
+  font:800 11px/1.2 "DM Sans",sans-serif;
+  letter-spacing:.02em;
+  padding:7px 9px;
+  top:16%;
+  right:2%;
+  box-shadow:none;
+}
+.camino-page .camino-preview-destination svg,
+.camino-page .camino-path-destination svg{
+  color:#fff;
+  width:14px;
+  height:14px;
+}
+.camino-page .camino-choice{
+  border:1px solid #ffffff73;
+  border-radius:11px;
+  box-shadow:none;
+  font:700 13px/1.32 "DM Sans",sans-serif;
+  min-height:67px;
+}
+.camino-page .camino-choice.picked{
+  border:2px solid white;
+  box-shadow:0 0 0 2px #ffffff3b;
+}
+.camino-page .camino-piece-mark{
+  background:transparent;
+  border:0;
+  width:28px;
+  height:28px;
+  padding:0;
+}
+.camino-page .camino-piece-mark svg{width:24px;height:24px}
+.camino-page .camino-road-caption{
+  font-size:12px;
+  color:var(--camino-muted);
+  margin:3px 0 0;
+}
+.camino-page .camino-reward-screen{
+  text-align:center;
+}
+.camino-page .camino-reward-icon{
+  box-shadow:none;
+  width:66px;
+  height:66px;
+  margin-bottom:19px;
+  font-size:34px;
+}
+.camino-page .camino-reward-screen h1{
+  font-size:clamp(28px,7vw,39px);
+  line-height:1.12;
+}
+.camino-page .camino-reward-screen>p{
+  color:var(--camino-text);
+  font-size:15px;
+  margin-bottom:22px;
+}
+.camino-page .camino-results h2,
+.camino-page .camino-contacto h2,
+.camino-page .camino-compartir h2{
+  font:800 17px/1.3 Montserrat,"DM Sans",sans-serif;
+  margin:0 0 10px;
+}
+.camino-page .camino-profile{
+  background:var(--camino-surface-soft);
+  border:0;
+  border-left:4px solid var(--profile-color);
+  border-radius:12px;
+  padding:17px;
+}
+.camino-page .camino-profile h1{
+  font-family:Montserrat,"DM Sans",sans-serif;
+  font-weight:800;
+  line-height:1.07;
+  font-size:clamp(25px,7vw,40px);
+}
+.camino-page .camino-result-chip{
+  border:1px solid #91c7b53c;
+  background:#ffffff08;
+  border-radius:10px;
+}
+.camino-page .camino-reco{
+  background:#ffffff08;
+  border:1px solid #91c7b53c;
+  padding:13px 15px;
+  border-radius:11px;
+}
+.camino-page .camino-reco-meta span{
+  border:0;
+  background:#a0d9bf1d;
+  border-radius:8px;
+}
+.camino-page .camino-perk{
+  background:var(--camino-surface-soft);
+  border:0;
+  border-radius:13px;
+  padding:18px;
+}
+.camino-page .camino-contacto,
+.camino-page .camino-compartir{
+  background:#ffffff09;
+  border:1px solid #91c7b53c;
+  border-radius:13px;
+  padding:17px;
+}
+.camino-page .camino-contacto-link{
+  background:#83deb1;
+  border-radius:9px;
+  font:800 12px/1.4 "DM Sans",sans-serif;
+}
+.camino-page .camino-compartir-link{
+  border:1px solid #98d4bd7d;
+  border-radius:9px;
+  font:800 12px/1.4 "DM Sans",sans-serif;
+}
+@media(max-width:410px){
+  .camino-page .camino-panel{padding:18px 14px}
+  .camino-page .camino-choice{min-height:62px;padding:9px}
+  .camino-page .camino-piece-mark{width:25px;height:25px}
+  .camino-page .camino-piece-mark svg{width:22px;height:22px}
+  .camino-page .camino-preview-destination,
+  .camino-page .camino-path-destination{font-size:9px;gap:4px;padding:6px}
+}
+
+/* Pisadas orientadas hacia la derecha siguiendo cada curva del sendero */
+.camino-preview-foot .camino-shoeprints,
+.camino-foot-step .camino-shoeprints{
+  transform:rotate(var(--foot-rotate,90deg));
+  transform-origin:50% 50%;
+}
+/* Explicación simple del propósito del juego desde la portada */
+.camino-page .camino-intro .camino-intro-reward{
+  margin:-4px 0 18px;
+  padding:12px 14px;
+  background:#ffffff0b;
+  border-left:3px solid var(--camino-accent);
+  border-radius:0 10px 10px 0;
+  font-size:13px;
+  line-height:1.55;
+  color:#e3f4eb;
+}
+.camino-intro-reward strong{
+  color:#a6efc7;
+  font-weight:800;
+}
+/* Una sola instrucción, visible encima de las opciones */
+.camino-choice-help{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  margin:17px 0 10px;
+  padding:0 2px;
+}
+.camino-choice-help strong{
+  font:800 13px/1.3 "DM Sans",sans-serif;
+  color:#aff1d0;
+  letter-spacing:.01em;
+}
+.camino-choice-help span{
+  font:500 13px/1.4 "DM Sans",sans-serif;
+  color:#dcece5;
+}
+.camino-page .camino-choices{margin-top:8px}
+.camino-page .camino-choice{cursor:grab;touch-action:none}
+.camino-page .camino-choice:active{cursor:grabbing}
+.camino-page .camino-choice:focus-visible{
+  outline:3px solid #e3fcee;
+  outline-offset:3px;
+}
+@media(max-width:410px){
+ .camino-choice-help strong{font-size:12px}
+ .camino-choice-help span{font-size:12px}
+ .camino-page .camino-intro .camino-intro-reward{font-size:12px}
+}
+
+/* Portada: mensaje breve con tres motivos para recorrer el camino */
+.camino-page .camino-intro h1{
+  margin:18px 0 20px;
+  max-width:490px;
+  font-size:clamp(28px,7.3vw,43px);
+}
+.camino-intro-benefits{
+  display:grid;
+  gap:15px;
+  margin:4px 0 22px;
+  padding:16px 0 0;
+  border-top:1px solid #ffffff2c;
+}
+.camino-intro-benefit{
+  display:grid;
+  grid-template-columns:34px minmax(0,1fr);
+  align-items:center;
+  gap:13px;
+}
+.camino-page .camino-intro-benefit p{
+  margin:0;
+  font-size:14px;
+  line-height:1.5;
+  color:#f0fbf5;
+}
+.camino-intro-benefit .camino-shoeprints{
+  width:32px;
+  height:29px;
+  color:#28b9ac;
+  transform:rotate(90deg);
+}
+.camino-intro-benefit-icon{
+  width:28px;
+  height:28px;
+  color:#85e4b9;
+  justify-self:center;
+}
+.camino-intro-gift-icon{color:#f3a800}
+.camino-intro-graduation-icon{color:#b644c5}
+.camino-page .camino-intro .camino-preview-path{
+  margin:12px 0 21px;
+}
+@media(max-width:410px){
+  .camino-intro-benefits{gap:12px;margin-bottom:17px}
+  .camino-intro-benefit{grid-template-columns:29px minmax(0,1fr);gap:10px}
+  .camino-page .camino-intro-benefit p{font-size:13px}
+  .camino-intro-benefit-icon{width:24px;height:24px}
+  .camino-intro-benefit .camino-shoeprints{width:28px;height:25px}
+}
+
+/* Contexto de la experiencia: breve, legible y separado de los beneficios */
+.camino-page .camino-intro .camino-intro-context{
+  margin:-7px 0 19px;
+  color:#d4eadf;
+  font-size:15px;
+  line-height:1.55;
+  max-width:470px;
+}
+@media(max-width:410px){
+  .camino-page .camino-intro .camino-intro-context{
+    margin:-4px 0 16px;
+    font-size:14px;
+  }
+}
+
+/* El tramo resaltado del título conserva exactamente la misma tipografía y peso. */
+.camino-page .camino-intro h1 span{
+  font-family:inherit;
+  font-weight:inherit;
+  font-size:inherit;
+  line-height:inherit;
+  letter-spacing:inherit;
+}
+
+/* Registro: destacar HUELLAS sin alterar grosor ni tipografía del título. */
+.camino-page .camino-registration-title span{
+  color:#7bdcad;
+  font-family:inherit;
+  font-weight:inherit;
+  font-size:inherit;
+  line-height:inherit;
+  letter-spacing:inherit;
+}
+
+/* Subtítulo del registro: legible sin competir con el título principal. */
+.camino-page .camino-panel .camino-eyebrow:has(+ .camino-registration-title){
+  font-size:15px;
+  font-weight:700;
+  letter-spacing:.015em;
+}
+
+/* Recompensa: títulos uniformes, regalo protagonista y jerarquía clara */
+.camino-page .camino-reward-icon{
+  background:#8be4b7;
+  color:#10443e;
+  box-shadow:none;
+}
+.camino-page .camino-reward-icon svg{
+  width:35px;
+  height:35px;
+}
+.camino-page .camino-reward-screen h1,
+.camino-page .camino-reward-screen h2{
+  font-family:Montserrat,"DM Sans",sans-serif;
+  font-weight:800;
+  letter-spacing:-.035em;
+  line-height:1.15;
+}
+.camino-page .camino-reward-screen h1{
+  color:#ffffff;
+  font-size:clamp(24px,5.8vw,32px);
+  margin:0 0 10px;
+}
+.camino-page .camino-reward-screen h2{
+  color:#86e4b7;
+  font-size:clamp(23px,5.5vw,30px);
+  margin:0 0 20px;
+}
+.camino-page .camino-reward-screen>p{
+  margin:0 0 24px;
+}
+
+/* Inicio de resultados: un solo encabezado y lectura de perfil clara */
+.camino-page .camino-results > .camino-eyebrow{
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:.025em;
+}
+.camino-page .camino-results .camino-profile{
+  margin:12px 0 14px;
+}
+.camino-page .camino-results .camino-profile h1{
+  margin:0 0 10px;
+}
+.camino-page .camino-results .camino-profile strong{
+  display:block;
+  color:#b9f0d5;
+  font-size:clamp(15px,3.5vw,18px);
+  margin-bottom:9px;
+}
+.camino-page .camino-results .camino-profile p{
+  margin:0;
+}
+.camino-page .camino-result-personal{
+  margin:12px 0 6px;
+  font-size:14px;
+  line-height:1.55;
+  color:#f0fff7;
+}
+.camino-page .camino-result-disclaimer{
+  margin:0 0 18px;
+  color:#bcd7cd;
+  font-size:12px;
+  line-height:1.45;
+}
