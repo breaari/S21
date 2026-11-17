@@ -20,7 +20,7 @@ El modo anterior (guardar directo en Sheets) permanece activo mientras `ACCENTUR
 2. **Migración PostgreSQL**: ejecutar `sql/accenture_camino_pg.sql` en la base elegida (por ejemplo `s21_memotest`), con usuario administrador.
    Otorgar `GRANT SELECT, INSERT, UPDATE ON accenture_participantes TO s21_memotest_app;` si esa es la cuenta que utiliza el backend.
 3. **Configuración del backend:** usar credenciales existentes o variables de PostgreSQL. Configurar:
-   - `ACCENTURE_DATABASE_URL`: conexión propia, **o** `ACCENTURE_PG_DATABASE` (predeterminado `s21_memotest`) junto con `PGHOST`, `PGPORT`, `PGUSER`, `PGPASSWORD`.
+   - El módulo usa `ACCENTURE_DATABASE_URL` si existe; si no, usa `ACCENTURE_PG_HOST/PORT/DATABASE/USER/PASSWORD` o las variables ya existentes `MEMOTEST_DB_HOST/PORT/NAME/USER/PASSWORD` del servidor. No es necesario duplicar credenciales.
    - `ACCENTURE_SHEET_ID`: ID del Sheet; si no está definido toma `RULETA_SHEET_ID`.
    - `ACCENTURE_SHEET_NAME`: opcional, predeterminado `Accenture 2026`.
    - `ACCENTURE_SYNC_INTERVAL_MS`: opcional, predeterminado `5000`.
