@@ -757,6 +757,11 @@
   border-radius:13px;
   padding:18px;
 }
+.camino-page .camino-perk .camino-perk-eligibility{
+  margin:12px 0 3px;
+  color:#e5fff0;
+  font:700 13px/1.5 "DM Sans",sans-serif;
+}
 .camino-page .camino-contacto,
 .camino-page .camino-compartir{
   background:#ffffff09;
