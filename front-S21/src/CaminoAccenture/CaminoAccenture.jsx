@@ -91,7 +91,6 @@ export function CaminoAccenture(){
   const step=CAMINO_STEPS[stepIndex];
   const profile=PERFILES[answers.aspiracion]||PERFILES.crecer;
   const recommendation=recomendarFormaciones(answers);
-  const chosen=s=>getOption(s,answers[s.id]);
 
   async function begin(event){
     event.preventDefault();
@@ -307,12 +306,6 @@ export function CaminoAccenture(){
         <div className="camino-profile"><h1>{profile.titulo}</h1><strong>{profile.lema}</strong><p>{profile.descripcion}</p></div>
         <p className="camino-result-personal">{form.nombre}, descubrí las oportunidades de formación que pueden acercarte a tu próxima meta.</p>
         <p className="camino-result-disclaimer">Este perfil es orientativo y se basa en tus respuestas.</p>
-        <div className="camino-result-path">
-          {CAMINO_STEPS.map(s=><div className="camino-result-chip" key={s.id}>
-            <small>{s.eyebrow}</small>
-            <span>{chosen(s)?.label}</span>
-          </div>)}
-        </div>
         <h2>Tu próximo paso puede empezar acá</h2>
         <p className="camino-help">{recommendation.orientacion}</p>
         {recommendation.opciones.map(item=><div key={item.nombre} className="camino-reco">
@@ -323,19 +316,20 @@ export function CaminoAccenture(){
         <div className="camino-perk">
           <span className="camino-perk-eyebrow">BENEFICIO EXCLUSIVO ACCENTURE</span>
           <strong className="camino-perk-total">40% OFF EN ARANCELES</strong>
+          <p className="camino-perk-eligibility">Exclusivo para nuevos alumnos que se inscriban para comenzar en marzo de 2027.</p>
           <p className="camino-perk-summary">
             <b>20% Accenture</b> (10% por convenio + 10% EXTRA por haber construido tu camino)
             <span className="camino-perk-plus"> + </span>
             <b>20% por inscripción temprana.</b>
           </p>
           <p className="camino-perk-action">Guardá una captura de esta pantalla y contactanos dentro de los próximos <b>7 días</b> para gestionar tu inscripción con nuestros asesores.</p>
-          <p className="camino-perk-terms">Beneficio exclusivo para inscripciones gestionadas a través de nuestros asesores de Universidad Siglo 21. Sujeto a vigencia, programas alcanzados y condiciones comerciales aplicables.</p>
+          <p className="camino-perk-terms">Beneficio exclusivo para inscripciones gestionadas a través de nuestros asesores de Universidad Siglo 21 Mar del Plata. Sujeto a vigencia, programas alcanzados y condiciones comerciales aplicables.</p>
         </div>
         <div className="camino-contacto">
           <h2>¿Querés aprovechar tu beneficio?</h2>
           <p>Universidad Siglo 21 · Mar del Plata</p>
           <a className="camino-contacto-link" href="https://wa.me/5492235501021?text=Hola%2C%20particip%C3%A9%20de%20la%20experiencia%20%C2%ABTu%20pr%C3%B3xima%20meta%20est%C3%A1%20a%20un%20paso%C2%BB%20en%20Accenture%20y%20quiero%20acceder%20a%20mi%20beneficio%20especial%20de%20inscripci%C3%B3n." target="_blank" rel="noopener noreferrer" aria-label="Enviar consulta por WhatsApp al 223 550 1021">
-            QUIERO ACTIVAR MI BENEFICIO · 223 550 1021
+            QUIERO MI BENEFICIO
           </a>
         </div>
         <div className="camino-compartir">
