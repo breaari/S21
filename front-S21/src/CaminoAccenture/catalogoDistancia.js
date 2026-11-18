@@ -2,11 +2,11 @@
 // Verificar aperturas, requisitos específicos y disponibilidad 2027 antes de publicar.
 // Todas las referencias incluidas son programas listados como virtuales/a distancia.
 export const PERFILES={
- liderar:{titulo:"LIDERAR",lema:"Te inspira impulsar a otros.",descripcion:"Te entusiasma coordinar personas, asumir desafíos y hacer que las ideas avancen.",color:"#bc9fea"},
- innovar:{titulo:"INNOVAR",lema:"Te motiva crear nuevas soluciones.",descripcion:"Te atrae descubrir nuevas soluciones, explorar herramientas y cambiar lo establecido.",color:"#80cce5"},
- crecer:{titulo:"CRECER",lema:"Te entusiasma seguir creciendo.",descripcion:"Buscás ampliar tus capacidades y sumar oportunidades para tu desarrollo profesional.",color:"#91d3a2"},
- emprender:{titulo:"EMPRENDER",lema:"Te entusiasma transformar ideas en proyectos.",descripcion:"Te entusiasma impulsar iniciativas, detectar oportunidades y construir algo propio.",color:"#f0c281"},
- especialista:{titulo:"ESPECIALIZARME",lema:"Querés llevar tus conocimientos más lejos.",descripcion:"Te interesa dominar conocimientos y sumar herramientas de alto nivel en tu área.",color:"#88a9ed"}
+ liderar:{titulo:"LIDERAR",lema:"Te inspira impulsar a otros.",descripcion:"Disfrutás coordinar personas, asumir desafíos y convertir ideas en acciones.",color:"#bc9fea"},
+ innovar:{titulo:"INNOVAR",lema:"Te motiva crear nuevas soluciones.",descripcion:"Explorás herramientas, cuestionás lo establecido y buscás maneras diferentes de resolver desafíos.",color:"#80cce5"},
+ crecer:{titulo:"CRECER",lema:"Te entusiasma seguir creciendo.",descripcion:"Buscás ampliar tus capacidades y abrir nuevas oportunidades para tu desarrollo profesional.",color:"#91d3a2"},
+ emprender:{titulo:"EMPRENDER",lema:"Te entusiasma transformar ideas en proyectos.",descripcion:"Tenés iniciativa para detectar oportunidades y construir algo propio.",color:"#f0c281"},
+ especialista:{titulo:"ESPECIALIZARME",lema:"Querés llevar tus conocimientos más lejos.",descripcion:"Buscás profundizar en tu área y sumar herramientas para convertirte en referente.",color:"#88a9ed"}
 };
 const lista=[
  ["Ingeniería en Software","Grado","tecnologia",["innovar","especialista","crecer"],"ingenieria-en-software"],
