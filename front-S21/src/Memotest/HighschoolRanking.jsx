@@ -48,6 +48,6 @@ export function HighschoolRanking() {
     <strong>{formato(p)}</strong>
    </div>)}
   </section></div>
-  <footer className="hs-ranking-footer"><a href="/memotest/higschool">PARTICIPAR DEL DESAFÍO</a></footer>
+  <footer className="hs-ranking-footer"><a href="/memotest/highschool">PARTICIPAR DEL DESAFÍO</a></footer>
  </main>;
 }
