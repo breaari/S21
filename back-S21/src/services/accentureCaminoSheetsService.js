@@ -53,7 +53,7 @@ async function guardarParticipante(participante){
   const ahora=new Date();
   const fecha=ahora.toLocaleDateString("es-AR",{timeZone:"America/Argentina/Buenos_Aires"});
   const hora=ahora.toLocaleTimeString("es-AR",{timeZone:"America/Argentina/Buenos_Aires",hour:"2-digit",minute:"2-digit",second:"2-digit"});
-  const r=participante.respuestas;
+  const r=participante.respuestas || {};
   // RAW: nunca interpretar datos del usuario como fórmulas en Sheets.
   await sheets.spreadsheets.values.append({
     spreadsheetId:SPREADSHEET_ID,
@@ -63,7 +63,7 @@ async function guardarParticipante(participante){
       fecha,hora,participante.id,participante.nombre,participante.apellido,
       participante.email,participante.telefono,r.aspiracion,r.trabajo,r.estudios,r.interes,
       "SI",participante.permisoContacto?"SI":"NO",participante.origen,
-      participante.codigoRetiro,"NO","NO","SIN CONTACTAR"
+      "","NO","NO","SIN CONTACTAR"
     ]]}
   });
 }
