@@ -62,8 +62,8 @@ function App() {
 
         <Route path="/memotest" element={<Memotest />} />
                 <Route path="/memotest/ranking" element={<RankingMemotest />} />
-        <Route path="/memotest/higschool" element={<MemotestHighschool />} />
-        <Route path="/memotest/higschool/ranking" element={<HighschoolRanking />} />
+        <Route path="/memotest/highschool" element={<MemotestHighschool />} />
+        <Route path="/memotest/highschool/ranking" element={<HighschoolRanking />} />
         <Route path="/accenture/camino" element={<CaminoAccenture />} />
       </Routes>
     </>
