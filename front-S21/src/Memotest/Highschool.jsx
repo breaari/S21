@@ -99,7 +99,7 @@ export function MemotestHighschool() {
    }
  };
  const logoHeader=<img className="memo-logo" src={logo} alt="Universidad Siglo 21"/>;
- const linkRanking=<a className="hs-link" href="/memotest/higschool/ranking">VER RANKING INTERCOLEGIAL</a>;
+ const linkRanking=<a className="hs-link" href="/memotest/highschool/ranking">VER RANKING INTERCOLEGIAL</a>;
  return <main className={`memo-page hs-page ${paso === "registro" ? "memo-formulario-page" : paso === "instrucciones" ? "memo-instrucciones-page" : paso === "juego" ? "memo-game-page" : "memo-resultado-page"}`}>
   {paso==="registro" && <section className="memo-shell"><div className="memo-card">
    {logoHeader}<span className="memo-kicker">DESAFÍO INTERCOLEGIAL · PROMO 2026</span>
@@ -153,7 +153,7 @@ export function MemotestHighschool() {
    <p className="hs-identidad-curso">{form.curso}{form.division?` ${form.division}`:""} · {form.colegio}</p>
    <div className="hs-score"><strong>{resultado?.tiempoSegundos?.toFixed(1)} s</strong><span>{resultado?.movimientos} movimientos</span></div>
    <p>Tu tiempo ya está registrado. ¿Será suficiente para llevar a tu curso al primer puesto?</p>
-   <a className="memo-primary hs-ranking-cta" href="/memotest/higschool/ranking">DESCUBRÍ TU PUESTO <span aria-hidden="true">→</span></a>
+   <a className="memo-primary hs-ranking-cta" href="/memotest/highschool/ranking">DESCUBRÍ TU PUESTO <span aria-hidden="true">→</span></a>
   </section>}
   {paso==="error" && <section className="memo-result">{logoHeader}<h2>No pudimos guardar el resultado</h2>
    <p className="memo-error">{error}</p><p>Conservá esta pantalla y contactá a la organización. No vuelvas a jugar.</p>{linkRanking}
