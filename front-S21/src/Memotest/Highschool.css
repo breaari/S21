@@ -200,3 +200,36 @@
     padding: 6px 0 10px;
   }
 }
+
+
+/* Portada de premios del desafío intercolegial. */
+.memo-page.hs-premios-page { min-height:100vh; padding:clamp(20px,3vw,38px) 16px; overflow-y:auto; }
+.hs-premios-shell { width:min(100%,980px); }
+.hs-premios-shell .memo-premios-title { max-width:860px; }
+.hs-premios-shell .memo-premios-title span { color:#bdf8ed; }
+.hs-premios-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; margin:22px auto 0; }
+.hs-premio-card {
+  min-width:0; display:flex; flex-direction:column; align-items:center;
+  border:1px solid rgba(186,255,237,.5); border-radius:22px;
+  padding:18px 20px 20px; text-align:center;
+  background:linear-gradient(155deg,rgba(6,94,83,.65),rgba(5,62,56,.48));
+  box-shadow:0 12px 30px rgba(0,52,44,.12);
+}
+.hs-premio-etiqueta { color:#bdf8ed; font-size:.78rem; letter-spacing:.09em; font-weight:900; }
+.hs-premio-imagen { width:100%; height:clamp(185px,24vw,280px); display:flex; align-items:center; justify-content:center; margin:10px 0 14px; }
+.hs-premio-imagen img { width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 13px 16px rgba(0,0,0,.22)); }
+.hs-premio-imagen > span { border:1px dashed rgba(189,248,237,.46); border-radius:14px; padding:20px; color:#c9fff1; font-weight:800; font-size:.85rem; }
+.hs-premio-card h2 { margin:0 0 8px; font-size:clamp(1rem,1.7vw,1.35rem); line-height:1.2; font-weight:900; }
+.hs-premio-card p { margin:0; color:#defaf2; font-size:.9rem; line-height:1.45; }
+.hs-premios-accion { display:flex; flex-direction:column; align-items:center; gap:12px; margin:25px auto 0; }
+.hs-premios-accion p { font-weight:900; color:#fff; text-align:center; margin:0; letter-spacing:.025em; }
+.hs-premios-accion .memo-premios-cta { width:min(100%,420px); }
+@media (max-width:650px) {
+ .memo-page.hs-premios-page { padding:18px 12px 28px; }
+ .hs-premios-grid { grid-template-columns:1fr; gap:13px; margin-top:16px; }
+ .hs-premio-card { padding:14px 16px 17px; border-radius:17px; }
+ .hs-premio-imagen { height:200px; margin:6px 0 10px; }
+ .hs-premio-card p { font-size:.82rem; }
+ .hs-premios-shell .memo-premios-lead { margin-bottom:12px; }
+ .hs-premios-accion { margin-top:20px; }
+}
