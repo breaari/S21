@@ -12,25 +12,15 @@ const otrasCartas = [7, 8, 9, 10, 11].map((n) =>
   Object.entries(imagenesArchivos).find(([path]) => new RegExp(`/carta-${String(n).padStart(2, "0")}\\.(png|jpg|jpeg|webp)$`, "i").test(path))?.[1]
 );
 const IMAGENES = [carta01, ...otrasCartas];
-// Imágenes de portada opcionales. Agregar a src/assets/ con estos nombres.
-const archivosPremiosHighschool = import.meta.glob("../assets/premio-highschool-*.{png,jpg,jpeg,webp}", { eager: true, query: "?url", import: "default" });
-const premioHighschool = (nombre) => Object.entries(archivosPremiosHighschool).find(([ruta]) =>
-  new RegExp(`/premio-highschool-${nombre}\\.(png|jpg|jpeg|webp)import { useEffect, useMemo, useRef, useState } from "react";
-import axios from "axios";
-import logo from "../assets/logo-blanco-sin-fondo.png";
-import carta01 from "../assets/carta-01.png";
-import reverso from "../assets/reverso.png";
-import "./Memotest.css";
-import "./Highschool.css";
-
-const API = import.meta.env.VITE_MEMOTEST_API_URL || "https://back.universidadsiglo21online.com";
-const imagenesArchivos = import.meta.glob("../assets/carta-*.{png,jpg,jpeg,webp}", { eager: true, query: "?url", import: "default" });
-const otrasCartas = [7, 8, 9, 10, 11].map((n) =>
-  Object.entries(imagenesArchivos).find(([path]) => new RegExp(`/carta-${String(n).padStart(2, "0")}\\.(png|jpg|jpeg|webp)$`, "i").test(path))?.[1]
-);
-const IMAGENES = [carta01, ...otrasCartas];
-, "i").test(ruta)
-)?.[1];
+// Imágenes opcionales de portada: agregar ambos PNG a src/assets.
+const premiosHighschoolArchivos = import.meta.glob("../assets/premio-highschool-*.{png,jpg,jpeg,webp}", { eager: true, query: "?url", import: "default" });
+const premioHighschool = (nombre) =>
+  Object.entries(premiosHighschoolArchivos).find(([ruta]) =>
+    ruta.toLowerCase().endsWith("/premio-highschool-" + nombre + ".png")
+    || ruta.toLowerCase().endsWith("/premio-highschool-" + nombre + ".jpg")
+    || ruta.toLowerCase().endsWith("/premio-highschool-" + nombre + ".jpeg")
+    || ruta.toLowerCase().endsWith("/premio-highschool-" + nombre + ".webp")
+  )?.[1];
 
 const AREAS = ["Tecnología e Informática","Salud","Negocios y Administración","Diseño y Comunicación","Derecho","Educación","Ingeniería y Ambiente","Todavía no lo sé"];
 
