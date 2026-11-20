@@ -133,7 +133,7 @@ export function MemotestHighschool() {
       {premioHighschool("individual") ? <img src={premioHighschool("individual")} alt="Set matero Universidad Siglo 21" /> : <span>SET MATERO SIGLO 21</span>}
      </div>
      <h2>SET MATERO SIGLO 21</h2>
-     <p>También hay un premio individual en juego.</p>
+     <p>El jugador que alcance el primer puesto del ranking gana este set matero y, además, una caja de golosinas para compartir con todo su curso.</p>
     </article>
    </div>
    <div className="hs-premios-accion">
@@ -143,8 +143,8 @@ export function MemotestHighschool() {
   </section>}
   {paso==="registro" && <section className="memo-shell"><div className="memo-card">
    {logoHeader}<span className="memo-kicker">DESAFÍO INTERCOLEGIAL · PROMO 2026</span>
-   <h1 className="memo-main-title"><span className="memo-title-white">TU MEMORIA</span><span className="memo-title-white">PUEDE LLEVAR</span><span className="memo-title-white">A TU CURSO</span><span className="memo-title-green">AL PODIO</span></h1>
-   <p className="memo-intro">Encontrá los 6 pares en el menor tiempo posible, alcanzá el primer puesto del ranking intercolegial y ¡ganá un premio para todo tu curso!</p>
+   <h1 className="memo-main-title"><span className="memo-title-white">COMPLETÁ TUS</span><span className="memo-title-green">DATOS</span></h1>
+   <p className="memo-intro">Registrate para participar del desafío intercolegial.</p>
    <form className="memo-form" onSubmit={registrar}>
     <div className="memo-grid-2"><label>Nombre<input required name="nombre" value={form.nombre} onChange={cambiar} placeholder="Tu nombre"/></label>
     <label>Apellido<input required name="apellido" value={form.apellido} onChange={cambiar} placeholder="Tu apellido"/></label></div>
