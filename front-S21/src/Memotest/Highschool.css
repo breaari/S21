@@ -37,6 +37,9 @@
   text-align: center;
 }
 
+.hs-premio strong { display:block; color:#bdf8ed; font-weight:900; margin-bottom:8px; }
+.hs-premio p { margin:0; color:rgba(255,255,255,.92); line-height:1.45; font-weight:500; }
+
 .hs-score {
   display: flex;
   flex-direction: column;
