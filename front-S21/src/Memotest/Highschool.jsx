@@ -133,7 +133,7 @@ export function MemotestHighschool() {
       {premioHighschool("individual") ? <img src={premioHighschool("individual")} alt="Set matero Universidad Siglo 21" /> : <span>SET MATERO SIGLO 21</span>}
      </div>
      <h2>SET MATERO SIGLO 21</h2>
-     <p>También hay un premio individual en juego.</p>
+     <p>El jugador que alcance el primer puesto del ranking gana este set matero y, además, una caja de golosinas para compartir con todo su curso.</p>
     </article>
    </div>
    <div className="hs-premios-accion">
