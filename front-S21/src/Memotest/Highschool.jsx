@@ -12,6 +12,26 @@ const otrasCartas = [7, 8, 9, 10, 11].map((n) =>
   Object.entries(imagenesArchivos).find(([path]) => new RegExp(`/carta-${String(n).padStart(2, "0")}\\.(png|jpg|jpeg|webp)$`, "i").test(path))?.[1]
 );
 const IMAGENES = [carta01, ...otrasCartas];
+// Imágenes de portada opcionales. Agregar a src/assets/ con estos nombres.
+const archivosPremiosHighschool = import.meta.glob("../assets/premio-highschool-*.{png,jpg,jpeg,webp}", { eager: true, query: "?url", import: "default" });
+const premioHighschool = (nombre) => Object.entries(archivosPremiosHighschool).find(([ruta]) =>
+  new RegExp(`/premio-highschool-${nombre}\\.(png|jpg|jpeg|webp)import { useEffect, useMemo, useRef, useState } from "react";
+import axios from "axios";
+import logo from "../assets/logo-blanco-sin-fondo.png";
+import carta01 from "../assets/carta-01.png";
+import reverso from "../assets/reverso.png";
+import "./Memotest.css";
+import "./Highschool.css";
+
+const API = import.meta.env.VITE_MEMOTEST_API_URL || "https://back.universidadsiglo21online.com";
+const imagenesArchivos = import.meta.glob("../assets/carta-*.{png,jpg,jpeg,webp}", { eager: true, query: "?url", import: "default" });
+const otrasCartas = [7, 8, 9, 10, 11].map((n) =>
+  Object.entries(imagenesArchivos).find(([path]) => new RegExp(`/carta-${String(n).padStart(2, "0")}\\.(png|jpg|jpeg|webp)$`, "i").test(path))?.[1]
+);
+const IMAGENES = [carta01, ...otrasCartas];
+, "i").test(ruta)
+)?.[1];
+
 const AREAS = ["Tecnología e Informática","Salud","Negocios y Administración","Diseño y Comunicación","Derecho","Educación","Ingeniería y Ambiente","Todavía no lo sé"];
 
 function barajar() {
@@ -24,7 +44,7 @@ function barajar() {
 
 export function MemotestHighschool() {
  const origen = useMemo(() => new URLSearchParams(window.location.search).get("source") || "directo",[]);
- const [paso,setPaso]=useState("registro");
+ const [paso,setPaso]=useState("premios");
  const [form,setForm]=useState({nombre:"",apellido:"",email:"",telefono:"",colegio:"",curso:"6°",division:"",
    anio:"Último año",proximoPaso:"",decisionCarrera:"",areasInteres:[]});
  const [id,setId]=useState(null);
@@ -100,7 +120,37 @@ export function MemotestHighschool() {
  };
  const logoHeader=<img className="memo-logo" src={logo} alt="Universidad Siglo 21"/>;
  const linkRanking=<a className="hs-link" href="/memotest/highschool/ranking">VER RANKING INTERCOLEGIAL</a>;
- return <main className={`memo-page hs-page ${paso === "registro" ? "memo-formulario-page" : paso === "instrucciones" ? "memo-instrucciones-page" : paso === "juego" ? "memo-game-page" : "memo-resultado-page"}`}>
+ return <main className={`memo-page hs-page ${paso === "premios" ? "memo-premios-page hs-premios-page" : paso === "registro" ? "memo-formulario-page" : paso === "instrucciones" ? "memo-instrucciones-page" : paso === "juego" ? "memo-game-page" : "memo-resultado-page"}`}>
+  {paso==="premios" && <section className="memo-premios-shell hs-premios-shell">
+   <header className="memo-premios-header">
+    {logoHeader}
+    <span className="memo-kicker">DESAFÍO INTERCOLEGIAL · PROMO 2026</span>
+    <h1 className="memo-premios-title">TU MEMORIA PUEDE LLEVAR <span>A TU CURSO AL PODIO.</span></h1>
+    <p className="memo-premios-lead">Encontrá los 6 pares en el menor tiempo posible y competí por un lugar en el ranking intercolegial. ¡Hay premios para ganar!</p>
+   </header>
+   <div className="hs-premios-grid">
+    <article className="hs-premio-card hs-premio-grupal">
+     <span className="hs-premio-etiqueta">PREMIO GRUPAL</span>
+     <div className="hs-premio-imagen">
+      {premioHighschool("grupal") ? <img src={premioHighschool("grupal")} alt="Caja de golosinas argentinas" /> : <span>CAJA DE GOLOSINAS</span>}
+     </div>
+     <h2>¡UN PREMIO PARA TODO EL CURSO!</h2>
+     <p>El curso que llegue a lo más alto del ranking se lleva una caja de golosinas para compartir.</p>
+    </article>
+    <article className="hs-premio-card hs-premio-individual">
+     <span className="hs-premio-etiqueta">PREMIO INDIVIDUAL</span>
+     <div className="hs-premio-imagen">
+      {premioHighschool("individual") ? <img src={premioHighschool("individual")} alt="Set matero Universidad Siglo 21" /> : <span>SET MATERO SIGLO 21</span>}
+     </div>
+     <h2>SET MATERO SIGLO 21</h2>
+     <p>También hay un premio individual en juego.</p>
+    </article>
+   </div>
+   <div className="hs-premios-accion">
+    <p>¿TE ANIMÁS A REPRESENTAR A TU CURSO?</p>
+    <button type="button" className="memo-primary memo-premios-cta" onClick={() => {setPaso("registro");window.scrollTo(0,0);}}>QUIERO PARTICIPAR</button>
+   </div>
+  </section>}
   {paso==="registro" && <section className="memo-shell"><div className="memo-card">
    {logoHeader}<span className="memo-kicker">DESAFÍO INTERCOLEGIAL · PROMO 2026</span>
    <h1 className="memo-main-title"><span className="memo-title-white">TU MEMORIA</span><span className="memo-title-white">PUEDE LLEVAR</span><span className="memo-title-white">A TU CURSO</span><span className="memo-title-green">AL PODIO</span></h1>
