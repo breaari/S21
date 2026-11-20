@@ -171,7 +171,7 @@ export function MemotestHighschool() {
    <span className="memo-kicker">¡TU CURSO CUENTA CON VOS!</span>
    <h1>ENCONTRÁ LOS <span>6 PARES</span></h1>
    <p>Completá el memotest lo más rápido posible. Si hay empate en tiempo, gana quien haya realizado menos movimientos.</p>
-   <p className="hs-premio">¡El primer puesto gana un premio para todo su curso!</p>
+   <div className="hs-premio"><strong>¡EL PRIMER PUESTO SE LLEVA DOBLE PREMIO!</strong><p>Si llegás a lo más alto del ranking, ganás un premio para vos y otro para compartir con todo tu curso.</p></div>
    <p>Tenés una sola oportunidad. Una vez que empieces, no podrás reiniciar la partida.</p>
    {error&&<p className="memo-error" role="alert">{error}</p>}
    <button className="memo-primary" onClick={iniciar} disabled={enviando}>{enviando?"PREPARANDO...":"EMPEZAR DESAFÍO"}</button>
