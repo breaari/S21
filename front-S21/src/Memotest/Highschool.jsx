@@ -164,7 +164,6 @@ export function MemotestHighschool() {
     </div></div>
     {error&&<p className="memo-error" role="alert">{error}</p>}
     <button className="memo-primary" disabled={enviando} type="submit">{enviando?"REGISTRANDO...":"QUIERO REPRESENTAR A MI CURSO"}</button>
-    {linkRanking}
    </form>
   </div></section>}
   {paso==="instrucciones" && <section className="memo-challenge">{logoHeader}
